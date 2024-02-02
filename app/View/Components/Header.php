@@ -21,10 +21,6 @@ class Header extends Component
      */
     public function render(): View|Closure|string
     {
-        return <<<'blade'
-<div>
-    <!-- Always remember that you are absolutely unique. Just like everyone else. - Margaret Mead -->
-</div>
-blade;
+        return view('content.home.components.header');
     }
 }

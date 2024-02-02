@@ -50,8 +50,14 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SettingsController;
 
 // Main Page Route
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::middleware('auth')->group(function () {
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+});
+
 
 // layout
 Route::get('/layouts/without-menu', [WithoutMenu::class, 'index'])->name('layouts-without-menu');
@@ -68,9 +74,12 @@ Route::get('/pages/misc-error', [MiscError::class, 'index'])->name('pages-misc-e
 Route::get('/pages/misc-under-maintenance', [MiscUnderMaintenance::class, 'index'])->name('pages-misc-under-maintenance');
 
 // authentication
-Route::get('/auth/login-basic', [LoginBasic::class, 'index'])->name('auth-login-basic');
-Route::get('/auth/register-basic', [RegisterBasic::class, 'index'])->name('auth-register-basic');
-Route::get('/auth/forgot-password-basic', [ForgotPasswordBasic::class, 'index'])->name('auth-reset-password-basic');
+Route::get('/auth/login-basic', [LoginBasic::class, 'index'])->name('login');
+Route::post('/auth/login', [LoginBasic::class, 'login'])->name('login.action');
+Route::get('/auth/register-basic', [RegisterBasic::class, 'index'])->name('register');
+Route::post('/auth/register', [RegisterBasic::class, 'register'])->name('register.action');
+Route::get('/auth/forgot-password-basic', [ForgotPasswordBasic::class, 'index'])->name('auth-reset-password');
+Route::post('/auth/forgot-password', [ForgotPasswordBasic::class, 'forgot_password'])->name('auth-reset-password.action');
 
 // cards
 Route::get('/cards/basic', [CardBasic::class, 'index'])->name('cards-basic');

@@ -27,14 +27,19 @@
           <h4 class="mb-2">Adventure starts here 🚀</h4>
           <p class="mb-4">Make your app management easy and fun!</p>
 
-          <form id="formAuthentication" class="mb-3" action="{{url('/')}}" method="GET">
+          <form id="formAuthentication" class="mb-3" action="{{ route('register.action') }}" method="POST">
+            @csrf
             <div class="form-floating form-floating-outline mb-3">
-              <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" autofocus>
-              <label for="username">Username</label>
+              <input type="text" class="form-control" id="username" name="fullname" placeholder="Enter your fullname" autofocus>
+              <label for="fullname">Fulname</label>
             </div>
             <div class="form-floating form-floating-outline mb-3">
-              <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email">
+              <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email">
               <label for="email">Email</label>
+            </div>
+            <div class="form-floating form-floating-outline mb-3">
+              <input type="phone" class="form-control" id="phone" name="phone" placeholder="Enter your phone">
+              <label for="phone">Phone</label>
             </div>
             <div class="mb-3 form-password-toggle">
               <div class="input-group input-group-merge">

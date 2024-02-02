@@ -34,8 +34,7 @@
     - HEADER
   -->
 
-    @include('content.home.components.header')
-
+    <x-header></x-header>
   <!--
     - MAIN
   -->
