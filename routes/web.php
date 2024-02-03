@@ -43,20 +43,86 @@ use App\Http\Controllers\form_elements\InputGroups;
 use App\Http\Controllers\form_layouts\VerticalForm;
 use App\Http\Controllers\form_layouts\HorizontalForm;
 use App\Http\Controllers\tables\Basic as TablesBasic;
+
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\DataTablesController;
+use App\Http\Controllers\BlogsController;
+
 
 // Main Page Route
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::middleware('auth')->group(function () {
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+  Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+  // DataTables
+  Route::get('/users', [DataTablesController::class, 'users'])->name('users');
+  Route::get('/products', [DataTablesController::class, 'products'])->name('products');
+  Route::get('/categorys', [DataTablesController::class, 'categorys'])->name('categorys');
+  Route::get('/experts', [DataTablesController::class, 'experts'])->name('experts');
+  Route::get('/sales', [DataTablesController::class, 'sales'])->name('sales');
+  Route::get('/sellers', [DataTablesController::class, 'sellers'])->name('sellers');
+  Route::get('/blogs', [DataTablesController::class, 'blogs'])->name('blogs');
+
+  Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
+
+  Route::get('/cart', [SettingsController::class, 'index'])->name('cart');
+  Route::get('/cart/add', [SettingsController::class, 'index'])->name('cart.add');
+  Route::get('/cart/delete', [SettingsController::class, 'index'])->name('cart.delete');
+  Route::get('/cart/update', [SettingsController::class, 'index'])->name('cart.update');
+
+  Route::get('/product/{id}', [ProductController::class, 'get'])->name('product.get');
+  Route::post('/product/create', [ProductController::class, 'create'])->name('product.create');
+  Route::get('/product/delete', [ProductController::class, 'delete'])->name('product.delete');
+  Route::post('/product/update', [ProductController::class, 'update'])->name('product.update');
+
+  Route::get('/category/{id}', [CategoryController::class, 'get'])->name('category.get');
+  Route::post('/category/create', [CategoryController::class, 'create'])->name('category.create');
+  Route::get('/category/delete', [CategoryController::class, 'delete'])->name('category.delete');
+  Route::post('/category/update', [CategoryController::class, 'update'])->name('category.update');
+
+  Route::get('/blog/{id}', [BlogsController::class, 'get'])->name('blog.get');
+  Route::post('/blog/create', [BlogsController::class, 'create'])->name('blog.create');
+  Route::get('/blog/delete', [BlogsController::class, 'delete'])->name('blog.delete');
+  Route::post('/blog/update', [BlogsController::class, 'update'])->name('blog.update');
+
+
+  Route::get('/diseases', [DiseasesController::class, 'index'])->name('diseases');
+  Route::post('/diseases/predict', [DiseasesController::class, 'predict'])->name('diseases.predict');
+
+  Route::get('/auth/logout', [LoginBasic::class, 'logout'])->name('logout.action');
 
 });
+
+Route::middleware('guest')->group(function () {
+
+    // authentication
+    Route::get('/auth/login-basic', [LoginBasic::class, 'index'])->name('login');
+    Route::post('/auth/login', [LoginBasic::class, 'login'])->name('login.action');
+    Route::get('/auth/register-basic', [RegisterBasic::class, 'index'])->name('register');
+    Route::post('/auth/register', [RegisterBasic::class, 'register'])->name('register.action');
+    Route::get('/auth/forgot-password-basic', [ForgotPasswordBasic::class, 'index'])->name('auth-reset-password');
+    Route::post('/auth/forgot-password', [ForgotPasswordBasic::class, 'forgot_password'])->name('auth-reset-password.action');
+
+});
+
+
+  Route::get('/terms-of-use', [SettingsController::class, 'terms_of_use'])->name('setting.terms_of_use');
+  Route::get('/about-us', [SettingsController::class, 'about_us'])->name('logout.about_us');
+  Route::get('/privacy-and-policy', [SettingsController::class, 'privacy_and_policy'])->name('logout.privacy_and_policy');
+  Route::get('/terms-of-use/get', [SettingsController::class, 'get_terms_of_use'])->name('setting.terms_of_use.get');
+  Route::get('/about-us/get', [SettingsController::class, 'get_about_us'])->name('logout.about_us.get');
+  Route::get('/privacy-and-policy/get', [SettingsController::class, 'get_privacy_and_policy'])->name('logout.privacy_and_policy.get');
+  Route::post('/terms-of-use/update', [SettingsController::class, 'update_terms_of_use'])->name('setting.terms_of_use.update');
+  Route::post('/about-us/update', [SettingsController::class, 'update_about_us'])->name('logout.about_us.update');
+  Route::post('/privacy-and-policy/update', [SettingsController::class, 'update_privacy_and_policy'])->name('logout.privacy_and_policy.update');
+
+
 
 
 // layout
@@ -73,13 +139,6 @@ Route::get('/pages/account-settings-connections', [AccountSettingsConnections::c
 Route::get('/pages/misc-error', [MiscError::class, 'index'])->name('pages-misc-error');
 Route::get('/pages/misc-under-maintenance', [MiscUnderMaintenance::class, 'index'])->name('pages-misc-under-maintenance');
 
-// authentication
-Route::get('/auth/login-basic', [LoginBasic::class, 'index'])->name('login');
-Route::post('/auth/login', [LoginBasic::class, 'login'])->name('login.action');
-Route::get('/auth/register-basic', [RegisterBasic::class, 'index'])->name('register');
-Route::post('/auth/register', [RegisterBasic::class, 'register'])->name('register.action');
-Route::get('/auth/forgot-password-basic', [ForgotPasswordBasic::class, 'index'])->name('auth-reset-password');
-Route::post('/auth/forgot-password', [ForgotPasswordBasic::class, 'forgot_password'])->name('auth-reset-password.action');
 
 // cards
 Route::get('/cards/basic', [CardBasic::class, 'index'])->name('cards-basic');
@@ -122,3 +181,17 @@ Route::get('/form/layouts-horizontal', [HorizontalForm::class, 'index'])->name('
 
 // tables
 Route::get('/tables/basic', [TablesBasic::class, 'index'])->name('tables-basic');
+
+
+Route::get('/ddd', function () {
+  // Clear cache
+  Artisan::call('cache:clear');
+  // Clear configuration cache
+  Artisan::call('config:cache');
+  // Cache routes
+  Artisan::call('route:cache');
+  // Cache views
+  Artisan::call('view:cache');
+
+  return 'Cache cleared successfully.';
+});

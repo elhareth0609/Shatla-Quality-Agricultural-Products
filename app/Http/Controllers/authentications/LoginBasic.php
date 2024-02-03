@@ -19,23 +19,25 @@ class LoginBasic extends Controller
         $request->validate([
           'email' => 'required|email',
           'password' => 'required',
-      ]);
+        ]);
 
       // Attempt to authenticate the user
       $credentials = $request->only('email', 'password');
-      if (Auth::attempt($credentials)) {
+      $remember = $request->has('remember'); // Check if "Remember Me" checkbox is checked
+      if (Auth::attempt($credentials,$remember)) {
           // Authentication successful
           $user = Auth::user();
-          $token = $user->createToken('AuthToken')->plainTextToken;
-
-          return response()->json([
-              'message' => 'Login successful',
-              'token' => $token,
-              'user' => $user,
-          ]);
+          return redirect('/');
       } else {
           // Authentication failed
-          return response()->json(['message' => 'Invalid credentials'], 401);
+          return redirect()->back()->withErrors(['message' => 'Invalid credentials'])->withInput();
       }
+  }
+
+  public function logout() {
+    Auth::logout();
+
+    return redirect('/');
+
   }
 }

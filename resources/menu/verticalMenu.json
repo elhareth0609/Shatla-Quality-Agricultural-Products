@@ -1,62 +1,91 @@
 {
   "menu": [
     {
-      "url": "/",
-      "name": "Dashboards",
+      "url": "/dashboard",
+      "name": "Dashboard",
       "icon": "menu-icon tf-icons mdi mdi-home-outline",
-      "slug": "dashboard",
-      "badge": [
-        "danger",
-        "5"
-      ],
+      "slug": "dashboard"
+    },
+    {
+      "menuHeader": "Pages"
+    },
+    {
+      "url": "/users",
+      "name": "Users",
+      "icon": "menu-icon tf-icons mdi mdi-window-maximize",
+      "slug": "Users",
       "submenu": [
         {
-          "url": "https://demos.themeselection.com/materio-bootstrap-html-laravel-admin-template/demo-1/dashboard/crm",
-          "name": "CRM",
-          "slug": "dashboard-crm",
-          "target": "_blank",
-          "badge": [
-            "label-primary fs-tiny",
-            "Pro"
-          ]
+          "url": "/users",
+          "name": "Users",
+          "slug": "users"
         },
         {
-          "url": "/",
-          "name": "Analytics",
-          "slug": "dashboard-analytics"
+          "url": "/experts",
+          "name": "Experts",
+          "slug": "experts"
         },
         {
-          "url": "https://demos.themeselection.com/materio-bootstrap-html-laravel-admin-template/demo-1/app/ecommerce/dashboard",
-          "name": "eCommerce",
-          "slug": "app-ecommerce-dashboard",
-          "target": "_blank",
-          "badge": [
-            "label-primary fs-tiny",
-            "Pro"
-          ]
-        },
-        {
-          "url": "https://demos.themeselection.com/materio-bootstrap-html-laravel-admin-template/demo-1/app/logistics/dashboard",
-          "name": "Logistics",
-          "slug": "app-logistics-dashboard",
-          "target": "_blank",
-          "badge": [
-            "label-primary fs-tiny",
-            "Pro"
-          ]
-        },
-        {
-          "url": "https://demos.themeselection.com/materio-bootstrap-html-laravel-admin-template/demo-1/app/academy/dashboard",
-          "name": "Academy",
-          "slug": "app-academy-dashboard",
-          "target": "_blank",
-          "badge": [
-            "label-primary fs-tiny",
-            "Pro"
-          ]
+          "url": "/sellers",
+          "name": "Sellers",
+          "slug": "sellers"
         }
       ]
     },
+    {
+      "url": "/products",
+      "name": "Products",
+      "icon": "menu-icon tf-icons mdi mdi-window-maximize",
+      "slug": "products"
+    },
+    {
+      "url": "/categorys",
+      "name": "Categorys",
+      "icon": "menu-icon tf-icons mdi mdi-window-maximize",
+      "slug": "categorys"
+    },
+    {
+      "url": "/blogs",
+      "name": "Blogs",
+      "icon": "menu-icon tf-icons mdi mdi-window-maximize",
+      "slug": "blogs"
+    },
+    {
+      "menuHeader": "Settings"
+    },
+    {
+      "url": "/settings",
+      "name": "Settings",
+      "icon": "menu-icon tf-icons mdi mdi-cog-outline",
+      "slug": "settings"
+    },
+    {
+      "url": "/about-us",
+      "name": "About Us",
+      "icon": "menu-icon tf-icons mdi mdi-cog-outline",
+      "slug": "about-us"
+    },
+    {
+      "url": "/privacy-and-policy",
+      "name": "Privacy & Policy",
+      "icon": "menu-icon tf-icons mdi mdi-cog-outline",
+      "slug": "privacy-and-policy"
+    },
+    {
+      "url": "/terms-of-use",
+      "name": "Terms Of Use",
+      "icon": "menu-icon tf-icons mdi mdi-cog-outline",
+      "slug": "terms-of-use"
+    },
+
+
+
+
+
+
+
+
+
     {
       "name": "Layouts",
       "icon": "menu-icon tf-icons mdi mdi-window-maximize",
