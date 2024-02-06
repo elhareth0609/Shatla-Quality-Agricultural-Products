@@ -12,7 +12,7 @@
 
         <div class="slider-item">
 
-          <img src="{{ asset('assets/home/images/banner-1.jpg') }}" alt="women's latest fashion sale" class="banner-img">
+          <img src="{{ asset('assets/home/images/banner-1.png') }}" alt="women's latest fashion sale" class="banner-img">
 
           <div class="banner-content">
 
@@ -32,7 +32,7 @@
 
         <div class="slider-item">
 
-          <img src="{{ asset('assets/home/images/banner-2.jpg') }}" alt="modern sunglasses" class="banner-img">
+          <img src="{{ asset('assets/home/images/banner-2.png') }}" alt="modern sunglasses" class="banner-img">
 
           <div class="banner-content">
 
@@ -52,7 +52,7 @@
 
         <div class="slider-item">
 
-          <img src="{{ asset('assets/home/images/banner-3.jpg') }}" alt="new fashion summer sale" class="banner-img">
+          <img src="{{ asset('assets/home/images/banner-3.png') }}" alt="new fashion summer sale" class="banner-img">
 
           <div class="banner-content">
 

@@ -83,7 +83,7 @@
       <ul class="footer-nav-list">
 
         <li class="footer-nav-item">
-          <h2 class="nav-title">Popular Categories</h2>
+          <h2 class="nav-title w-fit">Popular Categories</h2>
         </li>
 
         <li class="footer-nav-item">
@@ -111,7 +111,63 @@
       <ul class="footer-nav-list">
 
         <li class="footer-nav-item">
-          <h2 class="nav-title">Products</h2>
+          <h2 class="nav-title">{{__('Products')}}</h2>
+        </li>
+
+        <li class="footer-nav-item">
+          <a href="#" class="footer-nav-link">Prices drop</a>
+        </li>
+
+        <li class="footer-nav-item">
+          <a href="#" class="footer-nav-link">{{__('New products')}}</a>
+        </li>
+
+        <li class="footer-nav-item">
+          <a href="#" class="footer-nav-link">{{__('Best sales')}}</a>
+        </li>
+
+        <li class="footer-nav-item">
+          <a href="#" class="footer-nav-link">{{__('Contact Us')}}</a>
+        </li>
+
+        <li class="footer-nav-item">
+          <a href="#" class="footer-nav-link">{{__('Sitemap')}}</a>
+        </li>
+
+      </ul>
+
+      <ul class="footer-nav-list">
+
+        <li class="footer-nav-item">
+          <h2 class="nav-title">{{__('Our Company')}}</h2>
+        </li>
+
+        <li class="footer-nav-item">
+          <a href="#" class="footer-nav-link">{{__('Delivery')}}</a>
+        </li>
+
+        <li class="footer-nav-item">
+          <a href="#" class="footer-nav-link">{{__('Privacy And Policy')}}</a>
+        </li>
+
+        <li class="footer-nav-item">
+          <a href="#" class="footer-nav-link">{{__('Terms Of Use')}}</a>
+        </li>
+
+        <li class="footer-nav-item">
+          <a href="#" class="footer-nav-link">{{__('About Us')}}</a>
+        </li>
+
+        <li class="footer-nav-item">
+          <a href="#" class="footer-nav-link">{{__('Secure payment')}}</a>
+        </li>
+
+      </ul>
+
+      <ul class="footer-nav-list">
+
+        <li class="footer-nav-item">
+          <h2 class="nav-title">{{__('Services')}}</h2>
         </li>
 
         <li class="footer-nav-item">
@@ -139,63 +195,7 @@
       <ul class="footer-nav-list">
 
         <li class="footer-nav-item">
-          <h2 class="nav-title">Our Company</h2>
-        </li>
-
-        <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Delivery</a>
-        </li>
-
-        <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Legal Notice</a>
-        </li>
-
-        <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Terms and conditions</a>
-        </li>
-
-        <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">About us</a>
-        </li>
-
-        <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Secure payment</a>
-        </li>
-
-      </ul>
-
-      <ul class="footer-nav-list">
-
-        <li class="footer-nav-item">
-          <h2 class="nav-title">Services</h2>
-        </li>
-
-        <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Prices drop</a>
-        </li>
-
-        <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">New products</a>
-        </li>
-
-        <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Best sales</a>
-        </li>
-
-        <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Contact us</a>
-        </li>
-
-        <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Sitemap</a>
-        </li>
-
-      </ul>
-
-      <ul class="footer-nav-list">
-
-        <li class="footer-nav-item">
-          <h2 class="nav-title">Contact</h2>
+          <h2 class="nav-title">{{__('Contact')}}</h2>
         </li>
 
         <li class="footer-nav-item flex">
@@ -230,7 +230,7 @@
       <ul class="footer-nav-list">
 
         <li class="footer-nav-item">
-          <h2 class="nav-title">Follow Us</h2>
+          <h2 class="nav-title">{{__('Follow Us')}}</h2>
         </li>
 
         <li>
@@ -276,7 +276,7 @@
       <img src="{{ asset('assets/home/images/payment.png') }}" alt="payment method" class="payment-img">
 
       <p class="copyright">
-        Copyright &copy; <a href="#">Anon</a> all rights reserved.
+        {{__('Copyright')}} &copy; <a href="#">Anon</a> {{__('all rights reserved.')}}
       </p>
 
     </div>

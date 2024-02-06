@@ -23,12 +23,6 @@
           </a>
         </li>
 
-        <li>
-          <a href="#" class="social-link">
-            <ion-icon name="logo-linkedin"></ion-icon>
-          </a>
-        </li>
-
       </ul>
 
       <div class="header-alert-news">
@@ -44,14 +38,15 @@
 
           <option value="usd">USD &dollar;</option>
           <option value="eur">EUR &euro;</option>
+          <option value="dzd">DZD </p></option>
 
         </select>
 
         <select name="language">
 
-          <option value="en-US">English</option>
-          <option value="es-ES">Espa&ntilde;ol</option>
-          <option value="fr">Fran&ccedil;ais</option>
+          <option value="en-US">{{__('English')}}</option>
+          <option value="ar-DZ">{{__('Arabic')}}</option>
+          <option value="fr">{{__('Francais')}}</option>
 
         </select>
 
@@ -71,7 +66,7 @@
 
       <div class="header-search-container">
 
-        <input type="search" name="search" class="search-field" placeholder="Enter your product name...">
+        <input type="search" name="search" class="search-field" placeholder="{{__('Enter your product name')}}">
 
         <button class="search-btn">
           <ion-icon name="search-outline"></ion-icon>
@@ -108,7 +103,7 @@
       <ul class="desktop-menu-category-list">
 
         <li class="menu-category">
-          <a href="#" class="menu-title">Home</a>
+          <a href="#" class="menu-title">{{__('Home')}}</a>
         </li>
 
         <li class="menu-category">
@@ -353,13 +348,16 @@
         </li>
 
         <li class="menu-category">
-          <a href="#" class="menu-title">Blog</a>
+          <a href="#" class="menu-title">{{__('Blogs')}}</a>
+        </li>
+
+        <li class="menu-category">
+          <a href="#" class="menu-title">{{__('Diseases Predict')}}</a>
         </li>
 
         <li class="menu-category">
           <a href="#" class="menu-title">Hot Offers</a>
         </li>
-
       </ul>
 
     </div>

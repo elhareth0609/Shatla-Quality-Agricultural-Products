@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Anon - eCommerce Website</title>
+  <title>Anon - @yield('Title')</title>
 
   <!--
     - favicon
@@ -27,7 +27,7 @@
 
 </head>
 
-<body>
+<body dir="rtl">
 
     @include('content.home.components.notifications')
   <!--
@@ -45,9 +45,6 @@
   -->
 
     @include('content.home.components.footer')
-
-
-
 
 
 

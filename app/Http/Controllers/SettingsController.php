@@ -24,6 +24,14 @@ class SettingsController extends Controller
       return view('content.home.pages.about-us');
     }
 
+    public function delivery() {
+      return view('content.home.pages.delivery');
+    }
+
+    public function secure_payment() {
+      return view('content.home.pages.secure-payment');
+    }
+
     public function get_privacy_and_policy() {
       return view('content.dashboard.settings.privacy-and-policy');
     }
@@ -36,6 +44,14 @@ class SettingsController extends Controller
 
     public function get_about_us() {
       return view('content.dashboard.settings.about-us');
+    }
+
+    public function get_delivery() {
+      return view('content.dashboard.settings.delivery');
+    }
+
+    public function get_secure_payment() {
+      return view('content.dashboard.settings.secure-payment');
     }
 
     public function update_privacy_and_policy() {
@@ -51,4 +67,13 @@ class SettingsController extends Controller
     public function update_about_us() {
       return view('content.dashboard.settings.about-us');
     }
+
+    public function update_delivery() {
+      return view('content.dashboard.settings.delivery');
+    }
+
+    public function update_secure_payment() {
+      return view('content.dashboard.settings.secure-payment');
+    }
+
 }

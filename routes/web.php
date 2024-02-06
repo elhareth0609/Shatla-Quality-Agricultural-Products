@@ -97,6 +97,19 @@ Route::middleware('auth')->group(function () {
 
   Route::get('/auth/logout', [LoginBasic::class, 'logout'])->name('logout.action');
 
+
+  Route::get('/terms-of-use/get', [SettingsController::class, 'get_terms_of_use'])->name('setting.terms_of_use.get');
+  Route::get('/about-us/get', [SettingsController::class, 'get_about_us'])->name('about_us.get');
+  Route::get('/privacy-and-policy/get', [SettingsController::class, 'get_privacy_and_policy'])->name('privacy_and_policy.get');
+  Route::get('/delivery/get', [SettingsController::class, 'get_delivery'])->name('delivery.get');
+  Route::get('/secure-payment/get', [SettingsController::class, 'get_secure_payment'])->name('secure_payment.get');
+
+  Route::post('/terms-of-use/update', [SettingsController::class, 'update_terms_of_use'])->name('setting.terms_of_use.update');
+  Route::post('/about-us/update', [SettingsController::class, 'update_about_us'])->name('about_us.update');
+  Route::post('/privacy-and-policy/update', [SettingsController::class, 'update_privacy_and_policy'])->name('privacy_and_policy.update');
+  Route::post('/delivery/update', [SettingsController::class, 'update_delivery'])->name('delivery.update');
+  Route::post('/secure-payment/update', [SettingsController::class, 'update_secure_payment'])->name('secure_payment.update');
+
 });
 
 Route::middleware('guest')->group(function () {
@@ -112,15 +125,26 @@ Route::middleware('guest')->group(function () {
 });
 
 
-  Route::get('/terms-of-use', [SettingsController::class, 'terms_of_use'])->name('setting.terms_of_use');
-  Route::get('/about-us', [SettingsController::class, 'about_us'])->name('logout.about_us');
-  Route::get('/privacy-and-policy', [SettingsController::class, 'privacy_and_policy'])->name('logout.privacy_and_policy');
-  Route::get('/terms-of-use/get', [SettingsController::class, 'get_terms_of_use'])->name('setting.terms_of_use.get');
-  Route::get('/about-us/get', [SettingsController::class, 'get_about_us'])->name('logout.about_us.get');
-  Route::get('/privacy-and-policy/get', [SettingsController::class, 'get_privacy_and_policy'])->name('logout.privacy_and_policy.get');
-  Route::post('/terms-of-use/update', [SettingsController::class, 'update_terms_of_use'])->name('setting.terms_of_use.update');
-  Route::post('/about-us/update', [SettingsController::class, 'update_about_us'])->name('logout.about_us.update');
-  Route::post('/privacy-and-policy/update', [SettingsController::class, 'update_privacy_and_policy'])->name('logout.privacy_and_policy.update');
+  Route::get('/terms-of-use', [SettingsController::class, 'terms_of_use'])->name('terms_of_use');
+  Route::get('/about-us', [SettingsController::class, 'about_us'])->name('about_us');
+  Route::get('/privacy-and-policy', [SettingsController::class, 'privacy_and_policy'])->name('privacy_and_policy');
+  Route::get('/delivery', [SettingsController::class, 'delivery'])->name('delivery');
+  Route::get('/secure-payment', [SettingsController::class, 'secure_payment'])->name('secure_payment');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
