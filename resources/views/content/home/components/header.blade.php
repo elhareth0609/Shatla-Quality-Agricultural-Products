@@ -348,7 +348,7 @@
         </li>
 
         <li class="menu-category">
-          <a href="#" class="menu-title">{{__('Blogs')}}</a>
+          <a href="{{ route('blog.index')}}" class="menu-title">{{__('Blogs')}}</a>
         </li>
 
         <li class="menu-category">

@@ -13,4 +13,6 @@ class Sell extends Model
       'user_id',
       'code'
     ];
+
+    // user
 }

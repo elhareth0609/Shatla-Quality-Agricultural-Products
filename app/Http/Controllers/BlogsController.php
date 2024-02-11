@@ -8,6 +8,16 @@ use App\Models\Blog;
 
 class BlogsController extends Controller
 {
+    public function index() {
+      $blogs = Blog::all();
+      return view('content.home.blogs.index')
+      ->with('blogs', $blogs);
+    }
+
+    public function ones($id) {
+      return view('content.home.blogs.ones');
+    }
+
     public function create(Request $request) {
 
       return response()->json([

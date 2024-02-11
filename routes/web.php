@@ -55,6 +55,11 @@ use App\Http\Controllers\BlogsController;
 
 // Main Page Route
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index']);
+
+Route::get('/home/blogs', [BlogsController::class, 'index'])->name('blog.index');
+Route::get('/home/blogs/{id}', [BlogsController::class, 'ones'])->name('blog.ones');
+
 
 Route::middleware('auth')->group(function () {
 
@@ -62,11 +67,11 @@ Route::middleware('auth')->group(function () {
 
   // DataTables
   Route::get('/users', [DataTablesController::class, 'users'])->name('users');
+  Route::get('/sellers', [DataTablesController::class, 'sellers'])->name('sellers');
+  Route::get('/experts', [DataTablesController::class, 'experts'])->name('experts');
   Route::get('/products', [DataTablesController::class, 'products'])->name('products');
   Route::get('/categorys', [DataTablesController::class, 'categorys'])->name('categorys');
-  Route::get('/experts', [DataTablesController::class, 'experts'])->name('experts');
   Route::get('/sales', [DataTablesController::class, 'sales'])->name('sales');
-  Route::get('/sellers', [DataTablesController::class, 'sellers'])->name('sellers');
   Route::get('/blogs', [DataTablesController::class, 'blogs'])->name('blogs');
 
   Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
@@ -123,6 +128,9 @@ Route::middleware('guest')->group(function () {
     Route::post('/auth/forgot-password', [ForgotPasswordBasic::class, 'forgot_password'])->name('auth-reset-password.action');
 
 });
+
+
+
 
 
   Route::get('/terms-of-use', [SettingsController::class, 'terms_of_use'])->name('terms_of_use');

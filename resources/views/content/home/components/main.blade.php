@@ -1,3 +1,10 @@
+@extends('content.home.app')
+
+@section('title', 'Blogs')
+
+@section('content')
+
+
 <main>
 
   <!--
@@ -2503,3 +2510,6 @@
   </div>
 
 </main>
+
+
+@endsection

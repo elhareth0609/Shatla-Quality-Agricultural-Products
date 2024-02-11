@@ -9,5 +9,5 @@ class Saller extends Model
 {
     use HasFactory;
 
-    
+    // products
 }

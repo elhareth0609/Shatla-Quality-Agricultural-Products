@@ -13,4 +13,7 @@ class Cart_Products extends Model
       'product_id',
       'amount'
     ];
+
+    // cart
+    // products
 }

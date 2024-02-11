@@ -13,4 +13,7 @@ class Favorite extends Model
       'user_id',
       'product_id'
     ];
+
+    // user
+    // products
 }

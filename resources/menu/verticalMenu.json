@@ -12,7 +12,7 @@
     {
       "url": "/users",
       "name": "Users",
-      "icon": "menu-icon tf-icons mdi mdi-window-maximize",
+      "icon": "menu-icon tf-icons mdi mdi-account-group",
       "slug": "Users",
       "submenu": [
         {
@@ -35,19 +35,19 @@
     {
       "url": "/products",
       "name": "Products",
-      "icon": "menu-icon tf-icons mdi mdi-window-maximize",
+      "icon": "menu-icon tf-icons mdi mdi-package-variant",
       "slug": "products"
     },
     {
       "url": "/categorys",
       "name": "Categorys",
-      "icon": "menu-icon tf-icons mdi mdi-window-maximize",
+      "icon": "menu-icon tf-icons mdi mdi-format-list-bulleted",
       "slug": "categorys"
     },
     {
       "url": "/blogs",
       "name": "Blogs",
-      "icon": "menu-icon tf-icons mdi mdi-window-maximize",
+      "icon": "menu-icon tf-icons mdi mdi-newspaper-variant-outline",
       "slug": "blogs"
     },
     {
@@ -62,19 +62,19 @@
     {
       "url": "/about-us",
       "name": "About Us",
-      "icon": "menu-icon tf-icons mdi mdi-cog-outline",
+      "icon": "menu-icon tf-icons mdi mdi-information-outline",
       "slug": "about-us"
     },
     {
       "url": "/privacy-and-policy",
       "name": "Privacy & Policy",
-      "icon": "menu-icon tf-icons mdi mdi-cog-outline",
+      "icon": "menu-icon tf-icons mdi mdi-lock-outline",
       "slug": "privacy-and-policy"
     },
     {
       "url": "/terms-of-use",
       "name": "Terms Of Use",
-      "icon": "menu-icon tf-icons mdi mdi-cog-outline",
+      "icon": "menu-icon tf-icons mdi mdi-file-document-outline",
       "slug": "terms-of-use"
     },
 
@@ -86,6 +86,28 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     {
       "name": "Layouts",
       "icon": "menu-icon tf-icons mdi mdi-window-maximize",

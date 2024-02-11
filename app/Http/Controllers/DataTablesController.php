@@ -48,6 +48,31 @@ class DataTablesController extends Controller
     }
 
     public function categorys(Request $request) {
+      $categorys = Category::all();
+
+      if($request->ajax()) {
+        return DataTables::of($categorys)
+        ->editColumn('id', function ($category) {
+            return $category->id;
+        })
+        ->editColumn('name', function ($category) {
+          return $category->name;
+        })
+        ->editColumn('image', function ($category) {
+          return $category->image;
+        })
+        ->editColumn('created_at', function ($category) {
+          return $category->created_at->format('Y-m-d');
+        })
+        ->addColumn('action', function ($category) {
+            return '<button class="btn btn-primary">Edit</button>';
+        })
+        ->rawColumns(['action'])
+        ->make(true);
+      }
+
+      return view('content.dashboard.blogs.list');
+
 
     }
 
@@ -72,6 +97,9 @@ class DataTablesController extends Controller
         })
         ->editColumn('name', function ($product) {
           return $product->name;
+        })
+        ->editColumn('seller_id', function ($product) {
+          return $product->seller->fullname;
         })
         ->editColumn('created_at', function ($product) {
           return $product->created_at->format('Y-m-d H:i:s');
@@ -158,6 +186,33 @@ class DataTablesController extends Controller
     }
 
     public function blogs(Request $request) {
+      $blogs = Blog::all();
+
+      if($request->ajax()) {
+        return DataTables::of($blogs)
+        ->editColumn('id', function ($blog) {
+            return $blog->id;
+        })
+        ->editColumn('name', function ($blog) {
+          return $blog->name;
+        })
+        ->editColumn('category_id', function ($blog) {
+          return $blog->category->name;
+        })
+        ->editColumn('image', function ($blog) {
+          return $blog->image;
+        })
+        ->editColumn('created_at', function ($blog) {
+          return $blog->created_at->format('Y-m-d');
+        })
+        ->addColumn('action', function ($blog) {
+            return '<button class="btn btn-primary">Edit</button>';
+        })
+        ->rawColumns(['action'])
+        ->make(true);
+      }
+
+      return view('content.dashboard.blogs.list');
 
     }
 }

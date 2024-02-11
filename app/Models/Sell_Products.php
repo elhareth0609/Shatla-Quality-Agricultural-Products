@@ -15,4 +15,7 @@ class Sell_Products extends Model
       'amount',
       'price'
     ];
+
+    // sell
+    // products
 }
