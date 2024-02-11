@@ -5,7 +5,7 @@
   - MODAL
 -->
 
-{{-- <div class="modal" data-modal>
+<div class="modal" style="display: none" data-modal>
 
   <div class="modal-close-overlay" data-modal-overlay></div>
 
@@ -43,9 +43,7 @@
 
   </div>
 
-</div> --}}
-
-
+</div>
 
 
 
@@ -53,7 +51,7 @@
   - NOTIFICATION TOAST
 -->
 
-{{-- <div class="notification-toast" data-toast>
+<div class="notification-toast" style="display: none" data-toast>
 
   <button class="toast-close-btn" data-toast-close>
     <ion-icon name="close-outline"></ion-icon>
@@ -79,4 +77,4 @@
 
   </div>
 
-</div> --}}
+</div>

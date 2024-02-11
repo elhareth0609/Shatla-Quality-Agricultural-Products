@@ -1,6 +1,6 @@
 @extends('content.home.app')
 
-@section('title', '')
+@section('title', 'Agriculture Website')
 
 @section('content')
 

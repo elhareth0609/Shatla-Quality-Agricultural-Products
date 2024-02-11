@@ -60,8 +60,9 @@
 
     <div class="container">
 
-      <a href="#" class="header-logo">
-        <img src="{{ asset('assets/home/images/logo/logo.svg') }}" alt="Anon's logo" width="120" height="36">
+      <a href="{{ route('home') }}" class="header-logo display-5 font-weight-bold text-dark">
+        {{-- <img src="{{ asset('assets/home/images/logo/logo.svg') }}" alt="Shatla logo" width="120" height="36"> --}}
+        {{__('Shatla')}}
       </a>
 
       <div class="header-search-container">
@@ -76,10 +77,19 @@
 
       <div class="header-user-actions">
 
-        <button class="action-btn">
+        @guest
+        <a href="{{ route('login') }}" class="btn action-btn">
           <ion-icon name="person-outline"></ion-icon>
-        </button>
+        </a>
+        @endguest
 
+        @auth
+        <a href="{{ route('dashboard') }}" class="btn action-btn">
+          <ion-icon name="person-outline"></ion-icon>
+        </a>
+        @endauth
+
+        
         <button class="action-btn">
           <ion-icon name="heart-outline"></ion-icon>
           <span class="count">0</span>
@@ -103,7 +113,7 @@
       <ul class="desktop-menu-category-list">
 
         <li class="menu-category">
-          <a href="#" class="menu-title">{{__('Home')}}</a>
+          <a href="{{ route('home') }}" class="menu-title">{{__('Home')}}</a>
         </li>
 
         <li class="menu-category">
@@ -114,27 +124,27 @@
             <ul class="dropdown-panel-list">
 
               <li class="menu-title">
-                <a href="#">Electronics</a>
+                <a href="#">{{__('Medicines')}}</a>
               </li>
 
               <li class="panel-list-item">
-                <a href="#">Desktop</a>
+                <a href="#">{{__('Seedlings')}}</a>
               </li>
 
               <li class="panel-list-item">
-                <a href="#">Laptop</a>
+                <a href="#">{{__('seeds')}}</a>
               </li>
 
               <li class="panel-list-item">
-                <a href="#">Camera</a>
+                <a href="#">{{__('Ornamental Trees')}}</a>
               </li>
 
               <li class="panel-list-item">
-                <a href="#">Tablet</a>
+                <a href="#">{{__('Ornamental Plants')}}</a>
               </li>
 
               <li class="panel-list-item">
-                <a href="#">Headphone</a>
+                <a href="#">{{__('Fruits')}}</a>
               </li>
 
               <li class="panel-list-item">
@@ -149,27 +159,27 @@
             <ul class="dropdown-panel-list">
 
               <li class="menu-title">
-                <a href="#">Men's</a>
+                <a href="#">{{__('Greenhouses')}}</a>
               </li>
 
               <li class="panel-list-item">
-                <a href="#">Formal</a>
+                <a href="#">{{__('Greenhouses')}}</a>
               </li>
 
               <li class="panel-list-item">
-                <a href="#">Casual</a>
+                <a href="#">{{__('Pivot Irrigation Machines')}}</a>
               </li>
 
               <li class="panel-list-item">
-                <a href="#">Sports</a>
+                <a href="#">{{__('Vertical Irrigation Machines')}}</a>
               </li>
 
               <li class="panel-list-item">
-                <a href="#">Jacket</a>
+                <a href="#">{{__('Agricultural Lands')}}</a>
               </li>
 
               <li class="panel-list-item">
-                <a href="#">Sunglasses</a>
+                <a href="#">{{__('Agricultural Pipes')}}</a>
               </li>
 
               <li class="panel-list-item">
@@ -183,19 +193,19 @@
             <ul class="dropdown-panel-list">
 
               <li class="menu-title">
-                <a href="#">Women's</a>
+                <a href="#">{{__('Fertilizers')}}</a>
               </li>
 
               <li class="panel-list-item">
-                <a href="#">Formal</a>
+                <a href="#">{{__('Fertilizers')}}</a>
               </li>
 
               <li class="panel-list-item">
-                <a href="#">Casual</a>
+                <a href="#">{{__('Medicines')}}</a>
               </li>
 
               <li class="panel-list-item">
-                <a href="#">Perfume</a>
+                <a href="#">{{__('Food Supplements')}}</a>
               </li>
 
               <li class="panel-list-item">
@@ -405,7 +415,7 @@
     <ul class="mobile-menu-category-list">
 
       <li class="menu-category">
-        <a href="#" class="menu-title">Home</a>
+        <a href="{ route('home') }}" class="menu-title">Home</a>
       </li>
 
       <li class="menu-category">
@@ -616,12 +626,6 @@
         <li>
           <a href="#" class="social-link">
             <ion-icon name="logo-instagram"></ion-icon>
-          </a>
-        </li>
-
-        <li>
-          <a href="#" class="social-link">
-            <ion-icon name="logo-linkedin"></ion-icon>
           </a>
         </li>
 
