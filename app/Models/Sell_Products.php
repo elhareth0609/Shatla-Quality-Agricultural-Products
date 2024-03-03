@@ -12,10 +12,17 @@ class Sell_Products extends Model
     protected $fillable = [
       'sell_id',
       'product_id',
-      'amount',
       'price'
     ];
 
-    // sell
-    // products
+
+    public function sell()
+    {
+        return $this->belongsTo(Sell::class);
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

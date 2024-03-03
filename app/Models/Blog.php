@@ -12,10 +12,12 @@ class Blog extends Model
     protected $fillable = [
       'name',
       'category_id',
-      'price',
       'content',
       'image'
     ];
 
-    // category
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Plan extends Model
 {
     use HasFactory;
+
+    protected $fileable = [
+      'name',
+      'description',
+      'price',
+      'features'
+    ];
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

@@ -27,64 +27,19 @@
         <!-- /Logo -->
 
         <div class="card-body mt-2">
-          <h4 class="mb-2">{{ __('Welcome to') }} شتلة! 👋</h4>
-          <p class="mb-4">{{ __('Please sign-in to your account and start the adventure') }}</p>
-
-          <form id="formAuthentication" class="mb-3" action="{{ route('login.action') }}" method="POST">
-            @csrf
-            <div class="form-floating form-floating-outline mb-3">
-              <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" autofocus>
-              <label for="email">Email </label>
+          <div class="d-flex align-items-center border border-2 rounded p-1 my-1" dir="rtl">
+            <div class="avatar avatar-lg ms-3">
+              <img src="{{asset('assets/img/avatars/3.png')}}" alt="Avatar" class="rounded-circle">
             </div>
-            <div class="mb-3">
-              <div class="form-password-toggle">
-                <div class="input-group input-group-merge">
-                  <div class="form-floating form-floating-outline">
-                    <input type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
-                    <label for="password">Password</label>
-                  </div>
-                  <span class="input-group-text cursor-pointer"><i class="mdi mdi-lock-outline"></i></span>
-                </div>
-              </div>
+            <div>
+              <h6 class="mb-0 text-truncate">خلفاوي الحارث</h6>
+              <small class="text-truncate">0795909128</small>
             </div>
-            <div class="mb-3 d-flex justify-content-between">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="remember-me" name="remember">
-                <label class="form-check-label" for="remember-me">
-                  {{ __('Remember Me') }}
-                </label>
-              </div>
-              <a href="{{url('auth/forgot-password-basic')}}" class="float-end mb-1">
-                <span>{{ __('Forgot Password?') }}</span>
-              </a>
-            </div>
-            <div class="mb-3">
-              <button class="btn btn-primary d-grid w-100" type="submit">{{ __('Sign in') }}</button>
-            </div>
-          </form>
-
-          <p class="text-center">
-            <span>{{ __('New on our platform?') }}</span>
-            <a href="{{url('auth/register-basic')}}">
-              <span>{{ __('Create an account') }}</span>
-            </a>
-          </p>
-
-          <div class="divider">
-            <div class="divider-text">{{ __('Or') }}</div>
           </div>
-          <div class="row justify-content-center">
-            <a class="mine-w-fit" href="{{ route('auth.google.redirect') }}">
-              <button type="button" class="btn btn-outline-primary">
-                <span class="tf-icons mdi mdi-google"></span>
-              </button>
-            </a>
-            <a class="mine-w-fit" href="{{ route('auth.facebook.redirect') }}">
-              <button type="button" class="btn btn-outline-primary">
-                <span class="tf-icons mdi mdi-facebook"></span>
-              </button>
-            </a>
-          </div>
+
+            <div class="my-3">
+              <a href="{{ route('plans.index') }}" class="btn btn-primary d-grid w-100" >{{ __('New Account') }}</a>
+            </div>
         </div>
       </div>
 

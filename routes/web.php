@@ -6,6 +6,7 @@ use App\Http\Controllers\authentications\RegisterBasic;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\cards\CardBasic;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ChargilyPayController;
 use App\Http\Controllers\dashboard\Analytics;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DataTablesController;
@@ -28,6 +29,7 @@ use App\Http\Controllers\pages\AccountSettingsConnections;
 use App\Http\Controllers\pages\AccountSettingsNotifications;
 use App\Http\Controllers\pages\MiscError;
 use App\Http\Controllers\pages\MiscUnderMaintenance;
+use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\tables\Basic as TablesBasic;
@@ -41,9 +43,9 @@ use App\Http\Controllers\user_interface\Dropdowns;
 use App\Http\Controllers\user_interface\Footer;
 use App\Http\Controllers\user_interface\ListGroups;
 use App\Http\Controllers\user_interface\Modals;
+
 use App\Http\Controllers\user_interface\Navbar;
 use App\Http\Controllers\user_interface\Offcanvas;
-
 use App\Http\Controllers\user_interface\PaginationBreadcrumbs;
 use App\Http\Controllers\user_interface\Progress;
 use App\Http\Controllers\user_interface\Spinners;
@@ -53,6 +55,8 @@ use App\Http\Controllers\user_interface\TooltipsPopovers;
 use App\Http\Controllers\user_interface\Typography;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+
+
 
 
 

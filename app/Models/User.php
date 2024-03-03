@@ -58,15 +58,34 @@ class User extends Authenticatable
     }
 
     public function photoPath() {
-    $photo = $this->photo;
+      $photo = $this->photo;
 
-    if (!empty($photo)) {
-        return public_path('assets/img/users/' . $photo);
-    } else {
-        // Return default path or handle empty photo case as needed
-        return public_path('assets/img/users/default.jpg');
+      if (!empty($photo)) {
+          return public_path('assets/img/users/' . $photo);
+      } else {
+          // Return default path or handle empty photo case as needed
+          return public_path('assets/img/users/default.jpg');
+      }
     }
-}
 
+    public function plan()
+    {
+        return $this->belongsTo(Plan::class);
+    }
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
+    }
+
+    public function sells()
+    {
+        return $this->hasMany(Sell::class);
+    }
 
 }
