@@ -17,10 +17,16 @@ $navbarDetached = ($navbarDetached ?? '');
       @if(isset($navbarFull))
       <div class="navbar-brand app-brand demo d-none d-xl-flex py-0 me-4">
         <a href="{{url('/')}}" class="app-brand-link gap-2">
-          <span class="app-brand-logo demo">
+          {{-- <span class="app-brand-logo demo">
             @include('_partials.macros',["height"=>20])
           </span>
-          <span class="app-brand-text demo menu-text fw-semibold ms-1">{{config('variables.templateName')}}</span>
+          <span class="app-brand-text demo menu-text fw-semibold ms-1">{{config('variables.templateName')}}</span> --}}
+          <span class="app-brand-logo demo">
+            {{--  @include('_partials.macros',["height"=>20,"withbg"=>'fill: #fff;'])  --}}
+            <img src="{{ asset('assets/home/icons/favicon.png') }}" width="30" height="30"/>
+          </span>
+          <span class="app-brand-text demo text-heading fw-semibold">شتلة</span>
+
         </a>
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
           <i class="mdi menu-toggle-icon d-xl-block align-middle mdi-20px"></i>
@@ -57,7 +63,7 @@ $navbarDetached = ($navbarDetached ?? '');
           <li class="nav-item navbar-dropdown dropdown-user dropdown">
             <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">
               <div class="avatar avatar-online">
-                <img src="{{ asset('assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle">
+                <img src="{{ Auth::user()->photoUrl() }}" alt class="w-px-40 h-auto rounded-circle">
               </div>
             </a>
             <ul class="dropdown-menu dropdown-menu-end mt-3 py-2">
@@ -66,12 +72,12 @@ $navbarDetached = ($navbarDetached ?? '');
                   <div class="d-flex align-items-center">
                     <div class="flex-shrink-0 me-2 pe-1">
                       <div class="avatar avatar-online">
-                        <img src="{{ asset('assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle">
+                        <img src="{{ Auth::user()->photo }}" alt class="w-px-40 h-auto rounded-circle">
                       </div>
                     </div>
                     <div class="flex-grow-1">
-                      <h6 class="mb-0">John Doe</h6>
-                      <small class="text-muted">Admin</small>
+                      <h6 class="mb-0">{{ Auth::user()->fullname }}</h6>
+                      <small class="text-muted">{{ Auth::user()->role }}</small>
                     </div>
                   </div>
                 </a>
@@ -80,15 +86,21 @@ $navbarDetached = ($navbarDetached ?? '');
                 <div class="dropdown-divider my-1"></div>
               </li>
               <li>
+                <a class="dropdown-item" href="{{ route('user.change.profile') }}">
+                  <i class='mdi mdi-swap-horizontal-circle-outline me-1 mdi-20px'></i>
+                  <span class="align-middle">{{__('Change Account')}}</span>
+                </a>
+              </li>
+              <li>
                 <a class="dropdown-item" href="javascript:void(0);">
                   <i class="mdi mdi-account-outline me-1 mdi-20px"></i>
-                  <span class="align-middle">My Profile</span>
+                  <span class="align-middle">{{ __('My Profile') }}</span>
                 </a>
               </li>
               <li>
                 <a class="dropdown-item" href="javascript:void(0);">
                   <i class='mdi mdi-cog-outline me-1 mdi-20px'></i>
-                  <span class="align-middle">Settings</span>
+                  <span class="align-middle">{{__('Settings')}}</span>
                 </a>
               </li>
               <li>

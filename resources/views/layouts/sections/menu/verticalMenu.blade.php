@@ -3,10 +3,16 @@
   <!-- ! Hide app brand if navbar-full -->
   <div class="app-brand demo">
     <a href="{{url('/')}}" class="app-brand-link">
-      <span class="app-brand-logo demo me-1">
+      {{-- <span class="app-brand-logo demo me-1">
         @include('_partials.macros',["height"=>20])
       </span>
-      <span class="app-brand-text demo menu-text fw-semibold ms-2">{{config('variables.templateName')}}</span>
+      <span class="app-brand-text demo menu-text fw-semibold ms-2">{{config('variables.templateName')}}</span> --}}
+      <span class="app-brand-logo demo">
+        {{--  @include('_partials.macros',["height"=>20,"withbg"=>'fill: #fff;'])  --}}
+        <img src="{{ asset('assets/home/icons/favicon.png') }}" width="30" height="30"/>
+      </span>
+      <span class="app-brand-text demo text-heading fw-semibold">شتلة</span>
+
     </a>
 
     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">

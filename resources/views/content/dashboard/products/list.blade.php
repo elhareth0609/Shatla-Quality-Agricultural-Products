@@ -9,8 +9,8 @@
 <!-- Responsive Table -->
 <div class="card row">
   <h5 class="card-header">{{__('Products')}}</h5>
-  <div class="row mb-3 justify-content-between">
-    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3" >
+  <div class="row justify-content-between">
+    <div class="my-w-fit-content mb-3" >
       <select class="form-select text-center h-100" id="dataTables_my_length" aria-label="Default select example">
         <option value="10">10</option>
         <option value="25">25</option>
@@ -18,7 +18,7 @@
         <option value="100" selected>100</option>
       </select>
     </div>
-    <div class="form-floating form-floating-outline col-xl-3 col-lg-3 col-md-3 col-sm-4 col-3">
+    <div class="form-floating form-floating-outline my-w-fit-content mb-3">
       <input class="form-control" type="search" placeholder="Search ..." id="dataTables_my_filter" />
       <label for="html5-search-input">Search</label>
     </div>
@@ -40,18 +40,18 @@
       </thead>
     </table>
   </div>
-      <div class="row justify-content-between align-items-baseline mt-3">
-        <!-- Show 5 from 100 -->
-        <div class="col-6" id="dataTables_my_info">
-        </div>
-        <!--/ Show 5 from 100 -->
-          <!-- Outline rounded Pagination -->
-        <nav class="col-6 d-flex justify-content-end" aria-label="Page navigation">
-          <ul class="pagination pagination-rounded pagination-outline-primary" id="dataTables_my_paginate">
-          </ul>
-        </nav>
-          <!--/ Outline rounded Pagination -->
-      </div>
+  <div class="row justify-content-between align-items-baseline">
+    <!-- Show 5 from 100 -->
+    <div class="my-w-fit-content mt-3" id="dataTables_my_info">
+    </div>
+    <!--/ Show 5 from 100 -->
+      <!-- Outline rounded Pagination -->
+    <nav class="my-w-fit-content mt-3" aria-label="Page navigation">
+      <ul class="pagination pagination-rounded pagination-outline-primary" id="dataTables_my_paginate">
+      </ul>
+    </nav>
+      <!--/ Outline rounded Pagination -->
+  </div>
 
 </div>
 <!--/ Responsive Table -->
@@ -65,6 +65,9 @@
   }
   td,tr {
     text-align: center;
+  }
+  .my-w-fit-content {
+    width: fit-content!important;
   }
 </style>
 

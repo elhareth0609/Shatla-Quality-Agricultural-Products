@@ -1,6 +1,12 @@
 {
   "menu": [
     {
+      "url": "/",
+      "name": "Demo",
+      "icon": "menu-icon tf-icons mdi mdi-view-dashboard-outline",
+      "slug": "demo"
+    },
+    {
       "url": "/dashboard",
       "name": "Dashboard",
       "icon": "menu-icon tf-icons mdi mdi-home-outline",
@@ -12,7 +18,7 @@
     {
       "url": "/users",
       "name": "Users",
-      "icon": "menu-icon tf-icons mdi mdi-account-group",
+      "icon": "menu-icon tf-icons mdi mdi-account-group-outline",
       "slug": "Users",
       "submenu": [
         {
@@ -41,8 +47,14 @@
     {
       "url": "/categorys",
       "name": "Categorys",
-      "icon": "menu-icon tf-icons mdi mdi-format-list-bulleted",
+      "icon": "menu-icon tf-icons mdi mdi-file-tree-outline",
       "slug": "categorys"
+    },
+    {
+      "url": "/plans",
+      "name": "Plans",
+      "icon": "menu-icon tf-icons mdi mdi-format-list-numbered",
+      "slug": "plans"
     },
     {
       "url": "/blogs",
@@ -107,7 +119,7 @@
 
 
 
-    
+
     {
       "name": "Layouts",
       "icon": "menu-icon tf-icons mdi mdi-window-maximize",

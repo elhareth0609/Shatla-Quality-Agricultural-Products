@@ -4,8 +4,9 @@ namespace App\Http\Controllers\authentications;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginBasic extends Controller
 {
@@ -15,29 +16,69 @@ class LoginBasic extends Controller
   }
 
   public function login(Request $request) {
-        // Validate the incoming request data
         $request->validate([
           'email' => 'required|email',
-          'password' => 'required',
+          'password' => 'required'
         ]);
 
-      // Attempt to authenticate the user
       $credentials = $request->only('email', 'password');
-      $remember = $request->has('remember'); // Check if "Remember Me" checkbox is checked
+      $remember = $request->has('remember');
       if (Auth::attempt($credentials,$remember)) {
-          // Authentication successful
-          $user = Auth::user();
+          Auth::user();
           return redirect('/');
       } else {
-          // Authentication failed
           return redirect()->back()->withErrors(['message' => 'Invalid credentials'])->withInput();
       }
+  }
+
+  public function redirectToGoogle() {
+    return Socialite::driver('google')->redirect();
+  }
+
+  public function handleGoogleCallback() {
+    $googleUser = Socialite::driver('google')->user();
+
+    $user = User::where('email', $googleUser->getEmail())->first();
+
+    if (!$user) {
+        $user = new User;
+        $user->email = $googleUser->getEmail();
+        $user->fullname = $googleUser->getName();
+        $user->photo = $googleUser->getAvatar();
+        $user->save();
+      }
+
+      Auth::login($user);
+
+    return redirect()->route('home');
+  }
+
+  public function redirectToFacebook() {
+    return Socialite::driver('facebook')->redirect();
+  }
+
+  public function handleFacebookCallback() {
+    $facebookUser = Socialite::driver('facebook')->user();
+
+    $user = User::where('email', $facebookUser->getEmail())->first();
+
+    if (!$user) {
+        $user = new User;
+        $user->email = $facebookUser->getEmail();
+        $user->fullname = $facebookUser->getName();
+        $user->photo = $facebookUser->getAvatar();
+        $user->save();
+      }
+
+      Auth::login($user);
+
+    return redirect()->route('home');
   }
 
   public function logout() {
     Auth::logout();
 
-    return redirect('/');
+    return redirect()->route('home');
 
   }
 }

@@ -1,6 +1,6 @@
 @extends('layouts/blankLayout')
 
-@section('title', 'Login Page')
+@section('title', 'Change Profile')
 
 @section('page-style')
 <!-- Page -->

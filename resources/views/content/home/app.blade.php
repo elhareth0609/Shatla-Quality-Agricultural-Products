@@ -5,17 +5,18 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shatla - @yield('Title')</title>
+  <title>شتلة - @yield('Title')</title>
 
   <!--
     - favicon
   -->
-  <link rel="shortcut icon" href="{{ asset('assets/home/images/logo/favicon.ico') }}" type="image/x-icon">
+  <link rel="shortcut icon" href="{{ asset('assets/home/icons/favicon.png') }}" type="image/x-icon">
 
   <!--
     - custom css link
   -->
   <link rel="stylesheet" href="{{ asset('assets/home/css/style-prefix.css') }}">
+  {{-- <link rel="stylesheet" href="https://c77c-197-207-182-57.ngrok-free.app/assets/home/css/style-prefix.css"> --}}
 
   <!--
     - google font link

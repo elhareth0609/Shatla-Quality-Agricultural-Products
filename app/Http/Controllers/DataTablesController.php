@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Models\User;
 use App\Models\Blog;
+
 use App\Models\Category;
+use App\Models\Plan;
 use App\Models\Product;
 use App\Models\Sell;
-use DataTables;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class DataTablesController extends Controller
 {
@@ -23,24 +24,35 @@ class DataTablesController extends Controller
             return $user->id;
         })
         ->editColumn('email', function ($user) {
-          return $user->price;
+          return $user->email;
         })
-        ->editColumn('fullname', function ($user) {
-          return $user->fullname;
-        })
-        ->editColumn('phone', function ($user) {
-          return $user->status;
-        })
+        // ->editColumn('fullname', function ($user) {
+        //   return $user->fullname;
+        // })
         ->editColumn('photo', function ($user) {
-          return $user->photo;
+            return '
+            <div class="d-flex align-items-center">
+              <div class="avatar avatar-sm me-3">
+                <img src="' . $user->photoUrl() . '" alt="' . $user->fullname . '" class="rounded-circle">
+              </div>
+              <div class="' . (app()->isLocale('ar') ? 'text-end' : 'text-start') . '">
+              <h6 class="mb-0 text-truncate">' . $user->fullname . '</h6>
+                <small class="text-truncate">' . $user->phone . '</small>
+              </div>
+            </div>
+            ';
+
         })
+        // ->editColumn('phone', function ($user) {
+        //   return $user->phone;
+        // })
         ->editColumn('created_at', function ($user) {
           return $user->created_at->format('Y-m-d');
         })
         ->addColumn('action', function ($user) {
             return '<button class="btn btn-primary">Edit</button>';
         })
-        ->rawColumns(['action'])
+        ->rawColumns(['action','photo'])
         ->make(true);
       }
 
@@ -213,6 +225,37 @@ class DataTablesController extends Controller
       }
 
       return view('content.dashboard.blogs.list');
+
+    }
+
+    public function plans(Request $request) {
+      $plans = Plan::all();
+
+      if($request->ajax()) {
+        return DataTables::of($plans)
+        ->editColumn('id', function ($plan) {
+            return $plan->id;
+        })
+        ->editColumn('name', function ($plan) {
+          return $plan->name;
+        })
+        ->editColumn('status', function ($plan) {
+          return $plan->status;
+        })
+        ->editColumn('image', function ($plan) {
+          return $plan->image;
+        })
+        ->editColumn('created_at', function ($plan) {
+          return $plan->created_at->format('Y-m-d');
+        })
+        ->addColumn('action', function ($plan) {
+            return '<button class="btn btn-primary">Edit</button>';
+        })
+        ->rawColumns(['action'])
+        ->make(true);
+      }
+
+      return view('content.dashboard.plans.list');
 
     }
 }

@@ -276,9 +276,8 @@
       <img src="{{ asset('assets/home/images/payment.png') }}" alt="payment method" class="payment-img">
 
       <p class="copyright">
-        {{__('Copyright')}} &copy; <a href="#">Shatla</a> {{__('all rights reserved.')}}
+        {{__('Copyright')}} &copy; <a href="#">شتلة</a> {{__('all rights reserved.')}}
       </p>
-
     </div>
 
   </div>

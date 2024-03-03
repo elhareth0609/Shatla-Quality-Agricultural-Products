@@ -62,7 +62,7 @@
 
       <a href="{{ route('home') }}" class="header-logo display-5 font-weight-bold text-dark">
         {{-- <img src="{{ asset('assets/home/images/logo/logo.svg') }}" alt="Shatla logo" width="120" height="36"> --}}
-        {{__('Shatla')}}
+        شتلة
       </a>
 
       <div class="header-search-container">
@@ -89,16 +89,20 @@
         </a>
         @endauth
 
-        
+        @auth
         <button class="action-btn">
           <ion-icon name="heart-outline"></ion-icon>
           <span class="count">0</span>
         </button>
+        @endauth
 
+
+        @auth
         <button class="action-btn">
           <ion-icon name="bag-handle-outline"></ion-icon>
           <span class="count">0</span>
         </button>
+        @endauth
 
       </div>
 
@@ -208,13 +212,13 @@
                 <a href="#">{{__('Food Supplements')}}</a>
               </li>
 
-              <li class="panel-list-item">
+              {{-- <li class="panel-list-item">
                 <a href="#">Cosmetics</a>
               </li>
 
               <li class="panel-list-item">
                 <a href="#">Bags</a>
-              </li>
+              </li> --}}
 
               <li class="panel-list-item">
                 <a href="#">
@@ -362,7 +366,7 @@
         </li>
 
         <li class="menu-category">
-          <a href="#" class="menu-title">{{__('Diseases Predict')}}</a>
+          <a href="{{ route('diseases') }}">{{ __('Diseases Predict')}}</a>
         </li>
 
         <li class="menu-category">

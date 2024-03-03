@@ -1,14 +1,14 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Experts')
+@section('title', 'Plans')
 
 @section('content')
-<h4 class="py-3 mb-4"><span class="text-muted fw-light">{{__('Pages')}} /</span> {{__('Experts')}}
+<h4 class="py-3 mb-4"><span class="text-muted fw-light">{{__('Pages')}} /</span> {{__('Plans')}}
 </h4>
 
 <!-- Responsive Table -->
 <div class="card row">
-  <h5 class="card-header">{{__('Experts')}}</h5>
+  <h5 class="card-header">{{__('Plans')}}</h5>
   <div class="row justify-content-between">
     <div class="my-w-fit-content mb-3" >
       <select class="form-select text-center h-100" id="dataTables_my_length" aria-label="Default select example">
@@ -24,13 +24,12 @@
     </div>
   </div>
   <div class="table-responsive text-nowrap">
-    <table class="table table-striped w-100" id="experts" data-page-length='100'>
+    <table class="table table-striped w-100" id="plans" data-page-length='100'>
       <thead>
         <tr class="text-nowrap">
           <th>#</th>
           <th>{{ __("Name") }}</th>
-          <th>{{ __("Photo") }}</th>
-          <th>{{ __("Price") }}</th>
+          <th>{{ __("Image") }}</th>
           <th>{{ __("Status") }}</th>
           <th>{{ __("Created At") }}</th>
           <th>{{ __("Action") }}</th>
@@ -38,18 +37,18 @@
       </thead>
     </table>
   </div>
-  <div class="row justify-content-between align-items-baseline">
-    <!-- Show 5 from 100 -->
-    <div class="my-w-fit-content mt-3" id="dataTables_my_info">
-    </div>
-    <!--/ Show 5 from 100 -->
-      <!-- Outline rounded Pagination -->
-    <nav class="my-w-fit-content mt-3" aria-label="Page navigation">
-      <ul class="pagination pagination-rounded pagination-outline-primary" id="dataTables_my_paginate">
-      </ul>
-    </nav>
-      <!--/ Outline rounded Pagination -->
-  </div>
+      <div class="row justify-content-between align-items-baseline">
+        <!-- Show 5 from 100 -->
+        <div class="my-w-fit-content mt-3" id="dataTables_my_info">
+        </div>
+        <!--/ Show 5 from 100 -->
+          <!-- Outline rounded Pagination -->
+        <nav class="my-w-fit-content mt-3" aria-label="Page navigation">
+          <ul class="pagination pagination-rounded pagination-outline-primary" id="dataTables_my_paginate">
+          </ul>
+        </nav>
+          <!--/ Outline rounded Pagination -->
+      </div>
 
 </div>
 <!--/ Responsive Table -->
@@ -72,16 +71,15 @@
 <script type="text/javascript">
     $(document).ready(function() {
       $.noConflict();
-      var table = $('#experts').DataTable({
+      var table = $('#plans').DataTable({
           processing: true,
           serverSide: true,
-          ajax: "{{ route('experts') }}",
+          ajax: "{{ route('plans') }}",
           columns: [
               {data: 'id', name: '#'},
-              {data: 'photo', name: '{{__("Photo")}}'},
-              {data: 'fullname', name: '{{__("Full Name")}}'},
-              {data: 'email', name: '{{__("Email")}}'},
-              {data: 'phone', name: '{{__("Phone")}}'},
+              {data: 'image', name: '{{__("Image")}}'},
+              {data: 'name', name: '{{__("Name")}}'},
+              {data: 'status', name: '{{__("Status")}}'},
               {data: 'created_at', name: '{{__("Created At")}}'},
               {
                   data: 'action',

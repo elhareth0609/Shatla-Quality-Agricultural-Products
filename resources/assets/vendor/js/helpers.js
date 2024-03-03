@@ -735,10 +735,10 @@ const Helpers = {
 
           if (formPasswordToggleInput.getAttribute('type') === 'text') {
             formPasswordToggleInput.setAttribute('type', 'password')
-            formPasswordToggleIcon.classList.replace('mdi-eye-outline', 'mdi-eye-off-outline')
+            formPasswordToggleIcon.classList.replace('mdi-lock-open-outline', 'mdi-lock-outline')
           } else if (formPasswordToggleInput.getAttribute('type') === 'password') {
             formPasswordToggleInput.setAttribute('type', 'text')
-            formPasswordToggleIcon.classList.replace('mdi-eye-off-outline', 'mdi-eye-outline')
+            formPasswordToggleIcon.classList.replace('mdi-lock-outline', 'mdi-lock-open-outline')
           }
         })
       })

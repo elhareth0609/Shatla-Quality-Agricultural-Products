@@ -1,21 +1,36 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\dashboard\Analytics;
-use App\Http\Controllers\layouts\WithoutMenu;
-use App\Http\Controllers\layouts\WithoutNavbar;
-use App\Http\Controllers\layouts\Fluid;
-use App\Http\Controllers\layouts\Container;
-use App\Http\Controllers\layouts\Blank;
-use App\Http\Controllers\pages\AccountSettingsAccount;
-use App\Http\Controllers\pages\AccountSettingsNotifications;
-use App\Http\Controllers\pages\AccountSettingsConnections;
-use App\Http\Controllers\pages\MiscError;
-use App\Http\Controllers\pages\MiscUnderMaintenance;
+use App\Http\Controllers\authentications\ForgotPasswordBasic;
 use App\Http\Controllers\authentications\LoginBasic;
 use App\Http\Controllers\authentications\RegisterBasic;
-use App\Http\Controllers\authentications\ForgotPasswordBasic;
+use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\cards\CardBasic;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\dashboard\Analytics;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DataTablesController;
+use App\Http\Controllers\DiseasesController;
+use App\Http\Controllers\extended_ui\PerfectScrollbar;
+use App\Http\Controllers\extended_ui\TextDivider;
+use App\Http\Controllers\form_elements\BasicInput;
+use App\Http\Controllers\form_elements\InputGroups;
+use App\Http\Controllers\form_layouts\HorizontalForm;
+use App\Http\Controllers\form_layouts\VerticalForm;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\icons\MdiIcons;
+use App\Http\Controllers\layouts\Blank;
+use App\Http\Controllers\layouts\Container;
+use App\Http\Controllers\layouts\Fluid;
+use App\Http\Controllers\layouts\WithoutMenu;
+use App\Http\Controllers\layouts\WithoutNavbar;
+use App\Http\Controllers\pages\AccountSettingsAccount;
+use App\Http\Controllers\pages\AccountSettingsConnections;
+use App\Http\Controllers\pages\AccountSettingsNotifications;
+use App\Http\Controllers\pages\MiscError;
+use App\Http\Controllers\pages\MiscUnderMaintenance;
+use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\tables\Basic as TablesBasic;
 use App\Http\Controllers\user_interface\Accordion;
 use App\Http\Controllers\user_interface\Alerts;
 use App\Http\Controllers\user_interface\Badges;
@@ -28,6 +43,7 @@ use App\Http\Controllers\user_interface\ListGroups;
 use App\Http\Controllers\user_interface\Modals;
 use App\Http\Controllers\user_interface\Navbar;
 use App\Http\Controllers\user_interface\Offcanvas;
+
 use App\Http\Controllers\user_interface\PaginationBreadcrumbs;
 use App\Http\Controllers\user_interface\Progress;
 use App\Http\Controllers\user_interface\Spinners;
@@ -35,22 +51,10 @@ use App\Http\Controllers\user_interface\TabsPills;
 use App\Http\Controllers\user_interface\Toasts;
 use App\Http\Controllers\user_interface\TooltipsPopovers;
 use App\Http\Controllers\user_interface\Typography;
-use App\Http\Controllers\extended_ui\PerfectScrollbar;
-use App\Http\Controllers\extended_ui\TextDivider;
-use App\Http\Controllers\icons\MdiIcons;
-use App\Http\Controllers\form_elements\BasicInput;
-use App\Http\Controllers\form_elements\InputGroups;
-use App\Http\Controllers\form_layouts\VerticalForm;
-use App\Http\Controllers\form_layouts\HorizontalForm;
-use App\Http\Controllers\tables\Basic as TablesBasic;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\SettingsController;
-use App\Http\Controllers\DataTablesController;
-use App\Http\Controllers\BlogsController;
+
 
 
 // Main Page Route
@@ -73,6 +77,7 @@ Route::middleware('auth')->group(function () {
   Route::get('/categorys', [DataTablesController::class, 'categorys'])->name('categorys');
   Route::get('/sales', [DataTablesController::class, 'sales'])->name('sales');
   Route::get('/blogs', [DataTablesController::class, 'blogs'])->name('blogs');
+  Route::get('/plans', [DataTablesController::class, 'plans'])->name('plans');
 
   Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
 
@@ -81,10 +86,10 @@ Route::middleware('auth')->group(function () {
   Route::get('/cart/delete', [SettingsController::class, 'index'])->name('cart.delete');
   Route::get('/cart/update', [SettingsController::class, 'index'])->name('cart.update');
 
-  Route::get('/product/{id}', [ProductController::class, 'get'])->name('product.get');
-  Route::post('/product/create', [ProductController::class, 'create'])->name('product.create');
-  Route::get('/product/delete', [ProductController::class, 'delete'])->name('product.delete');
-  Route::post('/product/update', [ProductController::class, 'update'])->name('product.update');
+  Route::get('/product/{id}', [ProductsController::class, 'get'])->name('product.get');
+  Route::post('/product/create', [ProductsController::class, 'create'])->name('product.create');
+  Route::get('/product/delete', [ProductsController::class, 'delete'])->name('product.delete');
+  Route::post('/product/update', [ProductsController::class, 'update'])->name('product.update');
 
   Route::get('/category/{id}', [CategoryController::class, 'get'])->name('category.get');
   Route::post('/category/create', [CategoryController::class, 'create'])->name('category.create');
@@ -96,13 +101,21 @@ Route::middleware('auth')->group(function () {
   Route::get('/blog/delete', [BlogsController::class, 'delete'])->name('blog.delete');
   Route::post('/blog/update', [BlogsController::class, 'update'])->name('blog.update');
 
+  Route::get('/plans', [PlanController::class, 'index'])->name('plans.index');
+  Route::get('/change-profile', [PlanController::class, 'change_profile'])->name('user.change.profile');
+  Route::get('/change-profile-action', [PlanController::class, 'change_profile_action'])->name('user.change.profile.action');
 
   Route::get('/diseases', [DiseasesController::class, 'index'])->name('diseases');
   Route::post('/diseases/predict', [DiseasesController::class, 'predict'])->name('diseases.predict');
 
   Route::get('/auth/logout', [LoginBasic::class, 'logout'])->name('logout.action');
 
+  //Payment
+  Route::get('chargily/pay', [ChargilyPayController::class, 'pay'])->name('chargily.payment.pay');
+  Route::post('chargily/payment/success', [ChargilyPayController::class, 'handleSuccess'])->name('chargily.payment.success');
+  Route::post('chargily/payment/webhook', [ChargilyPayController::class, 'handleWebhook'])->name('chargily.payment.webhook');
 
+  // Pages Of Website
   Route::get('/terms-of-use/get', [SettingsController::class, 'get_terms_of_use'])->name('setting.terms_of_use.get');
   Route::get('/about-us/get', [SettingsController::class, 'get_about_us'])->name('about_us.get');
   Route::get('/privacy-and-policy/get', [SettingsController::class, 'get_privacy_and_policy'])->name('privacy_and_policy.get');
@@ -119,7 +132,14 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('guest')->group(function () {
 
-    // authentication
+  // authentication
+    Route::get('login/google', [LoginBasic::class,'redirectToGoogle'])->name('auth.google.redirect');
+    Route::get('login/google/callback', [LoginBasic::class,'handleGoogleCallback'])->name('auth.google.callback');
+
+    Route::get('/login/facebook', [LoginBasic::class,'redirectToFacebook'])->name('auth.facebook.redirect');
+    Route::get('/login/facebook/callback', [LoginBasic::class,'handleFacebookCallback'])->name('auth.facebook.callback');
+
+
     Route::get('/auth/login-basic', [LoginBasic::class, 'index'])->name('login');
     Route::post('/auth/login', [LoginBasic::class, 'login'])->name('login.action');
     Route::get('/auth/register-basic', [RegisterBasic::class, 'index'])->name('register');

@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -45,4 +46,27 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function photoUrl() {
+        return $photo = $this->photo;
+
+        if (Str::startsWith($photo, 'http')) {
+            return $photo;
+        } else {
+            return asset('assets/img/avatars/' . $photo);
+        }
+    }
+
+    public function photoPath() {
+    $photo = $this->photo;
+
+    if (!empty($photo)) {
+        return public_path('assets/img/users/' . $photo);
+    } else {
+        // Return default path or handle empty photo case as needed
+        return public_path('assets/img/users/default.jpg');
+    }
+}
+
+
 }
