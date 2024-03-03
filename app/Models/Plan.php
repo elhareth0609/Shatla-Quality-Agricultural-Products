@@ -16,8 +16,13 @@ class Plan extends Model
       'features'
     ];
 
-    public function users()
+    // public function users()
+    // {
+    //     return $this->hasMany(User::class);
+    // }
+
+    public function profiles()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(Profile::class);
     }
 }

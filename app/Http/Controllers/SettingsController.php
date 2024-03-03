@@ -10,6 +10,14 @@ class SettingsController extends Controller
       return view('content.dashboard.settings.index');
     }
 
+    public function store() {
+      return view('content.dashboard.settings.store');
+    }
+
+    public function website() {
+      return view('content.dashboard.settings.website');
+    }
+
     public function privacy_and_policy() {
       return view('content.home.pages.privacy-and-policy');
     }

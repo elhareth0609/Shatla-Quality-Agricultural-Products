@@ -25,17 +25,23 @@
           </a>
         </div>
         <!-- /Logo -->
-
         <div class="card-body mt-2">
-          <div class="d-flex align-items-center border border-2 rounded p-1 my-1" dir="rtl">
-            <div class="avatar avatar-lg ms-3">
-              <img src="{{asset('assets/img/avatars/3.png')}}" alt="Avatar" class="rounded-circle">
+          @foreach (Auth::user()->profiles as $profile)
+          <div class="d-flex align-items-center border border-2 rounded p-1 my-1 justify-content-between" dir="rtl">
+              <div class="d-flex align-items-center">
+                <div class="avatar avatar-lg ms-3">
+                  <img src="{{asset('assets/img/avatars/3.png')}}" alt="Avatar" class="rounded-circle">
+                </div>
+                <div>
+                  <h6 class="mb-0 text-truncate">{{ $profile->fullname }}</h6>
+                  <small class="text-truncate">{{ $profile->plan->name }}</small>
+                </div>
+              </div>
+              @if ($profile->active === '1')
+                <span class="mdi mdi-check-all text-primary ms-3"></span>
+              @endif
             </div>
-            <div>
-              <h6 class="mb-0 text-truncate">خلفاوي الحارث</h6>
-              <small class="text-truncate">0795909128</small>
-            </div>
-          </div>
+          @endforeach
 
             <div class="my-3">
               <a href="{{ route('plans.index') }}" class="btn btn-primary d-grid w-100" >{{ __('New Account') }}</a>

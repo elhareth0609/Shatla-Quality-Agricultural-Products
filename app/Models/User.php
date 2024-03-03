@@ -68,10 +68,10 @@ class User extends Authenticatable
       }
     }
 
-    public function plan()
-    {
-        return $this->belongsTo(Plan::class);
-    }
+    // public function plan()
+    // {
+    //     return $this->belongsTo(Plan::class);
+    // }
 
     public function carts()
     {
@@ -88,4 +88,13 @@ class User extends Authenticatable
         return $this->hasMany(Sell::class);
     }
 
+    public function profiles()
+    {
+        return $this->hasMany(Profile::class);
+    }
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class)->where('active', true);
+    }
 }

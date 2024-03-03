@@ -63,7 +63,7 @@ $navbarDetached = ($navbarDetached ?? '');
           <li class="nav-item navbar-dropdown dropdown-user dropdown">
             <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">
               <div class="avatar avatar-online">
-                <img src="{{ Auth::user()->photoUrl() }}" alt class="w-px-40 h-auto rounded-circle">
+                <img src="{{ Auth::user()->profile->photoUrl() }}" alt class="w-px-40 h-auto rounded-circle">
               </div>
             </a>
             <ul class="dropdown-menu dropdown-menu-end mt-3 py-2">
@@ -72,12 +72,12 @@ $navbarDetached = ($navbarDetached ?? '');
                   <div class="d-flex align-items-center">
                     <div class="flex-shrink-0 me-2 pe-1">
                       <div class="avatar avatar-online">
-                        <img src="{{ Auth::user()->photo }}" alt class="w-px-40 h-auto rounded-circle">
+                        <img src="{{ Auth::user()->profile->photoUrl() }}" alt class="w-px-40 h-auto rounded-circle">
                       </div>
                     </div>
                     <div class="flex-grow-1">
-                      <h6 class="mb-0">{{ Auth::user()->fullname }}</h6>
-                      <small class="text-muted">{{ Auth::user()->role }}</small>
+                      <h6 class="mb-0">{{ Auth::user()->profile->fullname }}</h6>
+                      <small class="text-muted">{{ Auth::user()->profile->plan->name }}</small>
                     </div>
                   </div>
                 </a>
@@ -118,7 +118,7 @@ $navbarDetached = ($navbarDetached ?? '');
               <li>
                 <a class="dropdown-item" href="{{ route('logout.action')}}">
                   <i class='mdi mdi-power me-1 mdi-20px'></i>
-                  <span class="align-middle">Log Out</span>
+                  <span class="align-middle">{{ __('Log Out') }}</span>
                 </a>
               </li>
             </ul>

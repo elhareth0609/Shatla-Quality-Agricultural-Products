@@ -69,7 +69,25 @@
       "url": "/settings",
       "name": "Settings",
       "icon": "menu-icon tf-icons mdi mdi-cog-outline",
-      "slug": "settings"
+      "slug": "settings",
+      "submenu": [
+        {
+          "url": "/account-setting",
+          "name": "Account",
+          "slug": "account-setting"
+        },
+        {
+          "url": "/website-setting",
+          "name": "Website",
+          "slug": "website-setting"
+        },
+        {
+          "url": "/store-setting",
+          "name": "Store",
+          "slug": "store-setting"
+        }
+      ]
+
     },
     {
       "url": "/about-us",

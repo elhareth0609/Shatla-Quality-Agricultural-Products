@@ -5,6 +5,7 @@ use App\Http\Controllers\authentications\LoginBasic;
 use App\Http\Controllers\authentications\RegisterBasic;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\cards\CardBasic;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChargilyPayController;
 use App\Http\Controllers\dashboard\Analytics;
@@ -42,8 +43,8 @@ use App\Http\Controllers\user_interface\Collapse;
 use App\Http\Controllers\user_interface\Dropdowns;
 use App\Http\Controllers\user_interface\Footer;
 use App\Http\Controllers\user_interface\ListGroups;
-use App\Http\Controllers\user_interface\Modals;
 
+use App\Http\Controllers\user_interface\Modals;
 use App\Http\Controllers\user_interface\Navbar;
 use App\Http\Controllers\user_interface\Offcanvas;
 use App\Http\Controllers\user_interface\PaginationBreadcrumbs;
@@ -55,6 +56,7 @@ use App\Http\Controllers\user_interface\TooltipsPopovers;
 use App\Http\Controllers\user_interface\Typography;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -84,11 +86,14 @@ Route::middleware('auth')->group(function () {
   Route::get('/plans', [DataTablesController::class, 'plans'])->name('plans');
 
   Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
+  Route::get('/website-settings', [SettingsController::class, 'website'])->name('settings.website');
+  Route::get('/account-settings', [SettingsController::class, 'account'])->name('settings.account');
+  Route::get('/store-settings', [SettingsController::class, 'store'])->name('settings.store');
 
-  Route::get('/cart', [SettingsController::class, 'index'])->name('cart');
-  Route::get('/cart/add', [SettingsController::class, 'index'])->name('cart.add');
-  Route::get('/cart/delete', [SettingsController::class, 'index'])->name('cart.delete');
-  Route::get('/cart/update', [SettingsController::class, 'index'])->name('cart.update');
+  Route::get('/cart', [CartController::class, 'index'])->name('cart');
+  Route::get('/cart/add', [CartController::class, 'index'])->name('cart.add');
+  Route::get('/cart/delete', [CartController::class, 'index'])->name('cart.delete');
+  Route::get('/cart/update', [CartController::class, 'index'])->name('cart.update');
 
   Route::get('/product/{id}', [ProductsController::class, 'get'])->name('product.get');
   Route::post('/product/create', [ProductsController::class, 'create'])->name('product.create');
@@ -180,6 +185,25 @@ Route::middleware('guest')->group(function () {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
 // layout
 Route::get('/layouts/without-menu', [WithoutMenu::class, 'index'])->name('layouts-without-menu');
