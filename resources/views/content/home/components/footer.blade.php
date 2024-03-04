@@ -1,4 +1,4 @@
-<footer dir="rtl">
+<footer dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
 
   <div class="footer-category">
 

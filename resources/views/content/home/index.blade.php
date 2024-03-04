@@ -1,11 +1,11 @@
-@extends('content.home.app')
+@extends('layouts/homeLayout')
 
 @section('title', 'Agriculture Website')
 
 @section('content')
 
 
-<main dir="rtl">
+<main dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
 
   <!--
     - BANNER

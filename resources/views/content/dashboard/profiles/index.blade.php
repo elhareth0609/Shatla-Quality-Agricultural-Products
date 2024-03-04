@@ -27,7 +27,7 @@
         <!-- /Logo -->
         <div class="card-body mt-2">
           @foreach (Auth::user()->profiles as $profile)
-          <div class="d-flex align-items-center border border-2 rounded p-1 my-1 justify-content-between profile-item" dir="rtl" data-profile-id="{{ $profile->id }}">
+          <div class="d-flex align-items-center border border-2 rounded p-1 my-1 justify-content-between profile-item" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}" data-profile-id="{{ $profile->id }}">
               <div class="d-flex align-items-center">
                 <div class="avatar avatar-lg ms-3">
                   <img src="{{asset('assets/img/avatars/3.png')}}" alt="Avatar" class="rounded-circle">

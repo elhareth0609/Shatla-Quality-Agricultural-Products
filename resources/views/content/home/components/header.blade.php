@@ -1,4 +1,4 @@
-<header dir="rtl">
+<header dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
 
   <div class="header-top">
 
@@ -114,7 +114,7 @@
           <span class="count">0</span>
         </button>
 
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="cartButton" aria-labelledby="offcanvasEndLabel">
+        <div class="offcanvas offcanvas-{{ app()->isLocale('ar') ? 'end' : 'start' }}" tabindex="-1" id="cartButton" aria-labelledby="offcanvasEndLabel">
           <div class="offcanvas-header">
             <h5 id="offcanvasEndLabel" class="offcanvas-title">Offcanvas End</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>

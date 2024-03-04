@@ -5,7 +5,7 @@
 @section('content')
 
     <!-- Shop Detail Start -->
-    <div class="container-fluid py-5">
+    <div class="container-fluid py-5" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
       <div class="row px-xl-5">
           <div class="col-lg-5 pb-5">
 
@@ -18,7 +18,7 @@
                   <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="1" aria-label="Slide 2"></button>
                   <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
-                <div class="carousel-inner">
+                <div class="carousel-inner rounded">
                   <div class="carousel-item active">
                     <img class="d-block w-100" src="{{asset('assets/img/elements/13.jpg')}}" alt="First slide" />
                     <div class="carousel-caption d-none d-md-block">
@@ -95,89 +95,38 @@
               </div>
               <h3 class="font-weight-semi-bold mb-4">$150.00</h3>
               <p class="mb-4">Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr erat diam stet sit clita ea. Sanc invidunt ipsum et, labore clita lorem magna lorem ut. Erat lorem duo dolor no sea nonumy. Accus labore stet, est lorem sit diam sea et justo, amet at lorem et eirmod ipsum diam et rebum kasd rebum.</p>
-              <div class="d-flex mb-3">
-                  <p class="text-dark font-weight-medium mb-0 mr-3">Sizes:</p>
-                  <form>
-                      <div class="custom-control custom-radio custom-control-inline">
-                          <input type="radio" class="custom-control-input" id="size-1" name="size">
-                          <label class="custom-control-label" for="size-1">XS</label>
-                      </div>
-                      <div class="custom-control custom-radio custom-control-inline">
-                          <input type="radio" class="custom-control-input" id="size-2" name="size">
-                          <label class="custom-control-label" for="size-2">S</label>
-                      </div>
-                      <div class="custom-control custom-radio custom-control-inline">
-                          <input type="radio" class="custom-control-input" id="size-3" name="size">
-                          <label class="custom-control-label" for="size-3">M</label>
-                      </div>
-                      <div class="custom-control custom-radio custom-control-inline">
-                          <input type="radio" class="custom-control-input" id="size-4" name="size">
-                          <label class="custom-control-label" for="size-4">L</label>
-                      </div>
-                      <div class="custom-control custom-radio custom-control-inline">
-                          <input type="radio" class="custom-control-input" id="size-5" name="size">
-                          <label class="custom-control-label" for="size-5">XL</label>
-                      </div>
-                  </form>
-              </div>
-              <div class="d-flex mb-4">
-                  <p class="text-dark font-weight-medium mb-0 mr-3">Colors:</p>
-                  <form>
-                      <div class="custom-control custom-radio custom-control-inline">
-                          <input type="radio" class="custom-control-input" id="color-1" name="color">
-                          <label class="custom-control-label" for="color-1">Black</label>
-                      </div>
-                      <div class="custom-control custom-radio custom-control-inline">
-                          <input type="radio" class="custom-control-input" id="color-2" name="color">
-                          <label class="custom-control-label" for="color-2">White</label>
-                      </div>
-                      <div class="custom-control custom-radio custom-control-inline">
-                          <input type="radio" class="custom-control-input" id="color-3" name="color">
-                          <label class="custom-control-label" for="color-3">Red</label>
-                      </div>
-                      <div class="custom-control custom-radio custom-control-inline">
-                          <input type="radio" class="custom-control-input" id="color-4" name="color">
-                          <label class="custom-control-label" for="color-4">Blue</label>
-                      </div>
-                      <div class="custom-control custom-radio custom-control-inline">
-                          <input type="radio" class="custom-control-input" id="color-5" name="color">
-                          <label class="custom-control-label" for="color-5">Green</label>
-                      </div>
-                  </form>
-              </div>
-              <div class="d-flex align-items-center mb-4 pt-2">
-                  <div class="input-group quantity mr-3" style="width: 130px;">
-                      <div class="input-group-btn">
-                          <button class="btn btn-primary btn-minus" >
-                          <i class="fa fa-minus"></i>
-                          </button>
-                      </div>
-                      <input type="text" class="form-control bg-secondary text-center" value="1">
-                      <div class="input-group-btn">
-                          <button class="btn btn-primary btn-plus">
-                              <i class="fa fa-plus"></i>
-                          </button>
-                      </div>
+              <div class="row">
+                <div class="col-6">
+                  <div class="input-group input-group-merge" dir="{{ app()->isLocale('ar') ? 'ltr' : '' }}">
+                    <span class="input-group-text">{{ __('Quantity') }}</span>
+                    <input type="number" class="form-control" placeholder="0" value="1" aria-label="Amount (to the nearest dollar)" max="" min=""/>
                   </div>
-                  <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+                </div>
+                <div class="col-6">
+                  <div class="input-group input-group-merge" >
+                    <button type="button" class="btn btn-outline-primary">
+                      <span class="tf-icons mdi mdi-cart-check mx-1"></span>{{ __('Add To Cart') }}
+                    </button>
+                  </div>
+                </div>
               </div>
-              <div class="d-flex pt-2">
+              {{-- <div class="d-flex pt-2">
                   <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p>
                   <div class="d-inline-flex">
-                      <a class="text-dark px-2" href="">
-                          <i class="fab fa-facebook-f"></i>
+                      <a class="text-dark px-2" href="#">
+                        <ion-icon name="logo-facebook"></ion-icon>
                       </a>
-                      <a class="text-dark px-2" href="">
-                          <i class="fab fa-twitter"></i>
+                      <a class="text-dark px-2" href="#">
+                        <ion-icon name="logo-twitter"></ion-icon>
                       </a>
-                      <a class="text-dark px-2" href="">
-                          <i class="fab fa-linkedin-in"></i>
+                      <a class="text-dark px-2" href="#">
+                        <ion-icon name="logo-instagram"></ion-icon>
                       </a>
-                      <a class="text-dark px-2" href="">
-                          <i class="fab fa-pinterest"></i>
+                      <a class="text-dark px-2" href="#">
+                        <ion-icon name="logo-pinterest"></ion-icon>
                       </a>
                   </div>
-              </div>
+              </div> --}}
           </div>
       </div>
       <div class="row px-xl-5">
