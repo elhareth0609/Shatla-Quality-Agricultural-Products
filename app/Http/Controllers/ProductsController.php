@@ -8,6 +8,12 @@ use App\Models\Product;
 
 class ProductsController extends Controller
 {
+  public function index($id) {
+    $product = Product::find($id);
+    return view('content.home.products.index')
+    ->with('product', $product);
+  }
+
   public function create(Request $request) {
 
     return response()->json([

@@ -1,4 +1,4 @@
-@extends('content.home.app')
+{{-- @extends('content.home.app')
 
 @section('title', 'Blogs')
 
@@ -2512,4 +2512,4 @@
 </main>
 
 
-@endsection
+@endsection --}}

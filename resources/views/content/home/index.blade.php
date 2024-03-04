@@ -5,7 +5,7 @@
 @section('content')
 
 
-<main>
+<main dir="rtl">
 
   <!--
     - BANNER

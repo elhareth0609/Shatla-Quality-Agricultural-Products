@@ -27,7 +27,7 @@
         <!-- /Logo -->
         <div class="card-body mt-2">
           @foreach (Auth::user()->profiles as $profile)
-          <div class="d-flex align-items-center border border-2 rounded p-1 my-1 justify-content-between" dir="rtl">
+          <div class="d-flex align-items-center border border-2 rounded p-1 my-1 justify-content-between profile-item" dir="rtl" data-profile-id="{{ $profile->id }}">
               <div class="d-flex align-items-center">
                 <div class="avatar avatar-lg ms-3">
                   <img src="{{asset('assets/img/avatars/3.png')}}" alt="Avatar" class="rounded-circle">
@@ -56,4 +56,38 @@
     </div>
   </div>
 </div>
+<script>
+  $(document).ready(function() {
+      $('.profile-item').click(function() {
+          var profileId = $(this).data('profile-id');
+
+          $.ajax({
+              url: "{{ route('user.change.profile.action') }}",
+              type: "POST",
+              data: {
+                  profile_id: profileId,
+                  _token: '{{ csrf_token() }}'
+              },
+              success: function(response) {
+                  window.location.href = "{{ route('dashboard') }}";
+              },
+              error: function(xhr) {
+                  // Handle error response
+                  console.log(xhr.responseText);
+              }
+          });
+      });
+  });
+  </script>
+<style>
+  .profile-item {
+      cursor: pointer; /* Add pointer cursor */
+      transition: background-color 0.3s; /* Add transition for hover effect */
+  }
+
+  .profile-item:hover {
+      background-color: #f0f0f0; /* Change background color on hover */
+  }
+</style>
+
 @endsection

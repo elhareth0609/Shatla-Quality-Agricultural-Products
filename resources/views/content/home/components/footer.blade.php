@@ -1,4 +1,4 @@
-<footer>
+<footer dir="rtl">
 
   <div class="footer-category">
 

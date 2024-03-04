@@ -95,6 +95,6 @@ class User extends Authenticatable
 
     public function profile()
     {
-        return $this->hasOne(Profile::class)->where('active', true);
+        return $this->hasOne(Profile::class)->where('active', '1');
     }
 }

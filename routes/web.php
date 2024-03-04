@@ -91,11 +91,15 @@ Route::middleware('auth')->group(function () {
   Route::get('/store-settings', [SettingsController::class, 'store'])->name('settings.store');
 
   Route::get('/cart', [CartController::class, 'index'])->name('cart');
-  Route::get('/cart/add', [CartController::class, 'index'])->name('cart.add');
-  Route::get('/cart/delete', [CartController::class, 'index'])->name('cart.delete');
-  Route::get('/cart/update', [CartController::class, 'index'])->name('cart.update');
+  Route::get('/cart/add', [CartController::class, 'add'])->name('cart.add');
+  Route::get('/cart/delete', [CartController::class, 'delete'])->name('cart.delete');
+  Route::get('/cart/update', [CartController::class, 'update'])->name('cart.update');
 
-  Route::get('/product/{id}', [ProductsController::class, 'get'])->name('product.get');
+  Route::get('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+
+  Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+
+  Route::get('/product/{id}', [ProductsController::class, 'index'])->name('product.index');
   Route::post('/product/create', [ProductsController::class, 'create'])->name('product.create');
   Route::get('/product/delete', [ProductsController::class, 'delete'])->name('product.delete');
   Route::post('/product/update', [ProductsController::class, 'update'])->name('product.update');
@@ -112,7 +116,7 @@ Route::middleware('auth')->group(function () {
 
   Route::get('/plans', [PlanController::class, 'index'])->name('plans.index');
   Route::get('/change-profile', [PlanController::class, 'change_profile'])->name('user.change.profile');
-  Route::get('/change-profile-action', [PlanController::class, 'change_profile_action'])->name('user.change.profile.action');
+  Route::post('/change-profile-action', [PlanController::class, 'change_profile_action'])->name('user.change.profile.action');
 
   Route::get('/diseases', [DiseasesController::class, 'index'])->name('diseases');
   Route::post('/diseases/predict', [DiseasesController::class, 'predict'])->name('diseases.predict');
@@ -203,7 +207,7 @@ Route::middleware('guest')->group(function () {
 
 
 
-  
+
 
 // layout
 Route::get('/layouts/without-menu', [WithoutMenu::class, 'index'])->name('layouts-without-menu');

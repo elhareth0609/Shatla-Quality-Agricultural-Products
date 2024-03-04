@@ -1,32 +1,33 @@
-<header>
+<header dir="rtl">
+
   <div class="header-top">
 
     <div class="container">
 
-      <ul class="header-social-container">
+      <ul class="header-social-container m-0">
 
         <li>
-          <a href="#" class="social-link">
+          <a href="#" class="social-link btn btn-primary text-primary btn-icon">
             <ion-icon name="logo-facebook"></ion-icon>
           </a>
         </li>
 
         <li>
-          <a href="#" class="social-link">
+          <a href="#" class="social-link btn btn-primary text-primary btn-icon">
             <ion-icon name="logo-twitter"></ion-icon>
           </a>
         </li>
 
         <li>
-          <a href="#" class="social-link">
+          <a href="#" class="social-link btn btn-primary text-primary btn-icon">
             <ion-icon name="logo-instagram"></ion-icon>
           </a>
         </li>
 
       </ul>
 
-      <div class="header-alert-news">
-        <p>
+      <div class="header-alert-news ">
+        <p class="m-0">
           <b>Free Shipping</b>
           This Week Order Over - $55
         </p>
@@ -34,21 +35,31 @@
 
       <div class="header-top-actions">
 
-        <select name="currency">
+        {{-- <div class="col-lg-3 col-sm-6 col-12"> --}}
+          {{-- <div class="demo-inline-spacing"> --}}
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary btn-icon rounded-pill dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-translate"></i></button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="javascript:void(0);">{{__('English')}}</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);">{{__('Arabic')}}</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);">{{__('Francais')}}</a></li>
+              </ul>
+            </div>
+          {{-- </div> --}}
+        {{-- </div> --}}
 
-          <option value="usd">USD &dollar;</option>
-          <option value="eur">EUR &euro;</option>
-          <option value="dzd">DZD </p></option>
-
-        </select>
-
-        <select name="language">
-
-          <option value="en-US">{{__('English')}}</option>
-          <option value="ar-DZ">{{__('Arabic')}}</option>
-          <option value="fr">{{__('Francais')}}</option>
-
-        </select>
+        {{-- <div class="col-lg-3 col-sm-6 col-12 mx-1"> --}}
+          {{-- <div class="demo-inline-spacing"> --}}
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary btn-icon rounded-pill dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-currency-usd"></i></button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="javascript:void(0);">USD &dollar;</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);">EUR &euro;</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);">DZD</a></li>
+              </ul>
+            </div>
+          {{-- </div> --}}
+        {{-- </div> --}}
 
       </div>
 
@@ -56,7 +67,7 @@
 
   </div>
 
-  <div class="header-main">
+  <div class="header-main" >
 
     <div class="container">
 
@@ -98,10 +109,23 @@
 
 
         @auth
-        <button class="action-btn">
+        <button class="action-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartButton" aria-controls="offcanvasStart">
           <ion-icon name="bag-handle-outline"></ion-icon>
           <span class="count">0</span>
         </button>
+
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="cartButton" aria-labelledby="offcanvasEndLabel">
+          <div class="offcanvas-header">
+            <h5 id="offcanvasEndLabel" class="offcanvas-title">Offcanvas End</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body my-auto mx-0 flex-grow-0">
+            <p class="text-center">Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero's De Finibus Bonorum et Malorum for use in a type specimen book.</p>
+            <button type="button" class="btn btn-primary mb-2 d-grid w-100">Continue</button>
+            <button type="button" class="btn btn-outline-secondary d-grid w-100" data-bs-dismiss="offcanvas">Cancel</button>
+          </div>
+        </div>
+
         @endauth
 
       </div>

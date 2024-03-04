@@ -2,7 +2,7 @@
   "menu": [
     {
       "url": "/",
-      "name": "Demo",
+      "name": "شتلة",
       "icon": "menu-icon tf-icons mdi mdi-view-dashboard-outline",
       "slug": "demo"
     },
@@ -72,19 +72,19 @@
       "slug": "settings",
       "submenu": [
         {
-          "url": "/account-setting",
+          "url": "/account-settings",
           "name": "Account",
-          "slug": "account-setting"
+          "slug": "settings.account"
         },
         {
-          "url": "/website-setting",
+          "url": "/website-settings",
           "name": "Website",
-          "slug": "website-setting"
+          "slug": "settings.website"
         },
         {
-          "url": "/store-setting",
+          "url": "/store-settings",
           "name": "Store",
-          "slug": "store-setting"
+          "slug": "settings.store"
         }
       ]
 
