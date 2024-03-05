@@ -52,12 +52,22 @@ $navbarDetached = ($navbarDetached ?? '');
           </div>
         </div>
         <!-- /Search -->
+
+
         <ul class="navbar-nav flex-row align-items-center ms-auto">
 
-          <!-- Place this tag where you want the button to render. -->
-          {{-- <li class="nav-item lh-1 me-3">
-            <a class="github-button" href="https://github.com/themeselection/materio-bootstrap-html-laravel-admin-template-free" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star themeselection/materio-bootstrap-html-laravel-admin-template-free on GitHub">Star</a>
-          </li> --}}
+          <!-- Language -->
+          <div class="btn-group">
+            <button type="button" class="btn btn-primary btn-icon rounded-pill dropdown-toggle hide-arrow mx-2" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="mdi mdi-translate"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              @foreach (config('language') as $locale => $language)
+                <li><a class="dropdown-item {{ app()->getLocale() == $locale ? 'active' : '' }}" href="{{ route("change.language",$locale ) }}">{{ $language }}</a></li>
+              @endforeach
+            </ul>
+          </div>
+          <!--/ Language -->
 
           <!-- User -->
           <li class="nav-item navbar-dropdown dropdown-user dropdown">
@@ -124,6 +134,7 @@ $navbarDetached = ($navbarDetached ?? '');
             </ul>
           </li>
           <!--/ User -->
+
         </ul>
       </div>
 

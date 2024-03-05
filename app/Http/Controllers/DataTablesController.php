@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 
 use App\Models\Category;
+use App\Models\Coupon;
 use App\Models\Plan;
 use App\Models\Product;
 use App\Models\Sell;
@@ -256,6 +257,46 @@ class DataTablesController extends Controller
       }
 
       return view('content.dashboard.plans.list');
+
+    }
+
+    public function coupons(Request $request) {
+      $coupons = Coupon::all();
+      // coulmn for number of uses , and if uses ==== max return anouther status
+      if($request->ajax()) {
+        return DataTables::of($coupons)
+        ->editColumn('id', function ($coupon) {
+            return (string) $coupon->id;
+        })
+        ->editColumn('code', function ($coupon) {
+          return $coupon->code;
+        })
+        ->editColumn('status', function ($coupon) {
+          if ($coupon->max === $coupon->sell->count()) {
+              return '<span class="badge rounded-pill bg-label-secondary">'. __('Stopped') .'</span>';
+          }
+          return '<span class="badge rounded-pill bg-label-' . ($coupon->status == 'active' ? 'success' : 'secondary') . '">'. __('Active') .'</span>';
+        })
+        ->editColumn('discount', function ($coupon) {
+          return $coupon->discount;
+        })
+        ->editColumn('max', function ($coupon) {
+          return $coupon->max;
+        })
+        ->editColumn('expired_date', function ($coupon) {
+          return $coupon->expired_date->format('Y-m-d');
+        })
+        ->editColumn('created_at', function ($coupon) {
+          return $coupon->created_at->format('Y-m-d');
+        })
+        ->addColumn('action', function ($coupon) {
+            return '<button class="btn btn-primary">Edit</button>';
+        })
+        ->rawColumns(['action'])
+        ->make(true);
+      }
+
+      return view('content.dashboard.coupons.list');
 
     }
 }

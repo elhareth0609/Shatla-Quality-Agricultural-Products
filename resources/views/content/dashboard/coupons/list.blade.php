@@ -1,14 +1,14 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Plans')
+@section('title', 'Coupons')
 
 @section('content')
-<h4 class="py-3 mb-4"><span class="text-muted fw-light">{{__('Pages')}} /</span> {{__('Plans')}}
+<h4 class="py-3 mb-4"><span class="text-muted fw-light">{{__('Pages')}} /</span> {{__('Coupons')}}
 </h4>
 
 <!-- Responsive Table -->
 <div class="card row">
-  <h5 class="card-header">{{__('Plans')}}</h5>
+  <h5 class="card-header">{{__('Coupons')}}</h5>
   <div class="row justify-content-between">
     <div class="my-w-fit-content mb-3" >
       <select class="form-select text-center h-100" id="dataTables_my_length" aria-label="Default select example">
@@ -24,13 +24,15 @@
     </div>
   </div>
   <div class="table-responsive text-nowrap">
-    <table class="table table-striped w-100" id="plans" data-page-length='100'>
+    <table class="table table-striped w-100" id="coupons" data-page-length='100'>
       <thead>
         <tr class="text-nowrap">
           <th>#</th>
-          <th>{{ __("Image") }}</th>
-          <th>{{ __("Name") }}</th>
+          <th>{{ __("Code") }}</th>
+          <th>{{ __("Discount") }}</th>
+          <th>{{ __("Max") }}</th>
           <th>{{ __("Status") }}</th>
+          <th>{{ __("Expired At") }}</th>
           <th>{{ __("Created At") }}</th>
           <th>{{ __("Action") }}</th>
         </tr>
@@ -71,15 +73,17 @@
 <script type="text/javascript">
     $(document).ready(function() {
       $.noConflict();
-      var table = $('#plans').DataTable({
+      var table = $('#coupons').DataTable({
           processing: true,
           serverSide: true,
-          ajax: "{{ route('plans') }}",
+          ajax: "{{ route('coupons') }}",
           columns: [
               {data: 'id', name: '#'},
-              {data: 'image', name: '{{__("Image")}}'},
-              {data: 'name', name: '{{__("Name")}}'},
+              {data: 'code', name: '{{__("Code")}}'},
+              {data: 'discount', name: '{{__("Discount")}}'},
+              {data: 'max', name: '{{__("Max")}}'},
               {data: 'status', name: '{{__("Status")}}'},
+              {data: 'expired_date', name: '{{__("Expired At")}}'},
               {data: 'created_at', name: '{{__("Created At")}}'},
               {
                   data: 'action',

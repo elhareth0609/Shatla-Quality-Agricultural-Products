@@ -20,6 +20,7 @@ use App\Http\Controllers\form_layouts\HorizontalForm;
 use App\Http\Controllers\form_layouts\VerticalForm;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\icons\MdiIcons;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\layouts\Blank;
 use App\Http\Controllers\layouts\Container;
 use App\Http\Controllers\layouts\Fluid;
@@ -42,8 +43,8 @@ use App\Http\Controllers\user_interface\Carousel;
 use App\Http\Controllers\user_interface\Collapse;
 use App\Http\Controllers\user_interface\Dropdowns;
 use App\Http\Controllers\user_interface\Footer;
-use App\Http\Controllers\user_interface\ListGroups;
 
+use App\Http\Controllers\user_interface\ListGroups;
 use App\Http\Controllers\user_interface\Modals;
 use App\Http\Controllers\user_interface\Navbar;
 use App\Http\Controllers\user_interface\Offcanvas;
@@ -56,6 +57,7 @@ use App\Http\Controllers\user_interface\TooltipsPopovers;
 use App\Http\Controllers\user_interface\Typography;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -84,6 +86,7 @@ Route::middleware('auth')->group(function () {
   Route::get('/sales', [DataTablesController::class, 'sales'])->name('sales');
   Route::get('/blogs', [DataTablesController::class, 'blogs'])->name('blogs');
   Route::get('/plans', [DataTablesController::class, 'plans'])->name('plans');
+  Route::get('/coupons', [DataTablesController::class, 'coupons'])->name('coupons');
 
   Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
   Route::get('/website-settings', [SettingsController::class, 'website'])->name('settings.website');
@@ -114,7 +117,7 @@ Route::middleware('auth')->group(function () {
   Route::get('/blog/delete', [BlogsController::class, 'delete'])->name('blog.delete');
   Route::post('/blog/update', [BlogsController::class, 'update'])->name('blog.update');
 
-  Route::get('/plans', [PlanController::class, 'index'])->name('plans.index');
+  Route::get('/pricing-plan', [PlanController::class, 'index'])->name('plans.index');
   Route::get('/change-profile', [PlanController::class, 'change_profile'])->name('user.change.profile');
   Route::post('/change-profile-action', [PlanController::class, 'change_profile_action'])->name('user.change.profile.action');
 
@@ -164,8 +167,6 @@ Route::middleware('guest')->group(function () {
 
 
 
-
-
   Route::get('/terms-of-use', [SettingsController::class, 'terms_of_use'])->name('terms_of_use');
   Route::get('/about-us', [SettingsController::class, 'about_us'])->name('about_us');
   Route::get('/privacy-and-policy', [SettingsController::class, 'privacy_and_policy'])->name('privacy_and_policy');
@@ -173,24 +174,25 @@ Route::middleware('guest')->group(function () {
   Route::get('/secure-payment', [SettingsController::class, 'secure_payment'])->name('secure_payment');
 
 
+  Route::get('/change-language/{locale}', [LanguageController::class, 'change'])->name('change.language');
 
 
 
 
 
 
+  Route::get('/ddd', function () {
+    // Clear cache
+    Artisan::call('cache:clear');
+    // Clear configuration cache
+    Artisan::call('config:cache');
+    // Cache routes
+    Artisan::call('route:cache');
+    // Cache views
+    Artisan::call('view:cache');
 
-
-
-
-
-
-
-
-
-
-
-
+    return 'Cache cleared successfully.';
+  });
 
 
 
@@ -265,17 +267,3 @@ Route::get('/form/layouts-horizontal', [HorizontalForm::class, 'index'])->name('
 
 // tables
 Route::get('/tables/basic', [TablesBasic::class, 'index'])->name('tables-basic');
-
-
-Route::get('/ddd', function () {
-  // Clear cache
-  Artisan::call('cache:clear');
-  // Clear configuration cache
-  Artisan::call('config:cache');
-  // Cache routes
-  Artisan::call('route:cache');
-  // Cache views
-  Artisan::call('view:cache');
-
-  return 'Cache cleared successfully.';
-});

@@ -23,4 +23,9 @@ class Sell extends Model
     {
         return $this->hasMany(Sell_Products::class);
     }
+
+    public function coupon() {
+        return $this->belongsTo(Coupon::class);
+    }
+
 }

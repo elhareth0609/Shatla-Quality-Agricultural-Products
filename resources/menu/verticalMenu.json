@@ -57,6 +57,12 @@
       "slug": "plans"
     },
     {
+      "url": "/coupons",
+      "name": "Coupons",
+      "icon": "menu-icon tf-icons mdi mdi-ticket-percent-outline",
+      "slug": "coupons"
+    },
+    {
       "url": "/blogs",
       "name": "Blogs",
       "icon": "menu-icon tf-icons mdi mdi-newspaper-variant-outline",

@@ -34,33 +34,22 @@
       </div>
 
       <div class="header-top-actions">
-
-        {{-- <div class="col-lg-3 col-sm-6 col-12"> --}}
-          {{-- <div class="demo-inline-spacing"> --}}
-            <div class="btn-group">
-              <button type="button" class="btn btn-primary btn-icon rounded-pill dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-translate"></i></button>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="javascript:void(0);">{{__('English')}}</a></li>
-                <li><a class="dropdown-item" href="javascript:void(0);">{{__('Arabic')}}</a></li>
-                <li><a class="dropdown-item" href="javascript:void(0);">{{__('Francais')}}</a></li>
-              </ul>
-            </div>
-          {{-- </div> --}}
-        {{-- </div> --}}
-
-        {{-- <div class="col-lg-3 col-sm-6 col-12 mx-1"> --}}
-          {{-- <div class="demo-inline-spacing"> --}}
-            <div class="btn-group">
-              <button type="button" class="btn btn-primary btn-icon rounded-pill dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-currency-usd"></i></button>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="javascript:void(0);">USD &dollar;</a></li>
-                <li><a class="dropdown-item" href="javascript:void(0);">EUR &euro;</a></li>
-                <li><a class="dropdown-item" href="javascript:void(0);">DZD</a></li>
-              </ul>
-            </div>
-          {{-- </div> --}}
-        {{-- </div> --}}
-
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary btn-icon rounded-pill dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-translate"></i></button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            @foreach (config('language') as $locale => $language)
+              <li><a class="dropdown-item {{ app()->getLocale() == $locale ? 'active' : '' }}" href="{{ route("change.language",$locale ) }}">{{ $language }}</a></li>
+            @endforeach
+          </ul>
+        </div>
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary btn-icon rounded-pill dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-currency-usd"></i></button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="javascript:void(0);">USD &dollar;</a></li>
+            <li><a class="dropdown-item" href="javascript:void(0);">EUR &euro;</a></li>
+            <li><a class="dropdown-item" href="javascript:void(0);">DZD</a></li>
+          </ul>
+        </div>
       </div>
 
     </div>
