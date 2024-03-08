@@ -10,20 +10,27 @@
               <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
               <div class="row">
                   <div class="col-md-6 form-group">
-                      <label>First Name</label>
-                      <input class="form-control" type="text" placeholder="John">
+                    <div class="form-floating form-floating-outline mb-4">
+                      <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" />
+                      <label for="exampleFormControlInput1">{{ __('First Name') }}</label>
+                    </div>                  </div>
+                  <div class="col-md-6">
+                    <div class="form-floating form-floating-outline mb-4">
+                      <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" />
+                      <label for="exampleFormControlInput1">{{ __('Last Name') }}</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-floating form-floating-outline mb-4">
+                      <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" />
+                      <label for="exampleFormControlInput1">{{ __('Email address') }}</label>
+                    </div>
                   </div>
                   <div class="col-md-6 form-group">
-                      <label>Last Name</label>
-                      <input class="form-control" type="text" placeholder="Doe">
-                  </div>
-                  <div class="col-md-6 form-group">
-                      <label>E-mail</label>
-                      <input class="form-control" type="text" placeholder="example@email.com">
-                  </div>
-                  <div class="col-md-6 form-group">
-                      <label>Mobile No</label>
-                      <input class="form-control" type="text" placeholder="+123 456 789">
+                    <div class="form-floating form-floating-outline mb-4">
+                      <input class="form-control" type="tel" placeholder="90-(164)-188-556" id="html5-tel-input" />
+                      <label for="html5-tel-input">{{ __('Phone') }}</label>
+                    </div>
                   </div>
                   <div class="col-md-6 form-group">
                       <label>Address Line 1</label>
@@ -121,7 +128,7 @@
       </div>
       <div class="col-lg-4">
           <div class="card border-secondary mb-5">
-              <div class="card-header bg-secondary border-0">
+              <div class="card-header border-0 bg-primary">
                   <h4 class="font-weight-semi-bold m-0">Order Total</h4>
               </div>
               <div class="card-body">
@@ -151,6 +158,8 @@
                     <h6 class="font-weight-medium">Coupon</h6>
                     <h6 class="font-weight-medium">0%</h6>
                   </div>
+                  <hr class="mt-0">
+
               </div>
               <div class="card-footer border-secondary bg-transparent">
                   <div class="d-flex justify-content-between mt-2">
@@ -160,31 +169,31 @@
               </div>
           </div>
           <div class="card border-secondary mb-5">
-              <div class="card-header bg-secondary border-0">
+              <div class="card-header border-0 bg-primary">
                   <h4 class="font-weight-semi-bold m-0">Payment</h4>
               </div>
               <div class="card-body">
-                  <div class="form-group">
-                      <div class="custom-control custom-radio">
-                          <input type="radio" class="custom-control-input" name="payment" id="upon-receipt">
-                          <label class="custom-control-label" for="paypal">{{ __('Upon receipt') }}</label>
-                      </div>
-                  </div>
-                  <div class="form-group">
-                      <div class="custom-control custom-radio">
-                          <input type="radio" class="custom-control-input" name="payment" id="gold-card">
-                          <label class="custom-control-label" for="directcheck">{{ __('Gold card') }}</label>
-                      </div>
-                  </div>
-                  <div class="">
-                      <div class="custom-control custom-radio">
-                          <input type="radio" class="custom-control-input" name="payment" id="baridi-mob">
-                          <label class="custom-control-label" for="banktransfer">{{ __('Baridi Mob') }}</label>
-                      </div>
-                  </div>
+                <div class="form-check mt-3">
+                  <input class="form-check-input" name="payment-way" type="radio" value="" id="upon-receipt" />
+                  <label class="form-check-label" for="defaultCheck1">
+                    {{ __('Upon receipt') }}
+                  </label>
+                </div>
+                <div class="form-check mt-3">
+                  <input class="form-check-input" name="payment-way" type="radio" value="" id="gold-card" />
+                  <label class="form-check-label" for="defaultCheck1">
+                    {{ __('Gold card') }}
+                  </label>
+                </div>
+                <div class="form-check mt-3">
+                  <input class="form-check-input" name="payment-way" type="radio" value="" id="baridi-mob" />
+                  <label class="form-check-label" for="defaultCheck1">
+                    {{ __('Baridi Mob') }}
+                  </label>
+                </div>
               </div>
               <div class="card-footer border-secondary bg-transparent">
-                  <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Place Order</button>
+                  <button class="btn btn-primary float-end">Place Order</button>
               </div>
           </div>
       </div>
