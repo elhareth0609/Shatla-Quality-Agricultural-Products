@@ -45,9 +45,13 @@
         <div class="btn-group">
           <button type="button" class="btn btn-primary btn-icon rounded-pill dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-currency-usd"></i></button>
           <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="javascript:void(0);">USD &dollar;</a></li>
-            <li><a class="dropdown-item" href="javascript:void(0);">EUR &euro;</a></li>
-            <li><a class="dropdown-item" href="javascript:void(0);">DZD</a></li>
+            @foreach(config('currency.currencies') as $currencyCode => $symbol)
+              <li>
+                  <a class="dropdown-item {{ session('currency', config('currency.default_currency')) === $currencyCode ? 'active' : '' }}" href="{{ route('change.currency', $currencyCode) }}">
+                    {{ $currencyCode }} {{ $symbol }}
+                  </a>
+              </li>
+            @endforeach
           </ul>
         </div>
       </div>
@@ -590,18 +594,11 @@
           </button>
 
           <ul class="submenu-category-list" data-accordion>
-
+            @foreach (config('language') as $locale => $language)
             <li class="submenu-category">
-              <a href="#" class="submenu-title">English</a>
+              <a href="{{ route("change.language",$locale ) }}" class="submenu-title {{ app()->getLocale() == $locale ? 'active' : '' }}">{{ $language }}</a>
             </li>
-
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">Espa&ntilde;ol</a>
-            </li>
-
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">Fren&ccedil;h</a>
-            </li>
+            @endforeach
 
           </ul>
 

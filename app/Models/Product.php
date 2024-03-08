@@ -39,4 +39,24 @@ class Product extends Model
       return $this->hasMany(Favorite::class);
   }
 
+  public function getNewPrice($currency)
+{
+    $price = $this->price;
+
+    // if ($currency === config('currency.default_currency')) {
+    //   return $price;
+    // }
+
+    $baseCurrency = 'DZD';
+
+    $response = $this->client->get("https://open.er-api.com/v6/latest/{$baseCurrency}");
+    $data = json_decode($response->getBody(), true);
+
+    $exchangeRate = $data['rates'][$currency];
+
+    $newPrice = $exchangeRate * $price;
+
+    return $newPrice;
+}
+
 }

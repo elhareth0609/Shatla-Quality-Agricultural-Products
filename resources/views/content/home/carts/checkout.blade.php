@@ -143,9 +143,13 @@
                       <h6 class="font-weight-medium">Subtotal</h6>
                       <h6 class="font-weight-medium">$150</h6>
                   </div>
+                  <div class="d-flex justify-content-between mb-3">
+                    <h6 class="font-weight-medium">Shipping</h6>
+                    <h6 class="font-weight-medium">$10</h6>
+                  </div>
                   <div class="d-flex justify-content-between">
-                      <h6 class="font-weight-medium">Shipping</h6>
-                      <h6 class="font-weight-medium">$10</h6>
+                    <h6 class="font-weight-medium">Coupon</h6>
+                    <h6 class="font-weight-medium">0%</h6>
                   </div>
               </div>
               <div class="card-footer border-secondary bg-transparent">
@@ -162,20 +166,20 @@
               <div class="card-body">
                   <div class="form-group">
                       <div class="custom-control custom-radio">
-                          <input type="radio" class="custom-control-input" name="payment" id="paypal">
-                          <label class="custom-control-label" for="paypal">Paypal</label>
+                          <input type="radio" class="custom-control-input" name="payment" id="upon-receipt">
+                          <label class="custom-control-label" for="paypal">{{ __('Upon receipt') }}</label>
                       </div>
                   </div>
                   <div class="form-group">
                       <div class="custom-control custom-radio">
-                          <input type="radio" class="custom-control-input" name="payment" id="directcheck">
-                          <label class="custom-control-label" for="directcheck">Direct Check</label>
+                          <input type="radio" class="custom-control-input" name="payment" id="gold-card">
+                          <label class="custom-control-label" for="directcheck">{{ __('Gold card') }}</label>
                       </div>
                   </div>
                   <div class="">
                       <div class="custom-control custom-radio">
-                          <input type="radio" class="custom-control-input" name="payment" id="banktransfer">
-                          <label class="custom-control-label" for="banktransfer">Bank Transfer</label>
+                          <input type="radio" class="custom-control-input" name="payment" id="baridi-mob">
+                          <label class="custom-control-label" for="banktransfer">{{ __('Baridi Mob') }}</label>
                       </div>
                   </div>
               </div>

@@ -8,11 +8,14 @@ use App\Http\Controllers\cards\CardBasic;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChargilyPayController;
+use App\Http\Controllers\CouponController;
+use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\dashboard\Analytics;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DataTablesController;
 use App\Http\Controllers\DiseasesController;
 use App\Http\Controllers\extended_ui\PerfectScrollbar;
+
 use App\Http\Controllers\extended_ui\TextDivider;
 use App\Http\Controllers\form_elements\BasicInput;
 use App\Http\Controllers\form_elements\InputGroups;
@@ -37,13 +40,15 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\tables\Basic as TablesBasic;
 use App\Http\Controllers\user_interface\Accordion;
 use App\Http\Controllers\user_interface\Alerts;
+
 use App\Http\Controllers\user_interface\Badges;
 use App\Http\Controllers\user_interface\Buttons;
+
+
 use App\Http\Controllers\user_interface\Carousel;
 use App\Http\Controllers\user_interface\Collapse;
 use App\Http\Controllers\user_interface\Dropdowns;
 use App\Http\Controllers\user_interface\Footer;
-
 use App\Http\Controllers\user_interface\ListGroups;
 use App\Http\Controllers\user_interface\Modals;
 use App\Http\Controllers\user_interface\Navbar;
@@ -65,12 +70,17 @@ use Illuminate\Support\Facades\Route;
 
 
 
+
+
+
+
+
+
+
 // Main Page Route
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', [HomeController::class, 'index']);
 
-Route::get('/home/blogs', [BlogsController::class, 'index'])->name('blog.index');
-Route::get('/home/blogs/{id}', [BlogsController::class, 'ones'])->name('blog.ones');
 
 
 Route::middleware('auth')->group(function () {
@@ -79,6 +89,7 @@ Route::middleware('auth')->group(function () {
 
   // DataTables
   Route::get('/users', [DataTablesController::class, 'users'])->name('users');
+  Route::get('/user-porfiles', [DataTablesController::class, 'userProfiles'])->name('user.profiles');
   Route::get('/sellers', [DataTablesController::class, 'sellers'])->name('sellers');
   Route::get('/experts', [DataTablesController::class, 'experts'])->name('experts');
   Route::get('/products', [DataTablesController::class, 'products'])->name('products');
@@ -88,42 +99,55 @@ Route::middleware('auth')->group(function () {
   Route::get('/plans', [DataTablesController::class, 'plans'])->name('plans');
   Route::get('/coupons', [DataTablesController::class, 'coupons'])->name('coupons');
 
+  // Dashboard Settings
   Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
   Route::get('/website-settings', [SettingsController::class, 'website'])->name('settings.website');
   Route::get('/account-settings', [SettingsController::class, 'account'])->name('settings.account');
   Route::get('/store-settings', [SettingsController::class, 'store'])->name('settings.store');
 
+  // Cart
   Route::get('/cart', [CartController::class, 'index'])->name('cart');
   Route::get('/cart/add', [CartController::class, 'add'])->name('cart.add');
   Route::get('/cart/delete', [CartController::class, 'delete'])->name('cart.delete');
   Route::get('/cart/update', [CartController::class, 'update'])->name('cart.update');
 
-  Route::get('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
-
-  Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
-
+  // Products
   Route::get('/product/{id}', [ProductsController::class, 'index'])->name('product.index');
   Route::post('/product/create', [ProductsController::class, 'create'])->name('product.create');
   Route::get('/product/delete', [ProductsController::class, 'delete'])->name('product.delete');
   Route::post('/product/update', [ProductsController::class, 'update'])->name('product.update');
 
+  // Categories
   Route::get('/category/{id}', [CategoryController::class, 'get'])->name('category.get');
   Route::post('/category/create', [CategoryController::class, 'create'])->name('category.create');
   Route::get('/category/delete', [CategoryController::class, 'delete'])->name('category.delete');
   Route::post('/category/update', [CategoryController::class, 'update'])->name('category.update');
 
+  // Coupons
+  Route::get('/coupon/{id}', [CouponController::class, 'index'])->name('coupon');
+  Route::get('/coupon/add', [CouponController::class, 'add'])->name('coupon.add');
+  Route::get('/coupon/delete', [CouponController::class, 'delete'])->name('coupon.delete');
+  Route::get('/coupon/update', [CouponController::class, 'update'])->name('coupon.update');
+
+  // Blogs
   Route::get('/blog/{id}', [BlogsController::class, 'get'])->name('blog.get');
   Route::post('/blog/create', [BlogsController::class, 'create'])->name('blog.create');
   Route::get('/blog/delete', [BlogsController::class, 'delete'])->name('blog.delete');
   Route::post('/blog/update', [BlogsController::class, 'update'])->name('blog.update');
 
+  Route::get('/home/blogs', [BlogsController::class, 'index'])->name('blog.index');
+  Route::get('/home/blogs/{id}', [BlogsController::class, 'ones'])->name('blog.ones');
+
+  // Plans
   Route::get('/pricing-plan', [PlanController::class, 'index'])->name('plans.index');
   Route::get('/change-profile', [PlanController::class, 'change_profile'])->name('user.change.profile');
   Route::post('/change-profile-action', [PlanController::class, 'change_profile_action'])->name('user.change.profile.action');
 
+  // Deasease
   Route::get('/diseases', [DiseasesController::class, 'index'])->name('diseases');
   Route::post('/diseases/predict', [DiseasesController::class, 'predict'])->name('diseases.predict');
 
+  // Authentication
   Route::get('/auth/logout', [LoginBasic::class, 'logout'])->name('logout.action');
 
   //Payment
@@ -132,6 +156,9 @@ Route::middleware('auth')->group(function () {
   Route::post('chargily/payment/webhook', [ChargilyPayController::class, 'handleWebhook'])->name('chargily.payment.webhook');
 
   // Pages Of Website
+  Route::get('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+  Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+
   Route::get('/terms-of-use/get', [SettingsController::class, 'get_terms_of_use'])->name('setting.terms_of_use.get');
   Route::get('/about-us/get', [SettingsController::class, 'get_about_us'])->name('about_us.get');
   Route::get('/privacy-and-policy/get', [SettingsController::class, 'get_privacy_and_policy'])->name('privacy_and_policy.get');
@@ -174,7 +201,8 @@ Route::middleware('guest')->group(function () {
   Route::get('/secure-payment', [SettingsController::class, 'secure_payment'])->name('secure_payment');
 
 
-  Route::get('/change-language/{locale}', [LanguageController::class, 'change'])->name('change.language');
+  Route::get('change-language/{locale}', [LanguageController::class, 'change'])->name('change.language');
+  Route::get('change-currency/{currency}', [CurrencyController::class, 'change'])->name('change.currency');
 
 
 

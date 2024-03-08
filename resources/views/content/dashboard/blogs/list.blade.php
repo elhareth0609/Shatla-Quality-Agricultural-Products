@@ -63,9 +63,6 @@
   td,tr {
     text-align: center;
   }
-  .my-w-fit-content {
-    width: fit-content!important;
-  }
 </style>
 
 <script type="text/javascript">
@@ -108,7 +105,7 @@
         pagination.empty();
 
         // Add Previous button
-        var prevButton = $('<li>').addClass('page-item').append($('<a>').addClass('page-link').attr('href', 'javascript:void(0);').html('&laquo;'));
+        var prevButton = $('<li>').addClass('page-item').append($('<a>').addClass('page-link ms-1').attr('href', 'javascript:void(0);').html('&laquo;'));
         if (info.page > 0) {
           prevButton.find('a').click(function () {
             table.page('previous').draw('page');

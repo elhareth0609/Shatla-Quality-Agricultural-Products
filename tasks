@@ -1,0 +1,2 @@
+product price :   
+ <p>Price: {{ $product->getNewPrice(session('currency', config('currency.default_currency'))) }} {{ session('currency', config('currency.default_currency')) }}</p>

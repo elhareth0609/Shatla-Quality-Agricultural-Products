@@ -74,12 +74,12 @@
             <div class="divider-text">{{ __('Or') }}</div>
           </div>
           <div class="row justify-content-center">
-            <a class="mine-w-fit" href="{{ route('auth.google.redirect') }}">
+            <a class="my-w-fit-content" href="{{ route('auth.google.redirect') }}">
               <button type="button" class="btn btn-outline-primary">
                 <span class="tf-icons mdi mdi-google"></span>
               </button>
             </a>
-            <a class="mine-w-fit" href="{{ route('auth.facebook.redirect') }}">
+            <a class="my-w-fit-content" href="{{ route('auth.facebook.redirect') }}">
               <button type="button" class="btn btn-outline-primary">
                 <span class="tf-icons mdi mdi-facebook"></span>
               </button>
