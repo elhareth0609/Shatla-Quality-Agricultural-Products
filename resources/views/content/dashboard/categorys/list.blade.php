@@ -1,28 +1,29 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Categorys')
+@section('title', __('Categorys'))
 
 @section('content')
-<h4 class="py-3 mb-4"><span class="text-muted fw-light">{{__('Pages')}} /</span> {{__('Categorys')}}
+<h4 class="py-3 mb-4" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}"><span class="text-muted fw-light">{{ __('Pages') }} /</span> {{ __('Categorys') }}
 </h4>
 
 <!-- Responsive Table -->
-<div class="card row">
-  <h5 class="card-header">{{__('Categorys')}}</h5>
-  <div class="row justify-content-between">
-    <div class="my-w-fit-content mb-3" >
-      <select class="form-select text-center h-100" id="dataTables_my_length" aria-label="Default select example">
-        <option value="10">10</option>
-        <option value="25">25</option>
-        <option value="50">50</option>
-        <option value="100" selected>100</option>
-      </select>
-    </div>
-    <div class="form-floating form-floating-outline my-w-fit-content mb-3">
-      <input class="form-control" type="search" placeholder="Search ..." id="dataTables_my_filter" />
-      <label for="html5-search-input">Search</label>
-    </div>
-  </div>
+<div class="card row" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
+  <h5 class="card-header">{{ __('Categorys') }}</h5>
+  <div class="row">
+    <input class="form-control my-w-fit-content mb-3 mx-1" type="search" placeholder="{{ __('Search ...') }}" id="dataTables_my_filter" />
+
+    <select class="form-select text-center my-w-fit-content mb-3 mx-1" id="dataTables_my_length" aria-label="Default select example">
+      <option value="10">10</option>
+      <option value="25">25</option>
+      <option value="50">50</option>
+      <option value="100" selected>100</option>
+    </select>
+
+    <button type="button" class="btn btn-icon btn-outline-primary mb-3 mx-1">
+      <span class="tf-icons mdi mdi-plus-outline"></span>
+    </button>
+</div>
+
   <div class="table-responsive text-nowrap">
     <table class="table table-striped w-100" id="categorys" data-page-length='100'>
       <thead>
@@ -64,12 +65,19 @@
   }
 </style>
 
+<script src="{{ asset('assets/js/mine.js') }}"></script>
+
 <script type="text/javascript">
-    $(document).ready(function() {
-      $.noConflict();
+
+$(document).ready(function() {
+  $.noConflict();
+      var lang = "{{ app()->getLocale() }}";
       var table = $('#categorys').DataTable({
           processing: true,
           serverSide: true,
+          language: {
+            "emptyTable": __("No data available in table",lang)
+          },
           ajax: "{{ route('categorys') }}",
           columns: [
               {data: 'id', name: '#'},
@@ -141,7 +149,7 @@
             // Calculate the range
         var startRange = info.start + 1;
         var endRange = info.start + info.length;
-        var pageInfo = startRange + ' to ' + endRange + ' from ' + info.recordsTotal;
+        var pageInfo = startRange + ' ' + __("to",lang) + ' ' + endRange + ' ' + __("from",lang) + ' ' + info.recordsTotal;
         $('#dataTables_my_info').text(pageInfo);
 
       });

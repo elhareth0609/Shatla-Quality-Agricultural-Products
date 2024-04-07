@@ -37,6 +37,7 @@ use App\Http\Controllers\pages\MiscUnderMaintenance;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\CountryController;
 use App\Http\Controllers\tables\Basic as TablesBasic;
 use App\Http\Controllers\user_interface\Accordion;
 use App\Http\Controllers\user_interface\Alerts;
@@ -145,7 +146,7 @@ Route::middleware('auth')->group(function () {
 
   // Deasease
   Route::get('/diseases', [DiseasesController::class, 'index'])->name('diseases');
-  Route::post('/diseases/predict', [DiseasesController::class, 'predict'])->name('diseases.predict');
+  Route::match(['get', 'post'], '/diseases/predict', [DiseasesController::class, 'predict'])->name('diseases.predict');
 
   // Authentication
   Route::get('/auth/logout', [LoginBasic::class, 'logout'])->name('logout.action');
@@ -203,7 +204,8 @@ Route::middleware('guest')->group(function () {
 
   Route::get('change-language/{locale}', [LanguageController::class, 'change'])->name('change.language');
   Route::get('change-currency/{currency}', [CurrencyController::class, 'change'])->name('change.currency');
-
+  Route::get('/get-states/{countryId}', [CountryController::class, 'getStates'])->name('get.states');
+  Route::get('/get-cities/{countryId}/{stateId}', [CountryController::class, 'getCities'])->name('get.cities');
 
 
 

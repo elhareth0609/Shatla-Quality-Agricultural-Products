@@ -93,7 +93,7 @@
 
       <div class="category-item-container has-scrollbar">
 
-        <div class="category-item">
+        <div class="category-item bg-white">
 
           <div class="category-img-box">
             <img src="{{ asset('assets/home/images/icons/dress.svg') }}" alt="dress & frock" width="30">
@@ -113,7 +113,7 @@
 
         </div>
 
-        <div class="category-item">
+        <div class="category-item bg-white">
 
           <div class="category-img-box">
             <img src="{{ asset('assets/home/images/icons/coat.svg') }}" alt="winter wear" width="30">
@@ -133,7 +133,7 @@
 
         </div>
 
-        <div class="category-item">
+        <div class="category-item bg-white">
 
           <div class="category-img-box">
             <img src="{{ asset('assets/home/images/icons/glasses.svg') }}" alt="glasses & lens" width="30">
@@ -153,7 +153,7 @@
 
         </div>
 
-        <div class="category-item">
+        <div class="category-item bg-white">
 
           <div class="category-img-box">
             <img src="{{ asset('assets/home/images/icons/shorts.svg') }}" alt="shorts & jeans" width="30">
@@ -173,7 +173,7 @@
 
         </div>
 
-        <div class="category-item">
+        <div class="category-item bg-white">
 
           <div class="category-img-box">
             <img src="{{ asset('assets/home/images/icons/tee.svg') }}" alt="t-shirts" width="30">
@@ -193,7 +193,7 @@
 
         </div>
 
-        <div class="category-item">
+        <div class="category-item bg-white">
 
           <div class="category-img-box">
             <img src="{{ asset('assets/home/images/icons/jacket.svg') }}" alt="jacket" width="30">
@@ -213,7 +213,7 @@
 
         </div>
 
-        <div class="category-item">
+        <div class="category-item bg-white">
 
           <div class="category-img-box">
             <img src="{{ asset('assets/home/images/icons/watch.svg') }}" alt="watch" width="30">
@@ -233,7 +233,7 @@
 
         </div>
 
-        <div class="category-item">
+        <div class="category-item bg-white">
 
           <div class="category-img-box">
             <img src="{{ asset('assets/home/images/icons/hat.svg') }}" alt="hat & caps" width="30">
@@ -274,7 +274,7 @@
 
       <div class="sidebar  has-scrollbar" data-mobile-menu>
 
-        <div class="sidebar-category">
+        <div class="sidebar-category bg-white">
 
           <div class="sidebar-top">
             <h2 class="sidebar-title">Category</h2>
@@ -640,7 +640,7 @@
 
             <div class="showcase-container">
 
-              <div class="showcase">
+              <div class="showcase bg-white">
 
                 <a href="#" class="showcase-img-box">
                   <img src="{{ asset('assets/home/images/products/1.jpg') }}" alt="baby fabric shoes" width="75" height="75"
@@ -670,7 +670,7 @@
 
               </div>
 
-              <div class="showcase">
+              <div class="showcase bg-white">
 
                 <a href="#" class="showcase-img-box">
                   <img src="{{ asset('assets/home/images/products/2.jpg') }}" alt="men's hoodies t-shirt" class="showcase-img"
@@ -699,7 +699,7 @@
 
               </div>
 
-              <div class="showcase">
+              <div class="showcase bg-white">
 
                 <a href="#" class="showcase-img-box">
                   <img src="{{ asset('assets/home/images/products/3.jpg') }}" alt="girls t-shirt" class="showcase-img" width="75"
@@ -728,7 +728,7 @@
 
               </div>
 
-              <div class="showcase">
+              <div class="showcase bg-white">
 
                 <a href="#" class="showcase-img-box">
                   <img src="{{ asset('assets/home/images/products/4.jpg') }}" alt="woolen hat for men" class="showcase-img" width="75"
@@ -783,7 +783,7 @@
 
               <div class="showcase-container">
 
-                <div class="showcase">
+                <div class="showcase bg-white">
 
                   <a href="#" class="showcase-img-box">
                     <img src="{{ asset('assets/home/images/products/clothes-1.jpg') }}" alt="relaxed short full sleeve t-shirt" width="70" class="showcase-img">
@@ -806,7 +806,7 @@
 
                 </div>
 
-                <div class="showcase">
+                <div class="showcase bg-white">
 
                   <a href="#" class="showcase-img-box">
                     <img src="{{ asset('assets/home/images/products/clothes-2.jpg') }}" alt="girls pink embro design top" class="showcase-img" width="70">
@@ -829,7 +829,7 @@
 
                 </div>
 
-                <div class="showcase">
+                <div class="showcase bg-white">
 
                   <a href="#" class="showcase-img-box">
                     <img src="{{ asset('assets/home/images/products/clothes-3.jpg') }}" alt="black floral wrap midi skirt" class="showcase-img"
@@ -853,7 +853,7 @@
 
                 </div>
 
-                <div class="showcase">
+                <div class="showcase bg-white">
 
                   <a href="#" class="showcase-img-box">
                     <img src="{{ asset('assets/home/images/products/shirt-1.jpg') }}" alt="pure garment dyed cotton shirt" class="showcase-img"
@@ -881,7 +881,7 @@
 
               <div class="showcase-container">
 
-                <div class="showcase">
+                <div class="showcase bg-white">
 
                   <a href="#" class="showcase-img-box">
                     <img src="{{ asset('assets/home/images/products/jacket-5.jpg') }}" alt="men yarn fleece full-zip jacket" class="showcase-img"
@@ -905,7 +905,7 @@
 
                 </div>
 
-                <div class="showcase">
+                <div class="showcase bg-white">
 
                   <a href="#" class="showcase-img-box">
                     <img src="{{ asset('assets/home/images/products/jacket-1.jpg') }}" alt="mens winter leathers jackets" class="showcase-img"
@@ -929,7 +929,7 @@
 
                 </div>
 
-                <div class="showcase">
+                <div class="showcase bg-white">
 
                   <a href="#" class="showcase-img-box">
                     <img src="{{ asset('assets/home/images/products/jacket-3.jpg') }}" alt="mens winter leathers jackets" class="showcase-img"
@@ -953,7 +953,7 @@
 
                 </div>
 
-                <div class="showcase">
+                <div class="showcase bg-white">
 
                   <a href="#" class="showcase-img-box">
                     <img src="{{ asset('assets/home/images/products/shorts-1.jpg') }}" alt="better basics french terry sweatshorts" class="showcase-img"
@@ -991,7 +991,7 @@
 
               <div class="showcase-container">
 
-                <div class="showcase">
+                <div class="showcase bg-white">
 
                   <a href="#" class="showcase-img-box">
                     <img src="{{ asset('assets/home/images/products/sports-1.jpg') }}" alt="running & trekking shoes - white" class="showcase-img"
@@ -1015,7 +1015,7 @@
 
                 </div>
 
-                <div class="showcase">
+                <div class="showcase bg-white">
 
                   <a href="#" class="showcase-img-box">
                     <img src="{{ asset('assets/home/images/products/sports-2.jpg') }}" alt="trekking & running shoes - black" class="showcase-img"
@@ -1039,7 +1039,7 @@
 
                 </div>
 
-                <div class="showcase">
+                <div class="showcase bg-white">
 
                   <a href="#" class="showcase-img-box">
                     <img src="{{ asset('assets/home/images/products/party-wear-1.jpg') }}" alt="womens party wear shoes" class="showcase-img"
@@ -1063,7 +1063,7 @@
 
                 </div>
 
-                <div class="showcase">
+                <div class="showcase bg-white">
 
                   <a href="#" class="showcase-img-box">
                     <img src="{{ asset('assets/home/images/products/sports-3.jpg') }}" alt="sports claw women's shoes" class="showcase-img"
@@ -1091,7 +1091,7 @@
 
               <div class="showcase-container">
 
-                <div class="showcase">
+                <div class="showcase bg-white">
 
                   <a href="#" class="showcase-img-box">
                     <img src="{{ asset('assets/home/images/products/sports-6.jpg') }}" alt="air tekking shoes - white" class="showcase-img"
@@ -1115,7 +1115,7 @@
 
                 </div>
 
-                <div class="showcase">
+                <div class="showcase bg-white">
 
                   <a href="#" class="showcase-img-box">
                     <img src="{{ asset('assets/home/images/products/shoe-3.jpg') }}" alt="Boot With Suede Detail" class="showcase-img" width="70">
@@ -1138,7 +1138,7 @@
 
                 </div>
 
-                <div class="showcase">
+                <div class="showcase bg-white">
 
                   <a href="#" class="showcase-img-box">
                     <img src="{{ asset('assets/home/images/products/shoe-1.jpg') }}" alt="men's leather formal wear shoes" class="showcase-img"
@@ -1162,7 +1162,7 @@
 
                 </div>
 
-                <div class="showcase">
+                <div class="showcase bg-white">
 
                   <a href="#" class="showcase-img-box">
                     <img src="{{ asset('assets/home/images/products/shoe-2.jpg') }}" alt="casual men's brown shoes" class="showcase-img" width="70">
@@ -1199,7 +1199,7 @@
 
               <div class="showcase-container">
 
-                <div class="showcase">
+                <div class="showcase bg-white">
 
                   <a href="#" class="showcase-img-box">
                     <img src="{{ asset('assets/home/images/products/watch-3.jpg') }}" alt="pocket watch leather pouch" class="showcase-img"
@@ -1223,7 +1223,7 @@
 
                 </div>
 
-                <div class="showcase">
+                <div class="showcase bg-white">
 
                   <a href="#" class="showcase-img-box">
                     <img src="{{ asset('assets/home/images/products/jewellery-3.jpg') }}" alt="silver deer heart necklace" class="showcase-img"
@@ -1247,7 +1247,7 @@
 
                 </div>
 
-                <div class="showcase">
+                <div class="showcase bg-white">
 
                   <a href="#" class="showcase-img-box">
                     <img src="{{ asset('assets/home/images/products/perfume.jpg') }}" alt="titan 100 ml womens perfume" class="showcase-img"
@@ -1271,7 +1271,7 @@
 
                 </div>
 
-                <div class="showcase">
+                <div class="showcase bg-white">
 
                   <a href="#" class="showcase-img-box">
                     <img src="{{ asset('assets/home/images/products/belt.jpg') }}" alt="men's leather reversible belt" class="showcase-img"
@@ -1299,7 +1299,7 @@
 
               <div class="showcase-container">
 
-                <div class="showcase">
+                <div class="showcase bg-white">
 
                   <a href="#" class="showcase-img-box">
                     <img src="{{ asset('assets/home/images/products/jewellery-2.jpg') }}" alt="platinum zircon classic ring" class="showcase-img"
@@ -1323,7 +1323,7 @@
 
                 </div>
 
-                <div class="showcase">
+                <div class="showcase bg-white">
 
                   <a href="#" class="showcase-img-box">
                     <img src="{{ asset('assets/home/images/products/watch-1.jpg') }}" alt="smart watche vital plus" class="showcase-img" width="70">
@@ -1346,7 +1346,7 @@
 
                 </div>
 
-                <div class="showcase">
+                <div class="showcase bg-white">
 
                   <a href="#" class="showcase-img-box">
                     <img src="{{ asset('assets/home/images/products/shampoo.jpg') }}" alt="shampoo conditioner packs" class="showcase-img"
@@ -1370,7 +1370,7 @@
 
                 </div>
 
-                <div class="showcase">
+                <div class="showcase bg-white">
 
                   <a href="#" class="showcase-img-box">
                     <img src="{{ asset('assets/home/images/products/jewellery-1.jpg') }}" alt="rose gold peacock earrings" class="showcase-img"
@@ -1416,7 +1416,7 @@
 
             <div class="showcase-container">
 
-              <div class="showcase">
+              <div class="showcase bg-white">
 
                 <div class="showcase-banner">
                   <img src="{{ asset('assets/home/images/products/shampoo.jpg') }}" alt="shampoo, conditioner & facewash packs" class="showcase-img">
@@ -1473,25 +1473,25 @@
 
                       <div class="countdown-content">
 
-                        <p class="display-number">360</p>
+                        <p class="display-number m-0">360</p>
 
-                        <p class="display-text">Days</p>
+                        <p class="display-text m-0">Days</p>
 
                       </div>
 
                       <div class="countdown-content">
-                        <p class="display-number">24</p>
-                        <p class="display-text">Hours</p>
+                        <p class="display-number m-0">24</p>
+                        <p class="display-text m-0">Hours</p>
                       </div>
 
                       <div class="countdown-content">
-                        <p class="display-number">59</p>
-                        <p class="display-text">Min</p>
+                        <p class="display-number m-0">59</p>
+                        <p class="display-text m-0">Min</p>
                       </div>
 
                       <div class="countdown-content">
-                        <p class="display-number">00</p>
-                        <p class="display-text">Sec</p>
+                        <p class="display-number m-0">00</p>
+                        <p class="display-text m-0">Sec</p>
                       </div>
 
                     </div>
@@ -1506,7 +1506,7 @@
 
             <div class="showcase-container">
 
-              <div class="showcase">
+              <div class="showcase bg-white">
 
                 <div class="showcase-banner">
                   <img src="{{ asset('assets/home/images/products/jewellery-1.jpg') }}" alt="Rose Gold diamonds Earring" class="showcase-img">
@@ -1554,23 +1554,23 @@
 
                     <div class="countdown">
                       <div class="countdown-content">
-                        <p class="display-number">360</p>
-                        <p class="display-text">Days</p>
+                        <p class="display-number m-0">360</p>
+                        <p class="display-text m-0">Days</p>
                       </div>
 
                       <div class="countdown-content">
-                        <p class="display-number">24</p>
-                        <p class="display-text">Hours</p>
+                        <p class="display-number m-0">24</p>
+                        <p class="display-text m-0">Hours</p>
                       </div>
 
                       <div class="countdown-content">
-                        <p class="display-number">59</p>
-                        <p class="display-text">Min</p>
+                        <p class="display-number m-0">59</p>
+                        <p class="display-text m-0">Min</p>
                       </div>
 
                       <div class="countdown-content">
-                        <p class="display-number">00</p>
-                        <p class="display-text">Sec</p>
+                        <p class="display-number m-0">00</p>
+                        <p class="display-text m-0">Sec</p>
                       </div>
                     </div>
 
@@ -1598,7 +1598,7 @@
 
           <div class="product-grid">
 
-            <div class="showcase">
+            <div class="showcase bg-white">
 
               <div class="showcase-banner">
 
@@ -1654,7 +1654,7 @@
 
             </div>
 
-            <div class="showcase">
+            <div class="showcase bg-white">
 
               <div class="showcase-banner">
                 <img src="{{ asset('assets/home/images/products/shirt-1.jpg') }}" alt="Pure Garment Dyed Cotton Shirt" class="product-img default"
@@ -1707,7 +1707,7 @@
 
             </div>
 
-            <div class="showcase">
+            <div class="showcase bg-white">
 
               <div class="showcase-banner">
                 <img src="{{ asset('assets/home/images/products/jacket-5.jpg') }}" alt="MEN Yarn Fleece Full-Zip Jacket" class="product-img default"
@@ -1758,7 +1758,7 @@
 
             </div>
 
-            <div class="showcase">
+            <div class="showcase bg-white">
 
               <div class="showcase-banner">
                 <img src="{{ asset('assets/home/images/products/clothes-3.jpg') }}" alt="Black Floral Wrap Midi Skirt" class="product-img default"
@@ -1811,7 +1811,7 @@
 
             </div>
 
-            <div class="showcase">
+            <div class="showcase bg-white">
 
               <div class="showcase-banner">
                 <img src="{{ asset('assets/home/images/products/shoe-2.jpg') }}" alt="Casual Men's Brown shoes" class="product-img default"
@@ -1862,7 +1862,7 @@
 
             </div>
 
-            <div class="showcase">
+            <div class="showcase bg-white">
 
               <div class="showcase-banner">
                 <img src="{{ asset('assets/home/images/products/watch-3.jpg') }}" alt="Pocket Watch Leather Pouch" class="product-img default"
@@ -1915,7 +1915,7 @@
 
             </div>
 
-            <div class="showcase">
+            <div class="showcase bg-white">
 
               <div class="showcase-banner">
                 <img src="{{ asset('assets/home/images/products/watch-1.jpg') }}" alt="Smart watche Vital Plus" class="product-img default"
@@ -1965,7 +1965,7 @@
 
             </div>
 
-            <div class="showcase">
+            <div class="showcase bg-white">
 
               <div class="showcase-banner">
                 <img src="{{ asset('assets/home/images/products/party-wear-1.jpg') }}" alt="Womens Party Wear Shoes" class="product-img default"
@@ -2018,7 +2018,7 @@
 
             </div>
 
-            <div class="showcase">
+            <div class="showcase bg-white">
 
               <div class="showcase-banner">
                 <img src="{{ asset('assets/home/images/products/jacket-1.jpg') }}" alt="Mens Winter Leathers Jackets" class="product-img default"
@@ -2069,7 +2069,7 @@
 
             </div>
 
-            <div class="showcase">
+            <div class="showcase bg-white">
 
               <div class="showcase-banner">
                 <img src="{{ asset('assets/home/images/products/sports-2.jpg') }}" alt="Trekking & Running Shoes - black" class="product-img default"
@@ -2122,7 +2122,7 @@
 
             </div>
 
-            <div class="showcase">
+            <div class="showcase bg-white">
 
               <div class="showcase-banner">
                 <img src="{{ asset('assets/home/images/products/shoe-1.jpg') }}" alt="Men's Leather Formal Wear shoes" class="product-img default"
@@ -2173,7 +2173,7 @@
 
             </div>
 
-            <div class="showcase">
+            <div class="showcase bg-white">
 
               <div class="showcase-banner">
                 <img src="{{ asset('assets/home/images/products/shorts-1.jpg') }}" alt="Better Basics French Terry Sweatshorts"
@@ -2258,7 +2258,7 @@
 
           <h2 class="title">testimonial</h2>
 
-          <div class="testimonial-card">
+          <div class="testimonial-card bg-white">
 
             <img src="{{ asset('assets/home/images/testimonial-1.jpg') }}" alt="alan doe" class="testimonial-banner" width="80" height="80">
 
@@ -2311,7 +2311,7 @@
 
           <h2 class="title">Our Services</h2>
 
-          <div class="service-container">
+          <div class="service-container bg-white">
 
             <a href="#" class="service-item">
 

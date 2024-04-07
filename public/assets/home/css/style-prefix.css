@@ -23,7 +23,8 @@
   --spanish-gray: hsl(0, 0%, 60%);
   --sonic-silver: hsl(0, 0%, 47%);
   --eerie-black: hsl(0, 0%, 13%);
-  --salmon-pink: hsl(353, 100%, 78%);
+  --salmon-pink: #7344ca;
+  /* --salmon-pink: hsl(353, 100%, 78%); */
   --sandy-brown: hsl(29, 90%, 65%);
   --bittersweet: hsl(0, 100%, 70%);
   --ocean-green: hsl(152, 51%, 52%);
@@ -991,7 +992,7 @@ body::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 70%); }
 \*-----------------------------------*/
 
 .sidebar {
-  background: var(--white);
+  /* background: var(--white); */
   position: fixed;
   top: 0;
   left: -100%;
@@ -2742,7 +2743,9 @@ footer {
     transition: var(--transition-timing);
   }
 
-  .desktop-menu-category-list .menu-category > .menu-title:hover { color: var(--salmon-pink); }
+  .desktop-menu-category-list .menu-category > .menu-title:hover {
+     color: var(--salmon-pink);
+    }
 
   .desktop-menu-category-list .menu-category > .menu-title::after {
     content: '';
@@ -3110,7 +3113,10 @@ footer {
 
   .product-featured .display-number { --fs-5: 1.125rem; }
 
-  .product-grid { -ms-grid-columns: (1fr)[4]; grid-template-columns: repeat(4, 1fr); }
+  .product-grid {
+    -ms-grid-columns: (1fr)[3];
+    grid-template-columns: repeat(3, 1fr);
+  }
 
 
 

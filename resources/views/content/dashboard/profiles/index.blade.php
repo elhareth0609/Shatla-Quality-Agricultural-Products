@@ -1,6 +1,6 @@
 @extends('layouts/blankLayout')
 
-@section('title', 'Change Profile')
+@section('title', __('Change Profile'))
 
 @section('page-style')
 <!-- Page -->
@@ -44,7 +44,7 @@
           @endforeach
 
             <div class="my-3">
-              <a href="{{ route('plans.index') }}" class="btn btn-primary d-grid w-100" >{{ __('New Account') }}</a>
+              <a href="{{ route('plans.index') }}" class="btn btn-outline-primary border-dashed d-grid w-100 py-3" >{{ __('New Profile') }}</a>
             </div>
         </div>
       </div>

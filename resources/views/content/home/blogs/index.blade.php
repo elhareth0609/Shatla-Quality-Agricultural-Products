@@ -1,6 +1,6 @@
 @extends('layouts.homeLayout')
 
-@section('title', 'Blogs')
+@section('title', __('Blogs'))
 
 @section('content')
 
@@ -27,7 +27,7 @@
           </a>
 
           <p class="blog-meta">
-            By <cite>{{ $blog->author }}</cite> / <time datetime="{{ $blog->created_at }}">{{ $blog->created_at->format('M d, Y') }}</time>
+            {{ __('By') }} <cite>{{ $blog->author }}</cite> / <time datetime="{{ $blog->created_at }}">{{ $blog->created_at->format('M d, Y') }}</time>
           </p>
 
         </div>

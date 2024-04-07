@@ -8,7 +8,7 @@
 
       <div class="footer-category-box">
 
-        <h3 class="category-box-title">Fashion :</h3>
+        <h3 class="category-box-title m-0">Fashion :</h3>
 
         <a href="#" class="footer-category-link">T-shirt</a>
         <a href="#" class="footer-category-link">Shirts</a>
@@ -21,7 +21,7 @@
       </div>
 
       <div class="footer-category-box">
-        <h3 class="category-box-title">footwear :</h3>
+        <h3 class="category-box-title m-0">footwear :</h3>
 
         <a href="#" class="footer-category-link">sport</a>
         <a href="#" class="footer-category-link">formal</a>
@@ -36,7 +36,7 @@
       </div>
 
       <div class="footer-category-box">
-        <h3 class="category-box-title">jewellery :</h3>
+        <h3 class="category-box-title m-0">jewellery :</h3>
 
         <a href="#" class="footer-category-link">Necklace</a>
         <a href="#" class="footer-category-link">Earrings</a>
@@ -52,7 +52,7 @@
       </div>
 
       <div class="footer-category-box">
-        <h3 class="category-box-title">cosmetics :</h3>
+        <h3 class="category-box-title m-0">cosmetics :</h3>
 
         <a href="#" class="footer-category-link">Shampoo</a>
         <a href="#" class="footer-category-link">Bodywash</a>

@@ -1,6 +1,6 @@
 @extends('layouts/blankLayout')
 
-@section('title', 'Register Basic - Pages')
+@section('title', __('Register'))
 
 @section('page-style')
 <!-- Page -->
@@ -33,15 +33,15 @@
           <form id="formAuthentication" class="mb-3" action="{{ route('register.action') }}" method="POST">
             @csrf
             <div class="form-floating form-floating-outline mb-3">
-              <input type="text" class="form-control" id="username" name="fullname" placeholder="{{ __('Enter your fullname') }}" autofocus>
-              <label for="fullname">{{ __('Fulname') }}</label>
+              <input type="text" class="form-control" id="username" name="fullname" placeholder="{{ __('Enter Your Full Name') }}" autofocus>
+              <label for="fullname">{{ __('Full Name') }}</label>
             </div>
             <div class="form-floating form-floating-outline mb-3">
-              <input type="email" class="form-control" id="email" name="email" placeholder="{{ __('Enter your email') }}">
+              <input type="email" class="form-control" id="email" name="email" placeholder="{{ __('Enter Your Email') }}">
               <label for="email">{{ __('Email') }}</label>
             </div>
             <div class="form-floating form-floating-outline mb-3">
-              <input type="phone" class="form-control" id="phone" name="phone" placeholder="{{ __('Enter your phone') }}">
+              <input type="phone" class="form-control" id="phone" name="phone" placeholder="{{ __('Enter Your Phone') }}">
               <label for="phone">{{ __('Phone') }}</label>
             </div>
             <div class="mb-3 form-password-toggle">

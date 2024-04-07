@@ -48,7 +48,7 @@ $navbarDetached = ($navbarDetached ?? '');
         <div class="navbar-nav align-items-center">
           <div class="nav-item d-flex align-items-center">
             <i class="mdi mdi-magnify mdi-24px lh-0"></i>
-            <input type="text" class="form-control border-0 shadow-none bg-body" placeholder="Search..." aria-label="Search...">
+            <input type="text" class="form-control border-0 shadow-none bg-body" placeholder="{{ __('Search ...') }}" aria-label="Search...">
           </div>
         </div>
         <!-- /Search -->

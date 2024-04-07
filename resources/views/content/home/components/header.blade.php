@@ -70,12 +70,24 @@
       </a>
 
       <div class="header-search-container">
-
+{{--
         <input type="search" name="search" class="search-field" placeholder="{{__('Enter your product name')}}">
 
         <button class="search-btn">
           <ion-icon name="search-outline"></ion-icon>
-        </button>
+        </button> --}}
+        <div class="input-group input-group-merge" dir="{{ app()->isLocale('ar') ? 'ltr' : '' }}">
+          @if (!app()->isLocale('ar'))
+          <span class="input-group-text" id="basic-addon-search31"><i class="mdi mdi-magnify"></i></span>
+          @endif
+
+          <input type="text" class="form-control" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}" placeholder="{{ __('Search ...') }}" aria-label="Search..." aria-describedby="basic-addon-search31" />
+
+          @if (app()->isLocale('ar'))
+              <span class="input-group-text" id="basic-addon-search31"><i class="mdi mdi-magnify"></i></span>
+          @endif
+
+        </div>
 
       </div>
 
@@ -91,34 +103,123 @@
         <a href="{{ route('dashboard') }}" class="btn action-btn">
           <ion-icon name="person-outline"></ion-icon>
         </a>
-        @endauth
 
-        @auth
-        <button class="action-btn">
+        <button class="action-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#FaveButton" aria-controls="offcanvasStart">
           <ion-icon name="heart-outline"></ion-icon>
           <span class="count">0</span>
         </button>
-        @endauth
 
-
-        @auth
-        <button class="action-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartButton" aria-controls="offcanvasStart">
+        <button class="action-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#CartButton" aria-controls="offcanvasStart">
           <ion-icon name="bag-handle-outline"></ion-icon>
           <span class="count">0</span>
         </button>
 
-        <div class="offcanvas offcanvas-{{ app()->isLocale('ar') ? 'end' : 'start' }}" tabindex="-1" id="cartButton" aria-labelledby="offcanvasEndLabel">
+        <div class="offcanvas offcanvas-{{ app()->isLocale('ar') ? 'end' : 'start' }}" tabindex="-1" id="FaveButton" aria-labelledby="offcanvasEndLabel">
           <div class="offcanvas-header">
-            <h5 id="offcanvasEndLabel" class="offcanvas-title">Offcanvas End</h5>
+            <h5 id="offcanvasEndLabel" class="offcanvas-title">{{ __('Favorite Items') }}</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
-          <div class="offcanvas-body my-auto mx-0 flex-grow-0">
-            <p class="text-center">Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero's De Finibus Bonorum et Malorum for use in a type specimen book.</p>
-            <button type="button" class="btn btn-primary mb-2 d-grid w-100">Continue</button>
-            <button type="button" class="btn btn-outline-secondary d-grid w-100" data-bs-dismiss="offcanvas">Cancel</button>
+          <div class="offcanvas-body mx-0 flex-grow-0">
+            <div class="favorite-items mb-3">
+              <div class="favorites-item mb-2">
+                <div class="card-body" dir="{{ app()->isLocale('ar') ? 'rtl' : 'ltr' }}">
+                  <div class="d-flex align-items-start align-items-sm-center gap-4">
+                    <img src="{{asset('assets/img/avatars/1.png')}}" alt="user-avatar" class="d-block w-px-120 h-px-120 rounded" />
+                    <div class="button-wrapper">
+                      <button type="button" class="btn btn-outline-info">
+                        <i class="mdi mdi-reload d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block">visit</span>
+                      </button>
+                      <button type="button" class="btn btn-icon btn-outline-danger">
+                        <span class="tf-icons mdi mdi-trash-can-outline"></span>
+                      </button>
+                      <div class="text-muted small mt-3">Allowed JPG, GIF or PNG. Max size of 800K</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="favorites-item mb-2">
+                <div class="card-body" dir="{{ app()->isLocale('ar') ? 'rtl' : 'ltr' }}">
+                  <div class="d-flex align-items-start align-items-sm-center gap-4">
+                    <img src="{{asset('assets/img/avatars/1.png')}}" alt="user-avatar" class="d-block w-px-120 h-px-120 rounded" />
+                    <div class="button-wrapper">
+                      <button type="button" class="btn btn-outline-info">
+                        <i class="mdi mdi-reload d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block">visit</span>
+                      </button>
+                      <button type="button" class="btn btn-icon btn-outline-danger">
+                        <span class="tf-icons mdi mdi-trash-can-outline"></span>
+                      </button>
+                      <div class="text-muted small mt-3">Allowed JPG, GIF or PNG. Max size of 800K</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {{-- <button type="button" class="btn btn-primary mb-2 d-grid w-100">{{ __('Go To Cart') }}</button> --}}
           </div>
         </div>
 
+
+
+        <div class="offcanvas offcanvas-{{ app()->isLocale('ar') ? 'end' : 'start' }}" tabindex="-1" id="CartButton" aria-labelledby="offcanvasEndLabel">
+          <div class="offcanvas-header">
+            <h5 id="offcanvasEndLabel" class="offcanvas-title">{{ __('Cart Items') }}</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body mx-0 flex-grow-0">
+            <div class="cart-items mb-3">
+              <div class="carts-item mb-2">
+                <div class="card-body" dir="{{ app()->isLocale('ar') ? 'rtl' : 'ltr' }}">
+                  <div class="d-flex align-items-start align-items-sm-center gap-4">
+                    <img src="{{asset('assets/img/avatars/1.png')}}" alt="user-avatar" class="d-block w-px-120 h-px-120 rounded" />
+                    <div class="button-wrapper">
+                      <div class="btn-group" role="group" aria-label="Second group" dir="ltr">
+                        <button type="button" class="btn btn-icon btn-primary">
+                          <span class="tf-icons mdi mdi-plus"></span>
+                        </button>
+                        <input type="text" class="form-control text-center p-0 rounded-0 my-w-5" value="2">
+                        <button type="button" class="btn btn-icon btn-primary">
+                          <span class="tf-icons mdi mdi-minus"></span>
+                        </button>
+                      </div>
+                      <button type="button" class="btn btn-icon btn-outline-danger">
+                        <span class="tf-icons mdi mdi-trash-can-outline"></span>
+                      </button>
+                      <div class="text-muted small mt-3">Allowed JPG, GIF or PNG. Max size of 800K</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="favorites-item mb-2">
+                <div class="card-body" dir="{{ app()->isLocale('ar') ? 'rtl' : 'ltr' }}">
+                  <div class="d-flex align-items-start align-items-sm-center gap-4">
+                    <img src="{{asset('assets/img/avatars/1.png')}}" alt="user-avatar" class="d-block w-px-120 h-px-120 rounded"/>
+                    <div class="button-wrapper">
+                      <div class="btn-group" role="group" aria-label="Second group" dir="ltr">
+                        <button type="button" class="btn btn-icon btn-primary">
+                          <span class="tf-icons mdi mdi-plus"></span>
+                        </button>
+                        <input type="text" class="form-control text-center p-0 rounded-0 my-w-5" value="2">
+                        <button type="button" class="btn btn-icon btn-primary">
+                          <span class="tf-icons mdi mdi-minus"></span>
+                        </button>
+                      </div>
+                      <button type="button" class="btn btn-icon btn-outline-danger">
+                        <span class="tf-icons mdi mdi-trash-can-outline"></span>
+                      </button>
+                      <div class="text-muted small mt-3">Allowed JPG, GIF or PNG. Max size of 800K</div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <a type="button" href="{{ route('cart') }}" class="btn btn-primary mb-2 d-grid w-100">{{ __('Go To Cart') }}</a>
+          </div>
+        </div>
         @endauth
 
       </div>
@@ -138,30 +239,30 @@
         </li>
 
         <li class="menu-category">
-          <a href="#" class="menu-title">Categories</a>
+          <a href="#" class="menu-title">{{ __('Categorys') }}</a>
 
           <div class="dropdown-panel">
 
             <ul class="dropdown-panel-list">
 
               <li class="menu-title">
-                <a href="#">{{__('Medicines')}}</a>
+                <a href="#">{{ __('Categorys') }} 1</a>
               </li>
 
               <li class="panel-list-item">
-                <a href="#">{{__('Seedlings')}}</a>
+                <a href="#">{{ __('Seedlings') }}</a>
               </li>
 
               <li class="panel-list-item">
-                <a href="#">{{__('seeds')}}</a>
+                <a href="#">{{ __('seeds') }}</a>
               </li>
 
               <li class="panel-list-item">
-                <a href="#">{{__('Ornamental Trees')}}</a>
+                <a href="#">{{ __('Ornamental Trees') }}</a>
               </li>
 
               <li class="panel-list-item">
-                <a href="#">{{__('Ornamental Plants')}}</a>
+                <a href="#">{{ __('Ornamental Plants') }}</a>
               </li>
 
               <li class="panel-list-item">
@@ -180,27 +281,27 @@
             <ul class="dropdown-panel-list">
 
               <li class="menu-title">
-                <a href="#">{{__('Greenhouses')}}</a>
+                <a href="#">{{ __('Categorys') }} 2</a>
               </li>
 
               <li class="panel-list-item">
-                <a href="#">{{__('Greenhouses')}}</a>
+                <a href="#">{{ __('Greenhouses') }}</a>
               </li>
 
               <li class="panel-list-item">
-                <a href="#">{{__('Pivot Irrigation Machines')}}</a>
+                <a href="#">{{ __('Pivot Irrigation Machines') }}</a>
               </li>
 
               <li class="panel-list-item">
-                <a href="#">{{__('Vertical Irrigation Machines')}}</a>
+                <a href="#">{{ __('Vertical Irrigation Machines') }}</a>
               </li>
 
               <li class="panel-list-item">
-                <a href="#">{{__('Agricultural Lands')}}</a>
+                <a href="#">{{ __('Agricultural Lands') }}</a>
               </li>
 
               <li class="panel-list-item">
-                <a href="#">{{__('Agricultural Pipes')}}</a>
+                <a href="#">{{ __('Agricultural Pipes') }}</a>
               </li>
 
               <li class="panel-list-item">
@@ -214,19 +315,19 @@
             <ul class="dropdown-panel-list">
 
               <li class="menu-title">
-                <a href="#">{{__('Fertilizers')}}</a>
+                <a href="#">{{ __('Categorys') }} 3</a>
               </li>
 
               <li class="panel-list-item">
-                <a href="#">{{__('Fertilizers')}}</a>
+                <a href="#">{{ __('Fertilizers') }}</a>
               </li>
 
               <li class="panel-list-item">
-                <a href="#">{{__('Medicines')}}</a>
+                <a href="#">{{ __('Medicines') }}</a>
               </li>
 
               <li class="panel-list-item">
-                <a href="#">{{__('Food Supplements')}}</a>
+                <a href="#">{{ __('Food Supplements') }}</a>
               </li>
 
               {{-- <li class="panel-list-item">
@@ -247,7 +348,7 @@
 
             <ul class="dropdown-panel-list">
 
-              <li class="menu-title">
+              {{-- <li class="menu-title">
                 <a href="#">Electronics</a>
               </li>
 
@@ -269,11 +370,11 @@
 
               <li class="panel-list-item">
                 <a href="#">Microphone</a>
-              </li>
+              </li> --}}
 
-              <li class="panel-list-item">
-                <a href="#">
-                  <img src="http://127.0.0.1:8000/assets/home/images/electronics-banner-2.jpg" alt="mouse collection" width="250" height="119">
+              <li class="panel-list-item h-100 mt-0">
+                <a href="#" class="h-100">
+                  <img class="h-100" src="http://127.0.0.1:8000/assets/home/images/electronics-banner-2.jpg" alt="mouse collection" width="250">
                 </a>
               </li>
 
@@ -379,11 +480,11 @@
         </li>
 
         <li class="menu-category">
-          <a href="{{ route('blog.index')}}" class="menu-title">{{__('Blogs')}}</a>
+          <a href="{{ route('blog.index')}}" class="menu-title">{{ __('Blogs') }}</a>
         </li>
 
         <li class="menu-category">
-          <a href="{{ route('diseases') }}">{{ __('Diseases Predict')}}</a>
+          <a href="{{ route('diseases') }}" class="menu-title">{{ __('Diseases Predict')}}</a>
         </li>
 
         <li class="menu-category">
@@ -401,17 +502,16 @@
       <ion-icon name="menu-outline"></ion-icon>
     </button>
 
-    <button class="action-btn">
+    <button class="action-btn" data-mobile-menu-open-btn>
       <ion-icon name="bag-handle-outline"></ion-icon>
-
       <span class="count">0</span>
     </button>
 
-    <button class="action-btn">
+    <a class="action-btn" href="{{ route('home') }}">
       <ion-icon name="home-outline"></ion-icon>
-    </button>
+    </a>
 
-    <button class="action-btn">
+    <button class="action-btn" data-mobile-menu-open-btn>
       <ion-icon name="heart-outline"></ion-icon>
 
       <span class="count">0</span>
@@ -423,7 +523,9 @@
 
   </div>
 
-  <nav class="mobile-navigation-menu has-scrollbar" data-mobile-menu>
+
+  {{-- Menu Model For Android --}}
+  <nav class="mobile-navigation-menu has-scrollbar bg-white" data-mobile-menu>
 
     <div class="menu-top">
       <h2 class="menu-title">Menu</h2>
@@ -588,7 +690,7 @@
         <li class="menu-category">
 
           <button class="accordion-menu" data-accordion-btn>
-            <p class="menu-title">Language</p>
+            <p class="menu-title">{{ __('Language') }}</p>
 
             <ion-icon name="caret-back-outline" class="caret-back"></ion-icon>
           </button>
@@ -606,18 +708,18 @@
 
         <li class="menu-category">
           <button class="accordion-menu" data-accordion-btn>
-            <p class="menu-title">Currency</p>
+            <p class="menu-title">{{ __('Currency') }}</p>
             <ion-icon name="caret-back-outline" class="caret-back"></ion-icon>
           </button>
 
           <ul class="submenu-category-list" data-accordion>
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">USD &dollar;</a>
-            </li>
-
-            <li class="submenu-category">
-              <a href="#" class="submenu-title">EUR &euro;</a>
-            </li>
+            @foreach(config('currency.currencies') as $currencyCode => $symbol)
+              <li class="submenu-category">
+                  <a class="submenu-title {{ session('currency', config('currency.default_currency')) === $currencyCode ? 'active' : '' }}" href="{{ route('change.currency', $currencyCode) }}">
+                    {{ $currencyCode }} {{ $symbol }}
+                  </a>
+              </li>
+            @endforeach
           </ul>
         </li>
 
@@ -625,20 +727,22 @@
 
       <ul class="menu-social-container">
 
+
+
         <li>
-          <a href="#" class="social-link">
+          <a href="#" class="social-link btn btn-primary text-primary btn-icon">
             <ion-icon name="logo-facebook"></ion-icon>
           </a>
         </li>
 
         <li>
-          <a href="#" class="social-link">
+          <a href="#" class="social-link btn btn-primary text-primary btn-icon">
             <ion-icon name="logo-twitter"></ion-icon>
           </a>
         </li>
 
         <li>
-          <a href="#" class="social-link">
+          <a href="#" class="social-link btn btn-primary text-primary btn-icon">
             <ion-icon name="logo-instagram"></ion-icon>
           </a>
         </li>
@@ -647,6 +751,121 @@
 
     </div>
 
+  </nav>
+
+
+  {{-- Cart Model For Android --}}
+  <nav class="mobile-navigation-menu has-scrollbar bg-white" data-mobile-menu>
+    <div class="menu-top">
+      <h2 class="menu-title">{{ __('Cart Items') }}</h2>
+
+      <button class="menu-close-btn" data-mobile-menu-close-btn>
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </div>
+
+    <div class="cart-items mb-3">
+      <div class="carts-item mb-2">
+        <div class="card-body" dir="{{ app()->isLocale('ar') ? 'rtl' : 'ltr' }}">
+          <div class="d-flex align-items-start align-items-sm-center gap-2">
+            <img src="{{asset('assets/img/avatars/1.png')}}" alt="user-avatar" class="d-block w-px-75 h-px-75 rounded" />
+            <div class="button-wrapper">
+              <div class="btn-group" role="group" aria-label="Second group" dir="ltr">
+                <button type="button" class="btn btn-icon btn-primary">
+                  <span class="tf-icons mdi mdi-plus"></span>
+                </button>
+                <input type="text" class="form-control text-center p-0 rounded-0 my-w-4" value="2">
+                <button type="button" class="btn btn-icon btn-primary">
+                  <span class="tf-icons mdi mdi-minus"></span>
+                </button>
+              </div>
+              <button type="button" class="btn btn-icon btn-outline-danger">
+                <span class="tf-icons mdi mdi-trash-can-outline"></span>
+              </button>
+              <div class="text-muted small mt-3">Allowed JPG, GIF or PNG. Max size of 800K</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="carts-item mb-2">
+        <div class="card-body" dir="{{ app()->isLocale('ar') ? 'rtl' : 'ltr' }}">
+          <div class="d-flex align-items-start align-items-sm-center gap-2">
+            <img src="{{asset('assets/img/avatars/1.png')}}" alt="user-avatar" class="d-block w-px-75 h-px-75 rounded"/>
+            <div class="button-wrapper">
+              <div class="btn-group" role="group" aria-label="Second group" dir="ltr">
+                <button type="button" class="btn btn-icon btn-primary">
+                  <span class="tf-icons mdi mdi-plus"></span>
+                </button>
+                <input type="text" class="form-control text-center p-0 rounded-0 my-w-4" value="2">
+                <button type="button" class="btn btn-icon btn-primary">
+                  <span class="tf-icons mdi mdi-minus"></span>
+                </button>
+              </div>
+              <button type="button" class="btn btn-icon btn-outline-danger">
+                <span class="tf-icons mdi mdi-trash-can-outline"></span>
+              </button>
+              <div class="text-muted small mt-3">Allowed JPG, GIF or PNG. Max size of 800K</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <a type="button" href="{{ route('cart') }}" class="btn btn-primary mb-2 d-grid w-100">{{ __('Go To Cart') }}</a>
+
+  </nav>
+
+
+
+
+  {{-- Favorite Model For Android --}}
+  <nav class="mobile-navigation-menu has-scrollbar bg-white" data-mobile-menu>
+        <div class="menu-top">
+          <h2 class="menu-title">{{ __('Favorite Items') }}</h2>
+
+          <button class="menu-close-btn" data-mobile-menu-close-btn>
+            <ion-icon name="close-outline"></ion-icon>
+          </button>
+        </div>
+
+        <div class="favorite-items mb-3">
+          <div class="favorites-item mb-2">
+            <div class="card-body" dir="{{ app()->isLocale('ar') ? 'rtl' : 'ltr' }}">
+              <div class="d-flex align-items-start align-items-sm-center gap-2">
+                <img src="{{asset('assets/img/avatars/1.png')}}" alt="user-avatar" class="d-block w-px-75 h-px-75 rounded" />
+                <div class="button-wrapper">
+                  <button type="button" class="btn btn-outline-info">
+                    <i class="mdi mdi-reload d-block d-sm-none"></i>
+                    <span class="d-none d-sm-block">visit</span>
+                  </button>
+                  <button type="button" class="btn btn-icon btn-outline-danger">
+                    <span class="tf-icons mdi mdi-trash-can-outline"></span>
+                  </button>
+                  <div class="text-muted small mt-3">Allowed JPG, GIF or PNG. Max size of 800K</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="favorites-item mb-2">
+            <div class="card-body" dir="{{ app()->isLocale('ar') ? 'rtl' : 'ltr' }}">
+              <div class="d-flex align-items-start align-items-sm-center gap-2">
+                <img src="{{asset('assets/img/avatars/1.png')}}" alt="user-avatar" class="d-block w-px-75 h-px-75 rounded" />
+                <div class="button-wrapper">
+                  <button type="button" class="btn btn-outline-info">
+                    <i class="mdi mdi-reload d-block d-sm-none"></i>
+                    <span class="d-none d-sm-block">visit</span>
+                  </button>
+                  <button type="button" class="btn btn-icon btn-outline-danger">
+                    <span class="tf-icons mdi mdi-trash-can-outline"></span>
+                  </button>
+                  <div class="text-muted small mt-3">Allowed JPG, GIF or PNG. Max size of 800K</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
   </nav>
 
 </header>

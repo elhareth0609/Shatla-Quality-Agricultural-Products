@@ -1,6 +1,6 @@
 @extends('layouts/blankLayout')
 
-@section('title', 'Login Page')
+@section('title', __('Login'))
 
 @section('page-style')
 <!-- Page -->
@@ -33,15 +33,15 @@
           <form id="formAuthentication" class="mb-3" action="{{ route('login.action') }}" method="POST">
             @csrf
             <div class="form-floating form-floating-outline mb-3">
-              <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" autofocus>
-              <label for="email">Email </label>
+              <input type="text" class="form-control" id="email" name="email" placeholder="{{ __('Enter Your Email') }}" autofocus>
+              <label for="email">{{ __('Email') }}</label>
             </div>
             <div class="mb-3">
               <div class="form-password-toggle">
                 <div class="input-group input-group-merge">
                   <div class="form-floating form-floating-outline">
                     <input type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
-                    <label for="password">Password</label>
+                    <label for="password">{{ __('Password') }}</label>
                   </div>
                   <span class="input-group-text cursor-pointer"><i class="mdi mdi-lock-outline"></i></span>
                 </div>

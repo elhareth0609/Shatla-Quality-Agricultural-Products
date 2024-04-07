@@ -1,6 +1,6 @@
 @extends('layouts/blankLayout')
 
-@section('title', 'Forgot Password Basic - Pages')
+@section('title', __('Forgot Password'))
 
 @section('page-style')
 <!-- Page -->
@@ -30,7 +30,7 @@
           <p class="mb-4">{{ __('Enter your email and we\'ll send you instructions to reset your password') }}</p>
           <form id="formAuthentication" class="mb-3" action="{{url('/')}}" method="GET">
             <div class="form-floating form-floating-outline mb-3">
-              <input type="text" class="form-control" id="email" name="email" placeholder="{{ __('Enter your email') }}" autofocus>
+              <input type="text" class="form-control" id="email" name="email" placeholder="{{ __('Enter Your Email') }}" autofocus>
               <label>{{ __('Email') }}</label>
             </div>
             <button class="btn btn-primary d-grid w-100">{{ __('Send Reset Link') }}</button>
