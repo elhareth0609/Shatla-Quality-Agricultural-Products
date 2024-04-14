@@ -16,6 +16,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DataTablesController;
 use App\Http\Controllers\DiseasesController;
 
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\extended_ui\PerfectScrollbar;
 use App\Http\Controllers\extended_ui\TextDivider;
 use App\Http\Controllers\form_elements\BasicInput;
@@ -40,12 +41,12 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\tables\Basic as TablesBasic;
+
 use App\Http\Controllers\user_interface\Accordion;
-
 use App\Http\Controllers\user_interface\Alerts;
+
+
 use App\Http\Controllers\user_interface\Badges;
-
-
 use App\Http\Controllers\user_interface\Buttons;
 use App\Http\Controllers\user_interface\Carousel;
 use App\Http\Controllers\user_interface\Collapse;
@@ -64,6 +65,7 @@ use App\Http\Controllers\user_interface\TooltipsPopovers;
 use App\Http\Controllers\user_interface\Typography;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -156,6 +158,9 @@ Route::middleware('auth')->group(function () {
   // Deasease
   Route::get('/diseases', [DiseasesController::class, 'index'])->name('diseases');
   Route::match(['get', 'post'], '/diseases/predict', [DiseasesController::class, 'predict'])->name('diseases.predict');
+
+  // Events
+  Route::get('/events', [EventController::class, 'index'])->name('events');
 
   // Authentication
   Route::get('/auth/logout', [LoginBasic::class, 'logout'])->name('logout.action');
