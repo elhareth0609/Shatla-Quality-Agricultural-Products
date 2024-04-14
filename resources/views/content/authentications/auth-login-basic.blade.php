@@ -27,7 +27,7 @@
         <!-- /Logo -->
 
         <div class="card-body mt-2">
-          <h4 class="mb-2">{{ __('Welcome to') }} شتلة! 👋</h4>
+          <h4 class="mb-2">{{ __('Welcome to') }} شتلة! 🎉</h4>
           <p class="mb-4">{{ __('Please sign-in to your account and start the adventure') }}</p>
 
           <form id="formAuthentication" class="mb-3" action="{{ route('login.action') }}" method="POST">

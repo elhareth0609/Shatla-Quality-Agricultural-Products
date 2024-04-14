@@ -22,7 +22,7 @@
     <button type="button" class="btn btn-icon btn-outline-primary mb-3 mx-1">
       <span class="tf-icons mdi mdi-plus-outline"></span>
     </button>
-</div>
+  </div>
 
   <div class="table-responsive text-nowrap">
     <table class="table table-striped w-100" id="blogs" data-page-length='100'>

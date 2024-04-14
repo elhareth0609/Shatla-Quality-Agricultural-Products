@@ -22,7 +22,7 @@ class BlogsController extends Controller
 
       return response()->json([
         'state' => 'deleted',
-        'message' => 'The Blog Created Successfully.'
+        'message' => 'Blog Created Successfully.'
       ]);
     }
 
@@ -30,7 +30,7 @@ class BlogsController extends Controller
 
       return response()->json([
         'state' => 'deleted',
-        'message' => 'The Blog Updated Successfully.'
+        'message' => 'Blog Updated Successfully.'
       ]);
     }
 
@@ -39,7 +39,7 @@ class BlogsController extends Controller
         $blog->delete();
         return response()->json([
           'state' => 'deleted',
-          'message' => 'The Blog Deleted Successfully.'
+          'message' => 'Blog Deleted Successfully.'
         ]);
     }
 }

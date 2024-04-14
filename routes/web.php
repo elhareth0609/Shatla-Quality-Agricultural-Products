@@ -8,14 +8,15 @@ use App\Http\Controllers\cards\CardBasic;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChargilyPayController;
+use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\dashboard\Analytics;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DataTablesController;
 use App\Http\Controllers\DiseasesController;
-use App\Http\Controllers\extended_ui\PerfectScrollbar;
 
+use App\Http\Controllers\extended_ui\PerfectScrollbar;
 use App\Http\Controllers\extended_ui\TextDivider;
 use App\Http\Controllers\form_elements\BasicInput;
 use App\Http\Controllers\form_elements\InputGroups;
@@ -37,15 +38,15 @@ use App\Http\Controllers\pages\MiscUnderMaintenance;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\SettingsController;
-use App\Http\Controllers\CountryController;
+use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\tables\Basic as TablesBasic;
 use App\Http\Controllers\user_interface\Accordion;
+
 use App\Http\Controllers\user_interface\Alerts;
-
 use App\Http\Controllers\user_interface\Badges;
+
+
 use App\Http\Controllers\user_interface\Buttons;
-
-
 use App\Http\Controllers\user_interface\Carousel;
 use App\Http\Controllers\user_interface\Collapse;
 use App\Http\Controllers\user_interface\Dropdowns;
@@ -78,6 +79,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
+
 // Main Page Route
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', [HomeController::class, 'index']);
@@ -95,6 +97,7 @@ Route::middleware('auth')->group(function () {
   Route::get('/experts', [DataTablesController::class, 'experts'])->name('experts');
   Route::get('/products', [DataTablesController::class, 'products'])->name('products');
   Route::get('/categorys', [DataTablesController::class, 'categorys'])->name('categorys');
+  Route::get('/category/{id}/subcategorys', [DataTablesController::class, 'category_subcategorys'])->name('category.subcategorys');
   Route::get('/sales', [DataTablesController::class, 'sales'])->name('sales');
   Route::get('/blogs', [DataTablesController::class, 'blogs'])->name('blogs');
   Route::get('/plans', [DataTablesController::class, 'plans'])->name('plans');
@@ -108,7 +111,7 @@ Route::middleware('auth')->group(function () {
 
   // Cart
   Route::get('/cart', [CartController::class, 'index'])->name('cart');
-  Route::get('/cart/add', [CartController::class, 'add'])->name('cart.add');
+  Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
   Route::get('/cart/delete', [CartController::class, 'delete'])->name('cart.delete');
   Route::get('/cart/update', [CartController::class, 'update'])->name('cart.update');
 
@@ -121,13 +124,19 @@ Route::middleware('auth')->group(function () {
   // Categories
   Route::get('/category/{id}', [CategoryController::class, 'get'])->name('category.get');
   Route::post('/category/create', [CategoryController::class, 'create'])->name('category.create');
-  Route::get('/category/delete', [CategoryController::class, 'delete'])->name('category.delete');
+  Route::delete('/category/{id}', [CategoryController::class, 'delete'])->name('category.delete');
   Route::post('/category/update', [CategoryController::class, 'update'])->name('category.update');
+
+  // Categories
+  Route::get('/subcategory/{id}', [SubCategoryController::class, 'get'])->name('subcategory.get');
+  Route::post('/subcategory/create', [SubCategoryController::class, 'create'])->name('subcategory.create');
+  Route::delete('/subcategory/{id}', [SubCategoryController::class, 'delete'])->name('subcategory.delete');
+  Route::post('/subcategory/update', [SubCategoryController::class, 'update'])->name('subcategory.update');
 
   // Coupons
   Route::get('/coupon/{id}', [CouponController::class, 'index'])->name('coupon');
-  Route::get('/coupon/add', [CouponController::class, 'add'])->name('coupon.add');
-  Route::get('/coupon/delete', [CouponController::class, 'delete'])->name('coupon.delete');
+  Route::post('/coupon/create', [CouponController::class, 'create'])->name('coupon.add');
+  Route::delete('/coupon/{id}', [CouponController::class, 'delete'])->name('coupon.delete');
   Route::get('/coupon/update', [CouponController::class, 'update'])->name('coupon.update');
 
   // Blogs
@@ -160,13 +169,14 @@ Route::middleware('auth')->group(function () {
   Route::get('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
   Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 
-  Route::get('/terms-of-use/get', [SettingsController::class, 'get_terms_of_use'])->name('setting.terms_of_use.get');
-  Route::get('/about-us/get', [SettingsController::class, 'get_about_us'])->name('about_us.get');
-  Route::get('/privacy-and-policy/get', [SettingsController::class, 'get_privacy_and_policy'])->name('privacy_and_policy.get');
-  Route::get('/delivery/get', [SettingsController::class, 'get_delivery'])->name('delivery.get');
-  Route::get('/secure-payment/get', [SettingsController::class, 'get_secure_payment'])->name('secure_payment.get');
+  Route::get('pages/terms-of-use', [SettingsController::class, 'get_terms_of_use'])->name('services.terms-of-use');
+  Route::get('pages/about-us', [SettingsController::class, 'get_about_us'])->name('services.about-us');
+  Route::get('pages/privacy-and-policy', [SettingsController::class, 'get_privacy_and_policy'])->name('services.privacy-and-policy');
+  Route::get('pages/delivery', [SettingsController::class, 'get_delivery'])->name('services.delivery');
+  Route::get('pages/secure-payment', [SettingsController::class, 'get_secure_payment'])->name('services.secure-payment');
 
-  Route::post('/terms-of-use/update', [SettingsController::class, 'update_terms_of_use'])->name('setting.terms_of_use.update');
+
+  Route::post('/terms-of-use/update', [SettingsController::class, 'update_terms_of_use'])->name('terms_of_use.update');
   Route::post('/about-us/update', [SettingsController::class, 'update_about_us'])->name('about_us.update');
   Route::post('/privacy-and-policy/update', [SettingsController::class, 'update_privacy_and_policy'])->name('privacy_and_policy.update');
   Route::post('/delivery/update', [SettingsController::class, 'update_delivery'])->name('delivery.update');

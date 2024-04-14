@@ -254,7 +254,7 @@
               </li>
 
               <li class="panel-list-item">
-                <a href="#">{{ __('seeds') }}</a>
+                <a href="#">{{ __('Seeds') }}</a>
               </li>
 
               <li class="panel-list-item">
@@ -383,7 +383,7 @@
           </div>
         </li>
 
-        <li class="menu-category">
+        {{-- <li class="menu-category">
           <a href="#" class="menu-title">Men's</a>
 
           <ul class="dropdown-list">
@@ -477,7 +477,7 @@
             </li>
 
           </ul>
-        </li>
+        </li> --}}
 
         <li class="menu-category">
           <a href="{{ route('blog.index')}}" class="menu-title">{{ __('Blogs') }}</a>
@@ -487,9 +487,9 @@
           <a href="{{ route('diseases') }}" class="menu-title">{{ __('Diseases Predict')}}</a>
         </li>
 
-        <li class="menu-category">
+        {{-- <li class="menu-category">
           <a href="#" class="menu-title">Hot Offers</a>
-        </li>
+        </li> --}}
       </ul>
 
     </div>
@@ -528,7 +528,7 @@
   <nav class="mobile-navigation-menu has-scrollbar bg-white" data-mobile-menu>
 
     <div class="menu-top">
-      <h2 class="menu-title">Menu</h2>
+      <h2 class="menu-title">{{ __('Pages') }}</h2>
 
       <button class="menu-close-btn" data-mobile-menu-close-btn>
         <ion-icon name="close-outline"></ion-icon>
@@ -538,10 +538,14 @@
     <ul class="mobile-menu-category-list">
 
       <li class="menu-category">
-        <a href="{ route('home') }}" class="menu-title">Home</a>
+        <a href="{ route('home') }}" class="menu-title">{{ __('Home') }}</a>
       </li>
 
       <li class="menu-category">
+        <a href="{ route('dashboard') }}" class="menu-title">{{ __('Account') }}</a>
+      </li>
+
+      {{-- <li class="menu-category">
 
         <button class="accordion-menu" data-accordion-btn>
           <p class="menu-title">Men's</p>
@@ -572,8 +576,8 @@
 
         </ul>
 
-      </li>
-
+      </li> --}}
+{{--
       <li class="menu-category">
 
         <button class="accordion-menu" data-accordion-btn>
@@ -605,8 +609,8 @@
 
         </ul>
 
-      </li>
-
+      </li> --}}
+{{--
       <li class="menu-category">
 
         <button class="accordion-menu" data-accordion-btn>
@@ -638,9 +642,9 @@
 
         </ul>
 
-      </li>
+      </li> --}}
 
-      <li class="menu-category">
+      {{-- <li class="menu-category">
 
         <button class="accordion-menu" data-accordion-btn>
           <p class="menu-title">Perfume</p>
@@ -671,15 +675,15 @@
 
         </ul>
 
-      </li>
+      </li> --}}
 
       <li class="menu-category">
-        <a href="#" class="menu-title">Blog</a>
+        <a href="{{ route('blog.index') }}" class="menu-title">{{ __('Blogs') }}</a>
       </li>
 
-      <li class="menu-category">
+      {{-- <li class="menu-category">
         <a href="#" class="menu-title">Hot Offers</a>
-      </li>
+      </li> --}}
 
     </ul>
 

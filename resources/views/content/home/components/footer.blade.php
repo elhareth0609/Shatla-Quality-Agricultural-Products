@@ -83,27 +83,11 @@
       <ul class="footer-nav-list">
 
         <li class="footer-nav-item">
-          <h2 class="nav-title w-fit">Popular Categories</h2>
+          <h2 class="nav-title w-fit">{{ __('Popular Categories') }}</h2>
         </li>
 
         <li class="footer-nav-item">
           <a href="#" class="footer-nav-link">Fashion</a>
-        </li>
-
-        <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Electronic</a>
-        </li>
-
-        <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Cosmetic</a>
-        </li>
-
-        <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Health</a>
-        </li>
-
-        <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Watches</a>
         </li>
 
       </ul>
@@ -115,15 +99,15 @@
         </li>
 
         <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Prices drop</a>
+          <a href="#" class="footer-nav-link">{{ __('Prices Drop') }}</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">{{__('New products')}}</a>
+          <a href="#" class="footer-nav-link">{{__('New Products')}}</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">{{__('Best sales')}}</a>
+          <a href="#" class="footer-nav-link">{{__('Best Sales')}}</a>
         </li>
 
         <li class="footer-nav-item">
@@ -143,23 +127,23 @@
         </li>
 
         <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">{{__('Delivery')}}</a>
+          <a href="{{ route('delivery') }}" class="footer-nav-link">{{__('Delivery')}}</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">{{__('Privacy And Policy')}}</a>
+          <a href="{{ route('privacy_and_policy') }}" class="footer-nav-link">{{__('Privacy & Policy')}}</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">{{__('Terms Of Use')}}</a>
+          <a href="{{ route('terms_of_use') }}" class="footer-nav-link">{{__('Terms Of Use')}}</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">{{__('About Us')}}</a>
+          <a href="{{ route('about_us') }}" class="footer-nav-link">{{__('About Us')}}</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">{{__('Secure payment')}}</a>
+          <a href="{{ route('secure_payment') }}" class="footer-nav-link">{{__('Secure Payment')}}</a>
         </li>
 
       </ul>
@@ -171,23 +155,23 @@
         </li>
 
         <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Prices drop</a>
+          <a href="#" class="footer-nav-link">{{ __('Prices Drop') }}</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">New products</a>
+          <a href="#" class="footer-nav-link">{{ __('New Products') }}</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Best sales</a>
+          <a href="#" class="footer-nav-link">{{ __('Best Sales') }}</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Contact us</a>
+          <a href="{{ route('contact') }}" class="footer-nav-link">{{ __('Contact Us') }}</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Sitemap</a>
+          <a href="#" class="footer-nav-link">{{ __('Sitemap') }}</a>
         </li>
 
       </ul>
@@ -276,7 +260,7 @@
       <img src="{{ asset('assets/home/images/payment.png') }}" alt="payment method" class="payment-img">
 
       <p class="copyright">
-        {{__('Copyright')}} &copy; <a href="#">شتلة</a> {{__('all rights reserved.')}}
+        {{__('Copyright')}} &copy; <a href="{{ route('home') }}">شتلة</a> {{__('all rights reserved.')}}
       </p>
     </div>
 

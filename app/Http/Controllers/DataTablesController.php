@@ -9,6 +9,7 @@ use App\Models\Coupon;
 use App\Models\Plan;
 use App\Models\Product;
 use App\Models\Sell;
+use App\Models\SubCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -22,7 +23,7 @@ class DataTablesController extends Controller
       if($request->ajax()) {
         return DataTables::of($users)
         ->editColumn('id', function ($user) {
-            return $user->id;
+            return (string) $user->id;
         })
         ->editColumn('email', function ($user) {
           return $user->email;
@@ -66,7 +67,7 @@ class DataTablesController extends Controller
       if($request->ajax()) {
         return DataTables::of($categorys)
         ->editColumn('id', function ($category) {
-            return $category->id;
+            return (string) $category->id;
         })
         ->editColumn('name', function ($category) {
           return $category->name;
@@ -78,13 +79,13 @@ class DataTablesController extends Controller
           return $category->created_at->format('Y-m-d');
         })
         ->addColumn('action', function ($category) {
-            return '<button class="btn btn-primary">Edit</button>';
+            return '<a href="#"><span class="tf-icons mdi mdi-plus-outline"></span></a>';
         })
         ->rawColumns(['action'])
         ->make(true);
       }
 
-      return view('content.dashboard.blogs.list');
+      return view('content.dashboard.categorys.list');
 
 
     }
@@ -94,13 +95,13 @@ class DataTablesController extends Controller
       if ($request->ajax()) {
         return DataTables::of($products)
         ->editColumn('id', function ($product) {
-          return $product->id;
+          return (string) $product->id;
         })
         ->editColumn('price', function ($product) {
           return $product->price;
         })
-        ->editColumn('category_id', function ($product) {
-          return $product->category->name;
+        ->editColumn('subcategory_id', function ($product) {
+          return $product->subcategory->name;
         })
         ->editColumn('status', function ($product) {
           return $product->status;
@@ -132,7 +133,7 @@ class DataTablesController extends Controller
       if($request->ajax()) {
         return DataTables::of($experts)
         ->editColumn('id', function ($expert) {
-            return $expert->id;
+            return (string) $expert->id;
         })
         ->editColumn('email', function ($expert) {
           return $expert->price;
@@ -166,7 +167,7 @@ class DataTablesController extends Controller
       if($request->ajax()) {
         return DataTables::of($sellers)
         ->editColumn('id', function ($seller) {
-            return $seller->id;
+            return (string) $seller->id;
         })
         ->editColumn('email', function ($seller) {
           return $seller->price;
@@ -204,7 +205,7 @@ class DataTablesController extends Controller
       if($request->ajax()) {
         return DataTables::of($blogs)
         ->editColumn('id', function ($blog) {
-            return $blog->id;
+            return (string) $blog->id;
         })
         ->editColumn('name', function ($blog) {
           return $blog->name;
@@ -235,7 +236,7 @@ class DataTablesController extends Controller
       if($request->ajax()) {
         return DataTables::of($plans)
         ->editColumn('id', function ($plan) {
-            return $plan->id;
+            return (string) $plan->id;
         })
         ->editColumn('name', function ($plan) {
           return $plan->name;
@@ -262,7 +263,6 @@ class DataTablesController extends Controller
 
     public function coupons(Request $request) {
       $coupons = Coupon::all();
-      // coulmn for number of uses , and if uses ==== max return anouther status
       if($request->ajax()) {
         return DataTables::of($coupons)
         ->editColumn('id', function ($coupon) {
@@ -272,10 +272,10 @@ class DataTablesController extends Controller
           return $coupon->code;
         })
         ->editColumn('status', function ($coupon) {
-          if ($coupon->max === $coupon->sell->count()) {
-              return '<span class="badge rounded-pill bg-label-secondary">'. __('Stopped') .'</span>';
-          }
-          return '<span class="badge rounded-pill bg-label-' . ($coupon->status == 'active' ? 'success' : 'secondary') . '">'. __('Active') .'</span>';
+          // if ($coupon->max === $coupon->sell->count()) {
+          //     return '<span class="badge rounded-pill bg-label-secondary">'. __('Stopped') .'</span>';
+          // }
+          return '<span class="badge rounded-pill bg-label-' . ($coupon->status == 'active' ? 'success' : 'secondary') . '">' . ($coupon->status == 'active' ? 'Active' : 'In Active') . '</span>';
         })
         ->editColumn('discount', function ($coupon) {
           return $coupon->discount;
@@ -284,19 +284,47 @@ class DataTablesController extends Controller
           return $coupon->max;
         })
         ->editColumn('expired_date', function ($coupon) {
-          return $coupon->expired_date->format('Y-m-d');
+          return $coupon->expired_date;
         })
         ->editColumn('created_at', function ($coupon) {
           return $coupon->created_at->format('Y-m-d');
         })
-        ->addColumn('action', function ($coupon) {
-            return '<button class="btn btn-primary">Edit</button>';
+        ->rawColumns(['status'])
+        ->make(true);
+      }
+
+      return view('content.dashboard.coupons.list');
+
+    }
+
+    public function category_subcategorys(Request $request,$id) {
+      $subcategorys = SubCategory::where('category_id', $id)->get();
+      $category = Category::find($id);
+
+      if($request->ajax()) {
+        return DataTables::of($subcategorys)
+        ->editColumn('id', function ($subcategory) {
+            return (string) $subcategory->id;
+        })
+        ->editColumn('name', function ($subcategory) {
+          return $subcategory->name;
+        })
+        ->editColumn('image', function ($subcategory) {
+          return $subcategory->image;
+        })
+        ->editColumn('created_at', function ($subcategory) {
+          return $subcategory->created_at->format('Y-m-d');
+        })
+        ->addColumn('action', function ($subcategory) {
+          return '<a href="#"><span class="tf-icons mdi mdi-plus-outline"></span></a>';
         })
         ->rawColumns(['action'])
         ->make(true);
       }
 
-      return view('content.dashboard.coupons.list');
+      return view('content.dashboard.categorys.subcategorys')
+      ->with('category',$category);
+
 
     }
 }

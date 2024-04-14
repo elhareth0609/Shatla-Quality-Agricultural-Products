@@ -5,14 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Blog extends Model
+class SubCategory extends Model
 {
     use HasFactory;
 
     protected $fillable = [
       'name',
-      'subcategory_id',
-      'content',
       'image'
     ];
 
@@ -20,4 +18,15 @@ class Blog extends Model
     {
         return $this->belongsTo(Category::class);
     }
-}
+
+    public function blogs()
+    {
+        return $this->hasMany(Blog::class);
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
+  }

@@ -1,12 +1,12 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', __('Terms Of Use'))
+@section('title', __('Secure Payment'))
 
 @section('content')
-<h4 class="py-3 mb-4" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}"><span class="text-muted fw-light">{{ __('Pages') }} /</span> {{ __('Terms Of Use') }}
+<h4 class="py-3 mb-4" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}"><span class="text-muted fw-light">{{ __('Pages') }} /</span> {{ __('Secure Payment') }}
 </h4>
 
-<form id="contentForm" method="POST" action="{{ route('terms_of_use.update') }}">
+<form id="contentForm" method="POST" action="{{ route('secure_payment.update') }}">
   @csrf
   <textarea name="content">
     {{ $content }}

@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class CategoryController extends Controller {
-
+class SubCategoryController extends Controller
+{
   public function create(Request $request) {
     $validator = Validator::make($request->all(), [
-        'cname' => 'required|string',
+        'scname' => 'required|string',
       ]);
 
     if ($validator->fails()) {
@@ -24,14 +23,15 @@ class CategoryController extends Controller {
 
     try{
 
-      $category = new Category();
-      $category->name = $request->cname;
-      $category->save();
+      $Subcategory = new SubCategory();
+      $Subcategory->name = $request->scname;
+      $Subcategory->category_id = $request->category_id;
+      $Subcategory->save();
 
       return response()->json([
         'icon' => 'success',
         'state' => __("Success"),
-        'message' => __("Category Created successfully")
+        'message' => __("SubCategory Created successfully")
       ], 200);
     } catch (\Exception $e) {
       return response()->json([
@@ -46,7 +46,7 @@ class CategoryController extends Controller {
   public function update(Request $request) {
     $validator = Validator::make($request->all(), [
       'id' => 'required|string',
-      'cname' => 'required|string',
+      'scname' => 'required|string',
     ]);
 
     if ($validator->fails()) {
@@ -59,15 +59,16 @@ class CategoryController extends Controller {
 
     try{
 
-      $category = Category::find($request->id);
-      $category->name = $request->cname;
-      $category->save();
+      $Subcategory = SubCategory::find($request->id);
+      $Subcategory->name = $request->scname;
+      $Subcategory->save();
 
       return response()->json([
         'icon' => 'success',
         'state' => __("Success"),
-        'message' => __("Category Updated Successfully.")
+        'message' => __("SubCategory Updated Successfully.")
       ]);
+
     } catch (\Exception $e) {
       return response()->json([
         'icon' => 'error',
@@ -80,13 +81,13 @@ class CategoryController extends Controller {
 
   public function delete($id) {
     try{
-      $category = Category::find($id);
-      $category->delete();
+      $Subcategory = SubCategory::find($id);
+      $Subcategory->delete();
 
       return response()->json([
         'icon' => 'success',
         'state' => __("Success"),
-        'message' => __("Category Deleted successfully")
+        'message' => __("SubCategory Deleted successfully")
       ], 200);
     } catch (\Exception $e) {
       return response()->json([
@@ -96,5 +97,4 @@ class CategoryController extends Controller {
       ]);
     }
   }
-
 }

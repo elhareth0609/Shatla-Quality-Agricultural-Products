@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Plan;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class PlanController extends Controller
 {
 
   public function index() {
-    return view('content.home.pages.plans');
+    $plans = Plan::all();
+    return view('content.home.pages.plans')
+    ->with('plans',$plans);
   }
 
   public function change_profile() {

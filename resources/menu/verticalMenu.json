@@ -63,13 +63,19 @@
       "slug": "coupons"
     },
     {
+      "url": "/events",
+      "name": "Events",
+      "icon": "menu-icon tf-icons mdi mdi-calendar-outline",
+      "slug": "events"
+    },
+    {
       "url": "/blogs",
       "name": "Blogs",
       "icon": "menu-icon tf-icons mdi mdi-newspaper-variant-outline",
       "slug": "blogs"
     },
     {
-      "menuHeader": "Settings"
+      "menuHeader": "Settings & Pages"
     },
     {
       "url": "/settings",
@@ -93,44 +99,40 @@
           "slug": "settings.store"
         }
       ]
-
     },
     {
-      "url": "/about-us",
-      "name": "About Us",
-      "icon": "menu-icon tf-icons mdi mdi-information-outline",
-      "slug": "about-us"
+      "url": "/pages",
+      "name": "Pages",
+      "icon": "menu-icon tf-icons mdi mdi-file-document-multiple-outline",
+      "slug": "Pages",
+      "submenu": [
+        {
+          "url": "pages/about-us",
+          "name": "About Us",
+          "slug": "services.about-us"
+            },
+        {
+          "url": "pages/privacy-and-policy",
+          "name": "Privacy & Policy",
+          "slug": "services.privacy-and-policy"
+            },
+        {
+          "url": "pages/terms-of-use",
+          "name": "Terms Of Use",
+          "slug": "services.terms-of-use"
+        },
+        {
+          "url": "pages/secure-payment",
+          "name": "Secure Payment",
+          "slug": "services.secure-payment"
+        },
+        {
+          "url": "pages/delivery",
+          "name": "Delivery",
+          "slug": "services.delivery"
+        }
+      ]
     },
-    {
-      "url": "/privacy-and-policy",
-      "name": "Privacy & Policy",
-      "icon": "menu-icon tf-icons mdi mdi-lock-outline",
-      "slug": "privacy-and-policy"
-    },
-    {
-      "url": "/terms-of-use",
-      "name": "Terms Of Use",
-      "icon": "menu-icon tf-icons mdi mdi-file-document-outline",
-      "slug": "terms-of-use"
-    },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
