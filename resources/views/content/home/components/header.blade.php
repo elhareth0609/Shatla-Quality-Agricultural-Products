@@ -133,25 +133,10 @@
                       <button type="button" class="btn btn-icon btn-outline-danger">
                         <span class="tf-icons mdi mdi-trash-can-outline"></span>
                       </button>
-                      <div class="text-muted small mt-3">Allowed JPG, GIF or PNG. Max size of 800K</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="favorites-item mb-2">
-                <div class="card-body" dir="{{ app()->isLocale('ar') ? 'rtl' : 'ltr' }}">
-                  <div class="d-flex align-items-start align-items-sm-center gap-4">
-                    <img src="{{asset('assets/img/avatars/1.png')}}" alt="user-avatar" class="d-block w-px-120 h-px-120 rounded" />
-                    <div class="button-wrapper">
-                      <button type="button" class="btn btn-outline-info">
-                        <i class="mdi mdi-reload d-block d-sm-none"></i>
-                        <span class="d-none d-sm-block">visit</span>
-                      </button>
-                      <button type="button" class="btn btn-icon btn-outline-danger">
-                        <span class="tf-icons mdi mdi-trash-can-outline"></span>
-                      </button>
-                      <div class="text-muted small mt-3">Allowed JPG, GIF or PNG. Max size of 800K</div>
+                      <div class="text-muted small mt-3">Allowed JPG, GIF or PNG.</div>
+                      <div class="text-muted small mt-3 d-flex">
+                        <p>30</p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -170,6 +155,7 @@
           </div>
           <div class="offcanvas-body mx-0 flex-grow-0">
             <div class="cart-items mb-3">
+
               <div class="carts-item mb-2">
                 <div class="card-body" dir="{{ app()->isLocale('ar') ? 'rtl' : 'ltr' }}">
                   <div class="d-flex align-items-start align-items-sm-center gap-4">
@@ -187,35 +173,16 @@
                       <button type="button" class="btn btn-icon btn-outline-danger">
                         <span class="tf-icons mdi mdi-trash-can-outline"></span>
                       </button>
-                      <div class="text-muted small mt-3">Allowed JPG, GIF or PNG. Max size of 800K</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="favorites-item mb-2">
-                <div class="card-body" dir="{{ app()->isLocale('ar') ? 'rtl' : 'ltr' }}">
-                  <div class="d-flex align-items-start align-items-sm-center gap-4">
-                    <img src="{{asset('assets/img/avatars/1.png')}}" alt="user-avatar" class="d-block w-px-120 h-px-120 rounded"/>
-                    <div class="button-wrapper">
-                      <div class="btn-group" role="group" aria-label="Second group" dir="ltr">
-                        <button type="button" class="btn btn-icon btn-primary">
-                          <span class="tf-icons mdi mdi-plus"></span>
-                        </button>
-                        <input type="text" class="form-control text-center p-0 rounded-0 my-w-5" value="2">
-                        <button type="button" class="btn btn-icon btn-primary">
-                          <span class="tf-icons mdi mdi-minus"></span>
-                        </button>
+                      <div class="text-muted small mt-3">Allowed JPG, GIF or PNG.</div>
+                      <div class="text-muted small mt-3 d-flex justify-content-between">
+                        <p>30</p>
+                        <p>300</p>
                       </div>
-                      <button type="button" class="btn btn-icon btn-outline-danger">
-                        <span class="tf-icons mdi mdi-trash-can-outline"></span>
-                      </button>
-                      <div class="text-muted small mt-3">Allowed JPG, GIF or PNG. Max size of 800K</div>
                     </div>
-
                   </div>
                 </div>
               </div>
+
             </div>
             <a type="button" href="{{ route('cart') }}" class="btn btn-primary mb-2 d-grid w-100">{{ __('Go To Cart') }}</a>
           </div>
@@ -242,242 +209,24 @@
           <a href="#" class="menu-title">{{ __('Categorys') }}</a>
 
           <div class="dropdown-panel">
-
-            <ul class="dropdown-panel-list">
-
-              <li class="menu-title">
-                <a href="#">{{ __('Categorys') }} 1</a>
-              </li>
-
-              <li class="panel-list-item">
-                <a href="#">{{ __('Seedlings') }}</a>
-              </li>
-
-              <li class="panel-list-item">
-                <a href="#">{{ __('Seeds') }}</a>
-              </li>
-
-              <li class="panel-list-item">
-                <a href="#">{{ __('Ornamental Trees') }}</a>
-              </li>
-
-              <li class="panel-list-item">
-                <a href="#">{{ __('Ornamental Plants') }}</a>
-              </li>
-
-              <li class="panel-list-item">
-                <a href="#">{{__('Fruits')}}</a>
-              </li>
-
-              <li class="panel-list-item">
-                <a href="#">
-                  <img src="http://127.0.0.1:8000/assets/home/images/electronics-banner-1.jpg" alt="headphone collection" width="250"
-                    height="119">
-                </a>
-              </li>
-
-            </ul>
-
-            <ul class="dropdown-panel-list">
-
-              <li class="menu-title">
-                <a href="#">{{ __('Categorys') }} 2</a>
-              </li>
-
-              <li class="panel-list-item">
-                <a href="#">{{ __('Greenhouses') }}</a>
-              </li>
-
-              <li class="panel-list-item">
-                <a href="#">{{ __('Pivot Irrigation Machines') }}</a>
-              </li>
-
-              <li class="panel-list-item">
-                <a href="#">{{ __('Vertical Irrigation Machines') }}</a>
-              </li>
-
-              <li class="panel-list-item">
-                <a href="#">{{ __('Agricultural Lands') }}</a>
-              </li>
-
-              <li class="panel-list-item">
-                <a href="#">{{ __('Agricultural Pipes') }}</a>
-              </li>
-
-              <li class="panel-list-item">
-                <a href="#">
-                  <img src="http://127.0.0.1:8000/assets/home/images/mens-banner.jpg" alt="men's fashion" width="250" height="119">
-                </a>
-              </li>
-
-            </ul>
-
-            <ul class="dropdown-panel-list">
-
-              <li class="menu-title">
-                <a href="#">{{ __('Categorys') }} 3</a>
-              </li>
-
-              <li class="panel-list-item">
-                <a href="#">{{ __('Fertilizers') }}</a>
-              </li>
-
-              <li class="panel-list-item">
-                <a href="#">{{ __('Medicines') }}</a>
-              </li>
-
-              <li class="panel-list-item">
-                <a href="#">{{ __('Food Supplements') }}</a>
-              </li>
-
-              {{-- <li class="panel-list-item">
-                <a href="#">Cosmetics</a>
-              </li>
-
-              <li class="panel-list-item">
-                <a href="#">Bags</a>
-              </li> --}}
-
-              <li class="panel-list-item">
-                <a href="#">
-                  <img src="http://127.0.0.1:8000/assets/home/images/womens-banner.jpg" alt="women's fashion" width="250" height="119">
-                </a>
-              </li>
-
-            </ul>
-
-            <ul class="dropdown-panel-list">
-
-              {{-- <li class="menu-title">
-                <a href="#">Electronics</a>
-              </li>
-
-              <li class="panel-list-item">
-                <a href="#">Smart Watch</a>
-              </li>
-
-              <li class="panel-list-item">
-                <a href="#">Smart TV</a>
-              </li>
-
-              <li class="panel-list-item">
-                <a href="#">Keyboard</a>
-              </li>
-
-              <li class="panel-list-item">
-                <a href="#">Mouse</a>
-              </li>
-
-              <li class="panel-list-item">
-                <a href="#">Microphone</a>
-              </li> --}}
-
-              <li class="panel-list-item h-100 mt-0">
-                <a href="#" class="h-100">
-                  <img class="h-100" src="http://127.0.0.1:8000/assets/home/images/electronics-banner-2.jpg" alt="mouse collection" width="250">
-                </a>
-              </li>
-
-            </ul>
-
+            @foreach ($categorys as $category)
+              <ul class="dropdown-panel-list">
+                  <li class="menu-title">
+                    <a href="#">
+                          {{ $category->getName() }}
+                    </a>
+                  </li>
+                  @foreach ($category->subCategorys as $subcategory)
+                    <li class="panel-list-item">
+                      <a href="{{ route('subcategory.view',$subcategory->id) }}">
+                        {{ $subcategory->getName() }}
+                      </a>
+                    </li>
+                  @endforeach
+              </ul>
+            @endforeach
           </div>
         </li>
-
-        {{-- <li class="menu-category">
-          <a href="#" class="menu-title">Men's</a>
-
-          <ul class="dropdown-list">
-
-            <li class="dropdown-item">
-              <a href="#">Shirt</a>
-            </li>
-
-            <li class="dropdown-item">
-              <a href="#">Shorts & Jeans</a>
-            </li>
-
-            <li class="dropdown-item">
-              <a href="#">Safety Shoes</a>
-            </li>
-
-            <li class="dropdown-item">
-              <a href="#">Wallet</a>
-            </li>
-
-          </ul>
-        </li>
-
-        <li class="menu-category">
-          <a href="#" class="menu-title">Women's</a>
-
-          <ul class="dropdown-list">
-
-            <li class="dropdown-item">
-              <a href="#">Dress & Frock</a>
-            </li>
-
-            <li class="dropdown-item">
-              <a href="#">Earrings</a>
-            </li>
-
-            <li class="dropdown-item">
-              <a href="#">Necklace</a>
-            </li>
-
-            <li class="dropdown-item">
-              <a href="#">Makeup Kit</a>
-            </li>
-
-          </ul>
-        </li>
-
-        <li class="menu-category">
-          <a href="#" class="menu-title">Jewelry</a>
-
-          <ul class="dropdown-list">
-
-            <li class="dropdown-item">
-              <a href="#">Earrings</a>
-            </li>
-
-            <li class="dropdown-item">
-              <a href="#">Couple Rings</a>
-            </li>
-
-            <li class="dropdown-item">
-              <a href="#">Necklace</a>
-            </li>
-
-            <li class="dropdown-item">
-              <a href="#">Bracelets</a>
-            </li>
-
-          </ul>
-        </li>
-
-        <li class="menu-category">
-          <a href="#" class="menu-title">Perfume</a>
-
-          <ul class="dropdown-list">
-
-            <li class="dropdown-item">
-              <a href="#">Clothes Perfume</a>
-            </li>
-
-            <li class="dropdown-item">
-              <a href="#">Deodorant</a>
-            </li>
-
-            <li class="dropdown-item">
-              <a href="#">Flower Fragrance</a>
-            </li>
-
-            <li class="dropdown-item">
-              <a href="#">Air Freshener</a>
-            </li>
-
-          </ul>
-        </li> --}}
 
         <li class="menu-category">
           <a href="{{ route('blog.index')}}" class="menu-title">{{ __('Blogs') }}</a>
@@ -786,7 +535,7 @@
               <button type="button" class="btn btn-icon btn-outline-danger">
                 <span class="tf-icons mdi mdi-trash-can-outline"></span>
               </button>
-              <div class="text-muted small mt-3">Allowed JPG, GIF or PNG. Max size of 800K</div>
+              <div class="text-muted small mt-3">Allowed JPG, GIF or PNG.</div>
             </div>
           </div>
         </div>
@@ -809,7 +558,7 @@
               <button type="button" class="btn btn-icon btn-outline-danger">
                 <span class="tf-icons mdi mdi-trash-can-outline"></span>
               </button>
-              <div class="text-muted small mt-3">Allowed JPG, GIF or PNG. Max size of 800K</div>
+              <div class="text-muted small mt-3">Allowed JPG, GIF or PNG.</div>
             </div>
 
           </div>
@@ -846,7 +595,7 @@
                   <button type="button" class="btn btn-icon btn-outline-danger">
                     <span class="tf-icons mdi mdi-trash-can-outline"></span>
                   </button>
-                  <div class="text-muted small mt-3">Allowed JPG, GIF or PNG. Max size of 800K</div>
+                  <div class="text-muted small mt-3">Allowed JPG, GIF or PNG.</div>
                 </div>
               </div>
             </div>
@@ -864,7 +613,7 @@
                   <button type="button" class="btn btn-icon btn-outline-danger">
                     <span class="tf-icons mdi mdi-trash-can-outline"></span>
                   </button>
-                  <div class="text-muted small mt-3">Allowed JPG, GIF or PNG. Max size of 800K</div>
+                  <div class="text-muted small mt-3">Allowed JPG, GIF or PNG.</div>
                 </div>
               </div>
             </div>

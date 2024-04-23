@@ -215,7 +215,7 @@
                 url: '/get-states/' + countryId,
                 success: function(response) {
                     $('#stateSelect').empty();
-                    $('#stateSelect').append('<option value="">Select State</option>');
+                    $('#stateSelect').append('<option value="">{{ __('Select State') }}</option>');
                     var states = response.data;
                     states.forEach(function(state) {
                     $('#stateSelect').append('<option value="' + state.id + '">' + state.name + '</option>');
@@ -224,7 +224,7 @@
             });
         } else {
             $('#stateSelect').empty();
-            $('#stateSelect').append('<option value="">Select State</option>');
+            $('#stateSelect').append('<option value="">{{ __('Select State') }}</option>');
         }
     });
 
@@ -240,7 +240,7 @@
                 success: function(response) {
                   var cities = response.data;
                     $('#citySelect').empty();
-                    $('#citySelect').append('<option value="">Select City</option>');
+                    $('#citySelect').append('<option value="">{{ __('Select City') }}</option>');
 
                     cities.forEach(function(city) {
                     $('#citySelect').append('<option value="' + city.id + '">' + city.name + '</option>');
@@ -249,7 +249,7 @@
             });
         } else {
             $('#stateSelect').empty();
-            $('#stateSelect').append('<option value="">Select State</option>');
+            $('#stateSelect').append('<option value="">{{ __('Select City') }}</option>');
         }
     });
 

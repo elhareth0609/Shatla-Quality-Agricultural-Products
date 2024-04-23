@@ -2,12 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class SubCategoryController extends Controller
 {
+  public function view($id) {
+    $subcategory = SubCategory::find($id);
+    return view('content.home.subcategorys.index')
+    ->with('subcategory',$subcategory);
+  }
+
+  public function get($id) {
+    $subcategory = SubCategory::find($id);
+    return view('content.dashboard.subcategorys.index')
+    ->with('subcategory',$subcategory);
+  }
+
   public function create(Request $request) {
     $validator = Validator::make($request->all(), [
         'scname' => 'required|string',
@@ -97,4 +110,6 @@ class SubCategoryController extends Controller
       ]);
     }
   }
+
+
 }

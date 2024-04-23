@@ -118,9 +118,10 @@ Route::middleware('auth')->group(function () {
   Route::get('/cart/update', [CartController::class, 'update'])->name('cart.update');
 
   // Products
-  Route::get('/product/{id}', [ProductsController::class, 'index'])->name('product.index');
-  Route::post('/product/create', [ProductsController::class, 'create'])->name('product.create');
-  Route::get('/product/delete', [ProductsController::class, 'delete'])->name('product.delete');
+  // Dashboard
+  Route::get('/product/{id}', [ProductsController::class, 'get'])->name('product.get');
+  Route::match(['post','get' ], '/product/create', [ProductsController::class, 'create'])->name('product.create');
+  Route::delete('/product/{id}', [ProductsController::class, 'delete'])->name('product.delete');
   Route::post('/product/update', [ProductsController::class, 'update'])->name('product.update');
 
   // Categories
@@ -130,6 +131,7 @@ Route::middleware('auth')->group(function () {
   Route::post('/category/update', [CategoryController::class, 'update'])->name('category.update');
 
   // Categories
+  // Dashboard
   Route::get('/subcategory/{id}', [SubCategoryController::class, 'get'])->name('subcategory.get');
   Route::post('/subcategory/create', [SubCategoryController::class, 'create'])->name('subcategory.create');
   Route::delete('/subcategory/{id}', [SubCategoryController::class, 'delete'])->name('subcategory.delete');
@@ -143,12 +145,9 @@ Route::middleware('auth')->group(function () {
 
   // Blogs
   Route::get('/blog/{id}', [BlogsController::class, 'get'])->name('blog.get');
-  Route::post('/blog/create', [BlogsController::class, 'create'])->name('blog.create');
-  Route::get('/blog/delete', [BlogsController::class, 'delete'])->name('blog.delete');
+  Route::match(['get', 'post'], '/blog/create', [BlogsController::class, 'create'])->name('blog.create');
+  Route::delete('/blog/{id}', [BlogsController::class, 'delete'])->name('blog.delete');
   Route::post('/blog/update', [BlogsController::class, 'update'])->name('blog.update');
-
-  Route::get('/home/blogs', [BlogsController::class, 'index'])->name('blog.index');
-  Route::get('/home/blogs/{id}', [BlogsController::class, 'ones'])->name('blog.ones');
 
   // Plans
   Route::get('/pricing-plan', [PlanController::class, 'index'])->name('plans.index');
@@ -209,6 +208,11 @@ Route::middleware('guest')->group(function () {
 });
 
 
+  Route::get('/view/product/{id}', [ProductsController::class, 'view'])->name('product.view');
+  Route::get('/view/subcategory/{id}', [SubCategoryController::class, 'view'])->name('subcategory.view');
+
+  Route::get('/view/blogs', [BlogsController::class, 'index'])->name('blog.index');
+  Route::get('/view/blogs/{id}', [BlogsController::class, 'ones'])->name('blog.ones');
 
   Route::get('/terms-of-use', [SettingsController::class, 'terms_of_use'])->name('terms_of_use');
   Route::get('/about-us', [SettingsController::class, 'about_us'])->name('about_us');

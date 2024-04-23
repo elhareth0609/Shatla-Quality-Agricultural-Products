@@ -2777,7 +2777,7 @@ footer {
     display: -ms-grid;
     display: grid;
     -ms-grid-columns: 1fr 30px 1fr 30px 1fr 30px 1fr;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 30px;
     padding: 30px;
     border: 1px solid var(--cultured);
@@ -2828,7 +2828,7 @@ footer {
 
   .panel-list-item:not(:last-child) a { padding: 4px 0; }
 
-  .panel-list-item:last-child { margin-top: 20px; }
+  /* .panel-list-item:last-child { margin-top: 20px; } */
 
   .panel-list-item img {
     width: 100%;
@@ -3115,7 +3115,7 @@ footer {
 
   .product-grid {
     -ms-grid-columns: (1fr)[3];
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 
 

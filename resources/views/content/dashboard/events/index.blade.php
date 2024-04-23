@@ -9,17 +9,18 @@
 <!-- Responsive Table -->
 <div class="card row" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
   <h5 class="card-header">{{ __('Events') }}</h5>
-
 </div>
 <!--/ Responsive Table -->
 
 <style>
+
   .dataTables_length,
   .dataTables_filter,
   .dataTables_info,
   .dataTables_paginate {
     display: none;
   }
+
   td,tr {
     text-align: center;
   }

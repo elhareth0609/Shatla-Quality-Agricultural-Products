@@ -62,8 +62,8 @@
       <thead>
         <tr class="text-nowrap">
           <th>#</th>
-          <th>{{ __("Name") }}</th>
           <th>{{ __("Image") }}</th>
+          <th>{{ __("Name") }}</th>
           <th>{{ __("Created At") }}</th>
         </tr>
       </thead>

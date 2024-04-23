@@ -12,40 +12,41 @@ class Product extends Model
   protected $fillable = [
     'name',
     'subcategory_id',
+    'user_id',
     'price',
     'amount_price',
+    'last_price',
+    'percentage',
     'content',
     'status',
     'image'
   ];
 
-  public function subcategory()
-  {
+  public function subcategory() {
       return $this->belongsTo(SubCategory::class);
   }
 
-  public function seller()
-  {
+  public function seller() {
       return $this->belongsTo(User::class);
   }
 
-  public function carts()
-  {
+  public function carts() {
       return $this->belongsToMany(Cart::class, 'cart__products')->withPivot('price');
   }
 
-  public function sells()
-  {
+  public function sells() {
       return $this->belongsToMany(Sell::class, 'sell__products')->withPivot('price');
   }
 
-  public function favorites()
-  {
+  public function favorites() {
       return $this->hasMany(Favorite::class);
   }
 
-  public function getNewPrice($currency)
-{
+  public function photos() {
+      return $this->hasMany(ProductPhoto::class);
+  }
+
+  public function getNewPrice($currency) {
     $price = $this->price;
 
     // if ($currency === config('currency.default_currency')) {

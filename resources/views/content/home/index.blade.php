@@ -92,166 +92,27 @@
     <div class="container">
 
       <div class="category-item-container has-scrollbar">
-
+        @foreach ($subcategorys as $subcategory)
         <div class="category-item bg-white">
 
           <div class="category-img-box">
-            <img src="{{ asset('assets/home/images/icons/dress.svg') }}" alt="dress & frock" width="30">
+            <img src="{{ $subcategory->photoUrl() }}" alt="{{ $subcategory->getName() }}" width="30">
           </div>
 
           <div class="category-content-box">
 
             <div class="category-content-flex">
-              <h3 class="category-item-title">Dress & frock</h3>
+              <h3 class="category-item-title">{{ $subcategory->getName() }}</h3>
 
-              <p class="category-item-amount">(53)</p>
+              <p class="category-item-amount">({{ $subcategory->products->count() }})</p>
             </div>
 
-            <a href="#" class="category-btn">Show all</a>
+            <a href="{{ route('subcategory.view',$subcategory->id) }}" class="category-btn">{{ __('Show all') }}</a>
 
           </div>
 
         </div>
-
-        <div class="category-item bg-white">
-
-          <div class="category-img-box">
-            <img src="{{ asset('assets/home/images/icons/coat.svg') }}" alt="winter wear" width="30">
-          </div>
-
-          <div class="category-content-box">
-
-            <div class="category-content-flex">
-              <h3 class="category-item-title">Winter wear</h3>
-
-              <p class="category-item-amount">(58)</p>
-            </div>
-
-            <a href="#" class="category-btn">Show all</a>
-
-          </div>
-
-        </div>
-
-        <div class="category-item bg-white">
-
-          <div class="category-img-box">
-            <img src="{{ asset('assets/home/images/icons/glasses.svg') }}" alt="glasses & lens" width="30">
-          </div>
-
-          <div class="category-content-box">
-
-            <div class="category-content-flex">
-              <h3 class="category-item-title">Glasses & lens</h3>
-
-              <p class="category-item-amount">(68)</p>
-            </div>
-
-            <a href="#" class="category-btn">Show all</a>
-
-          </div>
-
-        </div>
-
-        <div class="category-item bg-white">
-
-          <div class="category-img-box">
-            <img src="{{ asset('assets/home/images/icons/shorts.svg') }}" alt="shorts & jeans" width="30">
-          </div>
-
-          <div class="category-content-box">
-
-            <div class="category-content-flex">
-              <h3 class="category-item-title">Shorts & jeans</h3>
-
-              <p class="category-item-amount">(84)</p>
-            </div>
-
-            <a href="#" class="category-btn">Show all</a>
-
-          </div>
-
-        </div>
-
-        <div class="category-item bg-white">
-
-          <div class="category-img-box">
-            <img src="{{ asset('assets/home/images/icons/tee.svg') }}" alt="t-shirts" width="30">
-          </div>
-
-          <div class="category-content-box">
-
-            <div class="category-content-flex">
-              <h3 class="category-item-title">T-shirts</h3>
-
-              <p class="category-item-amount">(35)</p>
-            </div>
-
-            <a href="#" class="category-btn">Show all</a>
-
-          </div>
-
-        </div>
-
-        <div class="category-item bg-white">
-
-          <div class="category-img-box">
-            <img src="{{ asset('assets/home/images/icons/jacket.svg') }}" alt="jacket" width="30">
-          </div>
-
-          <div class="category-content-box">
-
-            <div class="category-content-flex">
-              <h3 class="category-item-title">Jacket</h3>
-
-              <p class="category-item-amount">(16)</p>
-            </div>
-
-            <a href="#" class="category-btn">Show all</a>
-
-          </div>
-
-        </div>
-
-        <div class="category-item bg-white">
-
-          <div class="category-img-box">
-            <img src="{{ asset('assets/home/images/icons/watch.svg') }}" alt="watch" width="30">
-          </div>
-
-          <div class="category-content-box">
-
-            <div class="category-content-flex">
-              <h3 class="category-item-title">Watch</h3>
-
-              <p class="category-item-amount">(27)</p>
-            </div>
-
-            <a href="#" class="category-btn">Show all</a>
-
-          </div>
-
-        </div>
-
-        <div class="category-item bg-white">
-
-          <div class="category-img-box">
-            <img src="{{ asset('assets/home/images/icons/hat.svg') }}" alt="hat & caps" width="30">
-          </div>
-
-          <div class="category-content-box">
-
-            <div class="category-content-flex">
-              <h3 class="category-item-title">Hat & caps</h3>
-
-              <p class="category-item-amount">(39)</p>
-            </div>
-
-            <a href="#" class="category-btn">Show all</a>
-
-          </div>
-
-        </div>
+        @endforeach
 
       </div>
 
@@ -272,7 +133,7 @@
         - SIDEBAR
       -->
 
-      <div class="sidebar  has-scrollbar" data-mobile-menu>
+      {{-- <div class="sidebar  has-scrollbar" data-mobile-menu>
 
         <div class="sidebar-category bg-white">
 
@@ -284,171 +145,37 @@
             </button>
           </div>
 
+              @foreach ($categorys as $category)
+              <li class="sidebar-menu-category">
 
+                <button class="sidebar-accordion-menu" data-accordion-btn>
 
-        {{-- Categorys Pages Android --}}
-
-          <ul class="sidebar-menu-category-list">
-
-            <li class="sidebar-menu-category">
-
-              <button class="sidebar-accordion-menu" data-accordion-btn>
-
-                <div class="menu-title-flex">
-                  {{-- <img src="{{ asset('assets/home/images/icons/dress.svg') }}" alt="clothes" width="20" height="20" class="menu-title-img"> --}}
-
-                  <p class="menu-title">{{ __('Categorys') }} 1</p>
-                </div>
-
-                <div>
-                  <ion-icon name="add-outline" class="add-icon"></ion-icon>
-                  <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-                </div>
-
-              </button>
-
-              <ul class="sidebar-submenu-category-list" data-accordion>
-
-                <li class="sidebar-submenu-category">
-                  <a href="#" class="sidebar-submenu-title">
-                    <p class="product-name">{{ __('Seedlings') }}</p>
-                    <data value="300" class="stock" title="Available Stock">300</data>
-                  </a>
-                </li>
-
-                <li class="sidebar-submenu-category">
-                  <a href="#" class="sidebar-submenu-title">
-                    <p class="product-name">{{ __('Seeds') }}</p>
-                    <data value="60" class="stock" title="Available Stock">60</data>
-                  </a>
-                </li>
-
-                <li class="sidebar-submenu-category">
-                  <a href="#" class="sidebar-submenu-title">
-                    <p class="product-name">{{ __('Ornamental Trees') }}</p>
-                    <data value="50" class="stock" title="Available Stock">50</data>
-                  </a>
-                </li>
-
-                <li class="sidebar-submenu-category">
-                  <a href="#" class="sidebar-submenu-title">
-                    <p class="product-name">{{ __('Ornamental Plants') }}</p>
-                    <data value="87" class="stock" title="Available Stock">87</data>
-                  </a>
-                </li>
-
-                <li class="sidebar-submenu-category">
-                  <a href="#" class="sidebar-submenu-title">
-                    <p class="product-name">{{ __('Fruits') }}</p>
-                    <data value="87" class="stock" title="Available Stock">87</data>
-                  </a>
-                </li>
-
-              </ul>
-
-            </li>
-
-            <li class="sidebar-menu-category">
-
-              <button class="sidebar-accordion-menu" data-accordion-btn>
-
-                <div class="menu-title-flex">
-                  {{-- <img src="{{ asset('assets/home/images/icons/shoes.svg') }}" alt="footwear" class="menu-title-img" width="20" height="20"> --}}
-
-                    <p class="menu-title">{{ __('Categorys') }} 2</p>
+                  <div class="menu-title-flex">
+                    <p class="menu-title">
+                          {{ $category->getName() }}
+                    </p>
                   </div>
 
-                <div>
-                  <ion-icon name="add-outline" class="add-icon"></ion-icon>
-                  <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-                </div>
-
-              </button>
-
-              <ul class="sidebar-submenu-category-list" data-accordion>
-
-                <li class="sidebar-submenu-category">
-                  <a href="#" class="sidebar-submenu-title">
-                    <p class="product-name">{{ __('Greenhouses') }}</p>
-                    <data value="45" class="stock" title="Available Stock">45</data>
-                  </a>
-                </li>
-
-                <li class="sidebar-submenu-category">
-                  <a href="#" class="sidebar-submenu-title">
-                    <p class="product-name">{{ __('Pivot Irrigation Machines') }}</p>
-                    <data value="75" class="stock" title="Available Stock">75</data>
-                  </a>
-                </li>
-
-                <li class="sidebar-submenu-category">
-                  <a href="#" class="sidebar-submenu-title">
-                    <p class="product-name">{{ __('Vertical Irrigation Machines') }}</p>
-                    <data value="35" class="stock" title="Available Stock">35</data>
-                  </a>
-                </li>
-
-                <li class="sidebar-submenu-category">
-                  <a href="#" class="sidebar-submenu-title">
-                    <p class="product-name">{{ __('Agricultural Lands') }}</p>
-                    <data value="26" class="stock" title="Available Stock">26</data>
-                  </a>
-                </li>
-
-                <li class="sidebar-submenu-category">
-                  <a href="#" class="sidebar-submenu-title">
-                    <p class="product-name">{{ __('Agricultural Pipes') }}</p>
-                    <data value="26" class="stock" title="Available Stock">26</data>
-                  </a>
-                </li>
-
-              </ul>
-
-            </li>
-
-            <li class="sidebar-menu-category">
-
-              <button class="sidebar-accordion-menu" data-accordion-btn>
-
-                <div class="menu-title-flex">
-                  {{-- <img src="{{ asset('assets/home/images/icons/jewelry.svg') }}" alt="clothes" class="menu-title-img" width="20" height="20"> --}}
-
-                    <p class="menu-title">{{ __('Categorys') }} 3</p>
+                  <div>
+                    <ion-icon name="add-outline" class="add-icon"></ion-icon>
+                    <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
                   </div>
 
-                <div>
-                  <ion-icon name="add-outline" class="add-icon"></ion-icon>
-                  <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-                </div>
+                </button>
 
-              </button>
+                  <ul class="sidebar-submenu-category-list" data-accordion>
+                    @foreach ($category->subCategorys as $subcategory)
+                      <li class="sidebar-submenu-category">
+                        <a href="{{ route('subcategory.view',$subcategory->id) }}" class="sidebar-submenu-title">
+                          <p class="product-name">{{ $subcategory->getName() }}</p>
+                          <data value="300" class="stock" title="Available Stock">300</data>
+                        </a>
+                      </li>
+                    @endforeach
+                  </ul>
+            @endforeach
+          </li>
 
-              <ul class="sidebar-submenu-category-list" data-accordion>
-
-                <li class="sidebar-submenu-category">
-                  <a href="#" class="sidebar-submenu-title">
-                    <p class="product-name">{{ __('Fertilizers') }}</p>
-                    <data value="46" class="stock" title="Available Stock">46</data>
-                  </a>
-                </li>
-
-                <li class="sidebar-submenu-category">
-                  <a href="#" class="sidebar-submenu-title">
-                    <p class="product-name">{{ __('Medicines') }}</p>
-                    <data value="73" class="stock" title="Available Stock">73</data>
-                  </a>
-                </li>
-
-                <li class="sidebar-submenu-category">
-                  <a href="#" class="sidebar-submenu-title">
-                    <p class="product-name">{{ __('Food Supplements') }}</p>
-                    <data value="61" class="stock" title="Available Stock">61</data>
-                  </a>
-                </li>
-
-              </ul>
-
-            </li>
 
           </ul>
 
@@ -585,7 +312,7 @@
 
         </div>
 
-      </div>
+      </div> --}}
 
 
 
@@ -1232,7 +959,7 @@
 
         <div class="product-featured">
 
-          <h2 class="title">Deal of the day</h2>
+          <h2 class="title">{{ __('Deal of the day') }}</h2>
 
           <div class="showcase-wrapper has-scrollbar">
 
@@ -1416,19 +1143,27 @@
 
         <div class="product-main">
 
-          <h2 class="title">New Products</h2>
+          <h2 class="title">{{ __('Products') }}</h2>
 
           <div class="product-grid">
-
+            @foreach ($products as $product)
             <div class="showcase bg-white">
 
               <div class="showcase-banner">
 
-                <img src="{{ asset('assets/home/images/products/jacket-3.jpg') }}" alt="Mens Winter Leathers Jackets" width="300" class="product-img default">
-                <img src="{{ asset('assets/home/images/products/jacket-4.jpg') }}" alt="Mens Winter Leathers Jackets" width="300" class="product-img hover">
+                @foreach ($product->photos as $photo)
+                    @if ($photo->type === '1')
+                        <img src="{{ $photo->photoUrl() }}" alt="" width="300" class="product-img default">
+                    @else
+                        <img src="{{ $photo->photoUrl() }}" alt="" width="300" class="product-img hover">
+                    @endif
+                @endforeach
 
-                <p class="showcase-badge">15%</p>
-
+                @if ($product->percentage)
+                  <p class="showcase-badge">
+                    {{ $product->percentage }}
+                  %</p>
+                @endif
                 <div class="showcase-actions">
 
                   <button class="btn-action">
@@ -1453,10 +1188,10 @@
 
               <div class="showcase-content">
 
-                <a href="#" class="showcase-category">jacket</a>
+                <a href="#" class="showcase-category">{{ $product->subcategory->getName() }}</a>
 
-                <a href="#">
-                  <h3 class="showcase-title">Mens Winter Leathers Jackets</h3>
+                <a href="{{ route('product.view',$product->id) }}">
+                  <h3 class="showcase-title">{{ $product->name }}</h3>
                 </a>
 
                 <div class="showcase-rating">
@@ -1468,585 +1203,16 @@
                 </div>
 
                 <div class="price-box">
-                  <p class="price  mb-0">$48.00</p>
-                  <del>$75.00</del>
+                  <p class="price  mb-0">{{ $product->price }}</p>
+                  @if ($product->last_price)
+                  <del>{{ $product->last_price }}</del>
+                  @endif
                 </div>
 
               </div>
 
             </div>
-
-            <div class="showcase bg-white">
-
-              <div class="showcase-banner">
-                <img src="{{ asset('assets/home/images/products/shirt-1.jpg') }}" alt="Pure Garment Dyed Cotton Shirt" class="product-img default"
-                  width="300">
-                <img src="{{ asset('assets/home/images/products/shirt-2.jpg') }}" alt="Pure Garment Dyed Cotton Shirt" class="product-img hover"
-                  width="300">
-
-                <p class="showcase-badge angle black">sale</p>
-
-                <div class="showcase-actions">
-                  <button class="btn-action">
-                    <ion-icon name="heart-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="repeat-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="bag-add-outline"></ion-icon>
-                  </button>
-                </div>
-              </div>
-
-              <div class="showcase-content">
-                <a href="#" class="showcase-category">shirt</a>
-
-                <h3>
-                  <a href="#" class="showcase-title">Pure Garment Dyed Cotton Shirt</a>
-                </h3>
-
-                <div class="showcase-rating">
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star-outline"></ion-icon>
-                  <ion-icon name="star-outline"></ion-icon>
-                </div>
-
-                <div class="price-box">
-                  <p class="price  mb-0">$45.00</p>
-                  <del>$56.00</del>
-                </div>
-
-              </div>
-
-            </div>
-
-            <div class="showcase bg-white">
-
-              <div class="showcase-banner">
-                <img src="{{ asset('assets/home/images/products/jacket-5.jpg') }}" alt="MEN Yarn Fleece Full-Zip Jacket" class="product-img default"
-                  width="300">
-                <img src="{{ asset('assets/home/images/products/jacket-6.jpg') }}" alt="MEN Yarn Fleece Full-Zip Jacket" class="product-img hover"
-                  width="300">
-
-                <div class="showcase-actions">
-                  <button class="btn-action">
-                    <ion-icon name="heart-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="repeat-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="bag-add-outline"></ion-icon>
-                  </button>
-                </div>
-              </div>
-
-              <div class="showcase-content">
-                <a href="#" class="showcase-category">Jacket</a>
-
-                <h3>
-                  <a href="#" class="showcase-title">MEN Yarn Fleece Full-Zip Jacket</a>
-                </h3>
-
-                <div class="showcase-rating">
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star-outline"></ion-icon>
-                  <ion-icon name="star-outline"></ion-icon>
-                </div>
-
-                <div class="price-box">
-                  <p class="price  mb-0">$58.00</p>
-                  <del>$65.00</del>
-                </div>
-
-              </div>
-
-            </div>
-
-            <div class="showcase bg-white">
-
-              <div class="showcase-banner">
-                <img src="{{ asset('assets/home/images/products/clothes-3.jpg') }}" alt="Black Floral Wrap Midi Skirt" class="product-img default"
-                  width="300">
-                <img src="{{ asset('assets/home/images/products/clothes-4.jpg') }}" alt="Black Floral Wrap Midi Skirt" class="product-img hover"
-                  width="300">
-
-                <p class="showcase-badge angle pink">new</p>
-
-                <div class="showcase-actions">
-                  <button class="btn-action">
-                    <ion-icon name="heart-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="repeat-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="bag-add-outline"></ion-icon>
-                  </button>
-                </div>
-              </div>
-
-              <div class="showcase-content">
-                <a href="#" class="showcase-category">skirt</a>
-
-                <h3>
-                  <a href="#" class="showcase-title">Black Floral Wrap Midi Skirt</a>
-                </h3>
-
-                <div class="showcase-rating">
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                </div>
-
-                <div class="price-box">
-                  <p class="price  mb-0">$25.00</p>
-                  <del>$35.00</del>
-                </div>
-
-              </div>
-
-            </div>
-
-            <div class="showcase bg-white">
-
-              <div class="showcase-banner">
-                <img src="{{ asset('assets/home/images/products/shoe-2.jpg') }}" alt="Casual Men's Brown shoes" class="product-img default"
-                  width="300">
-                <img src="{{ asset('assets/home/images/products/shoe-2_1.jpg') }}" alt="Casual Men's Brown shoes" class="product-img hover"
-                  width="300">
-
-                <div class="showcase-actions">
-                  <button class="btn-action">
-                    <ion-icon name="heart-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="repeat-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="bag-add-outline"></ion-icon>
-                  </button>
-                </div>
-              </div>
-
-              <div class="showcase-content">
-                <a href="#" class="showcase-category">casual</a>
-
-                <h3>
-                  <a href="#" class="showcase-title">Casual Men's Brown shoes</a>
-                </h3>
-
-                <div class="showcase-rating">
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                </div>
-
-                <div class="price-box">
-                  <p class="price  mb-0">$99.00</p>
-                  <del>$105.00</del>
-                </div>
-
-              </div>
-
-            </div>
-
-            <div class="showcase bg-white">
-
-              <div class="showcase-banner">
-                <img src="{{ asset('assets/home/images/products/watch-3.jpg') }}" alt="Pocket Watch Leather Pouch" class="product-img default"
-                  width="300">
-                <img src="{{ asset('assets/home/images/products/watch-4.jpg') }}" alt="Pocket Watch Leather Pouch" class="product-img hover"
-                  width="300">
-
-                <p class="showcase-badge angle black">sale</p>
-
-                <div class="showcase-actions">
-                  <button class="btn-action">
-                    <ion-icon name="heart-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="repeat-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="bag-add-outline"></ion-icon>
-                  </button>
-                </div>
-              </div>
-
-              <div class="showcase-content">
-                <a href="#" class="showcase-category">watches</a>
-
-                <h3>
-                  <a href="#" class="showcase-title">Pocket Watch Leather Pouch</a>
-                </h3>
-
-                <div class="showcase-rating">
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star-outline"></ion-icon>
-                  <ion-icon name="star-outline"></ion-icon>
-                </div>
-
-                <div class="price-box">
-                  <p class="price  mb-0">$150.00</p>
-                  <del>$170.00</del>
-                </div>
-
-              </div>
-
-            </div>
-
-            <div class="showcase bg-white">
-
-              <div class="showcase-banner">
-                <img src="{{ asset('assets/home/images/products/watch-1.jpg') }}" alt="Smart watche Vital Plus" class="product-img default"
-                  width="300">
-                <img src="{{ asset('assets/home/images/products/watch-2.jpg') }}" alt="Smart watche Vital Plus" class="product-img hover" width="300">
-
-                <div class="showcase-actions">
-                  <button class="btn-action">
-                    <ion-icon name="heart-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="repeat-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="bag-add-outline"></ion-icon>
-                  </button>
-                </div>
-              </div>
-
-              <div class="showcase-content">
-                <a href="#" class="showcase-category">watches</a>
-
-                <h3>
-                  <a href="#" class="showcase-title">Smart watche Vital Plus</a>
-                </h3>
-
-                <div class="showcase-rating">
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star-outline"></ion-icon>
-                </div>
-
-                <div class="price-box">
-                  <p class="price  mb-0">$100.00</p>
-                  <del>$120.00</del>
-                </div>
-
-              </div>
-
-            </div>
-
-            <div class="showcase bg-white">
-
-              <div class="showcase-banner">
-                <img src="{{ asset('assets/home/images/products/party-wear-1.jpg') }}" alt="Womens Party Wear Shoes" class="product-img default"
-                  width="300">
-                <img src="{{ asset('assets/home/images/products/party-wear-2.jpg') }}" alt="Womens Party Wear Shoes" class="product-img hover"
-                  width="300">
-
-                <p class="showcase-badge angle black">sale</p>
-
-                <div class="showcase-actions">
-                  <button class="btn-action">
-                    <ion-icon name="heart-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="repeat-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="bag-add-outline"></ion-icon>
-                  </button>
-                </div>
-              </div>
-
-              <div class="showcase-content">
-                <a href="#" class="showcase-category">party wear</a>
-
-                <h3>
-                  <a href="#" class="showcase-title">Womens Party Wear Shoes</a>
-                </h3>
-
-                <div class="showcase-rating">
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star-outline"></ion-icon>
-                  <ion-icon name="star-outline"></ion-icon>
-                </div>
-
-                <div class="price-box">
-                  <p class="price  mb-0">$25.00</p>
-                  <del>$30.00</del>
-                </div>
-
-              </div>
-
-            </div>
-
-            <div class="showcase bg-white">
-
-              <div class="showcase-banner">
-                <img src="{{ asset('assets/home/images/products/jacket-1.jpg') }}" alt="Mens Winter Leathers Jackets" class="product-img default"
-                  width="300">
-                <img src="{{ asset('assets/home/images/products/jacket-2.jpg') }}" alt="Mens Winter Leathers Jackets" class="product-img hover"
-                  width="300">
-
-                <div class="showcase-actions">
-                  <button class="btn-action">
-                    <ion-icon name="heart-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="repeat-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="bag-add-outline"></ion-icon>
-                  </button>
-                </div>
-              </div>
-
-              <div class="showcase-content">
-                <a href="#" class="showcase-category">jacket</a>
-
-                <h3>
-                  <a href="#" class="showcase-title">Mens Winter Leathers Jackets</a>
-                </h3>
-
-                <div class="showcase-rating">
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star-outline"></ion-icon>
-                </div>
-
-                <div class="price-box">
-                  <p class="price  mb-0">$32.00</p>
-                  <del>$45.00</del>
-                </div>
-
-              </div>
-
-            </div>
-
-            <div class="showcase bg-white">
-
-              <div class="showcase-banner">
-                <img src="{{ asset('assets/home/images/products/sports-2.jpg') }}" alt="Trekking & Running Shoes - black" class="product-img default"
-                  width="300">
-                <img src="{{ asset('assets/home/images/products/sports-4.jpg') }}" alt="Trekking & Running Shoes - black" class="product-img hover"
-                  width="300">
-
-                <p class="showcase-badge angle black">sale</p>
-
-                <div class="showcase-actions">
-                  <button class="btn-action">
-                    <ion-icon name="heart-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="repeat-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="bag-add-outline"></ion-icon>
-                  </button>
-                </div>
-              </div>
-
-              <div class="showcase-content">
-                <a href="#" class="showcase-category">sports</a>
-
-                <h3>
-                  <a href="#" class="showcase-title">Trekking & Running Shoes - black</a>
-                </h3>
-
-                <div class="showcase-rating">
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star-outline"></ion-icon>
-                  <ion-icon name="star-outline"></ion-icon>
-                </div>
-
-                <div class="price-box">
-                  <p class="price  mb-0">$58.00</p>
-                  <del>$64.00</del>
-                </div>
-
-              </div>
-
-            </div>
-
-            <div class="showcase bg-white">
-
-              <div class="showcase-banner">
-                <img src="{{ asset('assets/home/images/products/shoe-1.jpg') }}" alt="Men's Leather Formal Wear shoes" class="product-img default"
-                  width="300">
-                <img src="{{ asset('assets/home/images/products/shoe-1_1.jpg') }}" alt="Men's Leather Formal Wear shoes" class="product-img hover"
-                  width="300">
-
-                <div class="showcase-actions">
-                  <button class="btn-action">
-                    <ion-icon name="heart-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="repeat-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="bag-add-outline"></ion-icon>
-                  </button>
-                </div>
-              </div>
-
-              <div class="showcase-content">
-                <a href="#" class="showcase-category">formal</a>
-
-                <h3>
-                  <a href="#" class="showcase-title">Men's Leather Formal Wear shoes</a>
-                </h3>
-
-                <div class="showcase-rating">
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star-outline"></ion-icon>
-                </div>
-
-                <div class="price-box">
-                  <p class="price  mb-0">$50.00</p>
-                  <del>$65.00</del>
-                </div>
-
-              </div>
-
-            </div>
-
-            <div class="showcase bg-white">
-
-              <div class="showcase-banner">
-                <img src="{{ asset('assets/home/images/products/shorts-1.jpg') }}" alt="Better Basics French Terry Sweatshorts"
-                  class="product-img default" width="300">
-                <img src="{{ asset('assets/home/images/products/shorts-2.jpg') }}" alt="Better Basics French Terry Sweatshorts"
-                  class="product-img hover" width="300">
-
-                <p class="showcase-badge angle black">sale</p>
-
-                <div class="showcase-actions">
-                  <button class="btn-action">
-                    <ion-icon name="heart-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="repeat-outline"></ion-icon>
-                  </button>
-
-                  <button class="btn-action">
-                    <ion-icon name="bag-add-outline"></ion-icon>
-                  </button>
-                </div>
-              </div>
-
-              <div class="showcase-content">
-                <a href="#" class="showcase-category">shorts</a>
-
-                <h3>
-                  <a href="#" class="showcase-title">Better Basics French Terry Sweatshorts</a>
-                </h3>
-
-                <div class="showcase-rating">
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star"></ion-icon>
-                  <ion-icon name="star-outline"></ion-icon>
-                  <ion-icon name="star-outline"></ion-icon>
-                </div>
-
-                <div class="price-box">
-                  <p class="price  mb-0">$78.00</p>
-                  <del>$85.00</del>
-                </div>
-
-              </div>
-
-            </div>
+            @endforeach
 
           </div>
 
@@ -2231,6 +1397,7 @@
   <div class="blog">
 
     <div class="container">
+      <h2 class="title">{{ __('Blogs') }}</h2>
 
       <div class="blog-container has-scrollbar">
 

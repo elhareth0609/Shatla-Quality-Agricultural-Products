@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Models\Category;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -21,6 +22,8 @@ class Header extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('content.home.components.header');
-    }
+        $categorys = Category::all();
+        return view('content.home.components.header')
+        ->with('categorys',$categorys);
+      }
 }

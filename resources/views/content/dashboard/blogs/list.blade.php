@@ -19,9 +19,9 @@
       <option value="100" selected>100</option>
     </select>
 
-    <button type="button" class="btn btn-icon btn-outline-primary mb-3 mx-1">
+    <a href="{{ route('blog.create') }}" class="btn btn-icon btn-outline-primary mb-3 mx-1">
       <span class="tf-icons mdi mdi-plus-outline"></span>
-    </button>
+    </a>
   </div>
 
   <div class="table-responsive text-nowrap">
@@ -69,11 +69,83 @@
 <script src="{{ asset('assets/js/mine.js') }}"></script>
 
 <script type="text/javascript">
+  var table;
+  var lang = "{{ app()->getLocale() }}";
+
+      function editCategory(id) {
+        console.log(id);
+      }
+
+  function deleteCategory(id) {
+    Swal.fire({
+        title: __("Do you really want to delete this Category?",lang),
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: __("Submit",lang),
+        cancelButtonText: __("Cancel",lang),
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: '/category/' + id,
+                type: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    Swal.fire({
+                        icon: response.icon,
+                        title: response.state,
+                        text: response.message,
+                        confirmButtonText: __("Ok",lang),
+                    });
+                    table.ajax.reload();
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    const response = JSON.parse(xhr.responseText);
+                    Swal.fire({
+                        icon: response.icon,
+                        title: response.state,
+                        text: response.message,
+                        confirmButtonText: __("Ok",lang),
+                    });
+                }
+            });
+        }
+    });
+  }
+
+
+      // Function to handle deleting a category
+      function subcategorys(id) {
+        window.location.href = "{{ url('category') }}/" + id + "/subcategorys";
+      }
+
+      function showContextMenu(id, x, y) {
+        // Here you can define the content and behavior of the context menu
+        var contextMenu = $('<ul class="context-menu" dir="{{ app()->isLocale("ar") ? "rtl" : "" }}"></ul>')
+            .append('<li><a onclick="editCategory(' + id + ')">{{ __("Edit") }}</a></li>')
+            .append('<li><a onclick="deleteCategory(' + id + ')">{{ __("Delete") }}</a></li>')
+            .append('<li><a onclick="subcategorys(' + id + ')">{{ __("SubCategorys") }}</a></li>');
+
+        // Position the context menu at the mouse coordinates
+        contextMenu.css({
+            top: y,
+            left: x
+        });
+
+        // Append the context menu to the body
+        $('body').append(contextMenu);
+
+        // Hide the context menu when clicking outside of it
+        $(document).on('click', function() {
+          $('.context-menu').remove();
+        });
+      }
 
 $(document).ready(function() {
   $.noConflict();
-      var lang = "{{ app()->getLocale() }}";
-      var table = $('#blogs').DataTable({
+        table = $('#blogs').DataTable({
           processing: true,
           serverSide: true,
           language: {
@@ -93,6 +165,16 @@ $(document).ready(function() {
                   searchable: true
               },
           ],
+
+          rowCallback: function(row, data) {
+              $(row).attr('id', 'blog_' + data.id); // Assign an id to each row for easy targeting
+
+              // Add right-click context menu listener to each row
+              $(row).on('contextmenu', function(e) {
+                  e.preventDefault();
+                  showContextMenu(data.id, e.pageX, e.pageY); // Show context menu at mouse position
+              });
+          }
 
       });
 

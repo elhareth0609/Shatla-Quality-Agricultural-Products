@@ -18,7 +18,14 @@ class BlogsController extends Controller
       return view('content.home.blogs.ones');
     }
 
+    public function get($id) {
+      return view('content.dashboard.blogs.create');
+    }
+
     public function create(Request $request) {
+      if ($request->isMethod('GET')) {
+        return view('content.dashboard.blogs.create');
+      }
 
       return response()->json([
         'state' => 'deleted',

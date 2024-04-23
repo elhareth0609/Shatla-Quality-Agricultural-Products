@@ -70,7 +70,7 @@ class DataTablesController extends Controller
             return (string) $category->id;
         })
         ->editColumn('name', function ($category) {
-          return $category->name;
+          return $category->getName();
         })
         ->editColumn('image', function ($category) {
           return $category->image;
@@ -307,7 +307,7 @@ class DataTablesController extends Controller
             return (string) $subcategory->id;
         })
         ->editColumn('name', function ($subcategory) {
-          return $subcategory->name;
+          return $subcategory->getName();
         })
         ->editColumn('image', function ($subcategory) {
           return $subcategory->image;

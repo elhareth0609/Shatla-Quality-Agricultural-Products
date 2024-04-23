@@ -19,4 +19,17 @@ class Category extends Model
         return $this->hasMany(SubCategory::class);
     }
 
+    public function getName() {
+      $locale = app()->getLocale();
+
+      if ($locale === 'ar') {
+          return $this->name_ar;
+      } elseif ($locale === 'en') {
+          return $this->name_en;
+      } elseif ($locale === 'fr') {
+          return $this->name_fr;
+      } else {
+          return $this->name_en;
+      }
+    }
 }
