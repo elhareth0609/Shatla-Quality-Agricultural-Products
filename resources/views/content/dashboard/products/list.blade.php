@@ -100,15 +100,16 @@
       }
 
       function demoProduct(id) {
-        window.location.href = "{{ url('product') }}/" + id ;
+        window.open("{{ url('view/product') }}/" + id, "_blank");
       }
 
       function showContextMenu(id, x, y) {
         // Here you can define the content and behavior of the context menu
         var contextMenu = $('<ul class="context-menu" dir="{{ app()->isLocale("ar") ? "rtl" : "" }}"></ul>')
-            .append('<li><a onclick="editProduct(' + id + ')">{{ __("Edit") }}</a></li>')
-            .append('<li><a onclick="demoProduct(' + id + ')">{{ __("Demo") }}</a></li>')
-            .append('<li><a onclick="deleteProduct(' + id + ')">{{ __("Delete") }}</a></li>');
+            .append('<li><a onclick="editProduct(' + id + ')"><i class="tf-icons mdi mdi-pencil-outline {{ app()->isLocale("ar") ? "ms-1" : "me-1" }}"></i>{{ __("Edit") }}</a></li>')
+            .append('<li><a onclick="demoProduct(' + id + ')"><i class="tf-icons mdi mdi-arrow-right-top {{ app()->isLocale("ar") ? "ms-1" : "me-1" }}"></i>{{ __("Demo") }}</a></li>')
+            .append('<li class="px-0 pe-none"><div class="divider border-top my-0"></div></li>')
+            .append('<li><a onclick="deleteProduct(' + id + ')"><i class="tf-icons mdi mdi-trash-can-outline {{ app()->isLocale("ar") ? "ms-1" : "me-1" }}"></i>{{ __("Delete") }}</a></li>');
 
         // Position the context menu at the mouse coordinates
         contextMenu.css({

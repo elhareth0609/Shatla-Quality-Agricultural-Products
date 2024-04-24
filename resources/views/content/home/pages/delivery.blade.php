@@ -4,6 +4,6 @@
 
 @section('content')
 <div class="container">
-  {{ $content }}
+  {!! $content !!}
 </div>
 @endsection

@@ -18,7 +18,7 @@
     <img src="{{asset('assets/img/illustrations/tree.png')}}" alt="misc-tree" class="img-fluid misc-object d-none d-lg-inline-block" width="80">
     <img src="{{asset('assets/img/illustrations/misc-mask-light.png')}}" alt="misc-error" class="scaleX-n1-rtl misc-bg d-none d-lg-inline-block">
     <div class="d-flex flex-column align-items-center">
-      <img src="{{asset('assets/img/illustrations/404.png')}}" alt="misc-error" class="misc-model img-fluid z-1" width="780">
+      <img src="{{asset('assets/img/illustrations/Water drop-amico.png')}}" alt="misc-error" class="misc-model img-fluid z-1" width="780">
       <div>
         <a href="{{ url('/') }}" class="btn btn-primary text-center my-4">{{__('Back to home')}}</a>
       </div>

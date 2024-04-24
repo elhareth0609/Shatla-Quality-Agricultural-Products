@@ -28,16 +28,18 @@ class BlogsController extends Controller
       }
 
       return response()->json([
-        'state' => 'deleted',
-        'message' => 'Blog Created Successfully.'
+        'icon' => 'success',
+        'state' => __('Success'),
+        'message' => __("Created Successfully.")
       ]);
     }
 
     public function update(Request $request) {
 
       return response()->json([
-        'state' => 'deleted',
-        'message' => 'Blog Updated Successfully.'
+        'icon' => 'success',
+        'state' => __('Success'),
+        'message' => __("Updated Successfully.")
       ]);
     }
 
@@ -45,8 +47,9 @@ class BlogsController extends Controller
         $blog = Blog::find($id);
         $blog->delete();
         return response()->json([
-          'state' => 'deleted',
-          'message' => 'Blog Deleted Successfully.'
+          'icon' => 'success',
+          'state' => __('Success'),
+          'message' => __("Deleted Successfully.")
         ]);
     }
 }

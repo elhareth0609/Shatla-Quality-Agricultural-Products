@@ -99,7 +99,7 @@
         </li>
 
         <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">{{ __('Prices Drop') }}</a>
+          <a href="https://storyset.com" target="_blanck" class="footer-nav-link">{{ __('Storyset') }}</a> illustrations
         </li>
 
         <li class="footer-nav-item">

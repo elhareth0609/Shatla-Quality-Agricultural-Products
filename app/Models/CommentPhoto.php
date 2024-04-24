@@ -6,17 +6,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class ProductPhoto extends Model
+class CommentPhoto extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-      'photo'
+      'user_id',
+      'product_id',
+      'content',
+      'stars'
     ];
 
-    public function product()
+    public function comment()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Comment::class);
     }
 
     public function photoUrl() {
@@ -25,7 +28,7 @@ class ProductPhoto extends Model
         if (Str::startsWith($photo, 'http')) {
             return $photo;
         } else {
-            return asset('assets/img/photos/products/' . $photo);
+            return asset('assets/img/photos/commments/' . $photo);
         }
     }
 
@@ -33,10 +36,10 @@ class ProductPhoto extends Model
       $photo = $this->photo;
 
       if (!empty($photo)) {
-          return public_path('assets/img/photos/products/' . $photo);
+          return public_path('assets/img/photos/commments/' . $photo);
       } else {
           // Return default path or handle empty photo case as needed
-          return public_path('assets/img/photos/products/default.jpg');
+          return public_path('assets/img/photos/commments/default.jpg');
       }
     }
 }

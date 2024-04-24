@@ -19,7 +19,7 @@
 
         <div class="slider-item">
 
-          <img src="{{ asset('assets/home/images/banner-1.png') }}" alt="women's latest fashion sale" class="banner-img">
+          <img src="{{ asset('assets/img/illustrations/potted plants-amico.png') }}" height="100%" alt="women's latest fashion sale">
 
           <div class="banner-content">
 
@@ -39,7 +39,7 @@
 
         <div class="slider-item">
 
-          <img src="{{ asset('assets/home/images/banner-2.png') }}" alt="modern sunglasses" class="banner-img">
+          <img src="{{ asset('assets/img/illustrations/coffee bean-amico.png') }}" height="100%" alt="modern sunglasses">
 
           <div class="banner-content">
 
@@ -59,7 +59,7 @@
 
         <div class="slider-item">
 
-          <img src="{{ asset('assets/home/images/banner-3.png') }}" alt="new fashion summer sale" class="banner-img">
+          <img src="{{ asset('assets/img/illustrations/Mango tree-amico.png') }}" height="100%" alt="new fashion summer sale">
 
           <div class="banner-content">
 
@@ -107,7 +107,7 @@
               <p class="category-item-amount">({{ $subcategory->products->count() }})</p>
             </div>
 
-            <a href="{{ route('subcategory.view',$subcategory->id) }}" class="category-btn">{{ __('Show all') }}</a>
+            <a href="{{ route('subcategory.view',$subcategory->id) }}" class="category-btn">{{ __('Show All') }}</a>
 
           </div>
 
@@ -968,7 +968,7 @@
               <div class="showcase bg-white p-1 rounded">
 
                 <div class="showcase-banner">
-                  <img src="{{ asset('assets/home/images/products/shampoo.jpg') }}" alt="shampoo, conditioner & facewash packs" class="showcase-img">
+                  <img src="{{ asset('assets/img/illustrations/Water drop-pana.png') }}" alt="shampoo, conditioner & facewash packs" class="showcase-img">
                 </div>
 
                 <div class="showcase-content">
@@ -1058,7 +1058,7 @@
               <div class="showcase bg-white p-1 rounded">
 
                 <div class="showcase-banner">
-                  <img src="{{ asset('assets/home/images/products/jewellery-1.jpg') }}" alt="Rose Gold diamonds Earring" class="showcase-img">
+                  <img src="{{ asset('assets/img/illustrations/Water drop-pana.png') }}" alt="Rose Gold diamonds Earring" class="showcase-img">
                 </div>
 
                 <div class="showcase-content">

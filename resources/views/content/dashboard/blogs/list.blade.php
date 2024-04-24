@@ -72,13 +72,13 @@
   var table;
   var lang = "{{ app()->getLocale() }}";
 
-      function editCategory(id) {
+      function editBlog(id) {
         console.log(id);
       }
 
-  function deleteCategory(id) {
+  function deleteBlog(id) {
     Swal.fire({
-        title: __("Do you really want to delete this Category?",lang),
+        title: __("Do you really want to delete this Blog?",lang),
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: __("Submit",lang),
@@ -87,7 +87,7 @@
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: '/category/' + id,
+                url: '/blog/' + id,
                 type: 'DELETE',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -115,18 +115,12 @@
     });
   }
 
-
-      // Function to handle deleting a category
-      function subcategorys(id) {
-        window.location.href = "{{ url('category') }}/" + id + "/subcategorys";
-      }
-
       function showContextMenu(id, x, y) {
         // Here you can define the content and behavior of the context menu
         var contextMenu = $('<ul class="context-menu" dir="{{ app()->isLocale("ar") ? "rtl" : "" }}"></ul>')
-            .append('<li><a onclick="editCategory(' + id + ')">{{ __("Edit") }}</a></li>')
-            .append('<li><a onclick="deleteCategory(' + id + ')">{{ __("Delete") }}</a></li>')
-            .append('<li><a onclick="subcategorys(' + id + ')">{{ __("SubCategorys") }}</a></li>');
+            .append('<li><a onclick="editBlog(' + id + ')"><i class="tf-icons mdi mdi-pencil-outline {{ app()->isLocale("ar") ? "ms-1" : "me-1" }}"></i>{{ __("Edit") }}</a></li>')
+            .append('<li class="px-0 pe-none"><div class="divider border-top my-0"></div></li>')
+            .append('<li><a onclick="deleteBlog(' + id + ')"><i class="tf-icons mdi mdi-trash-can-outline {{ app()->isLocale("ar") ? "ms-1" : "me-1" }}"></i>{{ __("Delete") }}</a></li>');
 
         // Position the context menu at the mouse coordinates
         contextMenu.css({

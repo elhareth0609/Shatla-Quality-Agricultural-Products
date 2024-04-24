@@ -8,14 +8,15 @@ use App\Http\Controllers\cards\CardBasic;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChargilyPayController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\dashboard\Analytics;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DataTablesController;
-use App\Http\Controllers\DiseasesController;
 
+use App\Http\Controllers\DiseasesController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\extended_ui\PerfectScrollbar;
 use App\Http\Controllers\extended_ui\TextDivider;
@@ -40,12 +41,12 @@ use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SubCategoryController;
+
 use App\Http\Controllers\tables\Basic as TablesBasic;
-
 use App\Http\Controllers\user_interface\Accordion;
+
+
 use App\Http\Controllers\user_interface\Alerts;
-
-
 use App\Http\Controllers\user_interface\Badges;
 use App\Http\Controllers\user_interface\Buttons;
 use App\Http\Controllers\user_interface\Carousel;
@@ -65,6 +66,7 @@ use App\Http\Controllers\user_interface\TooltipsPopovers;
 use App\Http\Controllers\user_interface\Typography;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -160,6 +162,8 @@ Route::middleware('auth')->group(function () {
 
   // Events
   Route::get('/events', [EventController::class, 'index'])->name('events');
+
+  Route::post('/comment/create', [CommentController::class, 'create'])->name('comment.create');
 
   // Authentication
   Route::get('/auth/logout', [LoginBasic::class, 'logout'])->name('logout.action');

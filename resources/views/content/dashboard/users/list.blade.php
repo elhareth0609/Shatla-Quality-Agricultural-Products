@@ -68,11 +68,12 @@
 <script src="{{ asset('assets/js/mine.js') }}"></script>
 
 <script type="text/javascript">
+var lang = "{{ app()->getLocale() }}";
+var table;
 
 $(document).ready(function() {
   $.noConflict();
-      var lang = "{{ app()->getLocale() }}";
-      var table = $('#users').DataTable({
+        table = $('#users').DataTable({
           processing: true,
           serverSide: true,
           language: {

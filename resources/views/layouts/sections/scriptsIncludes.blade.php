@@ -25,7 +25,7 @@
   </textarea> --}}
 
   <link rel="stylesheet" src="{{ asset('assets/css/mine.css') }}" />
-  <link rel="stylesheet" src="{{ asset('assets/js/mine.js') }}" />
+  <script src="{{ asset('assets/js/mine.js') }}"></script>
 
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/js/jquery.dataTables.min.js') }}"></script>

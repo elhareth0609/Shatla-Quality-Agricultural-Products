@@ -175,9 +175,10 @@
       function showContextMenu(id, x, y) {
         // Here you can define the content and behavior of the context menu
         var contextMenu = $('<ul class="context-menu" dir="{{ app()->isLocale("ar") ? "rtl" : "" }}"></ul>')
-            .append('<li><a onclick="editCategory(' + id + ')">{{ __("Edit") }}</a></li>')
-            .append('<li><a onclick="deleteCategory(' + id + ')">{{ __("Delete") }}</a></li>')
-            .append('<li><a onclick="subcategorys(' + id + ')">{{ __("SubCategorys") }}</a></li>');
+            .append('<li><a onclick="editCategory(' + id + ')"><i class="tf-icons mdi mdi-pencil-outline {{ app()->isLocale("ar") ? "ms-1" : "me-1" }}"></i>{{ __("Edit") }}</a></li>')
+            .append('<li><a onclick="subcategorys(' + id + ')"><i class="tf-icons mdi mdi-format-list-numbered {{ app()->isLocale("ar") ? "ms-1" : "me-1" }}"></i>{{ __("SubCategorys") }}</a></li>')
+            .append('<li class="px-0 pe-none"><div class="divider border-top my-0"></div></li>')
+            .append('<li><a onclick="deleteCategory(' + id + ')"><i class="tf-icons mdi mdi-trash-can-outline {{ app()->isLocale("ar") ? "ms-1" : "me-1" }}"></i>{{ __("Delete") }}</a></li>');
 
         // Position the context menu at the mouse coordinates
         contextMenu.css({

@@ -18,6 +18,7 @@
 </style>
 
 <script type="text/javascript">
+var lang = "{{ app()->getLocale() }}";
 
 $(document).ready(function() {
 

@@ -95,7 +95,7 @@ class SettingsController extends Controller
         return response()->json([
           'icon' => 'success',
           'state' => __('Success'),
-          'message' => 'Updated Successfully.'
+          'message' => __("Updated Successfully.")
         ]);
       } catch (\Exception $e) {
         return response()->json([
@@ -115,7 +115,7 @@ class SettingsController extends Controller
         return response()->json([
           'icon' => 'success',
           'state' => __('Success'),
-          'message' => 'Updated Successfully.'
+          'message' => __("Updated Successfully.")
         ]);
       } catch (\Exception $e) {
         return response()->json([
@@ -135,7 +135,7 @@ class SettingsController extends Controller
         return response()->json([
           'icon' => 'success',
           'state' => __('Success'),
-          'message' => 'Updated Successfully.'
+          'message' => __("Updated Successfully.")
         ]);
       } catch (\Exception $e) {
         return response()->json([
@@ -154,7 +154,7 @@ class SettingsController extends Controller
         return response()->json([
           'icon' => 'success',
           'state' => __('Success'),
-          'message' => 'Updated Successfully.'
+          'message' => __("Updated Successfully.")
         ]);
       } catch (\Exception $e) {
         return response()->json([
@@ -173,7 +173,7 @@ class SettingsController extends Controller
         return response()->json([
           'icon' => 'success',
           'state' => __('Success'),
-          'message' => 'Updated Successfully.'
+          'message' => __("Updated Successfully.")
         ]);
       } catch (\Exception $e) {
         return response()->json([

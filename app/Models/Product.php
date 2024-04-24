@@ -19,11 +19,18 @@ class Product extends Model
     'percentage',
     'content',
     'status',
-    'image'
+    'image',
+    'view',
+    'description',
+    'quantity'
   ];
 
   public function subcategory() {
       return $this->belongsTo(SubCategory::class);
+  }
+
+  public function comments() {
+    return $this->hasMany(Comment::class);
   }
 
   public function seller() {

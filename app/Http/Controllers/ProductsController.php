@@ -10,6 +10,8 @@ class ProductsController extends Controller {
 
   public function view($id) {
     $product = Product::find($id);
+    $product->view += 1;
+    $product->save();
     return view('content.home.products.index')
     ->with('product',$product);
   }
@@ -23,16 +25,18 @@ class ProductsController extends Controller {
   public function create(Request $request) {
 
     return response()->json([
-      'state' => 'deleted',
-      'message' => 'The Product Created Successfully.'
+      'icon' => 'success',
+      'state' => __('Success'),
+      'message' => __("Created Successfully.")
     ]);
   }
 
   public function update(Request $request) {
 
     return response()->json([
-      'state' => 'deleted',
-      'message' => 'The Product Updated Successfully.'
+      'icon' => 'success',
+      'state' => __('Success'),
+      'message' => __("Updated Successfully.")
     ]);
   }
 
@@ -40,8 +44,9 @@ class ProductsController extends Controller {
       $product = Product::find($id);
       $product->delete();
       return response()->json([
-        'state' => 'deleted',
-        'message' => 'The Product Deleted Successfully.'
+        'icon' => 'success',
+        'state' => __('Success'),
+        'message' => __("Deleted Successfully.")
       ]);
   }
 
