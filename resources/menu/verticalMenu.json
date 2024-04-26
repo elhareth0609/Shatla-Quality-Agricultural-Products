@@ -45,6 +45,12 @@
       "slug": "products"
     },
     {
+      "url": "/orders",
+      "name": "Orders",
+      "icon": "menu-icon tf-icons mdi mdi-cart-outline",
+      "slug": "orders"
+    },
+    {
       "url": "/categorys",
       "name": "Categorys",
       "icon": "menu-icon tf-icons mdi mdi-file-tree-outline",
@@ -73,6 +79,12 @@
       "name": "Blogs",
       "icon": "menu-icon tf-icons mdi mdi-newspaper-variant-outline",
       "slug": "blogs"
+    },
+    {
+      "url": "/publications",
+      "name": "Publications",
+      "icon": "menu-icon tf-icons mdi mdi-paperclip",
+      "slug": "publications"
     },
     {
       "menuHeader": "Settings & Pages"

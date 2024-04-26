@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Coupon;
 use App\Models\Plan;
 use App\Models\Product;
+use App\Models\Publication;
 use App\Models\Sell;
 use App\Models\SubCategory;
 use App\Models\User;
@@ -207,8 +208,8 @@ class DataTablesController extends Controller
         ->editColumn('id', function ($blog) {
             return (string) $blog->id;
         })
-        ->editColumn('name', function ($blog) {
-          return $blog->name;
+        ->editColumn('title', function ($blog) {
+          return $blog->title;
         })
         ->editColumn('category_id', function ($blog) {
           return $blog->category->name;
@@ -325,6 +326,68 @@ class DataTablesController extends Controller
       return view('content.dashboard.categorys.subcategorys')
       ->with('category',$category);
 
+
+    }
+
+    public function publications(Request $request) {
+      $publications = Publication::all();
+
+      if($request->ajax()) {
+        return DataTables::of($publications)
+        ->editColumn('id', function ($publication) {
+            return (string) $publication->id;
+        })
+        ->editColumn('title', function ($publication) {
+          return $publication->title;
+        })
+        ->editColumn('category_id', function ($publication) {
+          return $publication->category->name;
+        })
+        ->editColumn('image', function ($publication) {
+          return $publication->image;
+        })
+        ->editColumn('created_at', function ($publication) {
+          return $publication->created_at->format('Y-m-d');
+        })
+        ->addColumn('action', function ($publication) {
+            return '<button class="btn btn-primary">Edit</button>';
+        })
+        ->rawColumns(['action'])
+        ->make(true);
+      }
+
+      return view('content.dashboard.publications.list');
+
+    }
+
+    public function orders(Request $request) {
+      $publications = Publication::all();
+
+      if($request->ajax()) {
+        return DataTables::of($publications)
+        ->editColumn('id', function ($publication) {
+            return (string) $publication->id;
+        })
+        ->editColumn('title', function ($publication) {
+          return $publication->title;
+        })
+        ->editColumn('category_id', function ($publication) {
+          return $publication->category->name;
+        })
+        ->editColumn('image', function ($publication) {
+          return $publication->image;
+        })
+        ->editColumn('created_at', function ($publication) {
+          return $publication->created_at->format('Y-m-d');
+        })
+        ->addColumn('action', function ($publication) {
+            return '<button class="btn btn-primary">Edit</button>';
+        })
+        ->rawColumns(['action'])
+        ->make(true);
+      }
+
+      return view('content.dashboard.orders.list');
 
     }
 }

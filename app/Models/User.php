@@ -73,8 +73,7 @@ class User extends Authenticatable
     //     return $this->belongsTo(Plan::class);
     // }
 
-    public function carts()
-    {
+    public function carts() {
         return $this->hasMany(Cart::class);
     }
 
@@ -93,8 +92,24 @@ class User extends Authenticatable
         return $this->hasMany(Profile::class);
     }
 
-    public function profile()
-    {
+    public function farmer() {
+      return $this->hasOne(Profile::class)->where('plan_id', 0);
+    }
+
+    public function worker() {
+        return $this->hasOne(Profile::class)->where('plan_id', 1);
+    }
+
+    public function expert() {
+        return $this->hasOne(Profile::class)->where('plan_id', 2);
+    }
+
+    public function marchent() {
+        return $this->hasOne(Profile::class)->where('plan_id', 3);
+    }
+
+
+    public function profile() {
         return $this->hasOne(Profile::class)->where('active', '1');
     }
 }

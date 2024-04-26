@@ -6,16 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class Blog extends Model {
+class Publication extends Model {
     use HasFactory;
 
     protected $fillable = [
-      'title',
-      'subcategory_id',
-      'user_id',
-      'content',
+      'name',
       'image',
-      'view'
+      'content'
     ];
 
     public function subcategory() {
@@ -28,7 +25,7 @@ class Blog extends Model {
       if (Str::startsWith($photo, 'http')) {
           return $photo;
       } else {
-          return asset('assets/img/photos/blogs/' . $photo);
+          return asset('assets/img/publications/blogs/' . $photo);
       }
     }
 
@@ -36,10 +33,10 @@ class Blog extends Model {
       $photo = $this->image;
 
       if (!empty($photo)) {
-          return public_path('assets/img/photos/blogs/' . $photo);
+          return public_path('assets/img/photos/publications/' . $photo);
       } else {
           // Return default path or handle empty photo case as needed
-          return public_path('assets/img/blogs/default.jpg');
+          return public_path('assets/img/publications/default.jpg');
       }
     }
 }

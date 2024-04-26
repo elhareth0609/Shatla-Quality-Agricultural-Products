@@ -8,26 +8,26 @@
 
   <div class="container">
 
-    <div class="blog-container has-scrollbar">
+    <div class="row">
 
       @foreach($blogs as $blog)
 
-      <div class="blog-card">
+      <div class="blog-card col-3">
 
-        <a href="#">
-          <img src="{{ asset('assets/home/images/' . $blog->image) }}" alt="{{ $blog->title }}" width="300" class="blog-banner">
+        <a href="{{ route('blog.ones',$blog->id) }}">
+          <img src="{{ $blog->photoUrl() }}" alt="{{ $blog->title }}" width="300" class="blog-banner">
         </a>
 
         <div class="blog-content">
 
-          <a href="#" class="blog-category">{{ $blog->category }}</a>
+          <a href="{{ route('subcategory.view',$blog->subcategory->id) }}" class="blog-category">{{ $blog->subcategory->getName() }}</a>
 
-          <a href="#">
+          <a href="{{ route('blog.ones',$blog->id) }}">
             <h3 class="blog-title">{{ $blog->title }}</h3>
           </a>
 
           <p class="blog-meta">
-            {{ __('By') }} <cite>{{ $blog->author }}</cite> / <time datetime="{{ $blog->created_at }}">{{ $blog->created_at->format('M d, Y') }}</time>
+            {{ __('By') }} <cite>{{ $blog->user->experts->fullname }}</cite> / <time datetime="{{ $blog->created_at }}">{{ $blog->created_at->format('M d, Y') }}</time>
           </p>
 
         </div>

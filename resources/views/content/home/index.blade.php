@@ -95,8 +95,8 @@
         @foreach ($subcategorys as $subcategory)
         <div class="category-item bg-white">
 
-          <div class="category-img-box">
-            <img src="{{ $subcategory->photoUrl() }}" alt="{{ $subcategory->getName() }}" width="30">
+          <div class="category-img-box w-50 p-0">
+            <img src="{{ $subcategory->photoUrl() }}" alt="{{ $subcategory->getName() }}" width="100%">
           </div>
 
           <div class="category-content-box">
@@ -324,7 +324,7 @@
 
         <div class="product-minimal">
 
-          <div class="product-showcase">
+          {{-- <div class="product-showcase">
 
             <h2 class="title">New Arrivals</h2>
 
@@ -530,9 +530,9 @@
 
             </div>
 
-          </div>
+          </div> --}}
 
-          <div class="product-showcase">
+          {{-- <div class="product-showcase">
 
             <h2 class="title">Trending</h2>
 
@@ -738,8 +738,8 @@
 
             </div>
 
-          </div>
-
+          </div> --}}
+{{--
           <div class="product-showcase">
 
             <h2 class="title">Top Rated</h2>
@@ -947,7 +947,7 @@
 
             </div>
 
-          </div>
+          </div> --}}
 
         </div>
 
@@ -1234,7 +1234,7 @@
 
   <div>
 
-    <div class="container">
+    {{-- <div class="container">
 
       <div class="testimonials-box">
 
@@ -1382,7 +1382,7 @@
 
       </div>
 
-    </div>
+    </div> --}}
 
   </div>
 
@@ -1399,98 +1399,33 @@
     <div class="container">
       <h2 class="title">{{ __('Blogs') }}</h2>
 
-      <div class="blog-container has-scrollbar">
+      <div class="row">
 
-        <div class="blog-card">
+        @foreach($blogs as $blog)
 
-          <a href="#">
-            <img src="{{ asset('assets/home/images/blog-1.jpg') }}" alt="Clothes Retail KPIs 2021 Guide for Clothes Executives" width="300" class="blog-banner">
+        <div class="blog-card col-3">
+
+          <a href="{{ route('blog.ones',$blog->id) }}">
+            <img src="{{ $blog->photoUrl() }}" alt="{{ $blog->title }}" width="300" class="blog-banner">
           </a>
 
           <div class="blog-content">
 
-            <a href="#" class="blog-category">Fashion</a>
+            <a href="{{ route('subcategory.view',$blog->subcategory->id) }}" class="blog-category">{{ $blog->subcategory->getName() }}</a>
 
-            <a href="#">
-              <h3 class="blog-title">Clothes Retail KPIs 2021 Guide for Clothes Executives.</h3>
+            <a href="{{ route('blog.ones',$blog->id) }}">
+              <h3 class="blog-title">{{ $blog->title }}</h3>
             </a>
 
             <p class="blog-meta">
-              By <cite>Mr Admin</cite> / <time datetime="2022-04-06">Apr 06, 2022</time>
+              {{ __('By') }} <cite>{{ $blog->user->expert->fullname }}</cite> / <time datetime="{{ $blog->created_at }}">{{ $blog->created_at->format('M d, Y') }}</time>
             </p>
 
           </div>
 
         </div>
 
-        <div class="blog-card">
-
-          <a href="#">
-            <img src="{{ asset('assets/home/images/blog-2.jpg') }}" alt="Curbside fashion Trends: How to Win the Pickup Battle."
-              class="blog-banner" width="300">
-          </a>
-
-          <div class="blog-content">
-
-            <a href="#" class="blog-category">Clothes</a>
-
-            <h3>
-              <a href="#" class="blog-title">Curbside fashion Trends: How to Win the Pickup Battle.</a>
-            </h3>
-
-            <p class="blog-meta">
-              By <cite>Mr Robin</cite> / <time datetime="2022-01-18">Jan 18, 2022</time>
-            </p>
-
-          </div>
-
-        </div>
-
-        <div class="blog-card">
-
-          <a href="#">
-            <img src="{{ asset('assets/home/images/blog-3.jpg') }}" alt="EBT vendors: Claim Your Share of SNAP Online Revenue."
-              class="blog-banner" width="300">
-          </a>
-
-          <div class="blog-content">
-
-            <a href="#" class="blog-category">Shoes</a>
-
-            <h3>
-              <a href="#" class="blog-title">EBT vendors: Claim Your Share of SNAP Online Revenue.</a>
-            </h3>
-
-            <p class="blog-meta">
-              By <cite>Mr Selsa</cite> / <time datetime="2022-02-10">Feb 10, 2022</time>
-            </p>
-
-          </div>
-
-        </div>
-
-        <div class="blog-card">
-
-          <a href="#">
-            <img src="{{ asset('assets/home/images/blog-4.jpg') }}" alt="Curbside fashion Trends: How to Win the Pickup Battle."
-              class="blog-banner" width="300">
-          </a>
-
-          <div class="blog-content">
-
-            <a href="#" class="blog-category">Electronics</a>
-
-            <h3>
-              <a href="#" class="blog-title">Curbside fashion Trends: How to Win the Pickup Battle.</a>
-            </h3>
-
-            <p class="blog-meta">
-              By <cite>Mr Pawar</cite> / <time datetime="2022-03-15">Mar 15, 2022</time>
-            </p>
-
-          </div>
-
-        </div>
+        @endforeach
 
       </div>
 
@@ -1498,6 +1433,44 @@
 
   </div>
 
+
+
+  <div class="blog">
+
+    <div class="container">
+      <h2 class="title">{{ __('Agricultural Services') }}</h2>
+
+      <div class="row">
+
+        @foreach($publications as $publication)
+
+        <div class="blog-card col-3">
+
+          <a href="{{ route('publication.ones',$blog->id) }}">
+            <img src="{{ $publication->photoUrl() }}" alt="{{ $publication->title }}" width="300" class="blog-banner">
+          </a>
+
+          <div class="blog-content">
+
+            <a href="{{ route('publication.ones',$blog->id) }}">
+              <h3 class="blog-title">{{ $publication->title }}</h3>
+            </a>
+
+            <p class="blog-meta">
+              {{ __('By') }} <cite>{{ $publication->user->worker->fullname }}</cite> / <time datetime="{{ $publication->created_at }}">{{ $publication->created_at->format('M d, Y') }}</time>
+            </p>
+
+          </div>
+
+        </div>
+
+        @endforeach
+
+      </div>
+
+    </div>
+
+  </div>
 </main>
 
 

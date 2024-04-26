@@ -34,7 +34,7 @@ class SubCategory extends Model
     }
 
     public function photoUrl() {
-      $photo = $this->photo;
+      $photo = $this->image;
 
       if (Str::startsWith($photo, 'http')) {
           return $photo;
@@ -44,7 +44,7 @@ class SubCategory extends Model
   }
 
   public function photoPath() {
-    $photo = $this->photo;
+    $photo = $this->image;
 
     if (!empty($photo)) {
         return public_path('assets/img/photos/subcategorys/' . $photo);

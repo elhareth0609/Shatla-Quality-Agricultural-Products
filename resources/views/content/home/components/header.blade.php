@@ -229,6 +229,29 @@
         </li>
 
         <li class="menu-category">
+          <a href="#" class="menu-title">{{ __('Pages') }}</a>
+
+          <ul class="dropdown-list">
+            <li class="dropdown-item">
+              <a href="#">{{ __('Agricultural Experts') }}</a>
+            </li>
+
+            <li class="dropdown-item">
+              <a href="#">{{ __('Agricultural Services') }}</a>
+            </li>
+
+            <li class="dropdown-item">
+              <a href="#">Safety Shoes</a>
+            </li>
+
+            <li class="dropdown-item">
+              <a href="#">Wallet</a>
+            </li>
+          </ul>
+        </li>
+
+
+        <li class="menu-category">
           <a href="{{ route('blog.index')}}" class="menu-title">{{ __('Blogs') }}</a>
         </li>
 

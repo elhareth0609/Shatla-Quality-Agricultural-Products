@@ -1,14 +1,14 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', __('Blogs'))
+@section('title', __('Orders'))
 
 @section('content')
-<h4 class="py-3 mb-4" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}"><span class="text-muted fw-light">{{ __('Pages') }} /</span> {{ __('Blogs') }}
+<h4 class="py-3 mb-4" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}"><span class="text-muted fw-light">{{ __('Pages') }} /</span> {{ __('Orders') }}
 </h4>
 
 <!-- Responsive Table -->
 <div class="card row" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
-  <h5 class="card-header">{{__('Blogs')}}</h5>
+  <h5 class="card-header">{{__('Orders')}}</h5>
   <div class="row">
     <input class="form-control my-w-fit-content mb-3 mx-1" type="search" placeholder="{{ __('Search ...') }}" id="dataTables_my_filter" />
 
@@ -19,13 +19,13 @@
       <option value="100" selected>100</option>
     </select>
 
-    <a href="{{ route('blog.create') }}" class="btn btn-icon btn-outline-primary mb-3 mx-1">
-      <span class="tf-icons mdi mdi-plus-outline"></span>
-    </a>
+    <button class="btn btn-icon btn-outline-primary mb-3 mx-1">
+      <span class="tf-icons mdi mdi-download-outline"></span>
+    </button>
   </div>
 
   <div class="table-responsive text-nowrap">
-    <table class="table table-striped w-100" id="blogs" data-page-length='100'>
+    <table class="table table-striped w-100" id="orders" data-page-length='100'>
       <thead>
         <tr class="text-nowrap">
           <th>#</th>
@@ -139,18 +139,19 @@
 
 $(document).ready(function() {
   $.noConflict();
-        table = $('#blogs').DataTable({
+        table = $('#orders').DataTable({
           processing: true,
           serverSide: true,
           language: {
             "emptyTable": __("No data available in table",lang)
           },
-          ajax: "{{ route('blogs') }}",
+          ajax: "{{ route('orders') }}",
           columns: [
               {data: 'id', name: '#'},
-              {data: 'image', name: '{{__("Image")}}'},
-              {data: 'title', name: '{{__("Title")}}'},
-              {data: 'category_id', name: '{{__("Category")}}'},
+              {data: 'image', name: '{{__("Product")}}'},
+              {data: 'title', name: '{{__("Customer")}}'},
+              {data: 'category_id', name: '{{__("Quantity")}}'},
+              {data: 'created_at', name: '{{__("Total Amount")}}'},
               {data: 'created_at', name: '{{__("Created At")}}'},
               {
                   data: 'action',

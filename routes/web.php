@@ -39,13 +39,14 @@ use App\Http\Controllers\pages\MiscError;
 use App\Http\Controllers\pages\MiscUnderMaintenance;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\SettingsController;
+
 use App\Http\Controllers\SubCategoryController;
-
 use App\Http\Controllers\tables\Basic as TablesBasic;
+
+
 use App\Http\Controllers\user_interface\Accordion;
-
-
 use App\Http\Controllers\user_interface\Alerts;
 use App\Http\Controllers\user_interface\Badges;
 use App\Http\Controllers\user_interface\Buttons;
@@ -84,6 +85,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
+
 // Main Page Route
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', [HomeController::class, 'index']);
@@ -104,6 +106,9 @@ Route::middleware('auth')->group(function () {
   Route::get('/category/{id}/subcategorys', [DataTablesController::class, 'category_subcategorys'])->name('category.subcategorys');
   Route::get('/sales', [DataTablesController::class, 'sales'])->name('sales');
   Route::get('/blogs', [DataTablesController::class, 'blogs'])->name('blogs');
+  Route::get('/publications', [DataTablesController::class, 'publications'])->name('publications');
+  Route::get('/orders', [DataTablesController::class, 'orders'])->name('orders');
+
   Route::get('/plans', [DataTablesController::class, 'plans'])->name('plans');
   Route::get('/coupons', [DataTablesController::class, 'coupons'])->name('coupons');
 
@@ -150,6 +155,12 @@ Route::middleware('auth')->group(function () {
   Route::match(['get', 'post'], '/blog/create', [BlogsController::class, 'create'])->name('blog.create');
   Route::delete('/blog/{id}', [BlogsController::class, 'delete'])->name('blog.delete');
   Route::post('/blog/update', [BlogsController::class, 'update'])->name('blog.update');
+
+  // Publication
+  Route::get('/publication/{id}', [PublicationController::class, 'get'])->name('publication.get');
+  Route::match(['get', 'post'], '/publication/create', [PublicationController::class, 'create'])->name('publication.create');
+  Route::delete('/publication/{id}', [PublicationController::class, 'delete'])->name('publication.delete');
+  Route::post('/publication/update', [PublicationController::class, 'update'])->name('publication.update');
 
   // Plans
   Route::get('/pricing-plan', [PlanController::class, 'index'])->name('plans.index');
