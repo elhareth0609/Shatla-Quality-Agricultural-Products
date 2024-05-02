@@ -629,7 +629,7 @@ body::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 70%); }
   top: 0;
   left: -100%;
   width: 100%;
-  max-width: 320px;
+  max-width: 410px;
   height: 100vh;
   padding: 20px;
   -webkit-box-shadow: 0 0 10px hsla(0, 0%, 0%, 0.1);
@@ -1569,11 +1569,15 @@ body::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 70%); }
   opacity: 0;
 }
 
-.product-grid .showcase:hover .product-img.hover { opacity: 1; }
+/* .product-grid .showcase:hover .product-img.hover { opacity: 1; } */
 
-.product-grid .showcase:hover .product-img.default { opacity: 0; }
+/* .product-grid .showcase:hover .product-img.default { opacity: 0; } */
 
-.product-grid .showcase:hover .product-img { -webkit-transform: scale(1.1); -ms-transform: scale(1.1); transform: scale(1.1); }
+.product-grid .showcase:hover .product-img {
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+}
 
 .product-grid .showcase-badge {
   position: absolute;
@@ -1609,9 +1613,9 @@ body::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 70%); }
   top: 10px;
   right: 10px;
   font-size: 20px;
-  -webkit-transform: translateX(50px);
-      -ms-transform: translateX(50px);
-          transform: translateX(50px);
+  -webkit-transform: translateX(140px);
+      -ms-transform: translateX(140px);
+          transform: translateX(140px);
   -webkit-transition: var(--transition-timing);
   -o-transition: var(--transition-timing);
   transition: var(--transition-timing);

@@ -3,6 +3,7 @@
 @section('title', '')
 
 @section('content')
+@if ($product)
 
     <!-- Shop Detail Start -->
     <div class="container-fluid py-5" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
@@ -12,7 +13,7 @@
             {{-- <div class="col-md">
               <h5 class="my-4">Bootstrap carousel</h5> --}}
 
-              <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+              <div id="carouselExample" class="carousel carousel-dark slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
                   @foreach ($product->photos as $index => $photo)
                     @if ($photo->type === '1')
@@ -29,7 +30,7 @@
                           <img class="d-block w-100" src="{{ $photo->photoUrl() }}" width="300" height="460" alt="First slide" />
                         </div>
                       @else
-                        <div class="carousel-item active">
+                        <div class="carousel-item">
                           <img class="d-block w-100" src="{{ $photo->photoUrl() }}" width="300" height="460" alt="First slide" />
                         </div>
                       @endif
@@ -719,4 +720,8 @@ class StarRating {
         });
     });
   </script>
+
+@else
+<x-placeholder></x-placeholder>
+@endif
 @endsection

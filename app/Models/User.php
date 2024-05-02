@@ -73,14 +73,22 @@ class User extends Authenticatable
     //     return $this->belongsTo(Plan::class);
     // }
 
-    public function carts() {
-        return $this->hasMany(Cart::class);
+    public function cart() {
+        return $this->hasOne(Cart::class);
     }
 
     public function favorites()
     {
         return $this->hasMany(Favorite::class);
     }
+
+    public function myFavorite($pid) {
+      return $this->favorites()->where('product_id', $pid)->exists();
+    }
+
+
+
+
 
     public function sells()
     {

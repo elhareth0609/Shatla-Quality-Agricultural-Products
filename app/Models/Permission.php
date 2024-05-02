@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Permission extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+      'name'
+    ];
+
+    public function plans()
+    {
+        return $this->belongsToMany(Plan::class, 'plan_permissions');
+    }
 }

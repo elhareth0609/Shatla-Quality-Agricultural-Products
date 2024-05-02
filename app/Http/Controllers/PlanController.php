@@ -9,9 +9,8 @@ use Illuminate\Support\Facades\Auth;
 
 class PlanController extends Controller
 {
-
   public function index() {
-    $plans = Plan::all();
+    $plans = Plan::where('name','!=','admin')->get();
     return view('content.home.pages.plans')
     ->with('plans',$plans);
   }
@@ -31,4 +30,48 @@ class PlanController extends Controller
     ]);
 
   }
+
+    public function get($id) {
+      $plan = Plan::find($id);
+      return view('content.dashboard.plans.index')
+      ->with('plan',$plan);
+    }
+
+
+    public function create(Request $request) {
+      if ($request->isMethod('GET')) {
+        return view('content.dashboard.plans.create');
+      }
+
+      return response()->json([
+        'icon' => 'success',
+        'state' => __('Success'),
+        'message' => __("Created Successfully.")
+      ]);
+    }
+
+    public function update(Request $request) {
+
+      return response()->json([
+        'icon' => 'success',
+        'state' => __('Success'),
+        'message' => __("Updated Successfully.")
+      ]);
+    }
+
+    public function delete($id) {
+        $plan = Plan::find($id);
+        $plan->delete();
+        return response()->json([
+          'icon' => 'success',
+          'state' => __('Success'),
+          'message' => __("Deleted Successfully.")
+        ]);
+    }
+
+    public function permissions($id) {
+      $plan = Plan::find($id);
+      return view('content.dashboard.plan.permissions')
+      ->with('plan',$plan);
+    }
 }

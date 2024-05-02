@@ -18,11 +18,6 @@ class Plan extends Model
       'image'
     ];
 
-    // public function users()
-    // {
-    //     return $this->hasMany(User::class);
-    // }
-
     public function profiles()
     {
         return $this->hasMany(Profile::class);
@@ -47,5 +42,10 @@ class Plan extends Model
           // Return default path or handle empty photo case as needed
           return public_path('assets/img/plans/default.jpg');
       }
+    }
+
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class, 'plan_permissions');
     }
 }

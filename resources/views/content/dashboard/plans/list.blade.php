@@ -33,7 +33,7 @@
           <th>{{ __("Name") }}</th>
           <th>{{ __("Status") }}</th>
           <th>{{ __("Created At") }}</th>
-          <th>{{ __("Action") }}</th>
+          {{-- <th>{{ __("Action") }}</th> --}}
         </tr>
       </thead>
     </table>
@@ -66,9 +66,80 @@
   }
 </style>
 
-<script src="{{ asset('assets/js/mine.js') }}"></script>
 
 <script type="text/javascript">
+  var table;
+  var lang = "{{ app()->getLocale() }}";
+
+  function editCoupon(id) {
+    window.location.href = "{{ url('plan') }}/" + id;
+  }
+
+  function planPermissions(id) {
+    window.location.href = "{{ url('plan') }}/" + id + "/permissions";
+  }
+
+  function deleteCoupon(id) {
+    Swal.fire({
+        title: __("Do you really want to delete this Coupon?",lang),
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: __("Submit",lang),
+        cancelButtonText: __("Cancel",lang),
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: '/coupon/' + id,
+                type: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    Swal.fire({
+                        icon: response.icon,
+                        title: response.state,
+                        text: response.message,
+                        confirmButtonText: __("Ok",lang)
+                    });
+                    table.ajax.reload();
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    const response = JSON.parse(xhr.responseText);
+                    Swal.fire({
+                        icon: response.icon,
+                        title: response.state,
+                        text: response.message,
+                        confirmButtonText: __("Ok",lang)
+                    });
+                }
+            });
+        }
+    });
+  }
+
+      function showContextMenu(id, x, y) {
+        // Here you can define the content and behavior of the context menu
+        var contextMenu = $('<ul class="context-menu" dir="{{ app()->isLocale("ar") ? "rtl" : "" }}"></ul>')
+            .append('<li><a onclick="editPlan(' + id + ')"><i class="tf-icons mdi mdi-pencil-outline {{ app()->isLocale("ar") ? "ms-1" : "me-1" }}"></i>{{ __("Edit") }}</a></li>')
+            .append('<li><a onclick="planPermissions(' + id + ')"><i class="tf-icons mdi mdi-pencil-outline {{ app()->isLocale("ar") ? "ms-1" : "me-1" }}"></i>{{ __("Permissions") }}</a></li>')
+            .append('<li class="px-0 pe-none"><div class="divider border-top my-0"></div></li>')
+            .append('<li><a onclick="deletePlan(' + id + ')"><i class="tf-icons mdi mdi-trash-can-outline {{ app()->isLocale("ar") ? "ms-1" : "me-1" }}"></i>{{ __("Delete") }}</a></li>');
+
+        // Position the context menu at the mouse coordinates
+        contextMenu.css({
+            top: y,
+            left: x
+        });
+
+        // Append the context menu to the body
+        $('body').append(contextMenu);
+
+        // Hide the context menu when clicking outside of it
+        $(document).on('click', function() {
+          $('.context-menu').remove();
+        });
+      }
 
 $(document).ready(function() {
   $.noConflict();
@@ -85,15 +156,17 @@ $(document).ready(function() {
               {data: 'image', name: '{{__("Image")}}'},
               {data: 'name', name: '{{__("Name")}}'},
               {data: 'status', name: '{{__("Status")}}'},
-              {data: 'created_at', name: '{{__("Created At")}}'},
-              {
-                  data: 'action',
-                  name: 'action',
-                  orderable: true,
-                  searchable: true
-              },
+              {data: 'created_at', name: '{{__("Created At")}}'}
           ],
+          rowCallback: function(row, data) {
+              $(row).attr('id', 'coupon_' + data.id); // Assign an id to each row for easy targeting
 
+              // Add right-click context menu listener to each row
+              $(row).on('contextmenu', function(e) {
+                  e.preventDefault();
+                  showContextMenu(data.id, e.pageX, e.pageY); // Show context menu at mouse position
+              });
+          }
       });
 
       $('#dataTables_my_length').change(function() {

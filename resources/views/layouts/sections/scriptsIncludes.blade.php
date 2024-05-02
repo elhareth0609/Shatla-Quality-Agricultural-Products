@@ -24,7 +24,7 @@
     Welcome to TinyMCE!
   </textarea> --}}
 
-  <link rel="stylesheet" src="{{ asset('assets/css/mine.css') }}" />
+  <link rel="stylesheet" href="{{ asset('assets/css/mine.css') }}" />
   <script src="{{ asset('assets/js/mine.js') }}"></script>
 
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>

@@ -15,11 +15,15 @@ class BlogsController extends Controller
     }
 
     public function ones($id) {
-      return view('content.home.blogs.ones');
+      $blog = Blog::find($id);
+      return view('content.home.blogs.ones')
+      ->with('blog', $blog);
     }
 
     public function get($id) {
-      return view('content.dashboard.blogs.create');
+      $blog = Blog::find($id);
+      return view('content.dashboard.blogs.index')
+      ->with('blog',$blog);
     }
 
     public function create(Request $request) {

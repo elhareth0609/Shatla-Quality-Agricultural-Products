@@ -18,6 +18,7 @@
     {
       "url": "/users",
       "name": "Users",
+      "required" : "manage users",
       "icon": "menu-icon tf-icons mdi mdi-account-group-outline",
       "slug": "Users",
       "submenu": [
@@ -41,48 +42,56 @@
     {
       "url": "/products",
       "name": "Products",
+      "required": "manage products",
       "icon": "menu-icon tf-icons mdi mdi-package-variant",
       "slug": "products"
     },
     {
       "url": "/orders",
       "name": "Orders",
+      "required": "manage orders",
       "icon": "menu-icon tf-icons mdi mdi-cart-outline",
       "slug": "orders"
     },
     {
       "url": "/categorys",
       "name": "Categorys",
+      "required": "manage categorys",
       "icon": "menu-icon tf-icons mdi mdi-file-tree-outline",
       "slug": "categorys"
     },
     {
       "url": "/plans",
       "name": "Plans",
+      "required": "manage plans",
       "icon": "menu-icon tf-icons mdi mdi-format-list-numbered",
       "slug": "plans"
     },
     {
       "url": "/coupons",
       "name": "Coupons",
+      "required": "manage coupons",
       "icon": "menu-icon tf-icons mdi mdi-ticket-percent-outline",
       "slug": "coupons"
     },
     {
       "url": "/events",
       "name": "Events",
+      "required": "manage events",
       "icon": "menu-icon tf-icons mdi mdi-calendar-outline",
       "slug": "events"
     },
     {
       "url": "/blogs",
       "name": "Blogs",
+      "required": "manage blogs",
       "icon": "menu-icon tf-icons mdi mdi-newspaper-variant-outline",
       "slug": "blogs"
     },
     {
       "url": "/publications",
       "name": "Publications",
+      "required": "manage publications",
       "icon": "menu-icon tf-icons mdi mdi-paperclip",
       "slug": "publications"
     },
@@ -115,6 +124,7 @@
     {
       "url": "/pages",
       "name": "Pages",
+      "required": "pages",
       "icon": "menu-icon tf-icons mdi mdi-file-document-multiple-outline",
       "slug": "Pages",
       "submenu": [

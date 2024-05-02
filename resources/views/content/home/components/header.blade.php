@@ -106,14 +106,15 @@
 
         <button class="action-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#FaveButton" aria-controls="offcanvasStart">
           <ion-icon name="heart-outline"></ion-icon>
-          <span class="count">0</span>
+          <span class="count favoriteCount">{{ Auth::user()->favorites->count() }}</span>
         </button>
 
         <button class="action-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#CartButton" aria-controls="offcanvasStart">
           <ion-icon name="bag-handle-outline"></ion-icon>
-          <span class="count">0</span>
+          <span class="count cartCount">{{ Auth::user()->cart->products()->count() }}</span>
         </button>
 
+        {{-- Faveorite Model --}}
         <div class="offcanvas offcanvas-{{ app()->isLocale('ar') ? 'end' : 'start' }}" tabindex="-1" id="FaveButton" aria-labelledby="offcanvasEndLabel">
           <div class="offcanvas-header">
             <h5 id="offcanvasEndLabel" class="offcanvas-title">{{ __('Favorite Items') }}</h5>
@@ -121,33 +122,37 @@
           </div>
           <div class="offcanvas-body mx-0 flex-grow-0">
             <div class="favorite-items mb-3">
-              <div class="favorites-item mb-2">
+              @auth
+              @foreach (Auth::user()->favorites as $favorite)
+              <div class="favorites-item mb-2" data-product-id="{{ $favorite->product->id }}">
                 <div class="card-body" dir="{{ app()->isLocale('ar') ? 'rtl' : 'ltr' }}">
                   <div class="d-flex align-items-start align-items-sm-center gap-4">
-                    <img src="{{asset('assets/img/avatars/1.png')}}" alt="user-avatar" class="d-block w-px-120 h-px-120 rounded" />
+                    <img src="{{$favorite->product->firstPhoto()}}" alt="user-avatar" class="d-block my-w-110 my-h-110 rounded" />
                     <div class="button-wrapper">
                       <button type="button" class="btn btn-outline-info">
                         <i class="mdi mdi-reload d-block d-sm-none"></i>
                         <span class="d-none d-sm-block">visit</span>
                       </button>
-                      <button type="button" class="btn btn-icon btn-outline-danger">
+                      <button type="button" class="btn btn-icon btn-outline-danger btn-remove-favorite">
                         <span class="tf-icons mdi mdi-trash-can-outline"></span>
                       </button>
-                      <div class="text-muted small mt-3">Allowed JPG, GIF or PNG.</div>
+                      <div class="text-muted small mt-3">{{ $favorite->title }}</div>
                       <div class="text-muted small mt-3 d-flex">
-                        <p>30</p>
+                        <p>{{ $favorite->description }}</p>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+              @endforeach
+              @endauth
             </div>
             {{-- <button type="button" class="btn btn-primary mb-2 d-grid w-100">{{ __('Go To Cart') }}</button> --}}
           </div>
         </div>
 
 
-
+        {{-- Cart Model --}}
         <div class="offcanvas offcanvas-{{ app()->isLocale('ar') ? 'end' : 'start' }}" tabindex="-1" id="CartButton" aria-labelledby="offcanvasEndLabel">
           <div class="offcanvas-header">
             <h5 id="offcanvasEndLabel" class="offcanvas-title">{{ __('Cart Items') }}</h5>
@@ -156,33 +161,38 @@
           <div class="offcanvas-body mx-0 flex-grow-0">
             <div class="cart-items mb-3">
 
-              <div class="carts-item mb-2">
+              @auth
+              @foreach (Auth::user()->cart->products as $product)
+
+              <div class="carts-item mb-2" data-product-id="{{ $product->id }}">
                 <div class="card-body" dir="{{ app()->isLocale('ar') ? 'rtl' : 'ltr' }}">
                   <div class="d-flex align-items-start align-items-sm-center gap-4">
-                    <img src="{{asset('assets/img/avatars/1.png')}}" alt="user-avatar" class="d-block w-px-120 h-px-120 rounded" />
+                    <img src="{{ $product->firstPhoto() }}" alt="user-avatar" class="d-block w-px-120 h-px-120 rounded" />
                     <div class="button-wrapper">
                       <div class="btn-group" role="group" aria-label="Second group" dir="ltr">
-                        <button type="button" class="btn btn-icon btn-primary">
+                        <button type="button" class="btn btn-icon btn-primary btn-plus-cart">
                           <span class="tf-icons mdi mdi-plus"></span>
                         </button>
-                        <input type="text" class="form-control text-center p-0 rounded-0 my-w-5" value="2">
-                        <button type="button" class="btn btn-icon btn-primary">
+                        <input type="text" class="form-control text-center p-0 rounded-0 my-w-5" data-max="{{ $product->quantity }}" value="{{ $product->pivot->quantity }}" name="quantity" data-product-id="{{ $product->id }}">
+                        <button type="button" class="btn btn-icon btn-primary btn-minus-cart">
                           <span class="tf-icons mdi mdi-minus"></span>
                         </button>
                       </div>
-                      <button type="button" class="btn btn-icon btn-outline-danger">
+                      <button type="button" class="btn btn-icon btn-outline-danger btn-remove-cart">
                         <span class="tf-icons mdi mdi-trash-can-outline"></span>
                       </button>
-                      <div class="text-muted small mt-3">Allowed JPG, GIF or PNG.</div>
+                      <div class="text-muted small mt-3">{{ \Illuminate\Support\Str::limit($product->name, 90) }}</div>
                       <div class="text-muted small mt-3 d-flex justify-content-between">
-                        <p>30</p>
-                        <p>300</p>
+                        <p>{{ $product->price }}</p>
+                        <p>{{ $product->last_price }}</p>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
+              @endforeach
+              @endauth
             </div>
             <a type="button" href="{{ route('cart') }}" class="btn btn-primary mb-2 d-grid w-100">{{ __('Go To Cart') }}</a>
           </div>
@@ -229,31 +239,29 @@
         </li>
 
         <li class="menu-category">
+          <a href="{{ route('blog.index')}}" class="menu-title">{{ __('Blogs') }}</a>
+        </li>
+
+        <li class="menu-category">
           <a href="#" class="menu-title">{{ __('Pages') }}</a>
 
           <ul class="dropdown-list">
             <li class="dropdown-item">
-              <a href="#">{{ __('Agricultural Experts') }}</a>
+              <a href="{{ route('pages.experts') }}">{{ __('Agricultural Experts') }}</a>
             </li>
 
             <li class="dropdown-item">
-              <a href="#">{{ __('Agricultural Services') }}</a>
+              <a href="{{ route('pages.services') }}">{{ __('Agricultural Services') }}</a>
             </li>
 
             <li class="dropdown-item">
-              <a href="#">Safety Shoes</a>
+              <a href="{{ route('pages.consultation') }}">{{ __('What do I plant?') }}</a>
             </li>
 
-            <li class="dropdown-item">
-              <a href="#">Wallet</a>
-            </li>
           </ul>
         </li>
 
 
-        <li class="menu-category">
-          <a href="{{ route('blog.index')}}" class="menu-title">{{ __('Blogs') }}</a>
-        </li>
 
         <li class="menu-category">
           <a href="{{ route('diseases') }}" class="menu-title">{{ __('Diseases Predict')}}</a>
@@ -274,20 +282,23 @@
       <ion-icon name="menu-outline"></ion-icon>
     </button>
 
+    @auth
     <button class="action-btn" data-mobile-menu-open-btn>
       <ion-icon name="bag-handle-outline"></ion-icon>
-      <span class="count">0</span>
+      <span class="count cartCount">{{ Auth::user()->cart->products()->count() }}</span>
     </button>
+    @endauth
 
     <a class="action-btn" href="{{ route('home') }}">
       <ion-icon name="home-outline"></ion-icon>
     </a>
 
-    <button class="action-btn" data-mobile-menu-open-btn>
-      <ion-icon name="heart-outline"></ion-icon>
-
-      <span class="count">0</span>
-    </button>
+  @auth
+  <button class="action-btn" data-mobile-menu-open-btn>
+    <ion-icon name="heart-outline"></ion-icon>
+    <span class="count favoriteCount">{{ Auth::user()->favorites->count() }}</span>
+  </button>
+  @endauth
 
     <button class="action-btn" data-mobile-menu-open-btn>
       <ion-icon name="grid-outline"></ion-icon>
@@ -541,52 +552,40 @@
     </div>
 
     <div class="cart-items mb-3">
-      <div class="carts-item mb-2">
-        <div class="card-body" dir="{{ app()->isLocale('ar') ? 'rtl' : 'ltr' }}">
-          <div class="d-flex align-items-start align-items-sm-center gap-2">
-            <img src="{{asset('assets/img/avatars/1.png')}}" alt="user-avatar" class="d-block w-px-75 h-px-75 rounded" />
-            <div class="button-wrapper">
-              <div class="btn-group" role="group" aria-label="Second group" dir="ltr">
-                <button type="button" class="btn btn-icon btn-primary">
-                  <span class="tf-icons mdi mdi-plus"></span>
+
+        @auth
+        @foreach (Auth::user()->cart->products as $product)
+
+        <div class="carts-item mb-2" data-product-id="{{ $product->id }}">
+          <div class="card-body" dir="{{ app()->isLocale('ar') ? 'rtl' : 'ltr' }}">
+            <div class="d-flex align-items-start align-items-sm-center gap-4">
+              <img src="{{ $product->firstPhoto() }}" alt="user-avatar" class="d-block w-px-120 h-px-120 rounded" />
+              <div class="button-wrapper">
+                <div class="btn-group" role="group" aria-label="Second group" dir="ltr">
+                  <button type="button" class="btn btn-icon btn-primary btn-plus-cart">
+                    <span class="tf-icons mdi mdi-plus"></span>
+                  </button>
+                  <input type="text" class="form-control text-center p-0 rounded-0 my-w-5" data-max="{{ $product->quantity }}" value="{{ $product->pivot->quantity }}" name="quantity" data-product-id="{{ $product->id }}">
+                  <button type="button" class="btn btn-icon btn-primary btn-minus-cart ">
+                    <span class="tf-icons mdi mdi-minus"></span>
+                  </button>
+                </div>
+                <button type="button" class="btn btn-icon btn-outline-danger btn-remove-cart">
+                  <span class="tf-icons mdi mdi-trash-can-outline"></span>
                 </button>
-                <input type="text" class="form-control text-center p-0 rounded-0 my-w-4" value="2">
-                <button type="button" class="btn btn-icon btn-primary">
-                  <span class="tf-icons mdi mdi-minus"></span>
-                </button>
+                <div class="text-muted small mt-3">{{ \Illuminate\Support\Str::limit($product->name, 90) }}</div>
+                <div class="text-muted small mt-3 d-flex justify-content-between">
+                  <p>{{ $product->price }}</p>
+                  <p>{{ $product->last_price }}</p>
+                </div>
               </div>
-              <button type="button" class="btn btn-icon btn-outline-danger">
-                <span class="tf-icons mdi mdi-trash-can-outline"></span>
-              </button>
-              <div class="text-muted small mt-3">Allowed JPG, GIF or PNG.</div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="carts-item mb-2">
-        <div class="card-body" dir="{{ app()->isLocale('ar') ? 'rtl' : 'ltr' }}">
-          <div class="d-flex align-items-start align-items-sm-center gap-2">
-            <img src="{{asset('assets/img/avatars/1.png')}}" alt="user-avatar" class="d-block w-px-75 h-px-75 rounded"/>
-            <div class="button-wrapper">
-              <div class="btn-group" role="group" aria-label="Second group" dir="ltr">
-                <button type="button" class="btn btn-icon btn-primary">
-                  <span class="tf-icons mdi mdi-plus"></span>
-                </button>
-                <input type="text" class="form-control text-center p-0 rounded-0 my-w-4" value="2">
-                <button type="button" class="btn btn-icon btn-primary">
-                  <span class="tf-icons mdi mdi-minus"></span>
-                </button>
-              </div>
-              <button type="button" class="btn btn-icon btn-outline-danger">
-                <span class="tf-icons mdi mdi-trash-can-outline"></span>
-              </button>
-              <div class="text-muted small mt-3">Allowed JPG, GIF or PNG.</div>
-            </div>
+        @endforeach
+        @endauth
 
-          </div>
-        </div>
-      </div>
     </div>
     <a type="button" href="{{ route('cart') }}" class="btn btn-primary mb-2 d-grid w-100">{{ __('Go To Cart') }}</a>
 
@@ -599,48 +598,37 @@
   <nav class="mobile-navigation-menu has-scrollbar bg-white" data-mobile-menu>
         <div class="menu-top">
           <h2 class="menu-title">{{ __('Favorite Items') }}</h2>
-
           <button class="menu-close-btn" data-mobile-menu-close-btn>
             <ion-icon name="close-outline"></ion-icon>
           </button>
         </div>
 
         <div class="favorite-items mb-3">
-          <div class="favorites-item mb-2">
+          @auth
+          @foreach (Auth::user()->favorites as $favorite)
+          <div class="favorites-item mb-2" data-product-id="{{ $favorite->product->id }}">
             <div class="card-body" dir="{{ app()->isLocale('ar') ? 'rtl' : 'ltr' }}">
-              <div class="d-flex align-items-start align-items-sm-center gap-2">
-                <img src="{{asset('assets/img/avatars/1.png')}}" alt="user-avatar" class="d-block w-px-75 h-px-75 rounded" />
+              <div class="d-flex align-items-start align-items-sm-center gap-4">
+                <img src="{{$favorite->product->firstPhoto()}}" alt="user-avatar" class="d-block my-w-110 my-h-110 rounded" />
                 <div class="button-wrapper">
                   <button type="button" class="btn btn-outline-info">
                     <i class="mdi mdi-reload d-block d-sm-none"></i>
                     <span class="d-none d-sm-block">visit</span>
                   </button>
-                  <button type="button" class="btn btn-icon btn-outline-danger">
+                  <button type="button" class="btn btn-icon btn-outline-danger btn-remove-favorite">
                     <span class="tf-icons mdi mdi-trash-can-outline"></span>
                   </button>
-                  <div class="text-muted small mt-3">Allowed JPG, GIF or PNG.</div>
+                  <div class="text-muted small mt-3">{{ $favorite->title }}</div>
+                  <div class="text-muted small mt-3 d-flex">
+                    <p>{{ $favorite->description }}</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          @endforeach
+          @endauth
 
-          <div class="favorites-item mb-2">
-            <div class="card-body" dir="{{ app()->isLocale('ar') ? 'rtl' : 'ltr' }}">
-              <div class="d-flex align-items-start align-items-sm-center gap-2">
-                <img src="{{asset('assets/img/avatars/1.png')}}" alt="user-avatar" class="d-block w-px-75 h-px-75 rounded" />
-                <div class="button-wrapper">
-                  <button type="button" class="btn btn-outline-info">
-                    <i class="mdi mdi-reload d-block d-sm-none"></i>
-                    <span class="d-none d-sm-block">visit</span>
-                  </button>
-                  <button type="button" class="btn btn-icon btn-outline-danger">
-                    <span class="tf-icons mdi mdi-trash-can-outline"></span>
-                  </button>
-                  <div class="text-muted small mt-3">Allowed JPG, GIF or PNG.</div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
   </nav>
 

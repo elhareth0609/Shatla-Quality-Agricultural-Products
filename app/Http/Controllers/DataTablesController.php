@@ -29,20 +29,15 @@ class DataTablesController extends Controller
         ->editColumn('email', function ($user) {
           return $user->email;
         })
-        // ->editColumn('fullname', function ($user) {
-        //   return $user->fullname;
-        // })
+        ->editColumn('fullname', function ($user) {
+          return $user->fullname;
+        })
+        ->editColumn('phone', function ($user) {
+          return $user->phone;
+        })
         ->editColumn('photo', function ($user) {
             return '
-            <div class="d-flex align-items-center">
-              <div class="avatar avatar-sm me-3">
-                <img src="' . $user->photoUrl() . '" alt="' . $user->fullname . '" class="rounded-circle">
-              </div>
-              <div class="' . (app()->isLocale('ar') ? 'text-end' : 'text-start') . '">
-              <h6 class="mb-0 text-truncate">' . $user->fullname . '</h6>
-                <small class="text-truncate">' . $user->phone . '</small>
-              </div>
-            </div>
+                <img src="' . $user->photoUrl() . '" alt="' . $user->fullname . '" class="avatar avatar-sm rounded-circle">
             ';
 
         })
@@ -243,18 +238,25 @@ class DataTablesController extends Controller
           return $plan->name;
         })
         ->editColumn('status', function ($plan) {
-          return $plan->status;
+          if ($plan->status == 1) {
+            return '<span class="badge rounded-pill bg-label-success">'. __('Active') .'</span>';
+          } else {
+            return '<span class="badge rounded-pill bg-label-secondary">'. __('InActive') .'</span>';
+
+          }
         })
         ->editColumn('image', function ($plan) {
-          return $plan->image;
+          return '
+              <img src="' . $plan->photoUrl() . '" alt="' . $plan->name . '" class="avatar avatar-sm rounded-circle">
+          ';
         })
         ->editColumn('created_at', function ($plan) {
           return $plan->created_at->format('Y-m-d');
         })
-        ->addColumn('action', function ($plan) {
-            return '<button class="btn btn-primary">Edit</button>';
-        })
-        ->rawColumns(['action'])
+        // ->addColumn('action', function ($plan) {
+        //     return '<button class="btn btn-primary">Edit</button>';
+        // })
+        ->rawColumns(['action','image','status'])
         ->make(true);
       }
 

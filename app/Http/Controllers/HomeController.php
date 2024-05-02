@@ -12,9 +12,9 @@ class HomeController extends Controller
 {
     //
     public function index() {
-      $subcategorys = SubCategory::all();
+      $subcategorys = SubCategory::where('type','products')->get();
       $products = Product::all();
-      $blogs = Blog::all();
+      $blogs = Blog::orderBy('created_at', 'desc')->take(8)->get();
       $publications = Publication::all();
       return view('content.home.index')
       ->with('products',$products)

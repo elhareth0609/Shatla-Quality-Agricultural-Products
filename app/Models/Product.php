@@ -53,6 +53,11 @@ class Product extends Model
       return $this->hasMany(ProductPhoto::class);
   }
 
+  public function firstPhoto() {
+    $photo = $this->photos()->first();
+    return $photo->photoUrl();
+  }
+
   public function getNewPrice($currency) {
     $price = $this->price;
 
@@ -71,5 +76,4 @@ class Product extends Model
 
     return $newPrice;
 }
-
 }

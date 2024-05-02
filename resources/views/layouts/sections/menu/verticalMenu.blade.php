@@ -21,9 +21,21 @@
   </div>
 
   <div class="menu-inner-shadow"></div>
+  @inject('permissionService', 'App\Services\PermissionService')
+  @inject('Permission', 'App\Models\Permission')
+  @php
+    $userPlanId = Auth::user()->profile->plan_id;
+  @endphp
 
   <ul class="menu-inner py-1">
     @foreach ($menuData[0]->menu as $menu)
+    @php
+        // Get the required permission ID for this menu item
+        $requiredPermissionId = isset($menu->required) ? $menu->required : null;
+
+        $permissionId = $Permission->where('name', $requiredPermissionId)->value('id');
+        $hasPermission = $permissionId ? $permissionService->checkPermission($userPlanId, $permissionId) : true;
+    @endphp
 
       {{-- adding active and open class if child is active --}}
 
@@ -57,15 +69,7 @@
           }
         @endphp
 
-        {{-- main menu --}}
-
-        {{-- @php
-          $hideMenu = Auth::user()->profile->plan->id == 0;
-          $hiddenSlugs = ['users', 'experts', 'sellers'];
-        @endphp
-        @if(!$hideMenu || !in_array($menu->slug, $hiddenSlugs))
-        @endif --}}
-
+        @if ($hasPermission)
         <li class="menu-item {{$activeClass}}">
           <a href="{{ isset($menu->url) ? url($menu->url) : 'javascript:void(0);' }}" class="{{ isset($menu->submenu) ? 'menu-link menu-toggle' : 'menu-link' }}" @if (isset($menu->target) and !empty($menu->target)) target="_blank" @endif>
             @isset($menu->icon)
@@ -83,7 +87,7 @@
             @include('layouts.sections.menu.submenu',['menu' => $menu->submenu])
           @endisset
         </li>
-
+        @endif
       @endif
     @endforeach
   </ul>

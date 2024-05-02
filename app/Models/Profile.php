@@ -18,7 +18,7 @@ class Profile extends Model
       'phone',
       'photo',
       'active'
-  ];
+    ];
 
   public function photoUrl() {
     return $photo = $this->photo;
@@ -49,5 +49,10 @@ class Profile extends Model
   public function plan()
   {
       return $this->belongsTo(Plan::class);
+  }
+
+  public function permissions()
+  {
+    return $this->belongsToMany(Permission::class);
   }
 }

@@ -11,7 +11,9 @@ class ProductPhoto extends Model
     use HasFactory;
 
     protected $fillable = [
-      'photo'
+      'product_id',
+      'photo',
+      'type' // 0,1
     ];
 
     public function product()
