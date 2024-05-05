@@ -4,20 +4,17 @@
 
 @section('content')
 
-<div class="container my-1 d-flex">
+<div class="container my-1">
   @foreach ($items as $item)
-    <a class="checkbox m-1" href="{{ route('diseases.predict') }}">
+    <a class="checkbox m-1 d-inline-block" @if ($item->status == '1')
+    href="{{ route('diseases.predict') }}"
+    @endif >
       <label class="checkbox-wrapper">
         <span class="checkbox-tile">
           <span class="checkbox-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="currentColor" viewBox="0 0 256 256">
-              <rect width="256" height="256" fill="none"></rect>
-              <circle cx="128" cy="128" r="40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"></circle>
-              <rect x="36" y="36" width="184" height="184" rx="48" stroke-width="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" fill="none"></rect>
-              <circle cx="180" cy="75.99998" r="10"></circle>
-            </svg>
+            <img src="{{ $item->photoUrl() }}" alt="{{ $item->id }}" />
           </span>
-          <span class="checkbox-label">{{ $item->name }}</span>
+          <span class="checkbox-label">{{ $item->name_ar }}</span>
         </span>
       </label>
     </a>

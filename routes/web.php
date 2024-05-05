@@ -103,7 +103,7 @@ use Illuminate\Support\Facades\Route;
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
     Route::post('/cart/create', [CartController::class, 'create'])->name('cart.create');
     Route::delete('/cart/delete', [CartController::class, 'delete'])->name('cart.delete');
-    Route::get('/cart/update', [CartController::class, 'update'])->name('cart.update');
+    Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
     Route::post('cart/update-quantity', [CartController::class, 'update_quantity'])->name('cart.update.quantity');
     // Favorite
     // Route::get('/favorite', [FavoriteController::class, 'index'])->name('favorite');
@@ -135,9 +135,10 @@ use Illuminate\Support\Facades\Route;
     // Coupons
     // Dashboard
     Route::get('/coupon/{id}', [CouponController::class, 'index'])->name('coupon');
-    Route::post('/coupon/create', [CouponController::class, 'create'])->name('coupon.add');
+    Route::post('/coupon/create', [CouponController::class, 'create'])->name('coupon.create');
     Route::delete('/coupon/{id}', [CouponController::class, 'delete'])->name('coupon.delete');
     Route::get('/coupon/update', [CouponController::class, 'update'])->name('coupon.update');
+    Route::post('/coupon/check', [CouponController::class, 'check'])->name('coupon.check');
 
     // Blogs
     // Dashboard
@@ -173,6 +174,7 @@ use Illuminate\Support\Facades\Route;
     Route::match(['get', 'post'], '/plan/create', [PlanController::class, 'create'])->name('plan.create');
     Route::delete('/plan/{id}', [PlanController::class, 'delete'])->name('plan.delete');
     Route::post('/plan/update', [PlanController::class, 'update'])->name('plan.update');
+    Route::post('/plan/add', [PlanController::class, 'add'])->name('plan.add');
 
     //Payment
     Route::get('chargily/pay', [ChargilyPayController::class, 'pay'])->name('chargily.payment.pay');

@@ -22,4 +22,8 @@ class Coupon extends Model
         return $this->hasMany(Sell::class);
     }
 
+    public function users()
+    {
+        return $this->hasMany(Coupon_Users::class);
+    }
 }

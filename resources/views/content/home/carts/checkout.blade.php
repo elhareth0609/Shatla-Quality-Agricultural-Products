@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container-fluid pt-5">
-  <div class="row px-xl-5">
+  <div class="row px-xl-5" dir="{{ app()->isLocale('ar') ? 'rtl' : 'ltr' }}">
       <div class="col-lg-8">
           <div class="mb-4">
               <h4 class="font-weight-semi-bold mb-4">{{ __('Billing Address') }}</h4>
@@ -191,14 +191,26 @@
                   </label>
                 </div>
                 <div class="form-check mt-3">
+                  @if (app()->getLocale() == 'ar')
+                    <label class="form-check-label" for="defaultCheck1">
+                      {{ __('Baridi Mob') }}
+                    </label>
+                  @endif
                   <input class="form-check-input" name="payment-way" type="radio" value="" id="baridi-mob" />
+                  @if (app()->getLocale() != 'ar')
+                    <label class="form-check-label" for="defaultCheck1">
+                      {{ __('Baridi Mob') }}
+                    </label>
+                  @endif
+
+                  {{-- <input class="form-check-input" name="payment-way" type="radio" value="" id="baridi-mob" />
                   <label class="form-check-label" for="defaultCheck1">
                     {{ __('Baridi Mob') }}
-                  </label>
+                  </label> --}}
                 </div>
               </div>
               <div class="card-footer border-secondary bg-transparent">
-                  <button class="btn btn-primary float-end">{{ __('Place Order') }}</button>
+                  <button class="btn btn-primary {{ app()->isLocale('ar') ? 'float-start' : 'float-end' }}">{{ __('Place Order') }}</button>
               </div>
           </div>
       </div>

@@ -30,7 +30,7 @@
             <div class="modal-header">
               <h4 class="modal-title" id="modalCenterTitle">{{ __('Add Coupon') }}</h4>
             </div>
-            <form id="addCouponForm" method="POST" action="{{ route('coupon.add') }}">
+            <form id="addCouponForm" method="POST" action="{{ route('coupon.create') }}">
               @csrf
               <div class="modal-body">
                 <div class="row">
@@ -132,27 +132,8 @@
     text-align: center;
   }
 
-  .context-menu {
-    position: absolute;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 5px 0;
-    list-style: none;
-    border-radius: 5px;
-    z-index: 1000;
-  }
-
-  .context-menu li {
-      padding: 5px 20px;
-      cursor: pointer;
-  }
-
-  .context-menu li:hover {
-      background-color: #f0f0f0;
-  }
 </style>
 
-<script src="{{ asset('assets/js/mine.js') }}"></script>
 
 <script type="text/javascript">
   var table;
@@ -202,22 +183,22 @@
   }
 
       function showContextMenu(id, x, y) {
-        // Here you can define the content and behavior of the context menu
+
         var contextMenu = $('<ul class="context-menu" dir="{{ app()->isLocale("ar") ? "rtl" : "" }}"></ul>')
             .append('<li><a onclick="editCoupon(' + id + ')"><i class="tf-icons mdi mdi-pencil-outline {{ app()->isLocale("ar") ? "ms-1" : "me-1" }}"></i>{{ __("Edit") }}</a></li>')
             .append('<li class="px-0 pe-none"><div class="divider border-top my-0"></div></li>')
             .append('<li><a onclick="deleteCoupon(' + id + ')"><i class="tf-icons mdi mdi-trash-can-outline {{ app()->isLocale("ar") ? "ms-1" : "me-1" }}"></i>{{ __("Delete") }}</a></li>');
 
-        // Position the context menu at the mouse coordinates
+
         contextMenu.css({
             top: y,
             left: x
         });
 
-        // Append the context menu to the body
+
         $('body').append(contextMenu);
 
-        // Hide the context menu when clicking outside of it
+
         $(document).on('click', function() {
           $('.context-menu').remove();
         });
@@ -243,12 +224,12 @@ $(document).ready(function() {
               {data: 'created_at', name: '{{__("Created At")}}'},
           ],
           rowCallback: function(row, data) {
-              $(row).attr('id', 'coupon_' + data.id); // Assign an id to each row for easy targeting
+              $(row).attr('id', 'coupon_' + data.id);
 
-              // Add right-click context menu listener to each row
+
               $(row).on('contextmenu', function(e) {
                   e.preventDefault();
-                  showContextMenu(data.id, e.pageX, e.pageY); // Show context menu at mouse position
+                  showContextMenu(data.id, e.pageX, e.pageY);
               });
           }
       });
@@ -269,7 +250,7 @@ $(document).ready(function() {
 
         pagination.empty();
 
-        // Add Previous button
+
         var prevButton = $('<li>').addClass('page-item').append($('<a>').addClass('page-link ms-1').attr('href', 'javascript:void(0);').html('&laquo;'));
         if (info.page > 0) {
           prevButton.find('a').click(function () {
@@ -280,7 +261,7 @@ $(document).ready(function() {
         }
         pagination.append(prevButton);
 
-        // Add page links
+
         for (var i = 0; i < info.pages; i++) {
           var page = i + 1;
           var liClass = (page === info.page + 1) ? 'active' : 'd-none';
@@ -294,7 +275,7 @@ $(document).ready(function() {
           pagination.append(listItem);
         }
 
-        // Add Next button
+
         var nextButton = $('<li>').addClass('page-item').append($('<a>').addClass('page-link ms-1').attr('href', 'javascript:void(0);').html('&raquo;'));
         if (info.page < info.pages - 1) {
           nextButton.find('a').click(function () {
@@ -305,7 +286,7 @@ $(document).ready(function() {
         }
         pagination.append(nextButton);
 
-            // Calculate the range
+
         var startRange = info.start + 1;
         var endRange = info.start + info.length;
         var pageInfo = startRange + ' ' + __("to",lang) + ' ' + endRange + ' ' + __("from",lang) + ' ' + info.recordsTotal;

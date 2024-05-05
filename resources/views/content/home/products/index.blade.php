@@ -95,12 +95,13 @@
                 <div class="col-6">
                   <div class="input-group input-group-merge" dir="{{ app()->isLocale('ar') ? 'ltr' : '' }}">
                     <span class="input-group-text">{{ __('Quantity') }}</span>
-                    <input type="number" class="form-control" placeholder="0" value="1" aria-label="Amount (to the nearest dollar)" max="{{ $product->quantity }}" min="1"/>
+                    <input type="number" class="form-control" placeholder="0" value="1" aria-label="Amount (to the nearest dollar)" max="{{ $product->quantity }}" min="1" name="productQuantity"/>
+                    <input type="hidden" value="{{ $product->id }}" name="id"/>
                   </div>
                 </div>
                 <div class="col-6">
                   <div class="input-group input-group-merge" >
-                    <button type="button" class="btn btn-outline-primary">
+                    <button type="button" class="btn btn-outline-primary" id="add-cart-btn">
                       <span class="tf-icons mdi mdi-cart-check mx-1"></span>{{ __('Add To Cart') }}
                     </button>
                   </div>
@@ -689,7 +690,7 @@ class StarRating {
 }
 
 
-  $('#addCommentForm').submit(function(event) {
+    $('#addCommentForm').submit(function(event) {
         event.preventDefault();
 
         var formData = $(this).serialize();
@@ -706,7 +707,35 @@ class StarRating {
               text: response.message,
               confirmButtonText: __("Ok",lang)
             });
-            table.ajax.reload();
+          },
+          error: function(xhr, textStatus, errorThrown) {
+            const response = JSON.parse(xhr.responseText);
+            Swal.fire({
+              icon: response.icon,
+              title: response.state,
+              text: response.message,
+              confirmButtonText: __("Ok",lang)
+            });
+          }
+        });
+
+        $('#addCommentForm').submit(function(event) {
+        event.preventDefault();
+
+        var formData = $(this).serialize();
+
+        $.ajax({
+          url: $(this).attr('action'),
+          type: $(this).attr('method'),
+          data: formData,
+          dataType: 'json',
+          success: function(response) {
+            Swal.fire({
+              icon: response.icon,
+              title: response.state,
+              text: response.message,
+              confirmButtonText: __("Ok",lang)
+            });
           },
           error: function(xhr, textStatus, errorThrown) {
             const response = JSON.parse(xhr.responseText);
@@ -719,6 +748,8 @@ class StarRating {
           }
         });
     });
+
+  });
   </script>
 
 @else

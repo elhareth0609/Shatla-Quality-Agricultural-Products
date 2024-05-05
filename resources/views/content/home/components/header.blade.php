@@ -164,16 +164,16 @@
               @auth
               @foreach (Auth::user()->cart->products as $product)
 
-              <div class="carts-item mb-2" data-product-id="{{ $product->id }}">
+              <div class="carts-item mb-2" data-product-id="{{ $product->product->id }}">
                 <div class="card-body" dir="{{ app()->isLocale('ar') ? 'rtl' : 'ltr' }}">
                   <div class="d-flex align-items-start align-items-sm-center gap-4">
-                    <img src="{{ $product->firstPhoto() }}" alt="user-avatar" class="d-block w-px-120 h-px-120 rounded" />
+                    <img src="{{ $product->product->firstPhoto() }}" alt="user-avatar" class="d-block w-px-120 h-px-120 rounded" />
                     <div class="button-wrapper">
                       <div class="btn-group" role="group" aria-label="Second group" dir="ltr">
                         <button type="button" class="btn btn-icon btn-primary btn-plus-cart">
                           <span class="tf-icons mdi mdi-plus"></span>
                         </button>
-                        <input type="text" class="form-control text-center p-0 rounded-0 my-w-5" data-max="{{ $product->quantity }}" value="{{ $product->pivot->quantity }}" name="quantity" data-product-id="{{ $product->id }}">
+                        <input type="text" class="form-control text-center p-0 rounded-0 my-w-5 input-price-cart" data-max="{{ $product->product->quantity }}" value="{{ $product->quantity }}" name="quantity" data-product-id="{{ $product->product->id }}">
                         <button type="button" class="btn btn-icon btn-primary btn-minus-cart">
                           <span class="tf-icons mdi mdi-minus"></span>
                         </button>
@@ -181,10 +181,10 @@
                       <button type="button" class="btn btn-icon btn-outline-danger btn-remove-cart">
                         <span class="tf-icons mdi mdi-trash-can-outline"></span>
                       </button>
-                      <div class="text-muted small mt-3">{{ \Illuminate\Support\Str::limit($product->name, 90) }}</div>
+                      <div class="text-muted small mt-3">{{ \Illuminate\Support\Str::limit($product->product->name, 90) }}</div>
                       <div class="text-muted small mt-3 d-flex justify-content-between">
-                        <p>{{ $product->price }}</p>
-                        <p>{{ $product->last_price }}</p>
+                        <p>{{ $product->product->price }}</p>
+                        <p>{{ $product->product->last_price }}</p>
                       </div>
                     </div>
                   </div>
@@ -556,16 +556,16 @@
         @auth
         @foreach (Auth::user()->cart->products as $product)
 
-        <div class="carts-item mb-2" data-product-id="{{ $product->id }}">
+        <div class="carts-item mb-2" data-product-id="{{ $product->product->id }}">
           <div class="card-body" dir="{{ app()->isLocale('ar') ? 'rtl' : 'ltr' }}">
             <div class="d-flex align-items-start align-items-sm-center gap-4">
-              <img src="{{ $product->firstPhoto() }}" alt="user-avatar" class="d-block w-px-120 h-px-120 rounded" />
+              <img src="{{ $product->product->firstPhoto() }}" alt="user-avatar" class="d-block w-px-120 h-px-120 rounded" />
               <div class="button-wrapper">
                 <div class="btn-group" role="group" aria-label="Second group" dir="ltr">
                   <button type="button" class="btn btn-icon btn-primary btn-plus-cart">
                     <span class="tf-icons mdi mdi-plus"></span>
                   </button>
-                  <input type="text" class="form-control text-center p-0 rounded-0 my-w-5" data-max="{{ $product->quantity }}" value="{{ $product->pivot->quantity }}" name="quantity" data-product-id="{{ $product->id }}">
+                  <input type="text" class="form-control text-center p-0 rounded-0 my-w-5 input-price-cart" data-max="{{ $product->product->quantity }}" value="{{ $product->quantity }}" name="quantity" data-product-id="{{ $product->product->id }}">
                   <button type="button" class="btn btn-icon btn-primary btn-minus-cart ">
                     <span class="tf-icons mdi mdi-minus"></span>
                   </button>
@@ -573,10 +573,10 @@
                 <button type="button" class="btn btn-icon btn-outline-danger btn-remove-cart">
                   <span class="tf-icons mdi mdi-trash-can-outline"></span>
                 </button>
-                <div class="text-muted small mt-3">{{ \Illuminate\Support\Str::limit($product->name, 90) }}</div>
+                <div class="text-muted small mt-3">{{ \Illuminate\Support\Str::limit($product->product->name, 90) }}</div>
                 <div class="text-muted small mt-3 d-flex justify-content-between">
-                  <p>{{ $product->price }}</p>
-                  <p>{{ $product->last_price }}</p>
+                  <p>{{ $product->product->price }}</p>
+                  <p>{{ $product->product->last_price }}</p>
                 </div>
               </div>
             </div>

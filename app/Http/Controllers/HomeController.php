@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\Cart_Products;
 use App\Models\Product;
 use App\Models\Publication;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {

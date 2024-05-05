@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class PlanController extends Controller
 {
   public function index() {
-    $plans = Plan::where('name','!=','admin')->get();
+    $plans = Plan::where('name','!=','المسؤول')->get();
     return view('content.home.pages.plans')
     ->with('plans',$plans);
   }
@@ -74,4 +74,14 @@ class PlanController extends Controller
       return view('content.dashboard.plan.permissions')
       ->with('plan',$plan);
     }
+
+    public function add(Request $request) {
+    
+      return response()->json([
+        'icon' => 'success',
+        'state' => __('Success'),
+        'message' => __("Created Successfully.")
+      ]);
+    }
+
 }

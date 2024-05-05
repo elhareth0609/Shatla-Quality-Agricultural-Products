@@ -47,6 +47,7 @@
   @include('layouts/sections/scripts')
 
   <script src="{{ asset('assets/home/js/script.js') }}"></script>
+  {{-- <script src="{{ asset('assets/js/mine.js') }}"></script> --}}
 
   <!--
     - ionicon link

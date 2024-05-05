@@ -15,16 +15,27 @@ class Cart extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+      return $this->belongsTo(User::class);
     }
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'cart__products')->withPivot('quantity');
+      return $this->hasMany(Cart_Products::class);
     }
 
     public function myCart($cid) {
-      // Check if there exists a cart associated with this user
-      return $this->products()->where('products.id', $cid)->exists();
+      return $this->products()->where('product_id', $cid)->exists();
+    }
+
+    public function totalCart() {
+    $cart = $this->products;
+
+    // if ($cart) {
+        return $cart->sum(function ($cartProduct) {
+            return $cartProduct->quantity * $cartProduct->product->price;
+        });
+    // }
+
+    return 0;
     }
 }

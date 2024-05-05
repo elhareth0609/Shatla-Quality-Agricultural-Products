@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Coupon;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -97,6 +98,48 @@ class CouponController extends Controller
     }
 
   }
+
+  public function check(Request $request) {
+    $state = false;
+    $message = '';
+
+    $coupon = Coupon::where('code', $request->code)->first();
+
+    if ($coupon) {
+        if ($coupon->max >= $coupon->users->count()) {
+          $state = true;
+          $message = __('Coupon code applied successfully.');
+          $discount = $coupon->discount;
+        } else {
+          $message = __('Maximum usage limit for this coupon has been reached.');
+          $state = false;
+          $discount = 0;
+        }
+
+        if ($coupon->expired_date && Carbon::parse($coupon->expired_date)->isPast()) {
+          $state = false;
+          $message = __('Coupon code has expired.');
+          $discount = 0;
+        }
+
+
+        if ($coupon->status == 'inactive') {
+          $state = false;
+          $message = __('Coupon code has inactive.');
+          $discount = 0;
+      }
+    } else {
+        $state = false;
+        $message = __('Invalid coupon code.');
+        $discount = 0;
+    }
+
+    return response()->json([
+        'message' => $message,
+        'state' => $state,
+        'discount' => $discount
+    ]);
+}
 
   public function delete($id) {
       try{

@@ -55,6 +55,36 @@ class CartController extends Controller
     }
 
     public function update(Request $request) {
+      $product = Product::find($request->id);
+      // $product->photo = $product->firstPhoto();
+      $state = false;
+      $update = null;
+      if (!(Auth::user()->cart->myCart($request->id))) {
+        $cart = new Cart_Products();
+        $cart->product_id = $request->id;
+        $cart->cart_id = Auth::user()->cart->id;
+        $cart->quantity = $request->quantity;
+        $cart->save();
+        $state = true;
+        $product->quantityPivot = $cart->quantity;
+      } else {
+        $cart =  Cart_Products::where('cart_id',Auth::user()->cart->id)
+        ->where('product_id',$request->id)
+        ->first();
+        $cart->quantity = $request->quantity;
+        $cart->save();
+        $update = $request->quantity;
+      }
+      $cartCount = Cart_Products::where('cart_id', Auth::user()->cart->id)->count();
+
+      $product->photoUrl = $product->firstPhoto();
+
+      return response()->json([
+        'count' => $cartCount,
+        'state' => $state,
+        'data' => $product,
+        'update' => $update
+      ]);
 
     }
 
