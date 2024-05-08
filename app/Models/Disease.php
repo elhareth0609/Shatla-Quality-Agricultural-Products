@@ -10,7 +10,13 @@ class Disease extends Model
 {
     use HasFactory;
 
-
+    protected $fillable = [
+      'name_en',
+      'name_ar',
+      'name_fr',
+      'image',
+      'status'
+    ];
 
     public function photoUrl() {
       $image = $this->image;
