@@ -18,6 +18,7 @@ use App\Http\Controllers\DataTablesController;
 
 use App\Http\Controllers\DiseasesController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ExpertController;
 use App\Http\Controllers\extended_ui\PerfectScrollbar;
 use App\Http\Controllers\extended_ui\TextDivider;
 use App\Http\Controllers\FavoriteController;
@@ -33,6 +34,7 @@ use App\Http\Controllers\layouts\Container;
 use App\Http\Controllers\layouts\Fluid;
 use App\Http\Controllers\layouts\WithoutMenu;
 use App\Http\Controllers\layouts\WithoutNavbar;
+use App\Http\Controllers\MarchentController;
 use App\Http\Controllers\pages\AccountSettingsAccount;
 use App\Http\Controllers\pages\AccountSettingsConnections;
 use App\Http\Controllers\pages\AccountSettingsNotifications;
@@ -40,13 +42,13 @@ use App\Http\Controllers\pages\MiscError;
 use App\Http\Controllers\pages\MiscUnderMaintenance;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\PlanController;
+
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\PublicationController;
 
+
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SubCategoryController;
-
-
 use App\Http\Controllers\tables\Basic as TablesBasic;
 use App\Http\Controllers\user_interface\Accordion;
 use App\Http\Controllers\user_interface\Alerts;
@@ -69,6 +71,8 @@ use App\Http\Controllers\user_interface\TooltipsPopovers;
 use App\Http\Controllers\user_interface\Typography;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+
+
 
   // Main Page Route
   Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -143,9 +147,12 @@ use Illuminate\Support\Facades\Route;
     // Blogs
     // Dashboard
     Route::get('/blog/{id}', [BlogsController::class, 'get'])->name('blog.get');
-    Route::match(['get', 'post'], '/blog/create', [BlogsController::class, 'create'])->name('blog.create');
+    Route::get('/blogs/create', [BlogsController::class, 'create_index'])->name('blog.create.index');
+    Route::post('/blog/create', [BlogsController::class, 'create'])->name('blog.create');
     Route::delete('/blog/{id}', [BlogsController::class, 'delete'])->name('blog.delete');
-    Route::post('/blog/update', [BlogsController::class, 'update'])->name('blog.update');
+    Route::put('/blog/update', [BlogsController::class, 'update'])->name('blog.update');
+    Route::post('/blog/upload', [BlogsController::class, 'uploadPhotos'])->name('blog.upload');
+    Route::post('/blog/comment', [BlogsController::class, 'comment'])->name('blog.comment');
 
     // Publication
     // Dashboard
@@ -166,6 +173,9 @@ use Illuminate\Support\Facades\Route;
     // Events
     // Dashboard
     Route::get('/events', [EventController::class, 'index'])->name('events');
+    Route::post('/events/update', [EventController::class, 'update'])->name('events.update');
+    Route::delete('/events/delete', [EventController::class, 'delete'])->name('events.delete');
+    Route::post('/events/create', [EventController::class, 'create'])->name('events.create');
 
     // Plans
     // Dashboard
@@ -202,6 +212,8 @@ use Illuminate\Support\Facades\Route;
 
     // Authentication
     Route::get('/auth/logout', [LoginBasic::class, 'logout'])->name('logout.action');
+    Route::post('/password/change', [LoginBasic::class, 'change'])->name('password.change');
+    Route::post('/profile/update', [LoginBasic::class, 'update'])->name('profile.update');
 
   });
 
@@ -225,6 +237,8 @@ use Illuminate\Support\Facades\Route;
 
   Route::get('/view/product/{id}', [ProductsController::class, 'view'])->name('product.view');
   Route::get('/view/subcategory/{id}', [SubCategoryController::class, 'view'])->name('subcategory.view');
+  Route::get('/view/marchent/{id}', [MarchentController::class, 'view'])->name('marchent.view');
+  Route::get('/view/expert/{id}', [ExpertController::class, 'view'])->name('expert.view');
 
   Route::get('/view/blogs', [BlogsController::class, 'index'])->name('blog.index');
   Route::get('/view/blogs/{id}', [BlogsController::class, 'ones'])->name('blog.ones');

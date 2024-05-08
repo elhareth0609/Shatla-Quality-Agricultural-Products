@@ -104,7 +104,7 @@ class CartController extends Controller
       $request->validate([
         'id' => 'required|exists:cart__products,product_id',
         'quantity' => 'required|integer|min:1',
-    ]);
+      ]);
 
     $cart =  Cart_Products::where('cart_id',Auth::user()->cart->id)
     ->where('product_id',$request->id)

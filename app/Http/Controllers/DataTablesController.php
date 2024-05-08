@@ -13,6 +13,7 @@ use App\Models\Sell;
 use App\Models\SubCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Yajra\DataTables\DataTables;
 
 class DataTablesController extends Controller
@@ -204,13 +205,13 @@ class DataTablesController extends Controller
             return (string) $blog->id;
         })
         ->editColumn('title', function ($blog) {
-          return $blog->title;
+          return Str::limit($blog->title, 35);
         })
-        ->editColumn('category_id', function ($blog) {
-          return $blog->category->name;
+        ->editColumn('status', function ($blog) {
+          return '<span class="badge rounded-pill bg-label-' . ($blog->status == 'published' ? 'success' : 'secondary') . '">' . ($blog->status == 'draft' ? 'Draft' : 'Published') . '</span>';
         })
-        ->editColumn('image', function ($blog) {
-          return $blog->image;
+        ->editColumn('subcategory_id', function ($blog) {
+          return '<span class="badge rounded-pill bg-label-info">' . $blog->subcategory->getName() . '</span>';
         })
         ->editColumn('created_at', function ($blog) {
           return $blog->created_at->format('Y-m-d');
@@ -218,16 +219,15 @@ class DataTablesController extends Controller
         ->addColumn('action', function ($blog) {
             return '<button class="btn btn-primary">Edit</button>';
         })
-        ->rawColumns(['action'])
+        ->rawColumns(['action','status','subcategory_id'])
         ->make(true);
       }
 
       return view('content.dashboard.blogs.list');
-
     }
 
     public function plans(Request $request) {
-      $plans = Plan::all();
+      $plans = Plan::where('name', '!=', 'المسؤول')->get();
 
       if($request->ajax()) {
         return DataTables::of($plans)

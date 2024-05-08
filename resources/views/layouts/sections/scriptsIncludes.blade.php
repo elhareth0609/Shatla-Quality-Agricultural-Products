@@ -12,22 +12,23 @@
 <!-- Place the first <script> tag in your HTML's <head> -->
   <script src="https://cdn.tiny.cloud/1/7gjdmwd28tv3zgd10agg1omfs4akvf56ukwbb85qqzlzgxd1/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 
-  {{--
-  <script>
-    tinymce.init({
-      selector: 'textarea',
-      plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount linkchecker markdown',
-      toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-    });
-  </script>
-  <textarea>
-    Welcome to TinyMCE!
-  </textarea> --}}
-
   <link rel="stylesheet" href="{{ asset('assets/css/mine.css') }}" />
   <script src="{{ asset('assets/js/mine.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
 
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('assets/js/sweetalert.js') }}"></script>
+
+
+<!-- Bootstrap JS -->
+
+
+
+<script src="{{ asset('assets/js/dropzone-min.js') }}"></script>
+<link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css" />
+
+<script src="{{ asset('assets/js/tagify.js') }}"></script>
+<script src="{{ asset('assets/js/tagify.polyfills.min.js') }}"></script>
+<link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
 <!-- END: Api JS-->

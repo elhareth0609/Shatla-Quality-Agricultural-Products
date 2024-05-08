@@ -20,24 +20,23 @@ class Profile extends Model
       'active'
     ];
 
-  public function photoUrl() {
-    return $photo = $this->photo;
+    public function photoUrl() {
+      $photo = $this->photo;
 
-    if (Str::startsWith($photo, 'http')) {
-        return $photo;
-    } else {
-        return asset('assets/img/avatars/' . $photo);
-    }
+      if (Str::startsWith($photo, 'http')) {
+          return $photo;
+      } else {
+          return asset('assets/img/photos/users/' . $photo);
+      }
   }
 
   public function photoPath() {
     $photo = $this->photo;
 
     if (!empty($photo)) {
-        return public_path('assets/img/users/' . $photo);
+        return public_path('assets/img/photos/users/' . $photo);
     } else {
-        // Return default path or handle empty photo case as needed
-        return public_path('assets/img/users/default.jpg');
+        return null;
     }
   }
 

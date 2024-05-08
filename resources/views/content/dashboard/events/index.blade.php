@@ -9,218 +9,352 @@
 <!-- Responsive Table -->
 <div class="card row" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
   <h5 class="card-header">{{ __('Events') }}</h5>
+  <!--/ Responsive Table -->
+  <div id="calendar"></div>
+
+    <div class="modal fade" id="addEvent" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
+          <div class="modal-header">
+            <h4 class="modal-title" id="modalCenterTitle">{{ __('Add Event') }}</h4>
+          </div>
+          <form id="addEventForm" method="POST" action="{{ route('events.create') }}">
+            @csrf
+
+            <div class="modal-body">
+
+              <div class="row">
+                <div class="col mb-4 mt-2">
+                  <div class="form-floating form-floating-outline">
+                    <input type="text" class="form-control" name="title" placeholder="{{ __('Enter Title') }}">
+                    <label for="title">{{ __('Title') }}</label>
+                  </div>
+                </div>
+              </div>
+
+                <div class="row">
+                  <div class="col mb-4 mt-2">
+                    <div class="form-floating form-floating-outline">
+                      <input type="text" class="form-control" name="description" placeholder="{{ __('Enter Description') }}">
+                      <label for="description">{{ __('Description') }}</label>
+                    </div>
+                  </div>
+                </div>
+
+              <div class="row">
+                <div class="col mb-4 mt-2">
+                  <div class="form-floating form-floating-outline">
+                    <input class="form-control" type="datetime-local" name="start" />
+                    <label for="end">{{ __('Start') }}</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col mb-4 mt-2">
+                  <div class="form-floating form-floating-outline">
+                    <input class="form-control" type="datetime-local" name="end" />
+                    <label for="end">{{ __('End') }}</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col mb-4 mt-2">
+                  <div class="form-floating form-floating-outline">
+                    <input class="form-control" type="color" name="color" />
+                    <label for="color">{{ __('Color') }}</label>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-secondary" id="hideMAEButton" data-bs-dismiss="modal">{{ __('Close') }}</button>
+              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">{{ __('Save') }}</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="updateEvent" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
+          <div class="modal-header">
+            <h4 class="modal-title" id="modalCenterTitle">{{ __('Update Event') }}</h4>
+          </div>
+          <form id="updateEventForm" method="POST" action="{{ route('events.update') }}">
+            @csrf
+            <input type="hidden" name="id" id="id" />
+            <div class="modal-body">
+              <div class="row">
+                <div class="col mb-4 mt-2">
+                  <div class="form-floating form-floating-outline">
+                    <input type="text" id="title" class="form-control" name="title" placeholder="{{ __('Enter Title') }}">
+                    <label for="title">{{ __('Title') }}</label>
+                  </div>
+                </div>
+              </div>
+
+                <div class="row">
+                  <div class="col mb-4 mt-2">
+                    <div class="form-floating form-floating-outline">
+                      <input type="text" id="description" class="form-control" name="description" placeholder="{{ __('Enter Description') }}">
+                      <label for="description">{{ __('Description') }}</label>
+                    </div>
+                  </div>
+                </div>
+
+              <div class="row">
+                <div class="col mb-4 mt-2">
+                  <div class="form-floating form-floating-outline">
+                    <input class="form-control" type="datetime-local" id="start" name="start" />
+                    <label for="end">{{ __('Start') }}</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col mb-4 mt-2">
+                  <div class="form-floating form-floating-outline">
+                    <input class="form-control" type="datetime-local" id="end" name="end" />
+                    <label for="end">{{ __('End') }}</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col mb-4 mt-2">
+                  <div class="form-floating form-floating-outline">
+                    <input class="form-control" type="color" name="color" id="color" />
+                    <label for="color">{{ __('Color') }}</label>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-secondary" id="hideMUEButton" data-bs-dismiss="modal">{{ __('Close') }}</button>
+              <button type="button" class="btn btn-outline-secondary" id="deleteEventButton" data-bs-dismiss="modal">{{ __('Delete') }}</button>
+              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">{{ __('Save') }}</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
 </div>
-<!--/ Responsive Table -->
 
-<style>
-
-  .dataTables_length,
-  .dataTables_filter,
-  .dataTables_info,
-  .dataTables_paginate {
-    display: none;
-  }
-
-  td,tr {
-    text-align: center;
-  }
-
-</style>
-
-<script src="{{ asset('assets/js/mine.js') }}"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
-  var table;
   var lang = "{{ app()->getLocale() }}";
-
-      function editCoupon(id) {
-        console.log(id);
-      }
-
-  function deleteCoupon(id) {
-    Swal.fire({
-        title: __("Do you really want to delete this Coupon?",lang),
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: __("Submit",lang),
-        cancelButtonText: __("Cancel",lang),
-        reverseButtons: true
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                url: '/coupon/' + id,
-                type: 'DELETE',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(response) {
-                    Swal.fire({
-                        icon: response.icon,
-                        title: response.state,
-                        text: response.message,
-                        confirmButtonText: __("Ok",lang)
-                    });
-                    table.ajax.reload();
-                },
-                error: function(xhr, textStatus, errorThrown) {
-                    const response = JSON.parse(xhr.responseText);
-                    Swal.fire({
-                        icon: response.icon,
-                        title: response.state,
-                        text: response.message,
-                        confirmButtonText: __("Ok",lang)
-                    });
-                }
-            });
-        }
-    });
-  }
-
-      function showContextMenu(id, x, y) {
-        // Here you can define the content and behavior of the context menu
-        var contextMenu = $('<ul class="context-menu" dir="{{ app()->isLocale("ar") ? "rtl" : "" }}"></ul>')
-            .append('<li><a onclick="editCoupon(' + id + ')">{{ __("Edit") }}</a></li>')
-            .append('<li><a onclick="deleteCoupon(' + id + ')">{{ __("Delete") }}</a></li>');
-
-        // Position the context menu at the mouse coordinates
-        contextMenu.css({
-            top: y,
-            left: x
-        });
-
-        // Append the context menu to the body
-        $('body').append(contextMenu);
-
-        // Hide the context menu when clicking outside of it
-        $(document).on('click', function() {
-          $('.context-menu').remove();
-        });
-      }
+  var calendarEl = document.getElementById('calendar');
+  var eventsData = {!! json_encode($events) !!};
 
 $(document).ready(function() {
   $.noConflict();
-      var lang = "{{ app()->getLocale() }}";
-      var table = $('#coupons').DataTable({
-          processing: true,
-          serverSide: true,
-          language: {
-            "emptyTable": __("No data available in table",lang)
+
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth',
+          headerToolbar: {
+            left: 'prev,next today add',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
           },
-          ajax: "{{ route('coupons') }}",
-          columns: [
-              {data: 'id', name: '#'},
-              {data: 'code', name: '{{__("Code")}}'},
-              {data: 'discount', name: '{{__("Discount")}}'},
-              {data: 'max', name: '{{__("Max")}}'},
-              {data: 'status', name: '{{__("Status")}}'},
-              {data: 'expired_date', name: '{{__("Expired At")}}'},
-              {data: 'created_at', name: '{{__("Created At")}}'},
-          ],
-          rowCallback: function(row, data) {
-              $(row).attr('id', 'coupon_' + data.id); // Assign an id to each row for easy targeting
-
-              // Add right-click context menu listener to each row
-              $(row).on('contextmenu', function(e) {
-                  e.preventDefault();
-                  showContextMenu(data.id, e.pageX, e.pageY); // Show context menu at mouse position
-              });
-          }
-      });
-
-      $('#dataTables_my_length').change(function() {
-        var selectedValue = $(this).val();
-        table.page.len(selectedValue).draw();
-      });
-
-      $('#dataTables_my_filter').on('input', function () {
-        var query = $(this).val();
-        table.search(query).draw();
-      });
-
-      table.on('draw', function () {
-        var info = table.page.info();
-        var pagination = $('#dataTables_my_paginate');
-
-        pagination.empty();
-
-        // Add Previous button
-        var prevButton = $('<li>').addClass('page-item').append($('<a>').addClass('page-link ms-1').attr('href', 'javascript:void(0);').html('&laquo;'));
-        if (info.page > 0) {
-          prevButton.find('a').click(function () {
-            table.page('previous').draw('page');
-          });
-        } else {
-          prevButton.addClass('disabled');
-        }
-        pagination.append(prevButton);
-
-        // Add page links
-        for (var i = 0; i < info.pages; i++) {
-          var page = i + 1;
-          var liClass = (page === info.page + 1) ? 'active' : 'd-none';
-          var link = $('<a>').addClass('page-link').attr('href', 'javascript:void(0);').text(page);
-          var listItem = $('<li>').addClass('page-item').addClass(liClass).append(link);
-          listItem.click((function (pageNumber) {
-            return function () {
-              table.page(pageNumber).draw('page');
-            };
-          })(i));
-          pagination.append(listItem);
-        }
-
-        // Add Next button
-        var nextButton = $('<li>').addClass('page-item').append($('<a>').addClass('page-link ms-1').attr('href', 'javascript:void(0);').html('&raquo;'));
-        if (info.page < info.pages - 1) {
-          nextButton.find('a').click(function () {
-            table.page('next').draw('page');
-          });
-        } else {
-          nextButton.addClass('disabled');
-        }
-        pagination.append(nextButton);
-
-            // Calculate the range
-        var startRange = info.start + 1;
-        var endRange = info.start + info.length;
-        var pageInfo = startRange + ' ' + __("to",lang) + ' ' + endRange + ' ' + __("from",lang) + ' ' + info.recordsTotal;
-        $('#dataTables_my_info').text(pageInfo);
+            events: eventsData,
+            eventClick: function(info) {
+              var event = info.event;
+              var startStr = event.start.toISOString().slice(0, 16).replace('T', ' ');
+              var endStr = event.end.toISOString().slice(0, 16).replace('T', ' ');
+              $('#updateEvent #id').val(event.id);
+              $('#updateEvent #title').val(event.title);
+              $('#updateEvent #description').val(event.extendedProps.description);
+              $('#updateEvent #start').val(startStr);
+              $('#updateEvent #end').val(endStr);
+              $('#updateEvent #color').val(event.backgroundColor);
+              $('#updateEvent').modal('show');
+            },
+            customButtons: {
+              add: {
+                text: __("Add Event", lang),
+                click: function() {
+                  $('#addEvent').modal('show');
+                },
+              },
+              today: {
+                text: __("today", lang),
+                click: function() {
+                  calendar.gotoDate(new Date());
+                },
+              },
+              dayGridMonth: {
+                text: __("month", lang),
+                click: function() {
+                  calendar.changeView('dayGridMonth');
+                },
+              },
+              timeGridWeek: {
+                text: __("week", lang),
+                click: function() {
+                  calendar.changeView('timeGridWeek');
+                },
+              },
+              timeGridDay: {
+                text: __("day", lang),
+                click: function() {
+                  calendar.changeView('timeGridDay');
+                },
+              }
+            }
 
       });
+      calendar.render();
 
+  $('#hideMUEButton').click(function() {
+    $('#updateEvent').modal('hide');
+  });
 
+  $('#hideMAEButton').click(function() {
+    $('#addEvent').modal('hide');
+  });
 
-      $('#addCouponForm').submit(function(event) {
-        event.preventDefault();
+  $('#addEventForm').submit(function(event) {
+    event.preventDefault();
 
-        var formData = $(this).serialize();
+    var formData = $(this).serialize();
 
-        $.ajax({
-          url: $(this).attr('action'),
-          type: $(this).attr('method'),
-          data: formData,
-          dataType: 'json',
-          success: function(response) {
-            Swal.fire({
-              icon: response.icon,
-              title: response.state,
-              text: response.message,
-              confirmButtonText: __("Ok",lang)
-            });
-            table.ajax.reload();
-          },
-          error: function(xhr, textStatus, errorThrown) {
-            const response = JSON.parse(xhr.responseText);
-            Swal.fire({
-              icon: response.icon,
-              title: response.state,
-              text: response.message,
-              confirmButtonText: __("Ok",lang)
-            });
+    $.ajax({
+      url: $(this).attr('action'),
+      type: $(this).attr('method'),
+      data: formData,
+      dataType: 'json',
+      success: function(response) {
+        Swal.fire({
+          icon: response.icon,
+          title: response.state,
+          text: response.message,
+          confirmButtonText: __("Ok",lang)
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $('#addEvent').modal('hide');
+            calendar.addEvent({
+                title: response.event.title,
+                start: response.event.start,
+                end: response.event.end,
+                color: response.event.color
+            }, true);
           }
         });
-      });
-
+      },
+      error: function(xhr, textStatus, errorThrown) {
+        const response = JSON.parse(xhr.responseText);
+        Swal.fire({
+          icon: response.icon,
+          title: response.state,
+          text: response.message,
+          confirmButtonText: __("Ok",lang)
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $('#addEvent').modal('hide');
+          }
+        });
+      }
     });
+  });
+
+
+  $('#updateEventForm').submit(function(event) {
+    event.preventDefault();
+
+    var formData = $(this).serialize();
+
+    $.ajax({
+      url: $(this).attr('action'),
+      type: $(this).attr('method'),
+      data: formData,
+      dataType: 'json',
+      success: function(response) {
+        Swal.fire({
+          icon: response.icon,
+          title: response.state,
+          text: response.message,
+          confirmButtonText: __("Ok",lang)
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $('#updateEvent').modal('hide');
+            var updatedEvent = calendar.getEventById(response.event.id);
+                updatedEvent.setProp('title', $('#updateEvent #title').val()); // Update title
+                updatedEvent.setExtendedProp('description', $('#updateEvent #description').val());
+                updatedEvent.setStart($('#updateEvent #start').val());
+                updatedEvent.setEnd($('#updateEvent #end').val());
+                updatedEvent.setProp('backgroundColor', $('#updateEvent #color').val());
+                updatedEvent.remove();
+                calendar.addEvent(updatedEvent.toPlainObject());
+
+          }
+        });
+      },
+      error: function(xhr, textStatus, errorThrown) {
+        const response = JSON.parse(xhr.responseText);
+        Swal.fire({
+          icon: response.icon,
+          title: response.state,
+          text: response.message,
+          confirmButtonText: __("Ok",lang)
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $('#updateEvent').modal('hide');
+          }
+        });
+      }
+    });
+  });
+
+  $('#deleteEventButton').click(function() {
+    var id = $('#updateEvent #id').val();
+
+    $.ajax({
+      url: '/events/delete',
+      type: 'DELETE',
+      dataType: 'json',
+      data: {
+        id : id,
+        _token : csrfToken
+      },
+      success: function(response) {
+        Swal.fire({
+          icon: response.icon,
+          title: response.state,
+          text: response.message,
+          confirmButtonText: __("Ok",lang)
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $('#updateEvent').modal('hide');
+            var updatedEvent = calendar.getEventById(response.event.id);
+            updatedEvent.remove();
+          }
+        });
+      },
+      error: function(xhr, textStatus, errorThrown) {
+        const response = JSON.parse(xhr.responseText);
+        Swal.fire({
+          icon: response.icon,
+          title: response.state,
+          text: response.message,
+          confirmButtonText: __("Ok",lang)
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $('#updateEvent').modal('hide');
+          }
+        });
+      }
+    });
+  });
+
+});
+
 
 </script>
 

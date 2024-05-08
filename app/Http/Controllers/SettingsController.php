@@ -94,13 +94,13 @@ class SettingsController extends Controller
         $content->save();
         return response()->json([
           'icon' => 'success',
-          'state' => __('Success'),
+          'state' => __("Success"),
           'message' => __("Updated Successfully.")
         ]);
       } catch (\Exception $e) {
         return response()->json([
           'icon' => 'error',
-          'state' => __('Error'),
+          'state' => __("Error"),
           'message' => $e->getMessage()
         ]);
       }
@@ -114,13 +114,13 @@ class SettingsController extends Controller
         $content->save();
         return response()->json([
           'icon' => 'success',
-          'state' => __('Success'),
+          'state' => __("Success"),
           'message' => __("Updated Successfully.")
         ]);
       } catch (\Exception $e) {
         return response()->json([
           'icon' => 'error',
-          'state' => __('Error'),
+          'state' => __("Error"),
           'message' => $e->getMessage()
         ]);
       }
@@ -134,13 +134,13 @@ class SettingsController extends Controller
         $content->save();
         return response()->json([
           'icon' => 'success',
-          'state' => __('Success'),
+          'state' => __("Success"),
           'message' => __("Updated Successfully.")
         ]);
       } catch (\Exception $e) {
         return response()->json([
           'icon' => 'error',
-          'state' => __('Error'),
+          'state' => __("Error"),
           'message' => $e->getMessage()
         ]);
       }
@@ -153,13 +153,13 @@ class SettingsController extends Controller
         $content->save();
         return response()->json([
           'icon' => 'success',
-          'state' => __('Success'),
+          'state' => __("Success"),
           'message' => __("Updated Successfully.")
         ]);
       } catch (\Exception $e) {
         return response()->json([
           'icon' => 'error',
-          'state' => __('Error'),
+          'state' => __("Error"),
           'message' => $e->getMessage()
         ]);
       }
@@ -172,13 +172,13 @@ class SettingsController extends Controller
         $content->save();
         return response()->json([
           'icon' => 'success',
-          'state' => __('Success'),
+          'state' => __("Success"),
           'message' => __("Updated Successfully.")
         ]);
       } catch (\Exception $e) {
         return response()->json([
           'icon' => 'error',
-          'state' => __('Error'),
+          'state' => __("Error"),
           'message' => $e->getMessage()
         ]);
       }

@@ -28,7 +28,7 @@ class PublicationController extends Controller
 
     return response()->json([
       'icon' => 'success',
-      'state' => __('Success'),
+      'state' => __("Success"),
       'message' => __("Created Successfully.")
     ]);
   }
@@ -37,7 +37,7 @@ class PublicationController extends Controller
 
     return response()->json([
       'icon' => 'success',
-      'state' => __('Success'),
+      'state' => __("Success"),
       'message' => __("Updated Successfully.")
     ]);
   }
@@ -47,7 +47,7 @@ class PublicationController extends Controller
       $blog->delete();
       return response()->json([
         'icon' => 'success',
-        'state' => __('Success'),
+        'state' => __("Success"),
         'message' => __("Deleted Successfully.")
       ]);
   }

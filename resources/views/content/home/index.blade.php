@@ -1327,33 +1327,14 @@
 
     <div class="container">
       <h2 class="title">{{ __('Blogs') }}</h2>
-
+      {{-- <div class="d-flex justify-content-between">
+        <h5>المنتجات</h5>
+        <h5>{{ __('Show More') }}</h5>
+      </div> --}}
       <div class="row">
 
         @foreach($blogs as $blog)
-
-        <div class="blog-card col-3">
-
-          <a href="{{ route('blog.ones',$blog->id) }}">
-            <img src="{{ $blog->photoUrl() }}" alt="{{ $blog->title }}" width="300" class="blog-banner">
-          </a>
-
-          <div class="blog-content">
-
-            <a href="{{ route('subcategory.view',$blog->subcategory->id) }}" class="blog-category">{{ $blog->subcategory->getName() }}</a>
-
-            <a href="{{ route('blog.ones',$blog->id) }}">
-              <h3 class="blog-title">{{ $blog->title }}</h3>
-            </a>
-
-            <p class="blog-meta">
-              {{ __('By') }} <cite>{{ $blog->user->expert->fullname }}</cite> / <time datetime="{{ $blog->created_at }}">{{ $blog->created_at->format('M d, Y') }}</time>
-            </p>
-
-          </div>
-
-        </div>
-
+          <x-blog :blog="$blog" />
         @endforeach
 
       </div>
@@ -1365,34 +1346,14 @@
 
 
   <div class="blog">
-
     <div class="container">
       <h2 class="title">{{ __('Agricultural Services') }}</h2>
 
       <div class="row">
 
+
         @foreach($publications as $publication)
-
-        <div class="blog-card col-3">
-
-          <a href="{{ route('publication.ones',$blog->id) }}">
-            <img src="{{ $publication->photoUrl() }}" alt="{{ $publication->title }}" width="300" class="blog-banner">
-          </a>
-
-          <div class="blog-content">
-
-            <a href="{{ route('publication.ones',$blog->id) }}">
-              <h3 class="blog-title">{{ $publication->title }}</h3>
-            </a>
-
-            <p class="blog-meta">
-              {{ __('By') }} <cite>{{ $publication->user->worker->fullname }}</cite> / <time datetime="{{ $publication->created_at }}">{{ $publication->created_at->format('M d, Y') }}</time>
-            </p>
-
-          </div>
-
-        </div>
-
+          <x-publication :blog="$publication" />
         @endforeach
 
       </div>

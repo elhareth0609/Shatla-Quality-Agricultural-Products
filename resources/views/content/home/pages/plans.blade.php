@@ -21,14 +21,29 @@
             <div class="card mb-3 plan-card" data-plan-id="{{ $plan->id }}">
               <div class="row g-0" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
                 <div class="col-md-4">
-                  <input type="checkbox" class="form-check-input plan-checkbox" name="plan-{{ $plan->id }}" id="plan-{{ $plan->id }}" hidden>
+                  <input type="radio" class="form-check-input plan-checkbox" value="{{ $plan->id }}" name="plan" id="plan-{{ $plan->id }}" hidden>
                   <img class="card-img card-img-left" src="{{  $plan->photoUrl() }}" alt="Card image" />
                 </div>
                 <div class="col-md-8">
                   <div class="card-body">
                     <h5 class="card-title">{{ $plan->name }}</h5>
                     <p class="card-text">{{ $plan->text }}</p>
-                    <p class="card-text"><small class="text-muted">{{ $plan->price }}   {{ $plan->last_price }}</small></p>
+                    <dive class="card-text d-flex justify-content-between">
+                      <p class="m-0 my-w-fit-content">
+                        @if(session('currency', config('currency.default_currency')) === 'DZ')
+                            <small class="text-muted">{{ $plan->price }}</small>{{ config('currency.currencies.' . session('currency', config('currency.default_currency'))) }}
+                        @else
+                            {{ config('currency.currencies.' . session('currency', config('currency.default_currency'))) }}<small class="text-muted">{{ $plan->price }}</small>
+                        @endif
+                      </p>
+                      <p class="m-0 my-w-fit-content">
+                        @if(session('currency', config('currency.default_currency')) === 'DZ')
+                        <del class="text-muted">{{ $plan->last_price }}</del>{{ config('currency.currencies.' . session('currency', config('currency.default_currency'))) }}
+                        @else
+                            {{ config('currency.currencies.' . session('currency', config('currency.default_currency'))) }}<del class="text-muted">{{ $plan->last_price }}</del>
+                        @endif
+                      </p>
+                    </di>
                   </div>
                 </div>
               </div>
@@ -46,46 +61,6 @@
 
 </div>
 
-
-<style>
-  /* .plan-card {
-    border-radius: 0.5rem;
-    border: 2px solid #b5bfd9;
-    transition: 0.15s ease;
-    cursor: pointer;
-  }
-
-  .plan-card:before {
-		content: "";
-		position: absolute;
-		display: block;
-		width: 1.25rem;
-		height: 1.25rem;
-		border: 2px solid #b5bfd9;
-		background-color: #fff;
-		border-radius: 50%;
-		top: 0.25rem;
-		left: 0.25rem;
-		opacity: 0;
-		transform: scale(0);
-		transition: 0.25s ease;
-		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192' fill='%23FFFFFF' viewBox='0 0 256 256'%3E%3Crect width='256' height='256' fill='none'%3E%3C/rect%3E%3Cpolyline points='216 72.005 104 184 48 128.005' fill='none' stroke='%23FFFFFF' stroke-linecap='round' stroke-linejoin='round' stroke-width='32'%3E%3C/polyline%3E%3C/svg%3E");
-    background-size: 12px;
-		background-repeat: no-repeat;
-		background-position: 50% 50%;
-	}
-
-  /* Apply primary border when radio button is checked */
-  /* .plan-checkbox:checked + .plan-card {
-      border-color: #216ee0;
-  } */ */
-
-  /* .plan-card:hover {
-    border: 2px solid #2260ff;
-} */
-
-
-</style>
 <script>
 var lang = "{{ app()->getLocale() }}";
 
@@ -123,34 +98,50 @@ planCards.forEach(card => {
 });
 
 
-$('#addPlanForm').submit(function(event) {
-    event.preventDefault();
+    $('#addPlanForm').submit(function(event) {
+        event.preventDefault();
 
-    var formData = $(this).serialize();
+        var formData = $(this).serialize();
+        var planValue = formData.split('&').find(item => item.startsWith('plan='));
+        planValue = planValue ? planValue.split('=')[1] : ''; // Extract the plan value from formData
 
-    $.ajax({
-        url: $(this).attr('action'),
-        type: $(this).attr('method'),
-        data: formData,
-        dataType: 'json',
-        success: function(response) {
+        if (!planValue) {
             Swal.fire({
-                icon: response.icon,
-                title: response.state,
-                text: response.message,
-                confirmButtonText: __("Ok",lang)
+                icon: 'warning',
+                title: __("No Plan Selected",lang),
+                text: __("Please select a plan before proceeding.",lang),
+                confirmButtonText: __("Submit",lang),
             });
-        },
-        error: function(xhr, textStatus, errorThrown) {
-            const response = JSON.parse(xhr.responseText);
-            Swal.fire({
-                icon: response.icon,
-                title: response.state,
-                text: response.message,
-                confirmButtonText: __("Ok",lang)
-            });
+            return; // Exit the function if no plan is selected
         }
-      });
+
+              Swal.fire({
+                  title: __("Do you really want to Pay For This Plan?",lang),
+                  icon: 'info',
+                  showCancelButton: true,
+                  confirmButtonText: __("Submit",lang),
+                  cancelButtonText: __("Cancel",lang),
+                  reverseButtons: true
+              }).then((result) => {
+                      $.ajax({
+                          url: $(this).attr('action'),
+                          type: $(this).attr('method'),
+                          data: formData,
+                          success: function(response, textStatus, xhr) {
+                            window.location.href = response.url;
+                          },
+                          error: function(xhr, textStatus, errorThrown) {
+                              const response = JSON.parse(xhr.responseText);
+                              Swal.fire({
+                                  icon: response.icon,
+                                  title: response.state,
+                                  text: response.message,
+                                  confirmButtonText: __("Ok",lang)
+                              });
+                          }
+                      });
+              });
+
     });
 });
 

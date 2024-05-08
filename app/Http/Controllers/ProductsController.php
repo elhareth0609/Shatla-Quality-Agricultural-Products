@@ -26,7 +26,7 @@ class ProductsController extends Controller {
 
     return response()->json([
       'icon' => 'success',
-      'state' => __('Success'),
+      'state' => __("Success"),
       'message' => __("Created Successfully.")
     ]);
   }
@@ -35,7 +35,7 @@ class ProductsController extends Controller {
 
     return response()->json([
       'icon' => 'success',
-      'state' => __('Success'),
+      'state' => __("Success"),
       'message' => __("Updated Successfully.")
     ]);
   }
@@ -45,7 +45,7 @@ class ProductsController extends Controller {
       $product->delete();
       return response()->json([
         'icon' => 'success',
-        'state' => __('Success'),
+        'state' => __("Success"),
         'message' => __("Deleted Successfully.")
       ]);
   }

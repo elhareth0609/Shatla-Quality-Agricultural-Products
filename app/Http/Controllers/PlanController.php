@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Plan;
 use App\Models\Profile;
+use Chargily\ePay\Chargily;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -45,7 +46,7 @@ class PlanController extends Controller
 
       return response()->json([
         'icon' => 'success',
-        'state' => __('Success'),
+        'state' => __("Success"),
         'message' => __("Created Successfully.")
       ]);
     }
@@ -54,7 +55,7 @@ class PlanController extends Controller
 
       return response()->json([
         'icon' => 'success',
-        'state' => __('Success'),
+        'state' => __("Success"),
         'message' => __("Updated Successfully.")
       ]);
     }
@@ -64,7 +65,7 @@ class PlanController extends Controller
         $plan->delete();
         return response()->json([
           'icon' => 'success',
-          'state' => __('Success'),
+          'state' => __("Success"),
           'message' => __("Deleted Successfully.")
         ]);
     }
@@ -76,12 +77,39 @@ class PlanController extends Controller
     }
 
     public function add(Request $request) {
-    
-      return response()->json([
-        'icon' => 'success',
-        'state' => __('Success'),
-        'message' => __("Created Successfully.")
-      ]);
-    }
+      $plan = Plan::find($request->plan);
 
+      $chargilyConfig = config('chargily');
+
+      $chargily = new Chargily([
+          'api_key' => $chargilyConfig['key'],
+          'api_secret' => $chargilyConfig['secret'],
+          'urls' => [
+              // 'back_url' => route('chargily.payment.success'),
+              // 'webhook_url' => route('chargily.payment.webhook'),
+              'back_url' => 'https://example.com/chargily/payment/success',
+              'webhook_url' => 'https://example.com/chargily/payment/webhook',
+          ],
+          'mode' => 'EDAHABIA',
+          'payment' => [
+              'number' => 'payment-number-from-your-side',
+              'client_name' => Auth::user()->profile->fullname,
+              'client_email' => Auth::user()->email,
+          'amount' => $plan->price, // Use the price of the plan
+          'discount' => 0,
+          'description' => $plan->name, // Use the name of the plan as description
+        ]
+      ]);
+
+      // Get the redirect URL from Chargily
+      $redirectUrl = $chargily->getRedirectUrl();
+
+      if ($redirectUrl) {
+          return response()->json([
+            'url' => $redirectUrl
+          ]);
+      } else {
+          return "We can't redirect to your payment now";
+      }
+    }
 }

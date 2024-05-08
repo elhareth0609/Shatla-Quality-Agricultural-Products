@@ -18,7 +18,6 @@
         <div class="app-brand justify-content-center mt-5">
           <a href="{{url('/')}}" class="app-brand-link gap-2">
             <span class="app-brand-logo demo">
-              {{--  @include('_partials.macros',["height"=>20,"withbg"=>'fill: #fff;'])  --}}
               <img src="{{ asset('assets/home/icons/favicon.png') }}" width="30" height="30"/>
             </span>
             <span class="app-brand-text demo text-heading fw-semibold">شتلة</span>
@@ -30,7 +29,7 @@
           <div class="d-flex align-items-center border border-2 rounded p-1 my-1 justify-content-between profile-item" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}" data-profile-id="{{ $profile->id }}">
               <div class="d-flex align-items-center">
                 <div class="avatar avatar-lg ms-3">
-                  <img src="{{asset('assets/img/avatars/3.png')}}" alt="Avatar" class="rounded-circle">
+                  <img src="{{ $profile->photoUrl() }}" alt="Avatar" class="rounded-circle">
                 </div>
                 <div>
                   <h6 class="mb-0 text-truncate">{{ $profile->fullname }}</h6>

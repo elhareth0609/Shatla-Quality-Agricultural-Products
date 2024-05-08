@@ -16,8 +16,8 @@ class HomeController extends Controller
     public function index() {
       $subcategorys = SubCategory::where('type','products')->get();
       $products = Product::all();
-      $blogs = Blog::orderBy('created_at', 'desc')->take(8)->get();
-      $publications = Publication::all();
+      $blogs = Blog::orderBy('created_at', 'desc')->take(6)->get();
+      $publications = Publication::orderBy('created_at', 'desc')->take(6)->get();
       return view('content.home.index')
       ->with('products',$products)
       ->with('subcategorys',$subcategorys)

@@ -101,7 +101,7 @@
 
         @auth
         <a href="{{ route('dashboard') }}" class="btn action-btn">
-          <ion-icon name="person-outline"></ion-icon>
+          <ion-icon name="settings-outline"></ion-icon>
         </a>
 
         <button class="action-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#FaveButton" aria-controls="offcanvasStart">
@@ -131,7 +131,7 @@
                     <div class="button-wrapper">
                       <button type="button" class="btn btn-outline-info">
                         <i class="mdi mdi-reload d-block d-sm-none"></i>
-                        <span class="d-none d-sm-block">visit</span>
+                        <span class="d-none d-sm-block">{{ __('visit') }}</span>
                       </button>
                       <button type="button" class="btn btn-icon btn-outline-danger btn-remove-favorite">
                         <span class="tf-icons mdi mdi-trash-can-outline"></span>
@@ -613,7 +613,7 @@
                 <div class="button-wrapper">
                   <button type="button" class="btn btn-outline-info">
                     <i class="mdi mdi-reload d-block d-sm-none"></i>
-                    <span class="d-none d-sm-block">visit</span>
+                    <span class="d-none d-sm-block">{{ __('visit') }}</span>
                   </button>
                   <button type="button" class="btn btn-icon btn-outline-danger btn-remove-favorite">
                     <span class="tf-icons mdi mdi-trash-can-outline"></span>
@@ -631,5 +631,4 @@
 
         </div>
   </nav>
-
 </header>

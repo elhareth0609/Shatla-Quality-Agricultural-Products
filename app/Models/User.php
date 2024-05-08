@@ -53,7 +53,7 @@ class User extends Authenticatable
         if (Str::startsWith($photo, 'http')) {
             return $photo;
         } else {
-            return asset('assets/img/avatars/' . $photo);
+            return asset('assets/img/photos/users/' . $photo);
         }
     }
 
@@ -61,10 +61,9 @@ class User extends Authenticatable
       $photo = $this->photo;
 
       if (!empty($photo)) {
-          return public_path('assets/img/users/' . $photo);
+          return public_path('assets/img/photos/users/' . $photo);
       } else {
-          // Return default path or handle empty photo case as needed
-          return public_path('assets/img/users/default.jpg');
+          return null;
       }
     }
 
@@ -77,8 +76,7 @@ class User extends Authenticatable
         return $this->hasOne(Cart::class);
     }
 
-    public function favorites()
-    {
+    public function favorites() {
         return $this->hasMany(Favorite::class);
     }
 
@@ -86,36 +84,31 @@ class User extends Authenticatable
       return $this->favorites()->where('product_id', $pid)->exists();
     }
 
-
-
-
-
-    public function sells()
-    {
+    public function sells() {
         return $this->hasMany(Sell::class);
     }
 
-    public function profiles()
-    {
+    public function profiles() {
         return $this->hasMany(Profile::class);
     }
 
     public function farmer() {
-      return $this->hasOne(Profile::class)->where('plan_id', 0);
+        return $this->hasOne(Profile::class)->where('plan_id', 0)->first();
     }
 
+
     public function worker() {
-        return $this->hasOne(Profile::class)->where('plan_id', 1);
+      return $this->hasOne(Profile::class)->where('plan_id', 1)->first();
     }
 
     public function expert() {
+        // return $this->hasOne(Profile::class)->where('plan_id', 2);
         return $this->hasOne(Profile::class)->where('plan_id', 2);
     }
 
     public function marchent() {
-        return $this->hasOne(Profile::class)->where('plan_id', 3);
+      return $this->hasOne(Profile::class)->where('plan_id', 3)->first();
     }
-
 
     public function profile() {
         return $this->hasOne(Profile::class)->where('active', '1');
