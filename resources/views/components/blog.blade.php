@@ -1,4 +1,4 @@
-<div class="blog-card col-4">
+<div class="blog-card col-4 mb-2 bg-white rounded">
 
   <a href="{{ route('blog.ones',$blog->id) }}" style="height: 180px">
     <img src="{{ $blog->photoUrl() }}" alt="{{ $blog->title }}" width="300" class="blog-banner" style="height: inherit;">
@@ -8,7 +8,7 @@
     <a href="{{ route('blog.ones',$blog->id) }}">
       <h3 class="blog-title">{{ \Illuminate\Support\Str::limit($blog->title, 79) }}</h3>
     </a>
-    <div class="d-flex mb-4 align-items-center pb-2" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
+    <div class="d-flex mb-4 align-items-center" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
       <div class="flex-shrink-0 {{ app()->isLocale('ar') ? 'ms-3' : 'me-3' }} avatar">
         <a href="{{ route('expert.view',$blog->user->expert->id) }}"><img src="{{ $blog->user->expert->photoUrl() }}" class="img-fluid w-px-40 h-auto rounded-circle" alt="{{ $blog->user->expert->fullname }}"></a>
       </div>

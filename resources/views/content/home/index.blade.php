@@ -1327,18 +1327,11 @@
 
     <div class="container">
       <h2 class="title">{{ __('Blogs') }}</h2>
-      {{-- <div class="d-flex justify-content-between">
-        <h5>المنتجات</h5>
-        <h5>{{ __('Show More') }}</h5>
-      </div> --}}
       <div class="row">
-
         @foreach($blogs as $blog)
           <x-blog :blog="$blog" />
         @endforeach
-
       </div>
-
     </div>
 
   </div>
@@ -1353,7 +1346,7 @@
 
 
         @foreach($publications as $publication)
-          <x-publication :blog="$publication" />
+          <x-publication :publication="$publication" />
         @endforeach
 
       </div>

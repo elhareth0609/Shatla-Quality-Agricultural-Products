@@ -14,21 +14,23 @@
 
   <link rel="stylesheet" href="{{ asset('assets/css/mine.css') }}" />
   <script src="{{ asset('assets/js/mine.js') }}"></script>
-  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
 
+
+<script src="{{ asset('assets/js/fullcalendar.min.js') }}"></script>
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('assets/js/sweetalert.js') }}"></script>
 
-
 <!-- Bootstrap JS -->
 
-
-
 <script src="{{ asset('assets/js/dropzone-min.js') }}"></script>
-<link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="{{ asset('assets/css/dropzone.css') }}" />
 
 <script src="{{ asset('assets/js/tagify.js') }}"></script>
 <script src="{{ asset('assets/js/tagify.polyfills.min.js') }}"></script>
-<link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="{{ asset('assets/css/tagify.css') }}" />
+
+
+<script src="{{ asset('assets/js/clipboard.min.js') }}"></script>
+
 <!-- END: Api JS-->

@@ -4,12 +4,13 @@
 
 @section('content')
 
-<div class="blog">
+<div class="blog" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
   <div class="container">
+    <h2 class="title">{{ __('Agricultural Services') }}</h2>
     <div class="row">
 
       @foreach($publications as $publication)
-        <x-publication :blog="$publication" />
+        <x-publication :publication="$publication" />
       @endforeach
 
     </div>

@@ -11,9 +11,15 @@ class MarchentController extends Controller
   public function view($id) {
     $marchent = Profile::find($id);
     $products = Product::where('seller', $marchent->user->id)->get();
-    return view('content.home.marchents.index')
+    return view('content.home.sellers.index')
     ->with('marchent',$marchent)
     ->with('products',$products);
     ;
+  }
+
+  public function all() {
+    $experts = Profile::where('plan_id', 3)->get();
+    return view('content.home.sellers.all')
+    ->with('experts', $experts);
   }
 }

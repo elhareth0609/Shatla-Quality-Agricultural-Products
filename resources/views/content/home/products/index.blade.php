@@ -227,7 +227,7 @@
                                       <i class="far fa-star"></i>
                                   </div> --}}
                             </div>
-                              <form method="POST" id="addCommentForm" action="{{ route('comment.create') }}">
+                              <form method="POST" id="addCommentForm" action="{{ route('product.comment') }}">
                                 @csrf
                                 <input type="hidden" name="product_id" value="{{ $product->id }}" />
                                 <div class="rating">

@@ -26,12 +26,12 @@
 
       </ul>
 
-      <div class="header-alert-news ">
+      {{-- <div class="header-alert-news ">
         <p class="m-0">
           <b>Free Shipping</b>
           This Week Order Over - $55
         </p>
-      </div>
+      </div> --}}
 
       <div class="header-top-actions">
         <div class="btn-group">
@@ -184,7 +184,6 @@
                       <div class="text-muted small mt-3">{{ \Illuminate\Support\Str::limit($product->product->name, 90) }}</div>
                       <div class="text-muted small mt-3 d-flex justify-content-between">
                         <p>{{ $product->product->price }}</p>
-                        <p>{{ $product->product->last_price }}</p>
                       </div>
                     </div>
                   </div>
@@ -227,11 +226,13 @@
                     </a>
                   </li>
                   @foreach ($category->subCategorys as $subcategory)
+                    @if ($subcategory->type == 'products')
                     <li class="panel-list-item">
                       <a href="{{ route('subcategory.view',$subcategory->id) }}">
                         {{ $subcategory->getName() }}
                       </a>
                     </li>
+                    @endif
                   @endforeach
               </ul>
             @endforeach
@@ -247,11 +248,14 @@
 
           <ul class="dropdown-list">
             <li class="dropdown-item">
+              <a href="{{ route('product.index') }}">{{ __('Products') }}</a>
+            </li>
+            <li class="dropdown-item">
               <a href="{{ route('pages.experts') }}">{{ __('Agricultural Experts') }}</a>
             </li>
 
             <li class="dropdown-item">
-              <a href="{{ route('pages.services') }}">{{ __('Agricultural Services') }}</a>
+              <a href="{{ route('publication.index') }}">{{ __('Agricultural Services') }}</a>
             </li>
 
             <li class="dropdown-item">
@@ -576,7 +580,6 @@
                 <div class="text-muted small mt-3">{{ \Illuminate\Support\Str::limit($product->product->name, 90) }}</div>
                 <div class="text-muted small mt-3 d-flex justify-content-between">
                   <p>{{ $product->product->price }}</p>
-                  <p>{{ $product->product->last_price }}</p>
                 </div>
               </div>
             </div>

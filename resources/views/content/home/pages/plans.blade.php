@@ -65,37 +65,36 @@
 var lang = "{{ app()->getLocale() }}";
 
 $(document).ready(function() {
+    const checkboxes = document.querySelectorAll('.plan-checkbox');
+    const submitBtn = document.getElementById('submit-btn');
 
-  const checkboxes = document.querySelectorAll('.plan-checkbox');
-const submitBtn = document.getElementById('submit-btn');
+    const planCards = document.querySelectorAll('.plan-card');
 
-const planCards = document.querySelectorAll('.plan-card');
+    planCards.forEach(card => {
+        card.addEventListener('click', function() {
 
-planCards.forEach(card => {
-    card.addEventListener('click', function() {
+            planCards.forEach(card => {
+                card.classList.remove('border', 'border-2', 'border-primary');
+            });
 
-        planCards.forEach(card => {
-            card.classList.remove('border', 'border-2', 'border-primary');
+            card.classList.add('border', 'border-2', 'border-primary');
+
+            const checkbox = card.querySelector('.plan-checkbox');
+
+            checkbox.checked = !checkbox.checked;
+
+            const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+
+            if(anyChecked) {
+              submitBtn.classList.remove('btn-outline-secondary');
+              submitBtn.classList.add('btn-outline-primary');
+            } else {
+              submitBtn.classList.remove('btn-outline-primary');
+              submitBtn.classList.add('btn-outline-secondary');
+            }
+
         });
-
-        card.classList.add('border', 'border-2', 'border-primary');
-
-        const checkbox = card.querySelector('.plan-checkbox');
-
-        checkbox.checked = !checkbox.checked;
-
-        const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
-
-        if(anyChecked) {
-          submitBtn.classList.remove('btn-outline-secondary');
-          submitBtn.classList.add('btn-outline-primary');
-        } else {
-          submitBtn.classList.remove('btn-outline-primary');
-          submitBtn.classList.add('btn-outline-secondary');
-        }
-
     });
-});
 
 
     $('#addPlanForm').submit(function(event) {

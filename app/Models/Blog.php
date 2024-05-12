@@ -18,6 +18,10 @@ class Blog extends Model {
       'view'
     ];
 
+    public function photos() {
+      return $this->hasMany(BlogPhoto::class);
+    }
+
     public function subcategory() {
       return $this->belongsTo(SubCategory::class);
     }

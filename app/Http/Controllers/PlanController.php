@@ -95,13 +95,12 @@ class PlanController extends Controller
               'number' => 'payment-number-from-your-side',
               'client_name' => Auth::user()->profile->fullname,
               'client_email' => Auth::user()->email,
-          'amount' => $plan->price, // Use the price of the plan
+          'amount' => $plan->price,
           'discount' => 0,
-          'description' => $plan->name, // Use the name of the plan as description
+          'description' => $plan->name,
         ]
       ]);
 
-      // Get the redirect URL from Chargily
       $redirectUrl = $chargily->getRedirectUrl();
 
       if ($redirectUrl) {

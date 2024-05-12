@@ -19,7 +19,7 @@
       <option value="100" selected>100</option>
     </select>
 
-    <a href="{{ route('publication.create') }}" class="btn btn-icon btn-outline-primary mb-3 mx-1">
+    <a href="{{ route('publication.create.index') }}" class="btn btn-icon btn-outline-primary mb-3 mx-1">
       <span class="tf-icons mdi mdi-plus-outline"></span>
     </a>
   </div>
@@ -30,10 +30,8 @@
         <tr class="text-nowrap">
           <th>#</th>
           <th>{{ __("Title") }}</th>
-          <th>{{ __("Image") }}</th>
-          <th>{{ __("Category") }}</th>
+          <th>{{ __("Status") }}</th>
           <th>{{ __("Created At") }}</th>
-          <th>{{ __("Action") }}</th>
         </tr>
       </thead>
     </table>
@@ -72,13 +70,17 @@
   var table;
   var lang = "{{ app()->getLocale() }}";
 
-      function editBlog(id) {
-        console.log(id);
-      }
+  function editPublication(id) {
+    window.location.href = ("{{ url('publication/') }}/" + id);
+  }
 
-  function deleteBlog(id) {
+  function demoPublication(id) {
+    window.open("{{ url('view/publications') }}/" + id, "_blank");
+  }
+
+  function deletePublication(id) {
     Swal.fire({
-        title: __("Do you really want to delete this Blog?",lang),
+        title: __("Do you really want to delete this Publication?",lang),
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: __("Submit",lang),
@@ -87,7 +89,7 @@
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: '/blog/' + id,
+                url: '/publication/' + id,
                 type: 'DELETE',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -118,9 +120,10 @@
       function showContextMenu(id, x, y) {
         // Here you can define the content and behavior of the context menu
         var contextMenu = $('<ul class="context-menu" dir="{{ app()->isLocale("ar") ? "rtl" : "" }}"></ul>')
-            .append('<li><a onclick="editBlog(' + id + ')"><i class="tf-icons mdi mdi-pencil-outline {{ app()->isLocale("ar") ? "ms-1" : "me-1" }}"></i>{{ __("Edit") }}</a></li>')
+            .append('<li><a onclick="editPublication(' + id + ')"><i class="tf-icons mdi mdi-pencil-outline {{ app()->isLocale("ar") ? "ms-1" : "me-1" }}"></i>{{ __("Edit") }}</a></li>')
+            .append('<li><a onclick="demoPublication(' + id + ')"><i class="tf-icons mdi mdi-arrow-right-top {{ app()->isLocale("ar") ? "ms-1" : "me-1" }}"></i>{{ __("Demo") }}</a></li>')
             .append('<li class="px-0 pe-none"><div class="divider border-top my-0"></div></li>')
-            .append('<li><a onclick="deleteBlog(' + id + ')"><i class="tf-icons mdi mdi-trash-can-outline {{ app()->isLocale("ar") ? "ms-1" : "me-1" }}"></i>{{ __("Delete") }}</a></li>');
+            .append('<li><a onclick="deletePublication(' + id + ')"><i class="tf-icons mdi mdi-trash-can-outline {{ app()->isLocale("ar") ? "ms-1" : "me-1" }}"></i>{{ __("Delete") }}</a></li>');
 
         // Position the context menu at the mouse coordinates
         contextMenu.css({
@@ -148,20 +151,13 @@ $(document).ready(function() {
           ajax: "{{ route('publications') }}",
           columns: [
               {data: 'id', name: '#'},
-              {data: 'image', name: '{{__("Image")}}'},
               {data: 'title', name: '{{__("Title")}}'},
-              {data: 'category_id', name: '{{__("Category")}}'},
+              {data: 'status', name: '{{__("Status")}}'},
               {data: 'created_at', name: '{{__("Created At")}}'},
-              {
-                  data: 'action',
-                  name: 'action',
-                  orderable: true,
-                  searchable: true
-              },
           ],
 
           rowCallback: function(row, data) {
-              $(row).attr('id', 'blog_' + data.id); // Assign an id to each row for easy targeting
+              $(row).attr('id', 'publication_' + data.id); // Assign an id to each row for easy targeting
 
               // Add right-click context menu listener to each row
               $(row).on('contextmenu', function(e) {

@@ -4,9 +4,10 @@
 
 @section('content')
 
-<div class="blog">
+<div class="blog" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
 
   <div class="container">
+    <h2 class="title">{{ __('Blogs') }}</h2>
     <div class="row">
 
       @foreach($blogs as $blog)

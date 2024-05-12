@@ -69,8 +69,10 @@ use App\Http\Controllers\user_interface\TabsPills;
 use App\Http\Controllers\user_interface\Toasts;
 use App\Http\Controllers\user_interface\TooltipsPopovers;
 use App\Http\Controllers\user_interface\Typography;
+use App\Http\Controllers\WorkerController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -118,9 +120,15 @@ use Illuminate\Support\Facades\Route;
     // Products
     // Dashboard
     Route::get('/product/{id}', [ProductsController::class, 'get'])->name('product.get');
-    Route::match(['post','get' ], '/product/create', [ProductsController::class, 'create'])->name('product.create');
+    Route::get('/products/create', [ProductsController::class, 'create_index'])->name('product.create.index');
+    Route::post('/product/create', [ProductsController::class, 'create'])->name('product.create');
     Route::delete('/product/{id}', [ProductsController::class, 'delete'])->name('product.delete');
-    Route::post('/product/update', [ProductsController::class, 'update'])->name('product.update');
+    Route::POST('/product/update', [ProductsController::class, 'update'])->name('product.update');
+    Route::post('/product/upload', [ProductsController::class, 'uploadPhotos'])->name('product.upload');
+    Route::delete('/product/unupload/{id}', [ProductsController::class, 'unuploadPhotos'])->name('product.unupload.photo');
+    Route::post('/product/comment', [ProductsController::class, 'comment'])->name('product.comment');
+
+
 
     // Categories
     // Dashboard
@@ -150,16 +158,21 @@ use Illuminate\Support\Facades\Route;
     Route::get('/blogs/create', [BlogsController::class, 'create_index'])->name('blog.create.index');
     Route::post('/blog/create', [BlogsController::class, 'create'])->name('blog.create');
     Route::delete('/blog/{id}', [BlogsController::class, 'delete'])->name('blog.delete');
-    Route::put('/blog/update', [BlogsController::class, 'update'])->name('blog.update');
+    Route::POST('/blog/update', [BlogsController::class, 'update'])->name('blog.update');
     Route::post('/blog/upload', [BlogsController::class, 'uploadPhotos'])->name('blog.upload');
+    Route::delete('/blog/unupload/{id}', [BlogsController::class, 'unuploadPhotos'])->name('blog.unupload.photo');
     Route::post('/blog/comment', [BlogsController::class, 'comment'])->name('blog.comment');
 
     // Publication
     // Dashboard
     Route::get('/publication/{id}', [PublicationController::class, 'get'])->name('publication.get');
-    Route::match(['get', 'post'], '/publication/create', [PublicationController::class, 'create'])->name('publication.create');
+    Route::get('/publications/create', [PublicationController::class, 'create_index'])->name('publication.create.index');
+    Route::post('/publication/create', [PublicationController::class, 'create'])->name('publication.create');
     Route::delete('/publication/{id}', [PublicationController::class, 'delete'])->name('publication.delete');
-    Route::post('/publication/update', [PublicationController::class, 'update'])->name('publication.update');
+    Route::POST('/publication/update', [PublicationController::class, 'update'])->name('publication.update');
+    Route::post('/publication/upload', [PublicationController::class, 'uploadPhotos'])->name('publication.upload');
+    Route::delete('/publication/unupload/{id}', [PublicationController::class, 'unuploadPhotos'])->name('publication.unupload.photo');
+    Route::post('/publication/comment', [PublicationController::class, 'comment'])->name('publication.comment');
 
     // Plans
     Route::get('/pricing-plan', [PlanController::class, 'index'])->name('plans.index');
@@ -192,7 +205,8 @@ use Illuminate\Support\Facades\Route;
     Route::post('chargily/payment/webhook', [ChargilyPayController::class, 'handleWebhook'])->name('chargily.payment.webhook');
 
     // Pages Of Website
-    Route::get('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+    Route::post('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+    Route::post('/order', [CartController::class, 'order'])->name('cart.order');
 
     Route::get('pages/terms-of-use', [SettingsController::class, 'get_terms_of_use'])->name('services.terms-of-use');
     Route::get('pages/about-us', [SettingsController::class, 'get_about_us'])->name('services.about-us');
@@ -206,9 +220,6 @@ use Illuminate\Support\Facades\Route;
     Route::post('/privacy-and-policy/update', [SettingsController::class, 'update_privacy_and_policy'])->name('privacy_and_policy.update');
     Route::post('/delivery/update', [SettingsController::class, 'update_delivery'])->name('delivery.update');
     Route::post('/secure-payment/update', [SettingsController::class, 'update_secure_payment'])->name('secure_payment.update');
-
-    // Comments
-    Route::post('/comment/create', [CommentController::class, 'create'])->name('comment.create');
 
     // Authentication
     Route::get('/auth/logout', [LoginBasic::class, 'logout'])->name('logout.action');
@@ -235,10 +246,22 @@ use Illuminate\Support\Facades\Route;
   });
 
 
+  Route::get('/view/products', [ProductsController::class, 'index'])->name('product.index');
   Route::get('/view/product/{id}', [ProductsController::class, 'view'])->name('product.view');
+
   Route::get('/view/subcategory/{id}', [SubCategoryController::class, 'view'])->name('subcategory.view');
+
+  Route::get('/view/marchents', [MarchentController::class, 'index'])->name('marchent.index');
   Route::get('/view/marchent/{id}', [MarchentController::class, 'view'])->name('marchent.view');
+
+  Route::get('/view/experts', [ExpertController::class, 'index'])->name('expert.index');
   Route::get('/view/expert/{id}', [ExpertController::class, 'view'])->name('expert.view');
+
+  Route::get('/view/workers', [WorkerController::class, 'index'])->name('worker.index');
+  Route::get('/view/worker/{id}', [WorkerController::class, 'view'])->name('worker.view');
+
+  Route::get('/view/publications', [PublicationController::class, 'index'])->name('publication.index');
+  Route::get('/view/publications/{id}', [PublicationController::class, 'ones'])->name('publication.ones');
 
   Route::get('/view/blogs', [BlogsController::class, 'index'])->name('blog.index');
   Route::get('/view/blogs/{id}', [BlogsController::class, 'ones'])->name('blog.ones');
@@ -249,9 +272,10 @@ use Illuminate\Support\Facades\Route;
   Route::get('/delivery', [SettingsController::class, 'delivery'])->name('delivery');
   Route::get('/secure-payment', [SettingsController::class, 'secure_payment'])->name('secure_payment');
 
-  Route::get('/agricultural-services', [PagesController::class, 'services'])->name('pages.services');
+  // Route::get('/agricultural-services', [PagesController::class, 'services'])->name('pages.services');
   Route::get('/agricultural-experts', [PagesController::class, 'experts'])->name('pages.experts');
   Route::get('/agricultural-consultation', [PagesController::class, 'consultation'])->name('pages.consultation');
+  Route::get('/agricultural-consultation/{id}', [PagesController::class, 'consultation'])->name('pages.consultation.season');
 
 
   Route::get('change-language/{locale}', [LanguageController::class, 'change'])->name('change.language');

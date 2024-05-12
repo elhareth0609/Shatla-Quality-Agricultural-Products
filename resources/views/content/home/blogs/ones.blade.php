@@ -93,30 +93,11 @@
               <div class="card-header">{{ __('Tags') }}</div>
               <div class="card-body">
                 <div class="row">
-                  <div class="col-sm-6">
-                      <ul class="list-unstyled mb-0">
-                          @php
-                              $tags = $blog->StringToTags($blog->tags);
-                              $totalTags = count($tags);
-                              $tagsPerColumn = ceil($totalTags / 2); // Calculate tags per column, rounding up
-                          @endphp
-
-                          @foreach ($tags as $index => $tag)
-                              @if ($index < $tagsPerColumn)
-                                  <li><a class="badge bg-success text-decoration-none link-light text-white" href="#!">{{ htmlspecialchars($tag['value']) }}</a></li>
-                              @endif
-                          @endforeach
-                      </ul>
-                  </div>
-                  <div class="col-sm-6">
-                      <ul class="list-unstyled mb-0">
-                          @foreach ($tags as $index => $tag)
-                              @if ($index >= $tagsPerColumn)
-                              <li><a class="badge bg-primary text-decoration-none link-light text-white" href="#!">{{ htmlspecialchars($tag['value']) }}</a></li>
-                              @endif
-                          @endforeach
-                      </ul>
-                  </div>
+                  <ul class="list-unstyled mb-0" style="display: contents">
+                      @foreach ($blog->StringToTags($blog->tags) as $tag)
+                              <li><a class="btn rounded-pill btn-outline-secondary m-1" href="#!">{{ htmlspecialchars($tag['value']) }}</a></li>
+                      @endforeach
+                  </ul>
               </div>
             </div>
           </div>

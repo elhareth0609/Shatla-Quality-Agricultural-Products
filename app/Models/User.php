@@ -67,10 +67,18 @@ class User extends Authenticatable
       }
     }
 
-    // public function plan()
-    // {
-    //     return $this->belongsTo(Plan::class);
-    // }
+    public function adress()
+    {
+        return $this->hasMany(Adress::class);
+    }
+
+    public function blogs() {
+        return $this->hasMany(Blog::class);
+    }
+
+    public function publications() {
+      return $this->hasMany(Publication::class);
+    }
 
     public function cart() {
         return $this->hasOne(Cart::class);
@@ -84,7 +92,7 @@ class User extends Authenticatable
       return $this->favorites()->where('product_id', $pid)->exists();
     }
 
-    public function sells() {
+    public function orders() {
         return $this->hasMany(Sell::class);
     }
 
@@ -93,21 +101,20 @@ class User extends Authenticatable
     }
 
     public function farmer() {
-        return $this->hasOne(Profile::class)->where('plan_id', 0)->first();
+        return $this->hasOne(Profile::class)->where('plan_id', 0);
     }
 
 
     public function worker() {
-      return $this->hasOne(Profile::class)->where('plan_id', 1)->first();
+      return $this->hasOne(Profile::class)->where('plan_id', 1);
     }
 
     public function expert() {
-        // return $this->hasOne(Profile::class)->where('plan_id', 2);
         return $this->hasOne(Profile::class)->where('plan_id', 2);
     }
 
     public function marchent() {
-      return $this->hasOne(Profile::class)->where('plan_id', 3)->first();
+      return $this->hasOne(Profile::class)->where('plan_id', 3);
     }
 
     public function profile() {

@@ -208,7 +208,7 @@ class DataTablesController extends Controller
           return Str::limit($blog->title, 35);
         })
         ->editColumn('status', function ($blog) {
-          return '<span class="badge rounded-pill bg-label-' . ($blog->status == 'published' ? 'success' : 'secondary') . '">' . ($blog->status == 'draft' ? 'Draft' : 'Published') . '</span>';
+          return '<span class="badge rounded-pill bg-label-' . ($blog->status == 'published' ? 'success' : 'secondary') . '">' . ($blog->status == 'draft' ? __('Draft') : __('Published')) . '</span>';
         })
         ->editColumn('subcategory_id', function ($blog) {
           return '<span class="badge rounded-pill bg-label-info">' . $blog->subcategory->getName() . '</span>';
@@ -339,22 +339,16 @@ class DataTablesController extends Controller
         ->editColumn('id', function ($publication) {
             return (string) $publication->id;
         })
-        ->editColumn('title', function ($publication) {
-          return $publication->title;
+        ->editColumn('title', function ($blog) {
+          return Str::limit($blog->title, 35);
         })
-        ->editColumn('category_id', function ($publication) {
-          return $publication->category->name;
-        })
-        ->editColumn('image', function ($publication) {
-          return $publication->image;
+        ->editColumn('status', function ($blog) {
+          return '<span class="badge rounded-pill bg-label-' . ($blog->status == 'published' ? 'success' : 'secondary') . '">' . ($blog->status == 'draft' ? __('Draft') : __('Published')) . '</span>';
         })
         ->editColumn('created_at', function ($publication) {
           return $publication->created_at->format('Y-m-d');
         })
-        ->addColumn('action', function ($publication) {
-            return '<button class="btn btn-primary">Edit</button>';
-        })
-        ->rawColumns(['action'])
+        ->rawColumns(['status'])
         ->make(true);
       }
 

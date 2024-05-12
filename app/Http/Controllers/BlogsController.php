@@ -69,6 +69,7 @@ class BlogsController extends Controller
         $blog = new Blog;
         $blog->title = $request->title;
         $blog->content = $request->content;
+        $blog->status = $request->status;
         $blog->subcategory_id = $request->subcategory;
         $blog->user_id = Auth::user()->id;
         $blog->tags = Blog::TagsToString(json_decode($request->tags, true));
@@ -88,7 +89,7 @@ class BlogsController extends Controller
           'message' => $e->getMessage(),
         ]);
       }
-  }
+    }
 
     public function uploadPhotos(Request $request) {
       $validator = Validator::make($request->all(), [
@@ -121,7 +122,34 @@ class BlogsController extends Controller
           'message' => __("Created Successfully.")
         ]);
 
-    } catch (\Exception $e) {
+      } catch (\Exception $e) {
+        return response()->json([
+          'icon' => 'error',
+          'state' => __("Error"),
+          'message' => $e->getMessage(),
+        ]);
+      }
+    }
+
+    public function unuploadPhotos(Request $request,$id) {
+        try {
+          $photo = BlogPhoto::find($id);
+
+          $filePath = public_path('assets/img/photos/blogs/') . $photo->image;
+
+          if (file_exists($filePath)) {
+            unlink($filePath);
+          }
+
+          $photo->delete();
+
+        return response()->json([
+          'icon' => 'success',
+          'state' => __("Success"),
+          'message' => __("Deleted Successfully.")
+        ]);
+
+      } catch (\Exception $e) {
         return response()->json([
           'icon' => 'error',
           'state' => __("Error"),
@@ -132,11 +160,54 @@ class BlogsController extends Controller
 
     public function update(Request $request) {
 
-      return response()->json([
-        'icon' => 'success',
-        'state' => __("Success"),
-        'message' => __("Updated Successfully.")
+      $validator = Validator::make($request->all(), [
+        'title' => 'required|string|max:255',
+        'subcategory' => 'required|string',
+        'content' => 'required|string',
+        'first_image' => 'sometimes|image|mimes:jpeg,png,jpg',
+        'tags' => 'nullable|string',
+        'status' => 'required|in:draft,published',
       ]);
+
+      if ($validator->fails()) {
+          return response()->json([
+          'icon' => 'error',
+          'state' => __("Error"),
+          'message' => $validator->errors()->first()
+          ], 422);
+      }
+
+      try {
+        $blog = Blog::find($request->id);
+        if ($request->hasFile('first_image')) {
+          $image = $request->file('first_image');
+          $imageName = time() . '_' . $image->getClientOriginalName();
+          $image->move(public_path('assets/img/photos/blogs/'), $imageName);
+          $blog->image = $imageName;
+        }
+
+        $blog->title = $request->title;
+        $blog->content = $request->content;
+        $blog->status = $request->status;
+        $blog->subcategory_id = $request->subcategory;
+        $blog->user_id = Auth::user()->id;
+        $blog->tags = Blog::TagsToString(json_decode($request->tags, true));
+        $blog->save();
+
+        return response()->json([
+          'icon' => 'success',
+          'state' => __("Success"),
+          'message' => __("Updated Successfully."),
+          'id' => $blog->id
+        ]);
+      } catch (\Exception $e) {
+        return response()->json([
+          'icon' => 'error',
+          'state' => __("Error"),
+          'message' => $e->getMessage(),
+        ]);
+      }
+
     }
 
     public function delete($id) {

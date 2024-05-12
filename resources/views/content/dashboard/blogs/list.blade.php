@@ -72,7 +72,7 @@
   var lang = "{{ app()->getLocale() }}";
 
       function editBlog(id) {
-        console.log(id);
+        window.location.href = ("{{ url('blog/') }}/" + id);
       }
 
       function demoBlog(id) {
@@ -119,23 +119,19 @@
       }
 
       function showContextMenu(id, x, y) {
-        // Here you can define the content and behavior of the context menu
         var contextMenu = $('<ul class="context-menu" dir="{{ app()->isLocale("ar") ? "rtl" : "" }}"></ul>')
             .append('<li><a onclick="editBlog(' + id + ')"><i class="tf-icons mdi mdi-pencil-outline {{ app()->isLocale("ar") ? "ms-1" : "me-1" }}"></i>{{ __("Edit") }}</a></li>')
             .append('<li><a onclick="demoBlog(' + id + ')"><i class="tf-icons mdi mdi-arrow-right-top {{ app()->isLocale("ar") ? "ms-1" : "me-1" }}"></i>{{ __("Demo") }}</a></li>')
             .append('<li class="px-0 pe-none"><div class="divider border-top my-0"></div></li>')
             .append('<li><a onclick="deleteBlog(' + id + ')"><i class="tf-icons mdi mdi-trash-can-outline {{ app()->isLocale("ar") ? "ms-1" : "me-1" }}"></i>{{ __("Delete") }}</a></li>');
 
-        // Position the context menu at the mouse coordinates
         contextMenu.css({
             top: y,
             left: x
         });
 
-        // Append the context menu to the body
         $('body').append(contextMenu);
 
-        // Hide the context menu when clicking outside of it
         $(document).on('click', function() {
           $('.context-menu').remove();
         });

@@ -19,9 +19,9 @@
       <option value="100" selected>100</option>
     </select>
 
-    <button type="button" class="btn btn-icon btn-outline-primary mb-3 mx-1">
+    <a href="{{ route('product.create.index') }}" class="btn btn-icon btn-outline-primary mb-3 mx-1">
       <span class="tf-icons mdi mdi-plus-outline"></span>
-    </button>
+    </a>
 </div>
 
   <div class="table-responsive text-nowrap">
@@ -90,18 +90,55 @@
 <script src="{{ asset('assets/js/mine.js') }}"></script>
 
 <script type="text/javascript">
-      function editProduct(id) {
-        console.log(id);
-      }
+      var lang = "{{ app()->getLocale() }}";
 
-      // Function to handle deleting a category
-      function deleteProduct(id) {
-        console.log(id);
+      function editProduct(id) {
+        window.location.href = ("{{ url('product/') }}/" + id);
       }
 
       function demoProduct(id) {
         window.open("{{ url('view/product') }}/" + id, "_blank");
       }
+
+      function deleteProduct(id) {
+        Swal.fire({
+            title: __("Do you really want to delete this Product?",lang),
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: __("Submit",lang),
+            cancelButtonText: __("Cancel",lang),
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/product/' + id,
+                    type: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        Swal.fire({
+                            icon: response.icon,
+                            title: response.state,
+                            text: response.message,
+                            confirmButtonText: __("Ok",lang),
+                        });
+                        table.ajax.reload();
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                        const response = JSON.parse(xhr.responseText);
+                        Swal.fire({
+                            icon: response.icon,
+                            title: response.state,
+                            text: response.message,
+                            confirmButtonText: __("Ok",lang),
+                        });
+                    }
+                });
+            }
+        });
+      }
+
 
       function showContextMenu(id, x, y) {
         // Here you can define the content and behavior of the context menu
@@ -132,7 +169,6 @@
 
 $(document).ready(function() {
   $.noConflict();
-      var lang = "{{ app()->getLocale() }}";
       var table = $('#products').DataTable({
           processing: true,
           serverSide: true,

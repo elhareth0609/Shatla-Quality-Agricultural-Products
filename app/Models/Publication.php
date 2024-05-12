@@ -10,13 +10,27 @@ class Publication extends Model {
     use HasFactory;
 
     protected $fillable = [
-      'name',
-      'image',
+      'title',
+      'user_id',
+      'tags',
+      'status',
       'content'
     ];
 
-    public function subcategory() {
-      return $this->belongsTo(SubCategory::class);
+    public function user() {
+      return $this->belongsTo(User::class);
+    }
+
+    // public function subcategory() {
+    //   return $this->belongsTo(SubCategory::class);
+    // }
+
+    public function comments() {
+      return $this->hasMany(PublicationComment::class);
+    }
+
+    public function photos() {
+      return $this->hasMany(PublicationPhoto::class);
     }
 
     public function photoUrl() {
@@ -39,4 +53,30 @@ class Publication extends Model {
           return public_path('assets/img/publications/default.jpg');
       }
     }
+
+    public static function TagsToString($tags) {
+      if ($tags === null) {
+        return '';
+      }
+        $tagValues = array_map(function($tag) {
+            return $tag['value'];
+        }, $tags);
+
+        return implode(',', $tagValues);
+    }
+
+    public static function StringToTags($tagsString) {
+        if (empty($tagsString)) {
+            return [];
+        }
+
+        $tagValues = explode(',', $tagsString);
+
+        $tags = array_map(function($tagValue) {
+            return ['value' => $tagValue];
+        }, $tagValues);
+
+        return $tags;
+    }
+
 }
