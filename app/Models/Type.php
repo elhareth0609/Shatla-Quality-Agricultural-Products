@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class Disease extends Model
+class Type extends Model
 {
     use HasFactory;
 
@@ -19,14 +19,14 @@ class Disease extends Model
     ];
 
     public function photoUrl() {
-      $image = $this->image;
+        $image = $this->image;
 
-      if (Str::startsWith($image, 'http')) {
-          return $image;
-      } else {
-          return asset('assets/img/photos/diseases/' . $image);
-      }
-  }
+        if (Str::startsWith($image, 'http')) {
+            return $image;
+        } else {
+            return asset('assets/img/photos/diseases/' . $image);
+        }
+    }
 
   public function photoPath() {
     $image = $this->image;
@@ -39,19 +39,18 @@ class Disease extends Model
     }
   }
 
+    public function getName() {
+      $locale = app()->getLocale();
 
-  public function getName() {
-    $locale = app()->getLocale();
-
-    if ($locale === 'ar') {
-        return $this->name_ar;
-    } elseif ($locale === 'en') {
-        return $this->name_en;
-    } elseif ($locale === 'fr') {
-        return $this->name_fr;
-    } else {
-        return $this->name_en;
+      if ($locale === 'ar') {
+          return $this->name_ar;
+      } elseif ($locale === 'en') {
+          return $this->name_en;
+      } elseif ($locale === 'fr') {
+          return $this->name_fr;
+      } else {
+          return $this->name_en;
+      }
     }
-  }
 
 }

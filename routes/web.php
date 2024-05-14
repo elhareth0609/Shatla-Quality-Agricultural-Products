@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\authentications\ForgotPasswordBasic;
 use App\Http\Controllers\authentications\LoginBasic;
 use App\Http\Controllers\authentications\RegisterBasic;
@@ -14,8 +15,8 @@ use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\dashboard\Analytics;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DataTablesController;
 
+use App\Http\Controllers\DataTablesController;
 use App\Http\Controllers\DiseasesController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ExpertController;
@@ -41,12 +42,12 @@ use App\Http\Controllers\pages\AccountSettingsNotifications;
 use App\Http\Controllers\pages\MiscError;
 use App\Http\Controllers\pages\MiscUnderMaintenance;
 use App\Http\Controllers\PagesController;
+
 use App\Http\Controllers\PlanController;
-
 use App\Http\Controllers\ProductsController;
+
+
 use App\Http\Controllers\PublicationController;
-
-
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\tables\Basic as TablesBasic;
@@ -76,6 +77,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
+
   // Main Page Route
   Route::get('/', [HomeController::class, 'index'])->name('home');
   Route::get('/home', [HomeController::class, 'index']);
@@ -98,6 +100,7 @@ use Illuminate\Support\Facades\Route;
     Route::get('/orders', [DataTablesController::class, 'orders'])->name('orders');
     Route::get('/plans', [DataTablesController::class, 'plans'])->name('plans');
     Route::get('/coupons', [DataTablesController::class, 'coupons'])->name('coupons');
+    Route::get('/articles', [DataTablesController::class, 'articles'])->name('articles');
 
     // Dashboard Settings
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
@@ -163,6 +166,17 @@ use Illuminate\Support\Facades\Route;
     Route::delete('/blog/unupload/{id}', [BlogsController::class, 'unuploadPhotos'])->name('blog.unupload.photo');
     Route::post('/blog/comment', [BlogsController::class, 'comment'])->name('blog.comment');
 
+    // Articles
+    // Dashboard
+    Route::get('/article/{id}', [ArticleController::class, 'get'])->name('article.get');
+    Route::get('/articles/create', [ArticleController::class, 'create_index'])->name('article.create.index');
+    Route::post('/article/create', [ArticleController::class, 'create'])->name('article.create');
+    Route::delete('/article/{id}', [ArticleController::class, 'delete'])->name('article.delete');
+    Route::POST('/article/update', [ArticleController::class, 'update'])->name('article.update');
+    Route::post('/article/upload', [ArticleController::class, 'uploadPhotos'])->name('article.upload');
+    Route::delete('/article/unupload/{id}', [ArticleController::class, 'unuploadPhotos'])->name('article.unupload.photo');
+    Route::post('/article/comment', [ArticleController::class, 'comment'])->name('article.comment');
+
     // Publication
     // Dashboard
     Route::get('/publication/{id}', [PublicationController::class, 'get'])->name('publication.get');
@@ -181,7 +195,7 @@ use Illuminate\Support\Facades\Route;
 
     // Deasease
     Route::get('/diseases', [DiseasesController::class, 'index'])->name('diseases');
-    Route::match(['get', 'post'], '/diseases/predict', [DiseasesController::class, 'predict'])->name('diseases.predict');
+    Route::match(['get', 'post'], '/diseases/{id}/predict', [DiseasesController::class, 'predict'])->name('diseases.predict');
 
     // Events
     // Dashboard
@@ -265,6 +279,9 @@ use Illuminate\Support\Facades\Route;
 
   Route::get('/view/blogs', [BlogsController::class, 'index'])->name('blog.index');
   Route::get('/view/blogs/{id}', [BlogsController::class, 'ones'])->name('blog.ones');
+
+  Route::get('/view/articles', [ArticleController::class, 'index'])->name('article.index');
+  Route::get('/view/articles/{id}', [ArticleController::class, 'ones'])->name('article.ones');
 
   Route::get('/terms-of-use', [SettingsController::class, 'terms_of_use'])->name('terms_of_use');
   Route::get('/about-us', [SettingsController::class, 'about_us'])->name('about_us');

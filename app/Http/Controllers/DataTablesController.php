@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use App\Models\Blog;
 
 use App\Models\Category;
@@ -224,6 +225,39 @@ class DataTablesController extends Controller
       }
 
       return view('content.dashboard.blogs.list');
+    }
+
+    public function articles(Request $request) {
+      $articles = Article::all();
+
+      if($request->ajax()) {
+        return DataTables::of($articles)
+        ->editColumn('id', function ($article) {
+            return (string) $article->id;
+        })
+        ->editColumn('title', function ($article) {
+          return Str::limit($article->title, 35);
+        })
+        ->editColumn('status', function ($article) {
+          return '<span class="badge rounded-pill bg-label-' . ($article->status == 'published' ? 'success' : 'secondary') . '">' . ($article->status == 'draft' ? __('Draft') : __('Published')) . '</span>';
+        })
+        ->editColumn('disease_id', function ($article) {
+          return '<span class="badge rounded-pill bg-label-info">' . $article->disease->getName() . '</span>';
+        })
+        ->editColumn('type_id', function ($article) {
+          return '<span class="badge rounded-pill bg-label-info">' . $article->type->getName() . '</span>';
+        })
+        ->editColumn('created_at', function ($article) {
+          return $article->created_at->format('Y-m-d');
+        })
+        ->addColumn('action', function ($article) {
+            return '<button class="btn btn-primary">Edit</button>';
+        })
+        ->rawColumns(['action','type_id','disease_id'])
+        ->make(true);
+      }
+
+      return view('content.dashboard.articles.list');
     }
 
     public function plans(Request $request) {

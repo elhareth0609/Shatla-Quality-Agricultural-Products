@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use App\Models\Disease;
+use App\Models\Type;
 use Illuminate\Http\Client\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -10,41 +12,63 @@ use Illuminate\Support\Facades\Http;
 class DiseasesController extends Controller
 {
     public function index() {
-      $items = Disease::all();
+      $items = Type::all();
       return view('content.home.diseases.index')
       ->with('items',$items);
     }
 
-    public function predict(Request $request) {
+    public function predict(Request $request,$id) {
 
     if ($request->isMethod('GET')) {
-        return view('content.home.diseases.predict');
+        $type = Type::find($id);
+        return view('content.home.diseases.predict')
+        ->with('type',$type);
     }
+
+    $request->validate([
+      'file' => 'required|file|mimes:jpeg,png,pdf',
+    ]);
 
     $file = $request->file('file');
 
-    // Upload the photo to the API
+
     $response = Http::attach(
         'file',
         $file->get(),
         $file->getClientOriginalName()
     )->post('http://localhost:8080/predict');
 
-        // Check if the request was successful
-        if ($response->successful()) {
-          // Get the response JSON
-          $responseData = $response->json();
 
-          // Do something with the response data
-          $predictedClass = $responseData['class'];
-          $confidence = $responseData['confidence'];
-          dd($predictedClass, $confidence,$request->all());
+    if ($response->successful()) {
 
-          return view('content.home.diseases.predict')
-              ->with('predictedClass', $predictedClass)
-              ->with('confidence', $confidence);
+        $responseData = $response->json();
+
+        $class = $responseData['class'];
+        if ($class == 'Early Blight') {
+          $class = 'early blight';
+        } else if ($class == 'Late Blight') {
+          $class = 'late blight';
+        } else if ($class == 'Healthy') {
+          $class = 'healthy';
+        }
+        $confidence = $responseData['confidence'];
+
+        $disease = Disease::where('name_en',$class)->first();
+        $article = Article::where('disease_id', $disease->id)
+                            ->where('type_id', $id)
+                            ->first();
+
+
+        $myDisease = new \stdClass();
+        $myDisease->confidence = $confidence;
+
+        $article->myDisease = $myDisease;
+        return view('content.home.articles.ones')
+        ->with('disease', $disease)
+        ->with('article', $article);
+
         } else {
-          // Handle error if the request was not successful
+
           $errorCode = $response->status();
           $errorMessage = $response->body();
           dd($errorCode, $errorMessage,$request->all());

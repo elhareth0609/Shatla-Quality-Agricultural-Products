@@ -7,7 +7,7 @@
 <div class="container my-1">
   @foreach ($items as $item)
     <a class="checkbox m-1 d-inline-block" @if ($item->status == '1')
-    href="{{ route('diseases.predict') }}"
+    href="{{ route('diseases.predict',$item->id) }}"
     @endif >
       <label class="checkbox-wrapper">
         <span class="checkbox-tile">

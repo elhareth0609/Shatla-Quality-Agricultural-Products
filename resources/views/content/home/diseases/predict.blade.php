@@ -8,11 +8,11 @@
 
 @section('content')
 <div class="container my-w-fit-content my-1">
-  <form class="justify-content-center" method="POST" action="{{ route('diseases.predict') }}" enctype="multipart/form-data">
+  <form class="justify-content-center" method="POST" action="{{ route('diseases.predict',$type->id) }}" enctype="multipart/form-data">
     @csrf
 
     {{-- <input class="form-control mb-1" type="file" id="formFile" name="file"> --}}
-    <img src="{{asset('assets/img/avatars/1.png')}}" alt="user-avatar" class="d-block w-px-120 h-px-120 rounded mb-2 mx-auto" id="uploadedAvatar" />
+    <img src="{{asset('assets/img/photos/diseases/predict.png')}}" alt="user-avatar" class="d-block w-px-250 h-px-250 rounded mb-2 mx-auto" id="uploadedAvatar" />
 
     <div class="row justify-content-center">
       <label for="upload" class="btn btn-primary me-2 mb-3 my-w-fit-content" tabindex="0">

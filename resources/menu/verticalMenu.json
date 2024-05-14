@@ -89,6 +89,13 @@
       "slug": "blogs"
     },
     {
+      "url": "/articles",
+      "name": "Articles",
+      "required": "manage articles",
+      "icon": "menu-icon tf-icons mdi mdi-post-outline",
+      "slug": "articles"
+    },
+    {
       "url": "/publications",
       "name": "Publications",
       "required": "manage publications",
