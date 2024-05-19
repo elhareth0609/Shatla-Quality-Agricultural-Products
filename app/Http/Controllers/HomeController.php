@@ -15,14 +15,20 @@ class HomeController extends Controller
     //
     public function index() {
       $subcategorys = SubCategory::where('type','products')->get();
-      $products = Product::all();
-      $blogs = Blog::orderBy('created_at', 'desc')->take(6)->get();
-      $publications = Publication::orderBy('created_at', 'desc')->take(6)->get();
+      $productsCount = Product::where('status','active')->count();
+      $products = Product::where('status','active')->orderBy('created_at', 'desc')->take(12)->get();
+      $blogsCount = Blog::where('status','published')->count();
+      $blogs = Blog::where('status','published')->orderBy('created_at', 'desc')->take(6)->get();
+      $publicationsCount = Publication::where('status','published')->count();
+      $publications = Publication::where('status','published')->orderBy('created_at', 'desc')->take(6)->get();
       return view('content.home.index')
       ->with('products',$products)
+      ->with('productsCount',$productsCount)
       ->with('subcategorys',$subcategorys)
       ->with('blogs',$blogs)
-      ->with('publications',$publications);
+      ->with('blogsCount',$blogsCount)
+      ->with('publications',$publications)
+      ->with('publicationsCount',$publicationsCount);
     }
 
     public function contact() {

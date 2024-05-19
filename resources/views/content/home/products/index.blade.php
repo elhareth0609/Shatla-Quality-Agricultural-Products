@@ -10,9 +10,6 @@
       <div class="row px-xl-5">
           <div class="col-lg-5 pb-5">
 
-            {{-- <div class="col-md">
-              <h5 class="my-4">Bootstrap carousel</h5> --}}
-
               <div id="carouselExample" class="carousel carousel-dark slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
                   @foreach ($product->photos as $index => $photo)
@@ -25,17 +22,18 @@
                 </div>
                 <div class="carousel-inner rounded">
                   @foreach ($product->photos as $photo)
+                    @if ($photo->typeof === '0')
                       @if ($photo->type === '1')
-                        <div class="carousel-item active">
-                          <img class="d-block w-100" src="{{ $photo->photoUrl() }}" width="300" height="460" alt="First slide" />
+                        <div class="carousel-item justify-content-center d-flex active">
+                          <img class="d-block" src="{{ $photo->photoUrl() }}" width="300" height="460" alt="First slide" />
                         </div>
                       @else
-                        <div class="carousel-item">
-                          <img class="d-block w-100" src="{{ $photo->photoUrl() }}" width="300" height="460" alt="First slide" />
+                        <div class="carousel-item justify-content-center d-flex">
+                          <img class="d-block" src="{{ $photo->photoUrl() }}" width="300" height="460" alt="First slide" />
                         </div>
                       @endif
+                    @endif
                   @endforeach
-
                 </div>
                 <a class="carousel-control-prev" href="#carouselExample" role="button" data-bs-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -46,51 +44,23 @@
                   <span class="visually-hidden">{{ __('Next') }}</span>
                 </a>
               </div>
-            {{-- </div> --}}
 
 
-
-
-
-            {{--
-              <div id="product-carousel" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner border">
-                      <div class="carousel-item active">
-                          <img class="w-100 h-100" src="{{ asset('assets/home/images/banner-1.png') }}" alt="Image">
-                      </div>
-                      <div class="carousel-item">
-                          <img class="w-100 h-100" src="{{ asset('assets/home/images/banner-1.png') }}" alt="Image">
-                      </div>
-                      <div class="carousel-item">
-                          <img class="w-100 h-100" src="{{ asset('assets/home/images/banner-1.png') }}" alt="Image">
-                      </div>
-                      <div class="carousel-item">
-                          <img class="w-100 h-100" src="{{ asset('assets/home/images/banner-1.png') }}" alt="Image">
-                      </div>
-                  </div>
-                  <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
-                      <i class="fa fa-2x fa-angle-left text-dark"></i>
-                  </a>
-                  <a class="carousel-control-next" href="#product-carousel" data-slide="next">
-                      <i class="fa fa-2x fa-angle-right text-dark"></i>
-                  </a>
-              </div>
-          </div> --}}
           </div>
           <div class="col-lg-7 pb-5">
               <h3 class="font-weight-semi-bold">{{ $product->name }}</h3>
               <div class="d-flex mb-3">
                   <div class="text-primary mr-2">
-                      <small class="fas fa-star"></small>
-                      <small class="fas fa-star"></small>
-                      <small class="fas fa-star"></small>
-                      <small class="fas fa-star-half-alt"></small>
-                      <small class="far fa-star"></small>
+                      <small class="mdi mdi-star-outline"></small>
+                      <small class="mdi mdi-star-outline"></small>
+                      <small class="mdi mdi-star-outline"></small>
+                      <small class="mdi mdi-star-outline"></small>
+                      <small class="mdi mdi-star-outline"></small>
                   </div>
-                  <small class="pt-1">({{ $product->view }} {{ __('Reviews') }})</small>
+                  <small class="pt-1 me-1">({{ $product->view }} {{ __('Reviews') }})</small>
               </div>
               <h3 class="font-weight-semi-bold mb-4">${{ $product->price }}</h3>
-              <p class="mb-4">{{ $product->description }}</p>
+              <p class="mb-4">{!! $product->description !!}</p>
               <div class="row">
                 <div class="col-6">
                   <div class="input-group input-group-merge" dir="{{ app()->isLocale('ar') ? 'ltr' : '' }}">
@@ -148,7 +118,7 @@
             <div class="tab-content p-0">
               <div class="tab-pane fade show active" id="navs-justified-home" role="tabpanel">
                   <h4 class="mb-3">{{ __('Product Description') }}</h4>
-                  {{ $product->content }}
+                  {!! $product->content !!}
                 </div>
                 <div class="tab-pane fade" id="navs-justified-profile" role="tabpanel">
                   <h4 class="mb-3">Additional Information</h4>

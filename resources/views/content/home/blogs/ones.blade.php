@@ -9,7 +9,7 @@
       <div class="col-lg-8">
           <article>
             <header class="mb-4">
-                <h1 class="fw-bolder mb-1">{{ $blog->title }}</h1>
+                <h1 class="fw-bolder mb-3">{{ $blog->title }}</h1>
                 <div class="d-flex mb-4 align-items-center pb-2">
                   <div class="flex-shrink-0 ms-2 avatar">
                     <a href="{{ route('expert.view',$blog->user->expert->id) }}"><img src="{{ $blog->user->expert->photoUrl() }}" class="img-fluid w-px-40 h-auto rounded-circle" alt="{{ $blog->user->expert->fullname }}"></a>
@@ -32,7 +32,7 @@
               </figure>
 
               <section class="mb-5">
-                {{ $blog->content }}
+                {!! $blog->content !!}
               </section>
           </article>
 
@@ -104,12 +104,68 @@
 
           <div class="card mb-4">
               <div class="card-header">{{ __('Blogs') }}</div>
-              <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
+              <div class="card-body">
+                {{-- <div class="d-flex mb-4 align-items-center pb-2">
+                  <div class="flex-shrink-0 ms-2 avatar">
+                    <a href="{{ route('expert.view',$blog->user->expert->id) }}">
+                      <img src="{{ $blog->user->expert->photoUrl() }}" class="img-fluid w-px-40 h-auto rounded-circle" alt="{{ $blog->user->expert->fullname }}">
+                    </a>
+                  </div>
+                  <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                    <div class="me-2">
+                      <a href="{{ route('expert.view',$blog->user->expert->id) }}"><h6 class="mb-0">{{ $blog->user->expert->fullname }}</h6></a>
+                      <small>{{ $blog->created_at->format('M d, Y') }}</small>
+                    </div>
+                  </div>
+                </div> --}}
+                <div class="blog-slider">
+                  <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                      <!-- Slides -->
+                      @foreach ($blogs as $blog)
+                        <div class="swiper-slide blog-slider__item">
+                          <div class="blog-slider__img">
+                            <img class="img-fluid" src="{{ $blog->photoUrl() }}" alt="{{ $blog->title }}">
+                          </div>
+                          <div class="blog-slider__content mt-2">
+                            <h4 class="blog-slider__title">{{ \Illuminate\Support\Str::limit($blog->title, 79) }}</h4>
+                            <p class="blog-slider__text">{{ \Illuminate\Support\Str::limit(strip_tags($blog->content), 79) }}</p>
+                            <div class="text-center">
+                              <a href="{{ route('blog.ones',$blog->id) }}" class="btn rounded-pill btn-outline-secondary mx-auto">{{ __('Read More') }}</a>
+                            </div>
+                          </div>
+                        </div>
+                      @endforeach
+                      <!-- Add more slides as needed -->
+                    </div>
+                    <!-- Pagination -->
+                    <div class="swiper-pagination blog-slider__pagination"></div>
+                  </div>
+                </div>
+              </div>
           </div>
       </div>
   </div>
 </div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
 <script>
+  var swiper = new Swiper('.swiper-container', {
+    loop: true,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    effect: 'fade',
+    fadeEffect: {
+      crossFade: true
+    },
+  });
+
+
   var lang = "{{ app()->getLocale() }}";
   function uploadComments(comment) {
     var commentHtml = `

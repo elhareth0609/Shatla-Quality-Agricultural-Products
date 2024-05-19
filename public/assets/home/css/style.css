@@ -702,7 +702,7 @@ body::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 70%); }
   color: var(--eerie-black);
   font-size: var(--fs-1);
   text-transform: uppercase;
-  line-height: 1;
+  line-height: 1.1;
   margin-bottom: 10px;
 }
 

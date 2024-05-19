@@ -26,7 +26,7 @@ class Product extends Model
   ];
 
   public function subcategory() {
-      return $this->belongsTo(SubCategory::class);
+    return $this->belongsTo(SubCategory::class);
   }
 
   public function comments() {
@@ -61,9 +61,9 @@ class Product extends Model
   public function getNewPrice($currency) {
     $price = $this->price;
 
-    // if ($currency === config('currency.default_currency')) {
-    //   return $price;
-    // }
+      // if ($currency === config('currency.default_currency')) {
+      //   return $price;
+      // }
 
     $baseCurrency = 'DZD';
 
@@ -75,5 +75,31 @@ class Product extends Model
     $newPrice = $exchangeRate * $price;
 
     return $newPrice;
-}
+  }
+
+  public static function TagsToString($tags) {
+    if ($tags === null) {
+      return '';
+    }
+      $tagValues = array_map(function($tag) {
+          return $tag['value'];
+      }, $tags);
+
+      return implode(',', $tagValues);
+  }
+
+  public static function StringToTags($tagsString) {
+      if (empty($tagsString)) {
+          return [];
+      }
+
+      $tagValues = explode(',', $tagsString);
+
+      $tags = array_map(function($tagValue) {
+          return ['value' => $tagValue];
+      }, $tagValues);
+
+      return $tags;
+  }
+
 }

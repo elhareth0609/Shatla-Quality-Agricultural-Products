@@ -17,61 +17,61 @@
 
       <div class="slider-container has-scrollbar">
 
-        <div class="slider-item">
+        <div class="slider-item" dir="rtl">
 
           <img src="{{ asset('assets/img/illustrations/potted plants-amico.png') }}" height="100%" alt="women's latest fashion sale">
 
           <div class="banner-content">
 
-            <p class="banner-subtitle">Trending item</p>
+            <p class="banner-subtitle">{{ __('Ads Item') }}</p>
 
-            <h2 class="banner-title">Women's latest fashion sale</h2>
+            <h2 class="banner-title">{{ __('Hey! Every One Can Put Ads Here') }}</h2>
 
             <p class="banner-text">
-              starting at &dollar; <b>20</b>.00
+              {{ __('starting from') }} &dollar; <b>20</b>.00
             </p>
 
-            <a href="#" class="banner-btn">Shop now</a>
+            <a href="#" class="btn btn-primary">{{ __('Try Now') }}</a>
 
           </div>
 
         </div>
 
-        <div class="slider-item">
+        <div class="slider-item" dir="rtl">
 
           <img src="{{ asset('assets/img/illustrations/coffee bean-amico.png') }}" height="100%" alt="modern sunglasses">
 
           <div class="banner-content">
 
-            <p class="banner-subtitle">Trending accessories</p>
+            <p class="banner-subtitle">{{ __('Ads Item') }}</p>
 
-            <h2 class="banner-title">Modern sunglasses</h2>
+            <h2 class="banner-title">{{ __('Hey! Every One Can Put Ads Here') }}</h2>
 
             <p class="banner-text">
-              starting at &dollar; <b>15</b>.00
+              {{ __('starting from') }} &dollar; <b>15</b>.00
             </p>
 
-            <a href="#" class="banner-btn">Shop now</a>
+            <a href="#" class="btn btn-primary">{{ __('Try Now') }}</a>
 
           </div>
 
         </div>
 
-        <div class="slider-item">
+        <div class="slider-item" dir="rtl">
 
           <img src="{{ asset('assets/img/illustrations/Mango tree-amico.png') }}" height="100%" alt="new fashion summer sale">
 
           <div class="banner-content">
 
-            <p class="banner-subtitle">Sale Offer</p>
+            <p class="banner-subtitle">{{ __('Ads Item') }}</p>
 
-            <h2 class="banner-title">New fashion summer sale</h2>
+            <h2 class="banner-title">{{ __('Hey! Every One Can Put Ads Here') }}</h2>
 
             <p class="banner-text">
-              starting at &dollar; <b>29</b>.99
+              {{ __('starting from') }} &dollar; <b>29</b>.99
             </p>
 
-            <a href="#" class="banner-btn">Shop now</a>
+            <a href="#" class="btn btn-primary">{{ __('Try Now') }}</a>
 
           </div>
 
@@ -93,25 +93,25 @@
 
       <div class="category-item-container has-scrollbar">
         @foreach ($subcategorys as $subcategory)
-        <div class="category-item bg-white">
+          <div class="category-item bg-white">
 
-          <div class="category-img-box p-0">
-            <img src="{{ $subcategory->photoUrl() }}" alt="{{ $subcategory->getName() }}" style="width: 64px;height: 64px;">
-          </div>
-
-          <div class="category-content-box">
-
-            <div class="category-content-flex">
-              <h3 class="category-item-title">{{ $subcategory->getName() }}</h3>
-
-              <p class="category-item-amount">({{ $subcategory->products->count() }})</p>
+            <div class="category-img-box p-0">
+              <img src="{{ $subcategory->photoUrl() }}" alt="{{ $subcategory->getName() }}" style="width: 64px;height: 64px;">
             </div>
 
-            <a href="{{ route('subcategory.view',$subcategory->id) }}" class="category-btn">{{ __('Show All') }}</a>
+            <div class="category-content-box">
+
+              <div class="category-content-flex">
+                <h3 class="category-item-title">{{ $subcategory->getName() }}</h3>
+
+                <p class="category-item-amount">({{ $subcategory->products->count() }})</p>
+              </div>
+
+              <a href="{{ route('subcategory.view',$subcategory->id) }}" class="category-btn">{{ __('Show All') }}</a>
+
+            </div>
 
           </div>
-
-        </div>
         @endforeach
 
       </div>
@@ -126,7 +126,7 @@
 
   <div class="product-container">
 
-    <div class="container">
+    <div class="row m-0">
 
 
       <!--
@@ -316,7 +316,7 @@
 
 
 
-      <div class="product-box">
+      <div class="product-box p-0 m-0">
 
         <!--
           - PRODUCT MINIMAL
@@ -957,7 +957,7 @@
           - PRODUCT FEATURED
         -->
 
-        <div class="product-featured">
+        {{-- <div class="product-featured">
 
           <h2 class="title">{{ __('Deal of the day') }}</h2>
 
@@ -1133,7 +1133,7 @@
 
           </div>
 
-        </div>
+        </div> --}}
 
 
 
@@ -1141,209 +1141,69 @@
           - PRODUCT GRID
         -->
 
-        <div class="product-main">
-          <h2 class="title">{{ __('Products') }}</h2>
-          <div class="product-grid">
+        <div class="row w-100 m-0 p-0">
+          <h2 class="title mx-3">{{ __('Products') }}</h2>
+          <div class="product-grid row m-0 mb-3" id="product-container" style="gap: 0!important">
             @foreach ($products as $product)
               <x-product :product="$product" />
             @endforeach
           </div>
         </div>
-      </div>
 
+      </div>
     </div>
+  </div>
 
+
+  <div class="divider mx-3 {{ $productsCount <= 12 ? 'd-none' : '' }}" id="show-more-products">
+    <div class="divider-text">
+      <button type="button" class="btn rounded-pill btn-outline-primary text-divider">
+        <div id="show-more-products-btn">
+          <span class="tf-icons mdi mdi-chevron-double-down ms-1"></span>
+          {{ __('Show More') }}
+          <span class="tf-icons mdi mdi-chevron-double-down me-1"></span>
+        </div>
+        <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+      </button>
+    </div>
   </div>
 
 
 
   <!--
-    - TESTIMONIALS, CTA & SERVICE
-  -->
-
-  <div>
-
-    {{-- <div class="container">
-
-      <div class="testimonials-box">
-
-        <!--
-          - TESTIMONIALS
-        -->
-
-        <div class="testimonial">
-
-          <h2 class="title">testimonial</h2>
-
-          <div class="testimonial-card bg-white">
-
-            <img src="{{ asset('assets/home/images/testimonial-1.jpg') }}" alt="alan doe" class="testimonial-banner" width="80" height="80">
-
-            <p class="testimonial-name">Alan Doe</p>
-
-            <p class="testimonial-title">CEO & Founder Invision</p>
-
-            <img src="{{ asset('assets/home/images/icons/quotes.svg') }}" alt="quotation" class="quotation-img" width="26">
-
-            <p class="testimonial-desc">
-              Lorem ipsum dolor sit amet consectetur Lorem ipsum
-              dolor dolor sit amet.
-            </p>
-
-          </div>
-
-        </div>
-
-
-
-        <!--
-          - CTA
-        -->
-
-        <div class="cta-container">
-
-          <img src="{{ asset('assets/home/images/cta-banner.jpg') }}" alt="summer collection" class="cta-banner">
-
-          <a href="#" class="cta-content">
-
-            <p class="discount">25% Discount</p>
-
-            <h2 class="cta-title">Summer collection</h2>
-
-            <p class="cta-text">Starting @ $10</p>
-
-            <button class="cta-btn">Shop now</button>
-
-          </a>
-
-        </div>
-
-
-
-        <!--
-          - SERVICE
-        -->
-
-        <div class="service">
-
-          <h2 class="title">Our Services</h2>
-
-          <div class="service-container bg-white">
-
-            <a href="#" class="service-item">
-
-              <div class="service-icon">
-                <ion-icon name="boat-outline"></ion-icon>
-              </div>
-
-              <div class="service-content">
-
-                <h3 class="service-title">Worldwide Delivery</h3>
-                <p class="service-desc">For Order Over $100</p>
-
-              </div>
-
-            </a>
-
-            <a href="#" class="service-item">
-
-              <div class="service-icon">
-                <ion-icon name="rocket-outline"></ion-icon>
-              </div>
-
-              <div class="service-content">
-
-                <h3 class="service-title">Next Day delivery</h3>
-                <p class="service-desc">UK Orders Only</p>
-
-              </div>
-
-            </a>
-
-            <a href="#" class="service-item">
-
-              <div class="service-icon">
-                <ion-icon name="call-outline"></ion-icon>
-              </div>
-
-              <div class="service-content">
-
-                <h3 class="service-title">Best Online Support</h3>
-                <p class="service-desc">Hours: 8AM - 11PM</p>
-
-              </div>
-
-            </a>
-
-            <a href="#" class="service-item">
-
-              <div class="service-icon">
-                <ion-icon name="arrow-undo-outline"></ion-icon>
-              </div>
-
-              <div class="service-content">
-
-                <h3 class="service-title">Return Policy</h3>
-                <p class="service-desc">Easy & Free Return</p>
-
-              </div>
-
-            </a>
-
-            <a href="#" class="service-item">
-
-              <div class="service-icon">
-                <ion-icon name="ticket-outline"></ion-icon>
-              </div>
-
-              <div class="service-content">
-
-                <h3 class="service-title">30% money back</h3>
-                <p class="service-desc">For Order Over $100</p>
-
-              </div>
-
-            </a>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div> --}}
-
-  </div>
-
-
-
-
-
-  <!--
-    - BLOG
+    - BLOGS
   -->
 
   <div class="blog">
-
-    <div class="container">
-      <h2 class="title">{{ __('Blogs') }}</h2>
-      <div class="row">
+    <div class="row w-100 m-0 p-0">
+      <h2 class="title mx-3">{{ __('Blogs') }}</h2>
+      <div class="row m-0 mb-3" id="blog-container" style="gap: 0!important">
         @foreach($blogs as $blog)
           <x-blog :blog="$blog" />
         @endforeach
       </div>
     </div>
-
   </div>
 
 
+  <div class="divider mx-3 {{ $blogsCount <= 6 ? 'd-none' : '' }}" id="show-more-blogs">
+    <div class="divider-text">
+      <button type="button" class="btn rounded-pill btn-outline-primary text-divider">
+        <div id="show-more-blogs-btn">
+          <span class="tf-icons mdi mdi-chevron-double-down ms-1"></span>
+          {{ __('Show More') }}
+          <span class="tf-icons mdi mdi-chevron-double-down me-1"></span>
+        </div>
+        <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+
 
   <div class="blog">
-    <div class="container">
-      <h2 class="title">{{ __('Agricultural Services') }}</h2>
-
-      <div class="row">
-
+    <div class="row w-100 m-0 p-0">
+      <h2 class="title mx-3">{{ __('Agricultural Services') }}</h2>
+      <div class="row m-0 mb-3" id="publication-container" style="gap: 0!important">
 
         @foreach($publications as $publication)
           <x-publication :publication="$publication" />
@@ -1352,6 +1212,132 @@
       </div>
     </div>
   </div>
+
+
+  <div class="divider mx-3 mb-5 {{ $publicationsCount <= 6 ? 'd-none' : '' }}" id="show-more-publications" >
+    <div class="divider-text">
+      <button type="button" class="btn rounded-pill btn-outline-primary text-divider">
+        <div id="show-more-publications-btn">
+          <span class="tf-icons mdi mdi-chevron-double-down ms-1"></span>
+          {{ __('Show More') }}
+          <span class="tf-icons mdi mdi-chevron-double-down me-1"></span>
+        </div>
+        <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
 </main>
+
+<style>
+.carousel-item:hover .like-dislike-icons {
+  display: flex !important;
+}
+.like-dislike-icons button span.mdi::before {
+  font-size: 62px;
+}
+.spinner-border {
+  width: 1rem;
+  height: 1rem;
+  border-width: 0.2em;
+}
+
+</style>
+
+<script>
+
+  let pageBlog = 1;
+  let pagePublication = 1;
+  let pageProduct = 1;
+
+  $('#show-more-blogs').click(function() {
+    var spinnerBlogs = this.querySelector('.spinner-border');
+    spinnerBlogs.classList.remove('d-none');
+    $('#show-more-blogs-btn').hide();
+
+    pageBlog++;
+    $.ajax({
+      url: `/home/blogs/more?page=${pageBlog}`,
+      method: 'GET',
+      success: function(data) {
+        const container = $('#blog-container');
+        data.blogs.forEach(blog => {
+          container.append(blog.html);
+        });
+        spinnerBlogs.classList.add('d-none');
+        if (!data.hasMore) {
+          $('#show-more-blogs').hide();
+        } else {
+          $('#show-more-blogs-btn').show();
+        }
+      },
+      error: function(xhr) {
+        spinnerBlogs.classList.add('d-none');
+        $('#show-more-blogs-btn').show();
+        console.log('An error occurred:', xhr);
+      }
+    });
+  });
+
+  $('#show-more-publications').click(function() {
+    var spinnerPublications = this.querySelector('.spinner-border');
+    spinnerPublications.classList.remove('d-none');
+    $('#show-more-publications-btn').hide();
+
+    pagePublication++;
+
+    $.ajax({
+      url: `/home/publications/more?page=${pagePublication}`,
+      method: 'GET',
+      success: function(data) {
+        const containerPublication = $('#publication-container');
+        data.publications.forEach(publication => {
+          containerPublication.append(publication.html);
+        });
+        spinnerPublications.classList.add('d-none');
+        if (!data.hasMore) {
+          $('#show-more-publications').hide();
+        } else {
+          $('#show-more-publications-btn').show();
+        }
+      },
+      error: function(xhr) {
+        spinnerPublications.classList.add('d-none');
+        $('#show-more-publications-btn').show();
+        console.log('An error occurred:', xhr);
+      }
+    });
+  });
+
+  $('#show-more-products').click(function() {
+    var spinnerProducts = this.querySelector('.spinner-border');
+    spinnerProducts.classList.remove('d-none');
+    $('#show-more-products-btn').hide();
+    pageProduct++;
+    $.ajax({
+      url: `/home/products/more?page=${pageProduct}`,
+      method: 'GET',
+      success: function(data) {
+        const containerProduct = $('#product-container');
+        data.products.forEach(product => {
+          containerProduct.append(product.html);
+        });
+        spinnerProducts.classList.add('d-none');
+        if (!data.hasMore) {
+          $('#show-more-products').hide();
+        } else {
+          $('#show-more-products-btn').show();
+        }
+      },
+      error: function(xhr) {
+        spinnerProducts.classList.add('d-none');
+        $('#show-more-products-btn').show();
+        console.log('An error occurred:', xhr);
+      }
+    });
+  });
+</script>
+
+
+
 
 @endsection

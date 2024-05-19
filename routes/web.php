@@ -106,7 +106,7 @@ use Illuminate\Support\Facades\Route;
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
     Route::get('/website-settings', [SettingsController::class, 'website'])->name('settings.website');
     Route::get('/account-settings', [SettingsController::class, 'account'])->name('settings.account');
-    Route::get('/store-settings', [SettingsController::class, 'store'])->name('settings.store');
+    // Route::get('/store-settings', [SettingsController::class, 'store'])->name('settings.store');
 
     // Cart
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
@@ -261,6 +261,7 @@ use Illuminate\Support\Facades\Route;
 
 
   Route::get('/view/products', [ProductsController::class, 'index'])->name('product.index');
+  Route::get('/home/products/more', [ProductsController::class, 'moreHome'])->name('product.home.more');
   Route::get('/view/product/{id}', [ProductsController::class, 'view'])->name('product.view');
 
   Route::get('/view/subcategory/{id}', [SubCategoryController::class, 'view'])->name('subcategory.view');
@@ -275,9 +276,11 @@ use Illuminate\Support\Facades\Route;
   Route::get('/view/worker/{id}', [WorkerController::class, 'view'])->name('worker.view');
 
   Route::get('/view/publications', [PublicationController::class, 'index'])->name('publication.index');
+  Route::get('/home/publications/more', [PublicationController::class, 'moreHome'])->name('publication.home.more');
   Route::get('/view/publications/{id}', [PublicationController::class, 'ones'])->name('publication.ones');
 
   Route::get('/view/blogs', [BlogsController::class, 'index'])->name('blog.index');
+  Route::get('/home/blogs/more', [BlogsController::class, 'moreHome'])->name('blog.home.more');
   Route::get('/view/blogs/{id}', [BlogsController::class, 'ones'])->name('blog.ones');
 
   Route::get('/view/articles', [ArticleController::class, 'index'])->name('article.index');

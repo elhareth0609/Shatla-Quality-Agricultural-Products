@@ -31,26 +31,28 @@ class DiseasesController extends Controller
 
     $file = $request->file('file');
 
+    $type = Type::find($id);
 
     $response = Http::attach(
         'file',
         $file->get(),
         $file->getClientOriginalName()
-    )->post('http://localhost:8080/predict');
+    )->post('http://localhost:8080/predict/'. $type->name_en);
 
 
     if ($response->successful()) {
 
         $responseData = $response->json();
-
+        // dd($responseData);
         $class = $responseData['class'];
-        if ($class == 'Early Blight') {
+        if ($class == 'Early Blight' || $class == 'Early-blight') {
           $class = 'early blight';
-        } else if ($class == 'Late Blight') {
+        } else if ($class == 'Late Blight' || $class == 'Late-blight') {
           $class = 'late blight';
-        } else if ($class == 'Healthy') {
+        } else if ($class == 'Healthy' || $class == 'Healthy') {
           $class = 'healthy';
         }
+        // dd($class);
         $confidence = $responseData['confidence'];
 
         $disease = Disease::where('name_en',$class)->first();

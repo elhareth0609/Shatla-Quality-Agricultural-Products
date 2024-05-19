@@ -9,7 +9,7 @@
       <div class="col-lg-8">
           <article>
             <header class="mb-4">
-                <h1 class="fw-bolder mb-1">{{ $article->title }}</h1>
+                <h1 class="fw-bolder mb-3">{{ $article->title }}</h1>
                 {{-- <div class="d-flex mb-4 align-items-center pb-2">
                   <div class="flex-shrink-0 ms-2 avatar">
                     <a href="{{ route('expert.view',$article->user->expert->id) }}"><img src="{{ $article->user->expert->photoUrl() }}" class="img-fluid w-px-40 h-auto rounded-circle" alt="{{ $article->user->expert->fullname }}"></a>

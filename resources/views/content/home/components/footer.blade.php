@@ -1,6 +1,6 @@
 <footer dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
 
-  <div class="footer-category">
+  {{-- <div class="footer-category">
 
     <div class="container">
 
@@ -74,7 +74,7 @@
 
     </div>
 
-  </div>
+  </div> --}}
 
   <div class="footer-nav">
 
@@ -83,19 +83,7 @@
       <ul class="footer-nav-list">
 
         <li class="footer-nav-item">
-          <h2 class="nav-title w-fit">{{ __('Popular Categories') }}</h2>
-        </li>
-
-        <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">Fashion</a>
-        </li>
-
-      </ul>
-
-      <ul class="footer-nav-list">
-
-        <li class="footer-nav-item">
-          <h2 class="nav-title">{{__('Products')}}</h2>
+          <h2 class="nav-title">{{__('Thanks For')}}</h2>
         </li>
 
         <li class="footer-nav-item">
@@ -155,24 +143,24 @@
         </li>
 
         <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">{{ __('Prices Drop') }}</a>
+          <a href="{{ route('pages.consultation') }}" class="footer-nav-link">{{ __('What do I plant?') }}</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">{{ __('New Products') }}</a>
+          <a href="{{ route('publication.index') }}" class="footer-nav-link">{{ __('Agricultural Services') }}</a>
         </li>
 
         <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">{{ __('Best Sales') }}</a>
+          <a href="{{ route('pages.experts') }}" class="footer-nav-link">{{ __('Agricultural Experts') }}</a>
         </li>
 
-        <li class="footer-nav-item">
+        {{-- <li class="footer-nav-item">
           <a href="{{ route('contact') }}" class="footer-nav-link">{{ __('Contact Us') }}</a>
         </li>
 
         <li class="footer-nav-item">
           <a href="#" class="footer-nav-link">{{ __('Sitemap') }}</a>
-        </li>
+        </li> --}}
 
       </ul>
 
@@ -187,10 +175,7 @@
             <ion-icon name="location-outline"></ion-icon>
           </div>
 
-          <address class="content">
-            419 State 414 Rte
-            Beaver Dams, New York(NY), 14812, USA
-          </address>
+          <address class="content">الوادي ,حساني عبد الكريم ,الزقم</address>
         </li>
 
         <li class="footer-nav-item flex">
@@ -198,7 +183,7 @@
             <ion-icon name="call-outline"></ion-icon>
           </div>
 
-          <a href="tel:+607936-8058" class="footer-nav-link">(607) 936-8058</a>
+          <a href="tel:+2130795909128" class="footer-nav-link">+213 07 95909128</a>
         </li>
 
         <li class="footer-nav-item flex">
@@ -206,16 +191,14 @@
             <ion-icon name="mail-outline"></ion-icon>
           </div>
 
-          <a href="mailto:example@gmail.com" class="footer-nav-link">example@gmail.com</a>
+          <a href="mailto:example@gmail.com" class="footer-nav-link">hareth0609@gmail.com</a>
         </li>
-
       </ul>
 
       <ul class="footer-nav-list">
-
         <li class="footer-nav-item">
-          <h2 class="nav-title">{{__('Follow Us')}}</h2>
-        </li>
+          <h2 class="nav-title">{{ __('Follow Us') }}</h2>
+    </li>
 
         <li>
           <ul class="social-link">
@@ -257,7 +240,7 @@
 
     <div class="container">
 
-      <img src="{{ asset('assets/home/images/payment.png') }}" alt="payment method" class="payment-img">
+      {{-- <img src="{{ asset('assets/home/images/payment.png') }}" alt="payment method" class="payment-img"> --}}
 
       <p class="copyright">
         {{__('Copyright')}} &copy; <a href="{{ route('home') }}">شتلة</a> {{__('all rights reserved.')}}

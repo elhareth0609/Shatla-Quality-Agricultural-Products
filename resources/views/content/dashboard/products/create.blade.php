@@ -31,7 +31,7 @@
             @csrf
             <div class="card-body">
               <div class="d-flex align-items-start align-items-sm-center gap-4">
-                <img src="{{asset('assets/img/photos/products/default.png')}}" alt="user-avatar" class="d-block rounded" id="uploadedAvatar" style="width: 340px!important;height: 180px!important"/>
+                <img src="{{asset('assets/img/photos/products/default.png')}}" alt="user-avatar" class="d-block rounded" id="uploadedAvatar" style="width: 170px!important;height: 180px!important"/>
                 <div class="button-wrapper">
                   <label for="upload" class="btn btn-primary me-2 mb-3" tabindex="0">
                     <span class="d-none d-sm-block">{{ __('Upload Photo') }}</span>
@@ -50,8 +50,8 @@
             <div class="row d-flex">
             <div class="col-md-6 mb-3">
               <div class="form-floating form-floating-outline">
-                <input type="text" class="form-control" id="address" name="title" placeholder="{{ __('Title') }}" />
-                <label for="address">{{ __('Title') }}</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="{{ __('Name') }}" />
+                <label for="address">{{ __('Name') }}</label>
               </div>
             </div>
             <div class="col-md-6 mb-3">
@@ -66,9 +66,15 @@
                 <label for="subcategory">{{ __('SubCategory') }}</label>
               </div>
             </div>
+            <label for="defaultInput" class="form-label d-flex {{ app()->getLocale() == 'ar' ? 'justify-content-end' : '' }}">{{ __('Description') }}</label>
             <div class="col-md-12 mb-3">
-                <textarea name="content" id="content">
+                <textarea name="description" id="description">
                 </textarea>
+            </div>
+            <label for="defaultInput" class="form-label d-flex {{ app()->getLocale() == 'ar' ? 'justify-content-end' : '' }}">{{ __('Content') }}</label>
+            <div class="col-md-12 mb-3">
+              <textarea name="content" id="content">
+              </textarea>
             </div>
             <div class="col-md-6 mb-3">
               <div class="input-group">
@@ -80,16 +86,52 @@
             <div class="col-md-6 mb-3">
               <div class="form-floating form-floating-outline">
                 <select id="status" name="status" class="form-select">
-                  <option value="draft" selected>{{ __('Draft') }}</option>
-                  <option value="published" >{{ __("Published") }}</option>
+                  <option value="active" selected>{{ __('Active') }}</option>
+                  <option value="inactive" >{{ __("In Active") }}</option>
                 </select>
                 <label for="status">{{ __('Status') }}</label>
               </div>
             </div>
+
+            <div class="col-md-6 mb-3">
+              <div class="form-floating form-floating-outline">
+                <input type="number" class="form-control" id="price" name="price" placeholder="{{ __('Price') }}" min="0" step="0.01" required />
+                <label for="price">{{ __('Price') }}</label>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="form-floating form-floating-outline">
+                <input type="number" class="form-control" id="last_price" name="last_price" placeholder="{{ __('Last Price') }}" min="0" step="0.01" />
+                <label for="last_price">{{ __('Last Price') }}</label>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="form-floating form-floating-outline">
+                <input type="number" class="form-control" id="amount_price" name="amount_price" placeholder="{{ __('Amount Price') }}" min="0" step="0.01" />
+                <label for="amount_price">{{ __('Amount Price') }}</label>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="form-floating form-floating-outline">
+                <input type="number" class="form-control" id="percentage" name="percentage" placeholder="{{ __('Percentage') }}" min="0" max="100" step="0.01" />
+                <label for="percentage">{{ __('Percentage') }}</label>
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <div class="form-floating form-floating-outline">
+                <input type="number" class="form-control" id="quantity" name="quantity" placeholder="{{ __('Quantity') }}" min="0" step="1" />
+                <label for="quantity">{{ __('Quantity') }}</label>
+              </div>
+            </div>
+
           </div>
           </div>
           <div class="tab-pane fade" id="navs-justified-profile" role="tabpanel">
-            <div id="dropzone" class="dropzone"></div>
+            <label for="defaultInput" class="form-label d-flex {{ app()->getLocale() == 'ar' ? 'justify-content-end' : '' }}">{{ __('Images For Product') }}</label>
+            <div id="dropzone1" class="dropzone"></div>
+            <label for="defaultInput" class="form-label d-flex {{ app()->getLocale() == 'ar' ? 'justify-content-end' : '' }}">{{ __('Images For Content') }}</label>
+            <div id="dropzone2" class="dropzone"></div>
           </div>
           <button type="submit" class="btn btn-primary float-end" >{{ __('Submit') }}</button>
         </div>
@@ -122,7 +164,9 @@
     })
 
     Dropzone.autoDiscover = false;
-    var myDropzone = new Dropzone("#dropzone", {
+
+    // Initialize first Dropzone
+    var dropzone1 = new Dropzone("#dropzone1", {
         url: "{{ route('product.upload') }}",
         autoProcessQueue: false,
         acceptedFiles: 'image/*',
@@ -131,39 +175,91 @@
         parallelUploads: 15,
         dictDefaultMessage: __("Drag and drop files here or click to upload",lang),
         headers: {
-          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         },
         params: {
-          product_id: productId
+            product_id: productId,
+            typeof: '0'
         },
         init: function() {
-        this.on("complete", function(file) {
-            // Redirect to the products URL after all files have been uploaded
-            window.location.href = "{{ route('products') }}";
-        });
-    }
-
+            this.on("complete", function(file) {
+                // Optionally handle completion of individual files
+            });
+        }
     });
 
-    myDropzone.on("success", function(file, response) {
+    dropzone1.on("success", function(file, response) {
         console.log('File uploaded successfully:', file.name);
     });
 
-    myDropzone.on("error", function(file, errorMessage) {
+    dropzone1.on("error", function(file, errorMessage) {
         console.error('Error uploading file:', errorMessage);
     });
 
-    function uploadFiles(product) {
-        var myDropzone = Dropzone.forElement("#dropzone");
+    // Initialize second Dropzone
+    var dropzone2 = new Dropzone("#dropzone2", {
+        url: "{{ route('product.upload') }}",
+        autoProcessQueue: false,
+        acceptedFiles: 'image/*',
+        maxFilesize: 150,
+        addRemoveLinks: true,
+        parallelUploads: 15,
+        dictDefaultMessage: __("Drag and drop files here or click to upload",lang),
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        params: {
+            product_id: productId,
+            typeof: '0'
+        },
+        init: function() {
+            this.on("complete", function(file) {
+                // Optionally handle completion of individual files
+            });
+        }
+    });
 
-        myDropzone.on("sending", function(file, xhr, formData) {
+    dropzone2.on("success", function(file, response) {
+        console.log('File uploaded successfully:', file.name);
+    });
+
+    dropzone2.on("error", function(file, errorMessage) {
+        console.error('Error uploading file:', errorMessage);
+    });
+
+    // Function to process file uploads for both Dropzones
+    function uploadFiles() {
+        var dropzone1Instance = Dropzone.forElement("#dropzone1");
+        var dropzone2Instance = Dropzone.forElement("#dropzone2");
+
+        // Attach additional form data before sending files
+        dropzone1Instance.on("sending", function(file, xhr, formData) {
             formData.append("product_id", productId);
+            formData.append("typeof", '0');
         });
 
-        myDropzone.processQueue();
+        dropzone2Instance.on("sending", function(file, xhr, formData) {
+            formData.append("product_id", productId);
+            formData.append("typeof", '1');
+        });
+
+        // Process file queues
+        dropzone1Instance.processQueue();
+        dropzone2Instance.processQueue();
     }
 
+    // Ensure both Dropzones complete before redirecting (if needed)
+    dropzone1.on("queuecomplete", function() {
+        if (dropzone2.getQueuedFiles().length === 0 && dropzone2.getUploadingFiles().length === 0) {
+            // window.location.href = "{{ route('products') }}";
+        }
+    });
 
+    dropzone2.on("queuecomplete", function() {
+        if (dropzone1.getQueuedFiles().length === 0 && dropzone1.getUploadingFiles().length === 0) {
+            // window.location.href = "{{ route('products') }}";
+        }
+    });
 
 
 $(document).ready(function() {
@@ -177,6 +273,21 @@ $(document).ready(function() {
         text: 'Save',
         onAction: function () {
           $('textarea[name="content"]').val(editor.getContent());
+          $('#contentForm').submit();
+        }
+      });
+    }
+  });
+
+  tinymce.init({
+    selector: 'textarea[name="description"]',
+    plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount linkchecker markdown',
+    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat | Save',
+    setup: function (editor) {
+      editor.ui.registry.addButton('save', {
+        text: 'Save',
+        onAction: function () {
+          $('textarea[name="description"]').val(editor.getContent());
           $('#contentForm').submit();
         }
       });
@@ -220,7 +331,7 @@ $(document).ready(function() {
     });
   });
 
-  });
+});
 
 </script>
 

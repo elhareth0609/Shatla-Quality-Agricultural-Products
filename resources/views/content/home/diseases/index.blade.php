@@ -4,7 +4,13 @@
 
 @section('content')
 
-<div class="container my-1">
+<div class="container my-5">
+    <div class="row justify-content-center mb-5">
+      <div class="col-md-8 text-center my-w-fit-content">
+        <h1 class="mb-4">{{ __('What Your Plant?') }}</h1>
+        <div class="border-bottom border-dark"></div>
+      </div>
+    </div>
   @foreach ($items as $item)
     <a class="checkbox m-1 d-inline-block" @if ($item->status == '1')
     href="{{ route('diseases.predict',$item->id) }}"

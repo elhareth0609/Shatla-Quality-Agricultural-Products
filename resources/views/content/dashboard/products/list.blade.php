@@ -91,7 +91,7 @@
 
 <script type="text/javascript">
       var lang = "{{ app()->getLocale() }}";
-
+      var table;
       function editProduct(id) {
         window.location.href = ("{{ url('product/') }}/" + id);
       }
@@ -169,7 +169,7 @@
 
 $(document).ready(function() {
   $.noConflict();
-      var table = $('#products').DataTable({
+        table = $('#products').DataTable({
           processing: true,
           serverSide: true,
           language: {

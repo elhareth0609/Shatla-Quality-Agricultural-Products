@@ -26,12 +26,9 @@
 
                 {{-- <a class="badge bg-secondary text-decoration-none link-light text-white" href="{{ route('subcategory.view',$publication->subcategory->id) }}">{{ $publication->subcategory->getName() }}</a> --}}
               </header>
-              <figure class="mb-4">
-                <img class="img-fluid rounded" src="{{ $publication->photoUrl() }}" alt="{{ $publication->title }}" style="width: 720px;height: 350px;"/>
-              </figure>
 
               <section class="mb-5">
-                {{ $publication->content }}
+                {!! $publication->content !!}
               </section>
           </article>
 

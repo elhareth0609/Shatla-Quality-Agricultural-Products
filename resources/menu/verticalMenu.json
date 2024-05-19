@@ -103,7 +103,7 @@
       "slug": "publications"
     },
     {
-      "menuHeader": "Settings & Pages"
+      "menuHeader": "Settings"
     },
     {
       "url": "/settings",
@@ -113,18 +113,15 @@
       "submenu": [
         {
           "url": "/account-settings",
+          "required": "manage account",
           "name": "Account",
           "slug": "settings.account"
         },
         {
           "url": "/website-settings",
+          "required": "manage website",
           "name": "Website",
           "slug": "settings.website"
-        },
-        {
-          "url": "/store-settings",
-          "name": "Store",
-          "slug": "settings.store"
         }
       ]
     },

@@ -34,7 +34,7 @@
             @csrf
             <div class="card-body">
               <div class="d-flex align-items-start align-items-sm-center gap-4">
-                <img src="{{ $product->photoUrl() }}" alt="user-avatar" class="d-block rounded" id="uploadedAvatar" style="width: 340px!important;height: 180px!important"/>
+                <img src="{{ $product->firstPhoto() }}" alt="user-avatar" class="d-block rounded" id="uploadedAvatar" style="width: 170px!important;height: 180px!important"/>
                 <div class="button-wrapper">
                   <label for="upload" class="btn btn-primary me-2 mb-3" tabindex="0">
                     <span class="d-none d-sm-block">{{ __('Upload Photo') }}</span>
@@ -54,8 +54,8 @@
 
               <div class="col-md-6 mb-3">
                 <div class="form-floating form-floating-outline">
-                  <input type="text" class="form-control" id="address" name="title" placeholder="{{ __('Title') }}" value="{{ $product->title }}" />
-                  <label for="address">{{ __('Title') }}</label>
+                  <input type="text" class="form-control" id="name" name="name" placeholder="{{ __('Name') }}" value="{{ $product->name }}" />
+                  <label for="name">{{ __('Name') }}</label>
                 </div>
               </div>
 
@@ -74,8 +74,14 @@
                 </div>
               </div>
 
+              <label for="defaultInput" class="form-label d-flex {{ app()->getLocale() == 'ar' ? 'justify-content-end' : '' }}">{{ __('Description') }}</label>
               <div class="col-md-12 mb-3">
-                  <textarea name="content" id="content">{{ $product->content }}</textarea>
+                  <textarea name="description" id="description">{{ $product->description }}</textarea>
+              </div>
+
+              <label for="defaultInput" class="form-label d-flex {{ app()->getLocale() == 'ar' ? 'justify-content-end' : '' }}">{{ __('Content') }}</label>
+              <div class="col-md-12 mb-3">
+                <textarea name="content" id="content">{{ $product->content }}</textarea>
               </div>
 
               <div class="col-md-6 mb-3">
@@ -89,21 +95,58 @@
               <div class="col-md-6 mb-3">
                 <div class="form-floating form-floating-outline">
                   <select id="status" name="status" class="form-select">
-                  @if ($product->status == 'published')
-                    <option value="published" selected>{{ __("Published") }}</option>
-                    <option value="draft">{{ __('Draft') }}</option>
+                  @if ($product->status == 'active')
+                    <option value="active" selected>{{ __("Active") }}</option>
+                    <option value="inactive">{{ __('In Active') }}</option>
                   @elseif ($product->status == 'draft')
-                    <option value="draft" selected>{{ __('Draft') }}</option>
-                    <option value="published">{{ __("Published") }}</option>
+                    <option value="inactive" selected>{{ __('In Active') }}</option>
+                    <option value="active">{{ __("Active") }}</option>
                   @endif
                   </select>
                   <label for="status">{{ __('Status') }}</label>
                 </div>
               </div>
+
+              <div class="col-md-6 mb-3">
+                <div class="form-floating form-floating-outline">
+                  <input type="number" class="form-control" id="price" name="price" placeholder="{{ __('Price') }}" value="{{ $product->price }}" min="0" step="0.01" required />
+                  <label for="price">{{ __('Price') }}</label>
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <div class="form-floating form-floating-outline">
+                  <input type="number" class="form-control" id="last_price" name="last_price" placeholder="{{ __('Last Price') }}" value="{{ $product->last_price }}"  min="0" step="0.01" />
+                  <label for="last_price">{{ __('Last Price') }}</label>
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <div class="form-floating form-floating-outline">
+                  <input type="number" class="form-control" id="amount_price" name="amount_price" placeholder="{{ __('Amount Price') }}" value="{{ $product->amount_price }}" min="0" step="0.01" />
+                  <label for="amount_price">{{ __('Amount Price') }}</label>
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <div class="form-floating form-floating-outline">
+                  <input type="number" class="form-control" id="percentage" name="percentage" placeholder="{{ __('Percentage') }}" value="{{ $product->percentage }}" min="0" max="100" step="0.01" />
+                  <label for="percentage">{{ __('Percentage') }}</label>
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <div class="form-floating form-floating-outline">
+                  <input type="number" class="form-control" id="quantity" name="quantity" placeholder="{{ __('Quantity') }}" value="{{ $product->quantity }}" min="0" step="1" />
+                  <label for="quantity">{{ __('Quantity') }}</label>
+                </div>
+              </div>
+
+
             </div>
           </div>
           <div class="tab-pane fade" id="navs-justified-profile" role="tabpanel">
+            <label for="defaultInput" class="form-label d-flex {{ app()->getLocale() == 'ar' ? 'justify-content-end' : '' }}">{{ __('Images For Product') }}</label>
             <div id="dropzone" class="dropzone"></div>
+            <label for="defaultInput" class="form-label d-flex {{ app()->getLocale() == 'ar' ? 'justify-content-end' : '' }}">{{ __('Images For Content') }}</label>
+            <div id="dropzone1" class="dropzone"></div>
             <div class="photos-container">
               @foreach ($product->photos as $photo)
                 <div class="image-container text-center my-w-fit-content mb-2 mx-auto position-relative">
@@ -173,6 +216,7 @@ width: 720px;
         dictDefaultMessage: __("Drag and drop files here or click to upload",lang),
         sending: function(file, xhr, formData) {
             formData.append('product_id', productId);
+            formData.append('typeof', 0);
             formData.append('_token', csrfToken);
         }
 
@@ -183,6 +227,30 @@ width: 720px;
     });
 
     myDropzone.on("error", function(file, errorMessage) {
+        console.error('Error uploading file:', errorMessage);
+    });
+
+    var myDropzone1 = new Dropzone("#dropzone1", {
+        url: "{{ route('product.upload') }}",
+        autoProcessQueue: true,
+        acceptedFiles: 'image/*',
+        maxFilesize: 150,
+        addRemoveLinks: true,
+        parallelUploads: 15,
+        dictDefaultMessage: __("Drag and drop files here or click to upload",lang),
+        sending: function(file, xhr, formData) {
+            formData.append('product_id', productId);
+            formData.append('typeof', 1);
+            formData.append('_token', csrfToken);
+        }
+
+    });
+
+    myDropzone1.on("success", function(file, response) {
+
+    });
+
+    myDropzone1.on("error", function(file, errorMessage) {
         console.error('Error uploading file:', errorMessage);
     });
 
@@ -198,6 +266,21 @@ $(document).ready(function() {
         text: 'Save',
         onAction: function () {
           $('textarea[name="content"]').val(editor.getContent());
+          $('#contentForm').submit();
+        }
+      });
+    }
+  });
+
+  tinymce.init({
+    selector: 'textarea[name="description"]',
+    plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount linkchecker markdown',
+    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat | Save',
+    setup: function (editor) {
+      editor.ui.registry.addButton('save', {
+        text: 'Save',
+        onAction: function () {
+          $('textarea[name="description"]').val(editor.getContent());
           $('#contentForm').submit();
         }
       });

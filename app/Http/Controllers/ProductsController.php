@@ -13,6 +13,36 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductsController extends Controller {
 
+  public function moreHome(Request $request) {
+      $page = $request->get('page', 1);
+      $perPage = 12;
+      $products = Product::where('status', 'active')
+                  ->orderBy('created_at', 'desc')
+                  ->skip(($page - 1) * $perPage)
+                  ->take($perPage)
+                  ->get();
+
+      $html = '';
+      foreach ($products as $product) {
+          $html .= view('components.product', ['product' => $product])->render();
+      }
+
+      $hasMore = Product::where('status', 'active')->count() > $page * $perPage;
+
+      return response()->json(['products' => $products->map(function($product) {
+          return [
+              'id' => $product->id,
+              'html' => view('components.product', ['product' => $product])->render(),
+          ];
+      }), 'hasMore' => $hasMore]);
+  }
+
+  public function index() {
+    $products = Product::where('status','active')->orderBy('created_at', 'desc')->take(16)->get();
+    return view('content.home.products.all')
+    ->with('products', $products);
+  }
+
   public function view($id) {
     $product = Product::find($id);
     $product->view += 1;
@@ -20,7 +50,6 @@ class ProductsController extends Controller {
     return view('content.home.products.index')
     ->with('product',$product);
   }
-
 
   public function get($id) {
     $product = Product::find($id);
@@ -30,11 +59,6 @@ class ProductsController extends Controller {
     ->with('product',$product);
   }
 
-  public function index() {
-    $products = Product::all();
-    return view('content.home.products.all')
-    ->with('products', $products);
-  }
 
   public function create_index() {
     $subcategorys = SubCategory::where('type','products')->get();
@@ -44,12 +68,18 @@ class ProductsController extends Controller {
 
   public function create(Request $request) {
     $validator = Validator::make($request->all(), [
-      'title' => 'required|string|max:255',
-      'subcategory' => 'required|string',
+      'name' => 'required|string|max:255',
       'content' => 'required|string',
-      'first_image' => 'required|image|mimes:jpeg,png,jpg',
+      'price' => 'required|numeric|min:0',
+      'last_price' => 'nullable|numeric|min:0',
+      'quantity' => 'required|numeric|min:0',
+      'amount_price' => 'nullable|numeric|min:0',
+      'description' => 'required|string',
+      'status' => 'required|in:active,inactive',
+      'percentage' => 'nullable|numeric|min:0|max:100',
+      'subcategory' => 'required|exists:sub_categories,id',
       'tags' => 'nullable|string',
-      'status' => 'required|in:draft,published',
+      'first_image' => 'required|image|mimes:jpeg,png,jpg',
     ]);
 
     if ($validator->fails()) {
@@ -61,21 +91,34 @@ class ProductsController extends Controller {
     }
 
     try {
+
+      $product = new Product();
+      $product->name = $request->name;
+      $product->content = $request->content;
+      $product->price = $request->price;
+      $product->last_price = $request->last_price;
+      $product->amount_price = $request->amount_price;
+      $product->description = $request->description;
+      $product->status = $request->status;
+      $product->quantity = $request->quantity;
+      $product->percentage = $request->percentage;
+      $product->subcategory_id = $request->subcategory;
+      $product->seller_id = Auth::user()->id;
+      $product->tags = Product::TagsToString(json_decode($request->tags, true));
+      $product->save();
+
       if ($request->hasFile('first_image')) {
         $image = $request->file('first_image');
         $imageName = time() . '_' . $image->getClientOriginalName(); // Generate unique image name
         $image->move(public_path('assets/img/photos/products/'), $imageName);
-      }
 
-      $product = new Product;
-      $product->title = $request->title;
-      $product->content = $request->content;
-      $product->status = $request->status;
-      $product->subcategory_id = $request->subcategory;
-      $product->user_id = Auth::user()->id;
-      $product->tags = Product::TagsToString(json_decode($request->tags, true));
-      $product->image = $imageName;
-      $product->save();
+        $photo = new ProductPhoto();
+        $photo->product_id = $product->id;
+        $photo->photo = $imageName;
+        $photo->type = '1';
+        $photo->typeof = '0';
+        $photo->save();
+      }
 
       return response()->json([
         'icon' => 'success',
@@ -95,6 +138,7 @@ class ProductsController extends Controller {
   public function uploadPhotos(Request $request) {
     $validator = Validator::make($request->all(), [
       'product_id' => 'required|string',
+      'typeof' => 'required',
       'file' => 'required|image|mimes:jpeg,png,jpg', // Validate each file in the array
     ]);
 
@@ -114,7 +158,8 @@ class ProductsController extends Controller {
 
         $newPhoto = new ProductPhoto();
         $newPhoto->product_id = $request->product_id;
-        $newPhoto->image = $imageName;
+        $newPhoto->photo = $imageName;
+        $newPhoto->typeof = $request->typeof;
         $newPhoto->save();
 
       return response()->json([
@@ -162,12 +207,18 @@ class ProductsController extends Controller {
   public function update(Request $request) {
 
     $validator = Validator::make($request->all(), [
-      'title' => 'required|string|max:255',
-      'subcategory' => 'required|string',
+      'name' => 'required|string|max:255',
       'content' => 'required|string',
-      'first_image' => 'sometimes|image|mimes:jpeg,png,jpg',
+      'price' => 'required|numeric|min:0',
+      'last_price' => 'nullable|numeric|min:0',
+      'quantity' => 'required|numeric|min:0',
+      'amount_price' => 'nullable|numeric|min:0',
+      'description' => 'required|string',
+      'status' => 'required|in:active,inactive',
+      'percentage' => 'nullable|numeric|min:0|max:100',
+      'subcategory' => 'required|exists:sub_categories,id',
       'tags' => 'nullable|string',
-      'status' => 'required|in:draft,published',
+      'first_image' => 'sometimes|image|mimes:jpeg,png,jpg',
     ]);
 
     if ($validator->fails()) {
@@ -181,17 +232,32 @@ class ProductsController extends Controller {
     try {
       $product = Product::find($request->id);
       if ($request->hasFile('first_image')) {
+        $photo = ProductPhoto::where('product_id', $product->id)->where('type', 1)->first();
+
+        $filePath = public_path('assets/img/photos/products/') . $photo->photo;
+        if (file_exists($filePath)) {
+          unlink($filePath);
+        }
+
         $image = $request->file('first_image');
-        $imageName = time() . '_' . $image->getClientOriginalName();
+        $imageName = time() . '_' . $image->getClientOriginalName(); // Generate unique image name
         $image->move(public_path('assets/img/photos/products/'), $imageName);
-        $product->image = $imageName;
+
+        $photo->photo = $imageName;
+        $photo->save();
+
       }
 
-      $product->title = $request->title;
+      $product->name = $request->name;
       $product->content = $request->content;
+      $product->price = $request->price;
+      $product->last_price = $request->last_price;
+      $product->amount_price = $request->amount_price;
+      $product->description = $request->description;
       $product->status = $request->status;
+      $product->quantity = $request->quantity;
+      $product->percentage = $request->percentage;
       $product->subcategory_id = $request->subcategory;
-      $product->user_id = Auth::user()->id;
       $product->tags = Product::TagsToString(json_decode($request->tags, true));
       $product->save();
 
@@ -213,6 +279,14 @@ class ProductsController extends Controller {
 
   public function delete($id) {
       $product = Product::find($id);
+
+      foreach($product->photos() as $image) {
+        $filePath = public_path('assets/img/photos/products/') . $image->photo;
+        if (file_exists($filePath)) {
+          unlink($filePath);
+        }
+      }
+
       $product->delete();
       return response()->json([
         'icon' => 'success',

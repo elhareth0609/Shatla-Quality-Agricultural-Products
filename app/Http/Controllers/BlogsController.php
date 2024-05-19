@@ -14,17 +14,44 @@ use Illuminate\Support\Facades\Validator;
 class BlogsController extends Controller
 {
     public function index() {
-      $blogs = Blog::all();
+      $blogs = Blog::where('status','published')->orderBy('created_at', 'desc')->take(15)->get();
       return view('content.home.blogs.index')
       ->with('blogs', $blogs);
     }
 
+    public function moreHome(Request $request) {
+        $page = $request->get('page', 1);
+        $perPage = 6;
+        $blogs = Blog::where('status', 'published')
+                    ->orderBy('created_at', 'desc')
+                    ->skip(($page - 1) * $perPage)
+                    ->take($perPage)
+                    ->get();
+
+        $html = '';
+        foreach ($blogs as $blog) {
+            $html .= view('components.blog', ['blog' => $blog])->render();
+        }
+
+        $hasMore = Blog::where('status', 'published')->count() > $page * $perPage;
+
+        return response()->json(['blogs' => $blogs->map(function($blog) {
+            return [
+                'id' => $blog->id,
+                'html' => view('components.blog', ['blog' => $blog])->render(),
+            ];
+        }), 'hasMore' => $hasMore]);
+    }
+
     public function ones($id) {
+      // $blogs = Blog::where('id', '!=',$id)->get();;
+      $blogs = Blog::where('status','published')->orderBy('created_at', 'desc')->take(6)->get();
       $blog = Blog::find($id);
       $blog->view += 1;
       $blog->save();
       return view('content.home.blogs.ones')
-      ->with('blog', $blog);
+      ->with('blog', $blog)
+      ->with('blogs', $blogs);
     }
 
     public function get($id) {

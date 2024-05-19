@@ -13,9 +13,33 @@ use Illuminate\Support\Facades\Validator;
 class PublicationController extends Controller
 {
   public function index() {
-    $publications = Publication::all();
+    $publications = Publication::where('status','published')->orderBy('created_at', 'desc')->take(15)->get();
     return view('content.home.publications.index')
     ->with('publications', $publications);
+  }
+
+  public function moreHome(Request $request) {
+      $page = $request->get('page', 1);
+      $perPage = 6;
+      $publications = Publication::where('status', 'published')
+                  ->orderBy('created_at', 'desc')
+                  ->skip(($page - 1) * $perPage)
+                  ->take($perPage)
+                  ->get();
+
+      $html = '';
+      foreach ($publications as $publication) {
+          $html .= view('components.publication', ['publication' => $publication])->render();
+      }
+
+      $hasMore = publication::where('status', 'published')->count() > $page * $perPage;
+
+      return response()->json(['publications' => $publications->map(function($publication) {
+          return [
+              'id' => $publication->id,
+              'html' => view('components.publication', ['publication' => $publication])->render(),
+          ];
+      }), 'hasMore' => $hasMore]);
   }
 
   public function ones($id) {
