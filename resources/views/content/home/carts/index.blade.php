@@ -29,7 +29,7 @@
                       @if(session('currency', config('currency.default_currency')) === 'DZ')
                           <td class="align-middle" dir="rtl"><p class="d-flex m-0" id="price-item-{{ $product->product->id }}">{{ $product->product->price }}</p>{{ config('currency.currencies.' . session('currency', config('currency.default_currency'))) }}</td>
                       @else
-                          <td class="align-middle">{{ config('currency.currencies.' . session('currency', config('currency.default_currency'))) }}<p class="d-flex m-0" id="price-item-{{ $product->product->id }}">{{ $product->price }}</p></td>
+                          <td class="align-middle">{{ config('currency.currencies.' . session('currency', config('currency.default_currency'))) }}<p class="d-flex m-0" id="price-item-{{ $product->product->id }}">{{ $product->product->price }}</p></td>
                       @endif
                       <td class="align-middle">
                         <div class="btn-group" dir="ltr" role="group" aria-label="Second group">
@@ -45,7 +45,7 @@
                       @if(session('currency', config('currency.default_currency')) === 'DZ')
                           <td class="align-middle subtotal-item" dir="rtl"><p class="d-flex m-0" id="subtotal-item-{{ $product->product->id }}">{{ $product->product->price * $product->quantity }}</p>{{ config('currency.currencies.' . session('currency', config('currency.default_currency'))) }}</td>
                       @else
-                          <td class="align-middle subtotal-item">{{ config('currency.currencies.' . session('currency', config('currency.default_currency'))) }}<p class="d-flex m-0" id="subtotal-item-{{ $product->product->id }}">{{ $product->product->price * $product->pivot->quantity }}</p></td>
+                          <td class="align-middle subtotal-item">{{ config('currency.currencies.' . session('currency', config('currency.default_currency'))) }}<p class="d-flex m-0" id="subtotal-item-{{ $product->product->id }}">{{ $product->product->price * $product->quantity }}</p></td>
                       @endif
                       <td class="align-middle">
                         <button type="button" class="btn btn-icon btn-outline-primary btn-remove-cart">
@@ -132,18 +132,19 @@
     var subtotal = parseFloat($('#subtotal-cart').text());
     var shipping = parseFloat($('#shipping-cart').text());
     var discountPercentage = parseFloat($('#discount-coupon').text());
-    var discountedAmount = (subtotal * (discountPercentage / 100)).toFixed(2);
-    var totalCartValue = (discountedAmount + shipping).toFixed(2);
+
+    var discountedAmount = (subtotal * (discountPercentage? discountPercentage/ 100 : 1/ 100   )).toFixed(2);
+    var totalCartValue = (discountedAmount + shipping);
     $('#total-cart').text(totalCartValue);
   }
 
-$(document).ready(function() {
+  $(document).ready(function() {
 
     $(document).on('subtotalUpdated', function() {
       var totalSubtotal = 0;
 
       $('.subtotal-item').each(function() {
-        totalSubtotal += parseFloat($(this).text());
+        totalSubtotal += parseFloat($(this).text().trim().replace(/[^0-9.-]+/g, ""));
       });
 
       $('#subtotal-cart').text(totalSubtotal.toFixed(2));

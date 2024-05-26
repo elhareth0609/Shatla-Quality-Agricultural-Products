@@ -183,7 +183,7 @@
             <ion-icon name="call-outline"></ion-icon>
           </div>
 
-          <a href="tel:+2130795909128" class="footer-nav-link">+213 07 95909128</a>
+          <a href="tel:+2130795909128" dir="ltr" class="footer-nav-link">+213 07 95909128</a>
         </li>
 
         <li class="footer-nav-item flex">

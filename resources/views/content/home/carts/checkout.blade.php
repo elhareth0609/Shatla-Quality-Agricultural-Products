@@ -94,6 +94,9 @@
                   <div class="d-flex justify-content-between mb-3 pt-1">
                       <h6 class="font-weight-medium">{{ __('Subtotal') }}</h6>
                       <h5 class="font-weight-medium d-flex">
+                    @php
+                      $shipping = App\Models\Details::where('type', 'shipping')->first()->content;
+                    @endphp
                         @if(session('currency', config('currency.default_currency')) === 'DZ')
                             <p class="d-flex m-0" id="total-cart">{{ Auth::user()->cart->totalCart() }}</p>{{ config('currency.currencies.' . session('currency', config('currency.default_currency'))) }}
                         @else
@@ -102,9 +105,6 @@
                       </h5>                  </div>
                   <div class="d-flex justify-content-between mb-3">
                     <h6 class="font-weight-medium">{{ __('Shipping') }}</h6>
-                    @php
-                      $shipping = App\Models\Details::where('type', 'shipping')->first()->content;
-                    @endphp
                     <h6 class="font-weight-medium d-flex">
                       @if(session('currency', config('currency.default_currency')) === 'DZ')
                           <p class="d-flex m-0" id="shipping-cart">{{ $shipping }}</p>{{ config('currency.currencies.' . session('currency', config('currency.default_currency'))) }}

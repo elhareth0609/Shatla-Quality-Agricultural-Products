@@ -60,7 +60,7 @@
         <ion-icon name="star-outline"></ion-icon>
       </div>
       <div class="price-box">
-        <p class="price mb-0">{{ $product->price }}</p>
+        <p class="price mb-0">{{ $product->getNewPrice(session('currency', config('currency.default_currency'))) }} {{ session('currency', config('currency.currencies[1]')) }}</p>
         @if ($product->last_price)
           <del>{{ $product->last_price }}</del>
         @endif

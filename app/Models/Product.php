@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use GuzzleHttp\Client;
 
 class Product extends Model
 {
@@ -64,9 +65,9 @@ class Product extends Model
       // if ($currency === config('currency.default_currency')) {
       //   return $price;
       // }
+    $this->client = new Client();
 
-    $baseCurrency = 'DZD';
-
+    $baseCurrency = $currency;
     $response = $this->client->get("https://open.er-api.com/v6/latest/{$baseCurrency}");
     $data = json_decode($response->getBody(), true);
 

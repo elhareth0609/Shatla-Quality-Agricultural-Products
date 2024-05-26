@@ -44,15 +44,30 @@ class DiseasesController extends Controller
 
         $responseData = $response->json();
         // dd($responseData);
+        // dd($class);
         $class = $responseData['class'];
-        if ($class == 'Early Blight' || $class == 'Early-blight') {
+        if ($class == 'Early Blight' || $class == 'Tomato_Early_blight') {
           $class = 'early blight';
-        } else if ($class == 'Late Blight' || $class == 'Late-blight') {
+        } else if ($class == 'Late Blight' || $class == 'Tomato_Late_blight') {
           $class = 'late blight';
-        } else if ($class == 'Healthy' || $class == 'Healthy') {
+        } else if ($class == 'Healthy' || $class == 'Tomato_healthy') {
+          $class = 'healthy';
+        } else if ($class == 'Tomato_Bacterial_spot') {
+          $class = 'healthy';
+        } else if ($class == 'Tomato_Leaf_Mold') {
+          $class = 'healthy';
+        } else if ($class == 'Tomato_Septoria_leaf_spot') {
+          $class = 'healthy';
+        } else if ($class == 'Tomato_Spider_mites_Two_spotted_spider_mite') {
+          $class = 'healthy';
+        } else if ($class == 'Tomato__Target_Spot') {
+          $class = 'healthy';
+        } else if ($class == 'Tomato__Tomato_YellowLeaf__Curl_Virus') {
+          $class = 'healthy';
+        } else if ($class == 'Tomato__Tomato_mosaic_virus') {
           $class = 'healthy';
         }
-        // dd($class);
+
         $confidence = $responseData['confidence'];
 
         $disease = Disease::where('name_en',$class)->first();
