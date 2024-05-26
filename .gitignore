@@ -1,5 +1,5 @@
 /.phpunit.cache
-# /node_modules
+/node_modules
 
 /public/build
 /public/hot
@@ -32,3 +32,4 @@ package-lock.log
 /public/assets/js
 /public/assets/css
 /public/assets/vendor
+# node_modules
