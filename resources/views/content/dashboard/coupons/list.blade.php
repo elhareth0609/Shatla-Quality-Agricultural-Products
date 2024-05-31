@@ -160,7 +160,6 @@
                         text: response.message,
                         confirmButtonText: __("Ok",lang)
                     });
-                    table.ajax.reload();
                 },
                 error: function(xhr, textStatus, errorThrown) {
                     const response = JSON.parse(xhr.responseText);
@@ -325,8 +324,7 @@ $(document).ready(function() {
 
       var channel = pusher.subscribe('coupons');
       channel.bind('couponsEdited', function(data) {
-        alert(JSON.stringify(data));
-        console.log(data);
+        table.ajax.reload();
       });
     });
 

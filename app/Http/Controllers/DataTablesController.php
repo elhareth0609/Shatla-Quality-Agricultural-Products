@@ -96,20 +96,24 @@ class DataTablesController extends Controller
           return $product->subcategory->getName();
         })
         ->editColumn('status', function ($product) {
-          return $product->status;
-        })
+          if ($product->status == 'active') {
+            return '<span class="badge rounded-pill bg-label-success">'. __('Active') .'</span>';
+          } else if ($product->status == 'inactive') {
+            return '<span class="badge rounded-pill bg-label-secondary">'. __('In Active') .'</span>';
+          }        })
         ->editColumn('image', function ($product) {
           return $product->image;
         })
         ->editColumn('name', function ($product) {
           return $product->name;
         })
-        ->editColumn('seller_id', function ($product) {
-          return $product->seller->fullname;
-        })
+        // ->editColumn('seller_id', function ($product) {
+        //   return $product->seller->fullname;
+        // })
         ->editColumn('created_at', function ($expert) {
           return $expert->created_at->format('Y-m-d');
         })
+        ->rawColumns(['status'])
         ->make(true);
     }
     return view('content.dashboard.products.list');
@@ -130,7 +134,7 @@ class DataTablesController extends Controller
           return $expert->user->email;
         })
         ->editColumn('phone', function ($expert) {
-          return $expert->status;
+          return $expert->phone;
         })
         ->editColumn('photo', function ($expert) {
           return '
@@ -168,7 +172,7 @@ class DataTablesController extends Controller
           return $seller->fullname;
         })
         ->editColumn('phone', function ($seller) {
-          return $seller->status;
+          return $seller->phone;
         })
         ->editColumn('created_at', function ($seller) {
           return $seller->created_at->format('Y-m-d');
@@ -196,7 +200,7 @@ class DataTablesController extends Controller
           return $worker->fullname;
         })
         ->editColumn('phone', function ($worker) {
-          return $worker->status;
+          return $worker->phone;
         })
         ->editColumn('photo', function ($worker) {
           return '
@@ -290,8 +294,7 @@ class DataTablesController extends Controller
           if ($plan->status == 1) {
             return '<span class="badge rounded-pill bg-label-success">'. __('Active') .'</span>';
           } else {
-            return '<span class="badge rounded-pill bg-label-secondary">'. __('InActive') .'</span>';
-
+            return '<span class="badge rounded-pill bg-label-secondary">'. __('In Active') .'</span>';
           }
         })
         ->editColumn('image', function ($plan) {
@@ -344,11 +347,11 @@ class DataTablesController extends Controller
           return $coupon->code;
         })
         ->editColumn('status', function ($coupon) {
-          // if ($coupon->max === $coupon->sell->count()) {
-          //     return '<span class="badge rounded-pill bg-label-secondary">'. __('Stopped') .'</span>';
-          // }
-          return '<span class="badge rounded-pill bg-label-' . ($coupon->status == 'active' ? 'success' : 'secondary') . '">' . ($coupon->status == 'active' ? 'Active' : 'In Active') . '</span>';
-        })
+          if ($coupon->status == 'active') {
+            return '<span class="badge rounded-pill bg-label-success">'. __('Active') .'</span>';
+          } else {
+            return '<span class="badge rounded-pill bg-label-secondary">'. __('In Active') .'</span>';
+          }        })
         ->editColumn('discount', function ($coupon) {
           return $coupon->discount;
         })

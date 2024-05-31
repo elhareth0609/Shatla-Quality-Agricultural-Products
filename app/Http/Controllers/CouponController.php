@@ -145,9 +145,9 @@ class CouponController extends Controller
   public function delete($id) {
       try{
         $coupon = Coupon::find($id);
-        // $coupon->delete();
+        $coupon->delete();
         event(new PublicationDeleted($id));
-        
+
       return response()->json([
           'icon' => 'success',
           'state' => __("Success"),

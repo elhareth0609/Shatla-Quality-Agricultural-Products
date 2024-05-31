@@ -6,143 +6,144 @@
 <h4 class="py-3 mb-4" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}"><span class="text-muted fw-light">{{ __('Pages') }} /</span> {{ __('Events') }}
 </h4>
 
-<!-- Responsive Table -->
 <div class="card row" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
   <h5 class="card-header">{{ __('Events') }}</h5>
-  <!--/ Responsive Table -->
+  {{-- calendar --}}
   <div id="calendar"></div>
 
-    <div class="modal fade" id="addEvent" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
-          <div class="modal-header">
-            <h4 class="modal-title" id="modalCenterTitle">{{ __('Add Event') }}</h4>
-          </div>
-          <form id="addEventForm" method="POST" action="{{ route('events.create') }}">
-            @csrf
-
-            <div class="modal-body">
-
-              <div class="row">
-                <div class="col mb-4 mt-2">
-                  <div class="form-floating form-floating-outline">
-                    <input type="text" class="form-control" name="title" placeholder="{{ __('Enter Title') }}">
-                    <label for="title">{{ __('Title') }}</label>
-                  </div>
-                </div>
-              </div>
-
-                <div class="row">
-                  <div class="col mb-4 mt-2">
-                    <div class="form-floating form-floating-outline">
-                      <input type="text" class="form-control" name="description" placeholder="{{ __('Enter Description') }}">
-                      <label for="description">{{ __('Description') }}</label>
-                    </div>
-                  </div>
-                </div>
-
-              <div class="row">
-                <div class="col mb-4 mt-2">
-                  <div class="form-floating form-floating-outline">
-                    <input class="form-control" type="datetime-local" name="start" />
-                    <label for="end">{{ __('Start') }}</label>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col mb-4 mt-2">
-                  <div class="form-floating form-floating-outline">
-                    <input class="form-control" type="datetime-local" name="end" />
-                    <label for="end">{{ __('End') }}</label>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col mb-4 mt-2">
-                  <div class="form-floating form-floating-outline">
-                    <input class="form-control" type="color" name="color" />
-                    <label for="color">{{ __('Color') }}</label>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-outline-secondary" id="hideMAEButton" data-bs-dismiss="modal">{{ __('Close') }}</button>
-              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">{{ __('Save') }}</button>
-            </div>
-          </form>
+  {{-- add Event Model --}}
+  <div class="modal fade" id="addEvent" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
+        <div class="modal-header">
+          <h4 class="modal-title" id="modalCenterTitle">{{ __('Add Event') }}</h4>
         </div>
+        <form id="addEventForm" method="POST" action="{{ route('events.create') }}">
+          @csrf
+
+          <div class="modal-body">
+
+            <div class="row">
+              <div class="col mb-4 mt-2">
+                <div class="form-floating form-floating-outline">
+                  <input type="text" class="form-control" name="title" placeholder="{{ __('Enter Title') }}">
+                  <label for="title">{{ __('Title') }}</label>
+                </div>
+              </div>
+            </div>
+
+              <div class="row">
+                <div class="col mb-4 mt-2">
+                  <div class="form-floating form-floating-outline">
+                    <input type="text" class="form-control" name="description" placeholder="{{ __('Enter Description') }}">
+                    <label for="description">{{ __('Description') }}</label>
+                  </div>
+                </div>
+              </div>
+
+            <div class="row">
+              <div class="col mb-4 mt-2">
+                <div class="form-floating form-floating-outline">
+                  <input class="form-control" type="datetime-local" name="start" />
+                  <label for="end">{{ __('Start') }}</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col mb-4 mt-2">
+                <div class="form-floating form-floating-outline">
+                  <input class="form-control" type="datetime-local" name="end" />
+                  <label for="end">{{ __('End') }}</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col mb-4 mt-2">
+                <div class="form-floating form-floating-outline">
+                  <input class="form-control" type="color" name="color" />
+                  <label for="color">{{ __('Color') }}</label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" id="hideMAEButton" data-bs-dismiss="modal">{{ __('Close') }}</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">{{ __('Save') }}</button>
+          </div>
+        </form>
       </div>
     </div>
+  </div>
 
-    <div class="modal fade" id="updateEvent" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
-          <div class="modal-header">
-            <h4 class="modal-title" id="modalCenterTitle">{{ __('Update Event') }}</h4>
-          </div>
-          <form id="updateEventForm" method="POST" action="{{ route('events.update') }}">
-            @csrf
-            <input type="hidden" name="id" id="id" />
-            <div class="modal-body">
-              <div class="row">
-                <div class="col mb-4 mt-2">
-                  <div class="form-floating form-floating-outline">
-                    <input type="text" id="title" class="form-control" name="title" placeholder="{{ __('Enter Title') }}">
-                    <label for="title">{{ __('Title') }}</label>
-                  </div>
-                </div>
-              </div>
-
-                <div class="row">
-                  <div class="col mb-4 mt-2">
-                    <div class="form-floating form-floating-outline">
-                      <input type="text" id="description" class="form-control" name="description" placeholder="{{ __('Enter Description') }}">
-                      <label for="description">{{ __('Description') }}</label>
-                    </div>
-                  </div>
-                </div>
-
-              <div class="row">
-                <div class="col mb-4 mt-2">
-                  <div class="form-floating form-floating-outline">
-                    <input class="form-control" type="datetime-local" id="start" name="start" />
-                    <label for="end">{{ __('Start') }}</label>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col mb-4 mt-2">
-                  <div class="form-floating form-floating-outline">
-                    <input class="form-control" type="datetime-local" id="end" name="end" />
-                    <label for="end">{{ __('End') }}</label>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col mb-4 mt-2">
-                  <div class="form-floating form-floating-outline">
-                    <input class="form-control" type="color" name="color" id="color" />
-                    <label for="color">{{ __('Color') }}</label>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-outline-secondary" id="hideMUEButton" data-bs-dismiss="modal">{{ __('Close') }}</button>
-              <button type="button" class="btn btn-outline-secondary" id="deleteEventButton" data-bs-dismiss="modal">{{ __('Delete') }}</button>
-              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">{{ __('Save') }}</button>
-            </div>
-          </form>
+  {{-- Edit Event Model --}}
+  <div class="modal fade" id="updateEvent" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
+        <div class="modal-header">
+          <h4 class="modal-title" id="modalCenterTitle">{{ __('Update Event') }}</h4>
         </div>
+        <form id="updateEventForm" method="POST" action="{{ route('events.update') }}">
+          @csrf
+          <input type="hidden" name="id" id="id" />
+          <div class="modal-body">
+            <div class="row">
+              <div class="col mb-4 mt-2">
+                <div class="form-floating form-floating-outline">
+                  <input type="text" id="title" class="form-control" name="title" placeholder="{{ __('Enter Title') }}">
+                  <label for="title">{{ __('Title') }}</label>
+                </div>
+              </div>
+            </div>
+
+              <div class="row">
+                <div class="col mb-4 mt-2">
+                  <div class="form-floating form-floating-outline">
+                    <input type="text" id="description" class="form-control" name="description" placeholder="{{ __('Enter Description') }}">
+                    <label for="description">{{ __('Description') }}</label>
+                  </div>
+                </div>
+              </div>
+
+            <div class="row">
+              <div class="col mb-4 mt-2">
+                <div class="form-floating form-floating-outline">
+                  <input class="form-control" type="datetime-local" id="start" name="start" />
+                  <label for="end">{{ __('Start') }}</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col mb-4 mt-2">
+                <div class="form-floating form-floating-outline">
+                  <input class="form-control" type="datetime-local" id="end" name="end" />
+                  <label for="end">{{ __('End') }}</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col mb-4 mt-2">
+                <div class="form-floating form-floating-outline">
+                  <input class="form-control" type="color" name="color" id="color" />
+                  <label for="color">{{ __('Color') }}</label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" id="hideMUEButton" data-bs-dismiss="modal">{{ __('Close') }}</button>
+            <button type="button" class="btn btn-outline-secondary" id="deleteEventButton" data-bs-dismiss="modal">{{ __('Delete') }}</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">{{ __('Save') }}</button>
+          </div>
+        </form>
       </div>
     </div>
+  </div>
 
 </div>
 
@@ -210,6 +211,7 @@ $(document).ready(function() {
             }
 
       });
+
       calendar.render();
 
   $('#hideMUEButton').click(function() {
@@ -263,7 +265,6 @@ $(document).ready(function() {
       }
     });
   });
-
 
   $('#updateEventForm').submit(function(event) {
     event.preventDefault();

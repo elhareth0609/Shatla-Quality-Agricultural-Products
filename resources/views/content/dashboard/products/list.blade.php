@@ -31,9 +31,9 @@
           <th>#</th>
           <th>{{ __("Name") }}</th>
           <th>{{ __("Category") }}</th>
-          <th>{{ __("Seller") }}</th>
+          <th>{{ __("Status") }}</th>
           <th>{{ __("Price") }}</th>
-          <th>{{ __("Amount Price") }}</th>
+          {{-- <th>{{ __("Amount Price") }}</th> --}}
           <th>{{ __("Created At") }}</th>
         </tr>
       </thead>
@@ -150,9 +150,9 @@ $(document).ready(function() {
               {data: 'id', name: '#'},
               {data: 'name', name: '{{__("Name")}}'},
               {data: 'subcategory_id', name: '{{__("Category")}}'},
-              {data: 'seller_id', name: '{{__("Seller")}}'},
+              {data: 'status', name: '{{__("Status")}}'},
               {data: 'price', name: '{{__("Price")}}'},
-              {data: 'amount_price', name: '{{__("Amount Price")}}'},
+              // {data: 'amount_price', name: '{{__("Amount Price")}}'},
               {data: 'created_at', name: '{{__("Created At")}}'},
           ],
           rowCallback: function(row, data) {
