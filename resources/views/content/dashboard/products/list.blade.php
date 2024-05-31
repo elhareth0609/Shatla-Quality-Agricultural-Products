@@ -29,7 +29,6 @@
       <thead>
         <tr class="text-nowrap">
           <th>#</th>
-          <th>{{ __("Image") }}</th>
           <th>{{ __("Name") }}</th>
           <th>{{ __("Category") }}</th>
           <th>{{ __("Seller") }}</th>
@@ -56,36 +55,6 @@
 </div>
 <!--/ Responsive Table -->
 
-<style>
-  .dataTables_length,
-  .dataTables_filter,
-  .dataTables_info,
-  .dataTables_paginate {
-    display: none;
-  }
-  td,tr {
-    text-align: center;
-  }
-
-  .context-menu {
-    position: absolute;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 5px 0;
-    list-style: none;
-    border-radius: 5px;
-    z-index: 1000;
-  }
-
-  .context-menu li {
-      padding: 5px 20px;
-      cursor: pointer;
-  }
-
-  .context-menu li:hover {
-      background-color: #f0f0f0;
-  }
-</style>
 
 <script src="{{ asset('assets/js/mine.js') }}"></script>
 
@@ -173,12 +142,12 @@ $(document).ready(function() {
           processing: true,
           serverSide: true,
           language: {
-            "emptyTable": __("No data available in table",lang)
+            "emptyTable": __("No data available in table",lang),
+            "zeroRecords": __("No matching records found",lang)
           },
           ajax: "{{ route('products') }}",
           columns: [
               {data: 'id', name: '#'},
-              {data: 'image', name: '{{__("Image")}}'},
               {data: 'name', name: '{{__("Name")}}'},
               {data: 'subcategory_id', name: '{{__("Category")}}'},
               {data: 'seller_id', name: '{{__("Seller")}}'},

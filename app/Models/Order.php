@@ -11,12 +11,19 @@ class Order extends Model
 
     protected $fillable = [
       'user_id',
-      'code'
+      'coupon_id',
+      'payment_method',
+      'shipping',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function products()
+    {
+        return $this->hasMany(OrderProducts::class);
     }
 
 }

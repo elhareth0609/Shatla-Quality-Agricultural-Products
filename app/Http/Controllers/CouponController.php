@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PublicationDeleted;
 use App\Models\Coupon;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -144,8 +145,10 @@ class CouponController extends Controller
   public function delete($id) {
       try{
         $coupon = Coupon::find($id);
-        $coupon->delete();
-        return response()->json([
+        // $coupon->delete();
+        event(new PublicationDeleted($id));
+        
+      return response()->json([
           'icon' => 'success',
           'state' => __("Success"),
           'message' => __("Coupon Deleted successfully")

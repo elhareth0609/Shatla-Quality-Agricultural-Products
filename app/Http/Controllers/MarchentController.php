@@ -10,9 +10,9 @@ class MarchentController extends Controller
 {
   public function view($id) {
     $marchent = Profile::find($id);
-    $products = Product::where('seller', $marchent->user->id)->get();
+    $products = Product::where('seller_id', $marchent->user->id)->get();
     return view('content.home.sellers.index')
-    ->with('marchent',$marchent)
+    ->with('seller',$marchent)
     ->with('products',$products);
     ;
   }

@@ -91,6 +91,7 @@ use Illuminate\Support\Facades\Route;
     Route::get('/user-porfiles', [DataTablesController::class, 'userProfiles'])->name('user.profiles');
     Route::get('/sellers', [DataTablesController::class, 'sellers'])->name('sellers');
     Route::get('/experts', [DataTablesController::class, 'experts'])->name('experts');
+    Route::get('/workers', [DataTablesController::class, 'workers'])->name('workers');
     Route::get('/products', [DataTablesController::class, 'products'])->name('products');
     Route::get('/categorys', [DataTablesController::class, 'categorys'])->name('categorys');
     Route::get('/category/{id}/subcategorys', [DataTablesController::class, 'category_subcategorys'])->name('category.subcategorys');
@@ -99,6 +100,7 @@ use Illuminate\Support\Facades\Route;
     Route::get('/publications', [DataTablesController::class, 'publications'])->name('publications');
     Route::get('/orders', [DataTablesController::class, 'orders'])->name('orders');
     Route::get('/plans', [DataTablesController::class, 'plans'])->name('plans');
+    Route::get('/plan/{id}/permissions-table', [DataTablesController::class, 'plan_permissions'])->name('plan.permissions.table');
     Route::get('/coupons', [DataTablesController::class, 'coupons'])->name('coupons');
     Route::get('/articles', [DataTablesController::class, 'articles'])->name('articles');
 
@@ -299,9 +301,9 @@ use Illuminate\Support\Facades\Route;
 
 
   Route::get('change-language/{locale}', [LanguageController::class, 'change'])->name('change.language');
-  Route::get('change-currency/{currency}', [CurrencyController::class, 'change'])->name('change.currency');
   Route::get('/get-states/{countryId}', [CountryController::class, 'getStates'])->name('get.states');
   Route::get('/get-cities/{countryId}/{stateId}', [CountryController::class, 'getCities'])->name('get.cities');
+  Route::get('change-currency/{currency}', [CurrencyController::class, 'change'])->name('change.currency');
 
 
 
@@ -310,6 +312,8 @@ use Illuminate\Support\Facades\Route;
     Artisan::call('cache:clear');
     // Clear configuration cache
     Artisan::call('config:cache');
+    // Clear routes
+    Artisan::call('route:clear');
     // Cache routes
     Artisan::call('route:cache');
     // Cache views

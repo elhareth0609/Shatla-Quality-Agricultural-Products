@@ -27,7 +27,7 @@
                 <div class="col-md-8">
                   <div class="card-body">
                     <h5 class="card-title">{{ $plan->name }}</h5>
-                    <p class="card-text">{{ $plan->text }}</p>
+                    <p class="card-text">{!! $plan->text !!}</p>
                     <dive class="card-text d-flex justify-content-between">
                       <p class="m-0 my-w-fit-content">
                         @if(session('currency', config('currency.default_currency')) === 'DZ')

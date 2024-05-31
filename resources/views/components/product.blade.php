@@ -28,7 +28,7 @@
 
       <div class="showcase-actions">
         <button type="button" class="btn-action btn btn-icon favorite-btn" data-item-id="{{ $product->id }}">
-          @if (Auth::user() && Auth::user()->myfavorite($product->id))
+          @if (Auth::user() && Auth::user()->myFavorite($product->id))
           <i class="mdi mdi-heart mdi-hover"></i>
           @else
           <i class="mdi mdi-heart-outline mdi-hover"></i>
@@ -60,7 +60,7 @@
         <ion-icon name="star-outline"></ion-icon>
       </div>
       <div class="price-box">
-        <p class="price mb-0">{{ $product->getNewPrice(session('currency', config('currency.default_currency'))) }} {{ session('currency', config('currency.currencies[1]')) }}</p>
+        <p class="price mb-0">{{ $product->price }} د.ج</p>
         @if ($product->last_price)
           <del>{{ $product->last_price }}</del>
         @endif

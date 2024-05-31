@@ -1,17 +1,17 @@
 @extends('layouts.homeLayout')
 
-@section('title', __('Blogs'))
+@section('title', __('Articles'))
 
 @section('content')
 
 <div class="blog" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
 
   <div class="container">
-    <h2 class="title">{{ __('Blogs') }}</h2>
+    <h2 class="title">{{ __('Articles') }}</h2>
     <div class="row">
 
-      @foreach($blogs as $blog)
-        <x-blog :blog="$blog" />
+      @foreach($articles as $article)
+        <x-article :article="$article" />
       @endforeach
 
     </div>

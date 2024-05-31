@@ -9,9 +9,9 @@
       <span class="app-brand-text demo menu-text fw-semibold ms-2">{{config('variables.templateName')}}</span> --}}
       <span class="app-brand-logo demo">
         {{--  @include('_partials.macros',["height"=>20,"withbg"=>'fill: #fff;'])  --}}
-        <img src="{{ asset('assets/home/icons/favicon.png') }}" width="30" height="30"/>
+        <img src="{{ asset('assets/home/icons/photo_2024-05-27_04-47-57-removebg-preview.png') }}" width="110" height="50"/>
       </span>
-      <span class="app-brand-text demo text-heading fw-semibold">شتلة</span>
+      {{-- <span class="app-brand-text demo text-heading fw-semibold">شتلة</span> --}}
 
     </a>
 

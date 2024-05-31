@@ -31,7 +31,7 @@
             @csrf
             <div class="card-body">
               <div class="d-flex align-items-start align-items-sm-center gap-4">
-                <img src="{{asset('assets/img/photos/blogs/default.png')}}" alt="user-avatar" class="d-block rounded" id="uploadedAvatar" style="width: 340px!important;height: 180px!important"/>
+                <img src="{{asset('assets/img/illustrations/In-sync-rafiki.png')}}" alt="user-avatar" class="d-block rounded" id="uploadedAvatar" style="max-width: 340px!important;height: 180px!important"/>
                 <div class="button-wrapper">
                   <label for="upload" class="btn btn-primary me-2 mb-3" tabindex="0">
                     <span class="d-none d-sm-block">{{ __('Upload Photo') }}</span>

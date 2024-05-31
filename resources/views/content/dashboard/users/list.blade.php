@@ -32,7 +32,6 @@
           <th>{{ __("Photo") }}</th>
           <th>{{ __("Email") }}</th>
           <th>{{ __("Created At") }}</th>
-          <th>{{ __("Action") }}</th>
         </tr>
       </thead>
     </table>
@@ -53,19 +52,7 @@
 </div>
 <!--/ Responsive Table -->
 
-<style>
-  .dataTables_length,
-  .dataTables_filter,
-  .dataTables_info,
-  .dataTables_paginate {
-    display: none;
-  }
-  td,tr {
-    text-align: center;
-  }
-</style>
 
-<script src="{{ asset('assets/js/mine.js') }}"></script>
 
 <script type="text/javascript">
 var lang = "{{ app()->getLocale() }}";
@@ -77,23 +64,15 @@ $(document).ready(function() {
           processing: true,
           serverSide: true,
           language: {
-            "emptyTable": __("No data available in table",lang)
+            "emptyTable": __("No data available in table",lang),
+            "zeroRecords": __("No matching records found",lang)
           },
           ajax: "{{ route('users') }}",
           columns: [
               {data: 'id', name: '#'},
               {data: 'photo', name: '{{__("Photo")}}'},
-              // {data: 'fullname', name: '{{__("Full Name")}}'},
               {data: 'email', name: '{{__("Email")}}'},
-              // {data: 'phone', name: '{{__("Phone")}}'},
-              {data: 'created_at', name: '{{__("Created At")}}'},
-              // {data: 'status', name: '{{__("Status")}}'},
-              {
-                  data: 'action',
-                  name: 'action',
-                  orderable: true,
-                  searchable: true
-              },
+              {data: 'created_at', name: '{{__("Created At")}}'}
           ],
       });
 

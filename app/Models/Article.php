@@ -15,7 +15,8 @@ class Article extends Model
       'disease_id',
       'type_id',
       'content',
-      'image'
+      'image',
+      'tags'
     ];
 
     public function photos() {

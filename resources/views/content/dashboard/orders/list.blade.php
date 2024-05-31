@@ -19,9 +19,9 @@
       <option value="100" selected>100</option>
     </select>
 
-    <button class="btn btn-icon btn-outline-primary mb-3 mx-1">
-      <span class="tf-icons mdi mdi-download-outline"></span>
-    </button>
+    <select class="form-select text-center my-w-fit-content mb-3 mx-1" id="dataTables_my_file" aria-label="Default select example">
+    </select>
+
   </div>
 
   <div class="table-responsive text-nowrap">
@@ -29,11 +29,11 @@
       <thead>
         <tr class="text-nowrap">
           <th>#</th>
-          <th>{{ __("Title") }}</th>
-          <th>{{ __("Image") }}</th>
-          <th>{{ __("Category") }}</th>
+          <th>{{ __("Product") }}</th>
+          <th>{{ __("Customer") }}</th>
+          <th>{{ __("Quantity") }}</th>
+          <th>{{ __("Total") }}</th>
           <th>{{ __("Created At") }}</th>
-          <th>{{ __("Action") }}</th>
         </tr>
       </thead>
     </table>
@@ -53,20 +53,12 @@
 
 </div>
 <!--/ Responsive Table -->
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
 
-<style>
-  .dataTables_length,
-  .dataTables_filter,
-  .dataTables_info,
-  .dataTables_paginate {
-    display: none;
-  }
-  td,tr {
-    text-align: center;
-  }
-</style>
-
-<script src="{{ asset('assets/js/mine.js') }}"></script>
 
 <script type="text/javascript">
   var table;
@@ -139,26 +131,21 @@
 
 $(document).ready(function() {
   $.noConflict();
-        table = $('#orders').DataTable({
+      table = $('#orders').DataTable({
           processing: true,
           serverSide: true,
           language: {
-            "emptyTable": __("No data available in table",lang)
+            "emptyTable": __("No data available in table",lang),
+            "zeroRecords": __("No matching records found",lang)
           },
           ajax: "{{ route('orders') }}",
           columns: [
               {data: 'id', name: '#'},
-              {data: 'image', name: '{{__("Product")}}'},
-              {data: 'title', name: '{{__("Customer")}}'},
-              {data: 'category_id', name: '{{__("Quantity")}}'},
-              {data: 'created_at', name: '{{__("Total Amount")}}'},
-              {data: 'created_at', name: '{{__("Created At")}}'},
-              {
-                  data: 'action',
-                  name: 'action',
-                  orderable: true,
-                  searchable: true
-              },
+              {data: 'product_id', name: '{{__("Product")}}'},
+              {data: 'user_id', name: '{{__("Customer")}}'},
+              {data: 'quantity', name: '{{__("Quantity")}}'},
+              {data: 'total', name: '{{__("Total")}}'},
+              {data: 'created_at', name: '{{__("Created At")}}'}
           ],
 
           rowCallback: function(row, data) {
@@ -169,8 +156,53 @@ $(document).ready(function() {
                   e.preventDefault();
                   showContextMenu(data.id, e.pageX, e.pageY); // Show context menu at mouse position
               });
-          }
+          },
+          // dom: 'Bfrtip', // Add this to enable Buttons
+          // buttons: [
+          //     {
+          //         extend: 'excelHtml5',
+          //         title: 'Orders',
+          //         text: 'Export to Excel'
+          //     },
+          //     {
+          //         extend: 'csvHtml5',
+          //         title: 'Orders',
+          //         text: 'Export to CSV'
+          //     }
+          // ]
 
+      });
+
+      // Create export buttons
+      var buttons = new $.fn.dataTable.Buttons(table, {
+          buttons: [
+              {
+                  extend: 'excelHtml5',
+                  title: 'Orders',
+                  text: '{{ __("Excel") }}'
+              },
+              {
+                  extend: 'csvHtml5',
+                  title: 'Orders',
+                  text: '{{ __("CSV") }}'
+              }
+          ]
+      }).container().appendTo('#dataTables_my_file');
+
+      // Create select options for each button
+      $('#dataTables_my_file').append(
+          $('<option>', { value: 'excel', text: '{{ __("Excel") }}' }),
+          $('<option>', { value: 'csv', text: '{{ __("CSV") }}' })
+      );
+
+      // Handle select change event to trigger button action
+      $('#dataTables_my_file').change(function() {
+          var value = $(this).val();
+          if (value === 'excel') {
+              table.button('.buttons-excel').trigger();
+          } else if (value === 'csv') {
+              table.button('.buttons-csv').trigger();
+          }
       });
 
       $('#dataTables_my_length').change(function() {

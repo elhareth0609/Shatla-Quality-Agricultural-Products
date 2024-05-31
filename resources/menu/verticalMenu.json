@@ -36,6 +36,11 @@
           "url": "/sellers",
           "name": "Sellers",
           "slug": "sellers"
+        },
+        {
+          "url": "/workers",
+          "name": "Workers",
+          "slug": "workers"
         }
       ]
     },

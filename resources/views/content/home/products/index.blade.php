@@ -24,12 +24,12 @@
                   @foreach ($product->photos as $photo)
                     @if ($photo->typeof === '0')
                       @if ($photo->type === '1')
-                        <div class="carousel-item justify-content-center d-flex active">
-                          <img class="d-block" src="{{ $photo->photoUrl() }}" width="300" height="460" alt="First slide" />
+                        <div class="carousel-item active">
+                          <img class="d-block" src="{{ $photo->photoUrl() }}" width="300" height="300" alt="First slide" />
                         </div>
                       @else
-                        <div class="carousel-item justify-content-center d-flex">
-                          <img class="d-block" src="{{ $photo->photoUrl() }}" width="300" height="460" alt="First slide" />
+                        <div class="carousel-item">
+                          <img class="d-block" src="{{ $photo->photoUrl() }}" width="300" height="300" alt="First slide" />
                         </div>
                       @endif
                     @endif
@@ -51,17 +51,30 @@
               <h3 class="font-weight-semi-bold">{{ $product->name }}</h3>
               <div class="d-flex mb-3">
                   <div class="text-primary mr-2">
+                    @for ($i = 1; $i <= 5; $i++)
+                        @if ($i <= $product->comments->sum('stars'))
+                        <small class="mdi mdi-star"></small>
+                        @else
+                        <small class="mdi mdi-star-outline"></small>
+                        @endif
+                    @endfor
+
+                      {{-- <small class="mdi mdi-star-outline"></small>
                       <small class="mdi mdi-star-outline"></small>
                       <small class="mdi mdi-star-outline"></small>
                       <small class="mdi mdi-star-outline"></small>
-                      <small class="mdi mdi-star-outline"></small>
-                      <small class="mdi mdi-star-outline"></small>
+                      <small class="mdi mdi-star-outline"></small> --}}
                   </div>
                   <small class="pt-1 me-1">({{ $product->view }} {{ __('Reviews') }})</small>
               </div>
-              <h3 class="font-weight-semi-bold mb-4">${{ $product->price }}</h3>
+              <h3 class="font-weight-semi-bold mb-4">{{ $product->price }} د.ج</h3>
               <p class="mb-4">{!! $product->description !!}</p>
-              <div class="row">
+
+
+
+
+
+              {{-- <div class="row">
                 <div class="col-6">
                   <div class="input-group input-group-merge" dir="{{ app()->isLocale('ar') ? 'ltr' : '' }}">
                     <span class="input-group-text">{{ __('Quantity') }}</span>
@@ -76,7 +89,43 @@
                     </button>
                   </div>
                 </div>
+              </div> --}}
+
+              <input type="hidden" value="{{ $product->id }}" name="id"/>
+              <div class="row d-flex justify-content-between">
+                <div class="my-w-fit-content d-flex">
+                  <div class="my-w-fit-content mx-1">
+                      <div class="btn-group" role="group" aria-label="Second group" dir="ltr">
+                        <button type="button" class="btn btn-icon btn-primary btn-plus-product">
+                          <span class="tf-icons mdi mdi-plus"></span>
+                      </button>
+                      <input type="text" class="form-control text-center p-0 rounded-0 my-w-5 input-price-product" value="1" max="{{ $product->quantity }}" min="1" name="productQuantity">
+                      <button type="button" class="btn btn-icon btn-primary btn-minus-product">
+                        <span class="tf-icons mdi mdi-minus"></span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="my-w-fit-content mx-1">
+                    <div class="input-group input-group-merge">
+                      <button type="button" class="btn btn-outline-primary" id="add-cart-btn">
+                        <span class="tf-icons mdi mdi-cart-check mx-1"></span>{{ __('Add To Cart') }}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="my-w-fit-content">
+                <button type="button" class="btn btn-icon btn-outline-primary mx-1" id="add-cart-btn">
+                        <span class="tf-icons mdi mdi-share-outline mx-1"></span>
+                </button>
+                <button type="button" class="btn btn-icon btn-outline-primary mx-1" id="add-cart-btn">
+                        <span class="tf-icons mdi mdi-heart-outline mx-1"></span>
+                </button>
+                </div>
               </div>
+
+
+
+
               {{-- <div class="d-flex pt-2">
                   <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p>
                   <div class="d-inline-flex">
@@ -342,7 +391,10 @@
 
 
   <style>
-
+.carousel-item.active {
+  display: flex !important;
+  justify-content: center !important;
+}
 :root {
   --bg: hsl(223, 10%, 90%);
   --fg: hsl(223, 10%, 10%);
@@ -602,62 +654,62 @@
       const starRating = new StarRating(".rating__stars");
     });
 
-class StarRating {
-	constructor(qs) {
-		this.ratings = [
-			{id: 1, name: "Terrible"},
-			{id: 2, name: "Bad"},
-			{id: 3, name: "OK"},
-			{id: 4, name: "Good"},
-			{id: 5, name: "Excellent"}
-		];
-		this.rating = null;
-		this.el = document.querySelector(qs);
+    class StarRating {
+      constructor(qs) {
+        this.ratings = [
+          {id: 1, name: "Terrible"},
+          {id: 2, name: "Bad"},
+          {id: 3, name: "OK"},
+          {id: 4, name: "Good"},
+          {id: 5, name: "Excellent"}
+        ];
+        this.rating = null;
+        this.el = document.querySelector(qs);
 
-		this.init();
-	}
-	init() {
-		this.el?.addEventListener("change",this.updateRating.bind(this));
+        this.init();
+      }
+      init() {
+        this.el?.addEventListener("change",this.updateRating.bind(this));
 
-		// stop Firefox from preserving form data between refreshes
-		try {
-			this.el?.reset();
-		} catch (err) {
-			console.error("Element isn’t a form.");
-		}
-	}
-	updateRating(e) {
-		// clear animation delays
-		Array.from(this.el.querySelectorAll(`[for*="rating"]`)).forEach(el => {
-			el.className = "rating__label";
-		});
+        // stop Firefox from preserving form data between refreshes
+        try {
+          this.el?.reset();
+        } catch (err) {
+          console.error("Element isn’t a form.");
+        }
+      }
+      updateRating(e) {
+        // clear animation delays
+        Array.from(this.el.querySelectorAll(`[for*="rating"]`)).forEach(el => {
+          el.className = "rating__label";
+        });
 
-		const ratingObject = this.ratings.find(r => r.id === +e.target.value);
-		const prevRatingID = this.rating?.id || 0;
+        const ratingObject = this.ratings.find(r => r.id === +e.target.value);
+        const prevRatingID = this.rating?.id || 0;
 
-		let delay = 0;
-		this.rating = ratingObject;
-		this.ratings.forEach(rating => {
-			const { id } = rating;
+        let delay = 0;
+        this.rating = ratingObject;
+        this.ratings.forEach(rating => {
+          const { id } = rating;
 
-			// add the delays
-			const ratingLabel = this.el.querySelector(`[for="rating-${id}"]`);
+          // add the delays
+          const ratingLabel = this.el.querySelector(`[for="rating-${id}"]`);
 
-			if (id > prevRatingID + 1 && id <= this.rating.id) {
-				++delay;
-				ratingLabel.classList.add(`rating__label--delay${delay}`);
-			}
+          if (id > prevRatingID + 1 && id <= this.rating.id) {
+            ++delay;
+            ratingLabel.classList.add(`rating__label--delay${delay}`);
+          }
 
-			// hide ratings to not read, show the one to read
-			const ratingTextEl = this.el.querySelector(`[data-rating="${id}"]`);
+          // hide ratings to not read, show the one to read
+          const ratingTextEl = this.el.querySelector(`[data-rating="${id}"]`);
 
-			if (this.rating.id !== id)
-				ratingTextEl.setAttribute("hidden",true);
-			else
-				ratingTextEl.removeAttribute("hidden");
-		});
-	}
-}
+          if (this.rating.id !== id)
+            ratingTextEl.setAttribute("hidden",true);
+          else
+            ratingTextEl.removeAttribute("hidden");
+        });
+      }
+    }
 
 
     $('#addCommentForm').submit(function(event) {
@@ -688,38 +740,56 @@ class StarRating {
             });
           }
         });
-
-        $('#addCommentForm').submit(function(event) {
-        event.preventDefault();
-
-        var formData = $(this).serialize();
-
-        $.ajax({
-          url: $(this).attr('action'),
-          type: $(this).attr('method'),
-          data: formData,
-          dataType: 'json',
-          success: function(response) {
-            Swal.fire({
-              icon: response.icon,
-              title: response.state,
-              text: response.message,
-              confirmButtonText: __("Ok",lang)
-            });
-          },
-          error: function(xhr, textStatus, errorThrown) {
-            const response = JSON.parse(xhr.responseText);
-            Swal.fire({
-              icon: response.icon,
-              title: response.state,
-              text: response.message,
-              confirmButtonText: __("Ok",lang)
-            });
-          }
-        });
     });
 
-  });
+    $(document).on('click', '.btn-plus-product', function() {
+    var inputQuantity = $(this).siblings('.input-price-product');
+    var maxQuantity = parseInt(inputQuantity.attr('max'));
+
+    if (parseInt(inputQuantity.val()) < maxQuantity) {
+        inputQuantity.val(parseInt(inputQuantity.val()) + 1);
+    }
+});
+
+
+$(document).on('click', '.btn-minus-product', function() {
+    var inputQuantity = $(this).siblings('.input-price-product');
+
+    if (parseInt(inputQuantity.val()) > 1) {
+        inputQuantity.val(parseInt(inputQuantity.val()) - 1);
+    }
+});
+
+    //     $('#addCommentForm').submit(function(event) {
+    //     event.preventDefault();
+
+    //     var formData = $(this).serialize();
+
+    //     $.ajax({
+    //       url: $(this).attr('action'),
+    //       type: $(this).attr('method'),
+    //       data: formData,
+    //       dataType: 'json',
+    //       success: function(response) {
+    //         Swal.fire({
+    //           icon: response.icon,
+    //           title: response.state,
+    //           text: response.message,
+    //           confirmButtonText: __("Ok",lang)
+    //         });
+    //       },
+    //       error: function(xhr, textStatus, errorThrown) {
+    //         const response = JSON.parse(xhr.responseText);
+    //         Swal.fire({
+    //           icon: response.icon,
+    //           title: response.state,
+    //           text: response.message,
+    //           confirmButtonText: __("Ok",lang)
+    //         });
+    //       }
+    //     });
+    // });
+
   </script>
 
 @else

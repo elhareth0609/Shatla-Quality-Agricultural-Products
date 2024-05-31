@@ -99,7 +99,7 @@
         </li>
 
         <li class="footer-nav-item">
-          <a href="#" class="footer-nav-link">{{__('Contact Us')}}</a>
+          <a href={{ route('contact') }} class="footer-nav-link">{{ __('Contact Us')}}</a>
         </li>
 
         <li class="footer-nav-item">

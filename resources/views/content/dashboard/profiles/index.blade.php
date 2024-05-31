@@ -18,9 +18,9 @@
         <div class="app-brand justify-content-center mt-5">
           <a href="{{url('/')}}" class="app-brand-link gap-2">
             <span class="app-brand-logo demo">
-              <img src="{{ asset('assets/home/icons/favicon.png') }}" width="30" height="30"/>
+              <img src="{{ asset('assets/home/icons/photo_2024-05-27_04-47-57-removebg-preview.png') }}" width="110" height="50"/>
             </span>
-            <span class="app-brand-text demo text-heading fw-semibold">شتلة</span>
+            {{-- <span class="app-brand-text demo text-heading fw-semibold">شتلة</span> --}}
           </a>
         </div>
         <!-- /Logo -->

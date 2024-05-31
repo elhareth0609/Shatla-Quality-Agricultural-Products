@@ -42,7 +42,7 @@
             @endforeach
           </ul>
         </div>
-        <div class="btn-group">
+        {{-- <div class="btn-group">
           <button type="button" class="btn btn-primary btn-icon rounded-pill dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-currency-usd"></i></button>
           <ul class="dropdown-menu dropdown-menu-end">
             @foreach(config('currency.currencies') as $currencyCode => $symbol)
@@ -53,7 +53,7 @@
               </li>
             @endforeach
           </ul>
-        </div>
+        </div> --}}
       </div>
 
     </div>
@@ -64,9 +64,13 @@
 
     <div class="container">
 
-      <a href="{{ route('home') }}" class="header-logo display-5 font-weight-bold text-dark">
-        {{-- <img src="{{ asset('assets/home/images/logo/logo.svg') }}" alt="Shatla logo" width="120" height="36"> --}}
-        شتلة
+
+      <a href="{{url('/')}}" class="app-brand-link gap-2">
+        <span class="app-brand-logo demo">
+          {{--  @include('_partials.macros',["height"=>20,"withbg"=>'fill: #fff;'])  --}}
+          <img src="{{ asset('assets/home/icons/photo_2024-05-27_04-47-57-removebg-preview.png') }}" width="110" height="50"/>
+        </span>
+        {{-- <span class="app-brand-text demo text-heading fw-semibold">شتلة</span> --}}
       </a>
 
       <div class="header-search-container">
@@ -95,7 +99,7 @@
 
         @guest
         <a href="{{ route('login') }}" class="btn action-btn">
-          <ion-icon name="person-outline"></ion-icon>
+          <ion-icon name="log-in-outline" class="rotate-180"></ion-icon>
         </a>
         @endguest
 
@@ -127,18 +131,18 @@
               <div class="favorites-item mb-2" data-product-id="{{ $favorite->product->id }}">
                 <div class="card-body" dir="{{ app()->isLocale('ar') ? 'rtl' : 'ltr' }}">
                   <div class="d-flex align-items-start align-items-sm-center gap-4">
-                    <img src="{{$favorite->product->firstPhoto()}}" alt="user-avatar" class="d-block my-w-110 my-h-110 rounded" />
+                    <img src="{{ $favorite->product->firstPhoto() }}" alt="user-avatar" class="d-block my-w-110 my-h-110 rounded" />
                     <div class="button-wrapper">
-                      <button type="button" class="btn btn-outline-info">
+                      <a href="{{ route('product.view',$favorite->product->id) }}" class="btn btn-outline-info">
                         <i class="mdi mdi-reload d-block d-sm-none"></i>
                         <span class="d-none d-sm-block">{{ __('visit') }}</span>
-                      </button>
+                      </a>
                       <button type="button" class="btn btn-icon btn-outline-danger btn-remove-favorite">
                         <span class="tf-icons mdi mdi-trash-can-outline"></span>
                       </button>
-                      <div class="text-muted small mt-3">{{ $favorite->title }}</div>
+                      <div class="text-muted small mt-3">{{ \Illuminate\Support\Str::limit($favorite->product->name, 90) }}</div>
                       <div class="text-muted small mt-3 d-flex">
-                        <p>{{ $favorite->description }}</p>
+                        <p>{!! \Illuminate\Support\Str::limit($favorite->product->description, 100) !!}</p>
                       </div>
                     </div>
                   </div>
@@ -247,6 +251,9 @@
           <a href="#" class="menu-title">{{ __('Pages') }}</a>
 
           <ul class="dropdown-list">
+            <li class="dropdown-item">
+              <a href="{{ route('article.index') }}">{{ __('Articles') }}</a>
+            </li>
             <li class="dropdown-item">
               <a href="{{ route('product.index') }}">{{ __('Products') }}</a>
             </li>
@@ -503,7 +510,7 @@
             <ion-icon name="caret-back-outline" class="caret-back"></ion-icon>
           </button>
 
-          <ul class="submenu-category-list" data-accordion>
+          {{-- <ul class="submenu-category-list" data-accordion>
             @foreach(config('currency.currencies') as $currencyCode => $symbol)
               <li class="submenu-category">
                   <a class="submenu-title {{ session('currency', config('currency.default_currency')) === $currencyCode ? 'active' : '' }}" href="{{ route('change.currency', $currencyCode) }}">
@@ -511,7 +518,7 @@
                   </a>
               </li>
             @endforeach
-          </ul>
+          </ul> --}}
         </li>
 
       </ul>
@@ -614,16 +621,16 @@
               <div class="d-flex align-items-start align-items-sm-center gap-4">
                 <img src="{{$favorite->product->firstPhoto()}}" alt="user-avatar" class="d-block my-w-110 my-h-110 rounded" />
                 <div class="button-wrapper">
-                  <button type="button" class="btn btn-outline-info">
+                  <a href="{{ route('product.view',$favorite->product->id) }}" class="btn btn-outline-info">
                     <i class="mdi mdi-reload d-block d-sm-none"></i>
                     <span class="d-none d-sm-block">{{ __('visit') }}</span>
-                  </button>
+                  </a>
                   <button type="button" class="btn btn-icon btn-outline-danger btn-remove-favorite">
                     <span class="tf-icons mdi mdi-trash-can-outline"></span>
                   </button>
-                  <div class="text-muted small mt-3">{{ $favorite->title }}</div>
+                  <div class="text-muted small mt-3">{{ \Illuminate\Support\Str::limit($favorite->product->name, 90) }}</div>
                   <div class="text-muted small mt-3 d-flex">
-                    <p>{{ $favorite->description }}</p>
+                    <p>{!! \Illuminate\Support\Str::limit($favorite->product->description, 100) !!}</p>
                   </div>
                 </div>
               </div>

@@ -48,7 +48,7 @@ class User extends Authenticatable
     ];
 
     public function photoUrl() {
-        return $photo = $this->photo;
+         $photo = $this->photo;
 
         if (Str::startsWith($photo, 'http')) {
             return $photo;
@@ -119,5 +119,9 @@ class User extends Authenticatable
 
     public function profile() {
         return $this->hasOne(Profile::class)->where('active', '1');
+    }
+
+    public function isCan($permission) {
+      return $this->profile->plan->permissions->contains('name',$permission);
     }
 }

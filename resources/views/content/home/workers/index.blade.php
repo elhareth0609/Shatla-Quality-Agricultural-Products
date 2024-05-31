@@ -32,7 +32,7 @@
 
     <div class="row h-px-100 mt-4"></div>
     <div class="row mt-4">
-      @foreach($worker->user->publications as $publication)
+      @foreach($publications as $publication)
         <x-publication :publication="$publication" />
       @endforeach
     </div>

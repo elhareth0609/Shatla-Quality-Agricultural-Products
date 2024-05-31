@@ -49,7 +49,7 @@ class ArticleController extends Controller
       'type' => 'required|string',
       'content' => 'required|string',
       'first_image' => 'required|image|mimes:jpeg,png,jpg',
-      // 'tags' => 'nullable|string',
+      'tags' => 'nullable|string',
       // 'status' => 'required|in:draft,published',
     ]);
 
@@ -76,7 +76,7 @@ class ArticleController extends Controller
       $article->disease_id = $request->disease;
       $article->type_id = $request->type;
       // $article->user_id = Auth::user()->id;
-      // $article->tags = Article::TagsToString(json_decode($request->tags, true));
+      $article->tags = Article::TagsToString(json_decode($request->tags, true));
       $article->save();
 
       return response()->json([
@@ -169,7 +169,7 @@ class ArticleController extends Controller
       'disease' => 'required|string',
       'content' => 'required|string',
       'first_image' => 'sometimes|image|mimes:jpeg,png,jpg',
-      // 'tags' => 'nullable|string',
+      'tags' => 'nullable|string',
       // 'status' => 'required|in:draft,published',
     ]);
 
@@ -196,7 +196,7 @@ class ArticleController extends Controller
       $article->type_id = $request->type;
       $article->disease_id = $request->disease;
       // $article->user_id = Auth::user()->id;
-      // $article->tags = Article::TagsToString(json_decode($request->tags, true));
+      $article->tags = Article::TagsToString(json_decode($request->tags, true));
       $article->save();
 
       return response()->json([

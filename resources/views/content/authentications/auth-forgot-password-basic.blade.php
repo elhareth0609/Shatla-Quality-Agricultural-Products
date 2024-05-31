@@ -19,13 +19,13 @@
           <a href="{{url('/')}}" class="app-brand-link gap-2">
             <span class="app-brand-logo demo">
               {{--  @include('_partials.macros',["height"=>20,"withbg"=>'fill: #fff;'])  --}}
-              <img src="{{ asset('assets/home/icons/favicon.png') }}" width="30" height="30"/>
+              <img src="{{ asset('assets/home/icons/photo_2024-05-27_04-47-57-removebg-preview.png') }}" width="110" height="50"/>
             </span>
-            <span class="app-brand-text demo text-heading fw-semibold">شتلة</span>
+            {{-- <span class="app-brand-text demo text-heading fw-semibold">شتلة</span> --}}
           </a>
         </div>
         <!-- /Logo -->
-        <div class="card-body mt-2">
+        <div class="card-body mt-2 {{ app()->getLocale() == 'ar' ? 'text-end' : '' }}">
           <h4 class="mb-2">{{ __('Forgot Password?') }} 🔒</h4>
           <p class="mb-4">{{ __('Enter your email and we\'ll send you instructions to reset your password') }}</p>
           <form id="formAuthentication" class="mb-3" action="{{url('/')}}" method="GET">

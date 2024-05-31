@@ -7,6 +7,8 @@ use App\Models\Profile;
 use Chargily\ePay\Chargily;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class PlanController extends Controller
 {
@@ -53,11 +55,58 @@ class PlanController extends Controller
 
     public function update(Request $request) {
 
-      return response()->json([
-        'icon' => 'success',
-        'state' => __("Success"),
-        'message' => __("Updated Successfully.")
+      $validator = Validator::make($request->all(), [
+        'name' => 'required|string',
+        'text' => 'required|string',
+        'status' => 'required|in:0,1',
+        'price' => 'required|numeric|min:0',
+        'last_price' => 'nullable|numeric|min:0',
+        'image' => 'sometimes|image|mimes:jpeg,png,jpg', // Adjust image validation rules as needed
       ]);
+
+      if ($validator->fails()) {
+          return response()->json([
+          'icon' => 'error',
+          'state' => __("Error"),
+          'message' => $validator->errors()->first()
+          ], 422);
+      }
+
+      try {
+
+        $plan = Plan::find($request->pid);
+          if ($request->hasFile('image')) {
+            if ($plan->photoPath()) {
+              Storage::disk('public')->delete('assets/img/photos/plans/' . $plan->photo);
+            }
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName(); // Generate unique image name
+            $image->move(public_path('assets/img/photos/plans/'), $imageName);
+            $plan->photo = $imageName;
+          }
+
+          $plan->name = $request->name;
+          $plan->text = $request->text;
+          $plan->price = $request->price;
+          $plan->last_price = $request->last_price;
+          $plan->status = $request->status;
+          $plan->save();
+
+
+        return response()->json([
+          'icon' => 'success',
+          'state' => __("Success"),
+          'message' => __("Updated Successfully.")
+        ]);
+
+      } catch (\Exception $e) {
+        return response()->json([
+          'icon' => 'error',
+          'state' => __("Error"),
+          'message' => $e->getMessage(),
+        ]);
+      }
+
     }
 
     public function delete($id) {
@@ -72,7 +121,7 @@ class PlanController extends Controller
 
     public function permissions($id) {
       $plan = Plan::find($id);
-      return view('content.dashboard.plan.permissions')
+      return view('content.dashboard.plans.permissions')
       ->with('plan',$plan);
     }
 

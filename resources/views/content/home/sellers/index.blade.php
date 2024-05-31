@@ -31,10 +31,13 @@
     </div>
 
     <div class="row h-px-100 mt-4"></div>
-    <div class="row mt-4">
-      @foreach($seller->user->products as $product)
-        <x-product :product="$product" />
-      @endforeach
+
+    <div class="row w-100 m-0 p-0">
+      <div class="product-grid row m-0 mb-3" style="gap: 0!important">
+        @foreach ($products as $product)
+          <x-product :product="$product" />
+        @endforeach
+      </div>
     </div>
 
   </div>

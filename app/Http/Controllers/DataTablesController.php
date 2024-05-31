@@ -7,13 +7,18 @@ use App\Models\Blog;
 
 use App\Models\Category;
 use App\Models\Coupon;
+use App\Models\Order;
+use App\Models\OrderProducts;
 use App\Models\Plan;
+use App\Models\PlanPermission;
 use App\Models\Product;
+use App\Models\Profile;
 use App\Models\Publication;
 use App\Models\Sell;
 use App\Models\SubCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Yajra\DataTables\DataTables;
 
@@ -41,18 +46,11 @@ class DataTablesController extends Controller
             return '
                 <img src="' . $user->photoUrl() . '" alt="' . $user->fullname . '" class="avatar avatar-sm rounded-circle">
             ';
-
         })
-        // ->editColumn('phone', function ($user) {
-        //   return $user->phone;
-        // })
         ->editColumn('created_at', function ($user) {
           return $user->created_at->format('Y-m-d');
         })
-        ->addColumn('action', function ($user) {
-            return '<button class="btn btn-primary">Edit</button>';
-        })
-        ->rawColumns(['action','photo'])
+        ->rawColumns(['photo'])
         ->make(true);
       }
 
@@ -76,10 +74,6 @@ class DataTablesController extends Controller
         ->editColumn('created_at', function ($category) {
           return $category->created_at->format('Y-m-d');
         })
-        ->addColumn('action', function ($category) {
-            return '<a href="#"><span class="tf-icons mdi mdi-plus-outline"></span></a>';
-        })
-        ->rawColumns(['action'])
         ->make(true);
       }
 
@@ -99,7 +93,7 @@ class DataTablesController extends Controller
           return $product->price;
         })
         ->editColumn('subcategory_id', function ($product) {
-          return $product->subcategory->name;
+          return $product->subcategory->getName();
         })
         ->editColumn('status', function ($product) {
           return $product->status;
@@ -113,45 +107,40 @@ class DataTablesController extends Controller
         ->editColumn('seller_id', function ($product) {
           return $product->seller->fullname;
         })
-        ->editColumn('created_at', function ($product) {
-          return $product->created_at->format('Y-m-d H:i:s');
+        ->editColumn('created_at', function ($expert) {
+          return $expert->created_at->format('Y-m-d');
         })
-        ->addColumn('action', function ($product) {
-            return '<button class="btn btn-primary">Edit</button>';
-        })
-        ->rawColumns(['action'])
         ->make(true);
     }
     return view('content.dashboard.products.list');
     }
 
     public function experts(Request $request) {
-      $experts = User::where('role', 'expert')->get();
+      $experts = Profile::where('plan_id', 2)->get();
 
       if($request->ajax()) {
         return DataTables::of($experts)
         ->editColumn('id', function ($expert) {
             return (string) $expert->id;
         })
-        ->editColumn('email', function ($expert) {
-          return $expert->price;
-        })
         ->editColumn('fullname', function ($expert) {
           return $expert->fullname;
+        })
+        ->addColumn('email', function ($expert) {
+          return $expert->user->email;
         })
         ->editColumn('phone', function ($expert) {
           return $expert->status;
         })
         ->editColumn('photo', function ($expert) {
-          return $expert->photo;
+          return '
+              <img src="' . $expert->photoUrl() . '" alt="' . $expert->fullname . '" class="avatar avatar-sm rounded-circle">
+          ';
         })
         ->editColumn('created_at', function ($expert) {
           return $expert->created_at->format('Y-m-d');
         })
-        ->addColumn('action', function ($expert) {
-            return '<button class="btn btn-primary">Edit</button>';
-        })
-        ->rawColumns(['action'])
+        ->rawColumns(['photo'])
         ->make(true);
       }
 
@@ -160,15 +149,20 @@ class DataTablesController extends Controller
     }
 
     public function sellers(Request $request) {
-      $sellers = User::where('role', 'seller')->get();
+      $sellers = Profile::where('plan_id', 3)->get();
 
       if($request->ajax()) {
         return DataTables::of($sellers)
         ->editColumn('id', function ($seller) {
             return (string) $seller->id;
         })
-        ->editColumn('email', function ($seller) {
-          return $seller->price;
+        ->addColumn('email', function ($seller) {
+          return $seller->user->email;
+        })
+        ->editColumn('photo', function ($expert) {
+          return '
+              <img src="' . $expert->photoUrl() . '" alt="' . $expert->fullname . '" class="avatar avatar-sm rounded-circle">
+          ';
         })
         ->editColumn('fullname', function ($seller) {
           return $seller->fullname;
@@ -176,20 +170,47 @@ class DataTablesController extends Controller
         ->editColumn('phone', function ($seller) {
           return $seller->status;
         })
-        ->editColumn('photo', function ($seller) {
-          return $seller->photo;
-        })
         ->editColumn('created_at', function ($seller) {
           return $seller->created_at->format('Y-m-d');
         })
-        ->addColumn('action', function ($seller) {
-            return '<button class="btn btn-primary">Edit</button>';
-        })
-        ->rawColumns(['action'])
+        ->rawColumns(['photo'])
         ->make(true);
       }
 
       return view('content.dashboard.sellers.list');
+
+    }
+
+    public function workers(Request $request) {
+      $workers = Profile::where('plan_id', 1)->get();
+
+      if($request->ajax()) {
+        return DataTables::of($workers)
+        ->editColumn('id', function ($worker) {
+            return (string) $worker->id;
+        })
+        ->addColumn('email', function ($worker) {
+          return $worker->user->email;
+        })
+        ->editColumn('fullname', function ($worker) {
+          return $worker->fullname;
+        })
+        ->editColumn('phone', function ($worker) {
+          return $worker->status;
+        })
+        ->editColumn('photo', function ($worker) {
+          return '
+              <img src="' . $worker->photoUrl() . '" alt="' . $worker->fullname . '" class="avatar avatar-sm rounded-circle">
+          ';
+        })
+        ->editColumn('created_at', function ($worker) {
+          return $worker->created_at->format('Y-m-d');
+        })
+        ->rawColumns(['photo'])
+        ->make(true);
+      }
+
+      return view('content.dashboard.workers.list');
 
     }
 
@@ -217,10 +238,7 @@ class DataTablesController extends Controller
         ->editColumn('created_at', function ($blog) {
           return $blog->created_at->format('Y-m-d');
         })
-        ->addColumn('action', function ($blog) {
-            return '<button class="btn btn-primary">Edit</button>';
-        })
-        ->rawColumns(['action','status','subcategory_id'])
+        ->rawColumns(['status','subcategory_id'])
         ->make(true);
       }
 
@@ -250,10 +268,7 @@ class DataTablesController extends Controller
         ->editColumn('created_at', function ($article) {
           return $article->created_at->format('Y-m-d');
         })
-        ->addColumn('action', function ($article) {
-            return '<button class="btn btn-primary">Edit</button>';
-        })
-        ->rawColumns(['action','type_id','disease_id'])
+        ->rawColumns(['type_id','disease_id'])
         ->make(true);
       }
 
@@ -287,15 +302,35 @@ class DataTablesController extends Controller
         ->editColumn('created_at', function ($plan) {
           return $plan->created_at->format('Y-m-d');
         })
-        // ->addColumn('action', function ($plan) {
-        //     return '<button class="btn btn-primary">Edit</button>';
-        // })
-        ->rawColumns(['action','image','status'])
+        ->rawColumns(['image','status'])
         ->make(true);
       }
 
       return view('content.dashboard.plans.list');
 
+    }
+
+    public function plan_permissions(Request $request,$id) {
+      $permissions = PlanPermission::where('plan_id', $id)->get();
+      $plan = Plan::find($id);
+
+      if($request->ajax()) {
+        return DataTables::of($permissions)
+        ->editColumn('id', function ($permission) {
+            return (string) $permission->id;
+        })
+        ->editColumn('permission_id', function ($permission) {
+          return $permission->permission->name;
+        })
+        ->editColumn('created_at', function ($permission) {
+          return $permission->created_at->format('Y-m-d');
+        })
+        ->rawColumns(['action'])
+        ->make(true);
+      }
+
+      return view('content.dashboard.plans.permissions')
+      ->with('plan',$plan);
     }
 
     public function coupons(Request $request) {
@@ -352,10 +387,6 @@ class DataTablesController extends Controller
         ->editColumn('created_at', function ($subcategory) {
           return $subcategory->created_at->format('Y-m-d');
         })
-        ->addColumn('action', function ($subcategory) {
-          return '<a href="#"><span class="tf-icons mdi mdi-plus-outline"></span></a>';
-        })
-        ->rawColumns(['action'])
         ->make(true);
       }
 
@@ -391,29 +422,35 @@ class DataTablesController extends Controller
     }
 
     public function orders(Request $request) {
-      $publications = Publication::all();
+      $user = Auth::user();
+
+      $orders = OrderProducts::whereHas('product', function ($query) use ($user) {
+        $query->where('seller_id', $user->id);
+      })->get();
 
       if($request->ajax()) {
-        return DataTables::of($publications)
-        ->editColumn('id', function ($publication) {
-            return (string) $publication->id;
+        return DataTables::of($orders)
+        ->editColumn('id', function ($order) {
+            return (string) $order->id;
         })
-        ->editColumn('title', function ($publication) {
-          return $publication->title;
+        ->editColumn('product_id', function ($order) {
+            return $order->product->name;
         })
-        ->editColumn('category_id', function ($publication) {
-          return $publication->category->name;
+        ->editColumn('order_id', function ($order) {
+            return $order->order->id;
         })
-        ->editColumn('image', function ($publication) {
-          return $publication->image;
+        ->editColumn('user_id', function ($order) {
+            return $order->order->user->fullname;
         })
-        ->editColumn('created_at', function ($publication) {
-          return $publication->created_at->format('Y-m-d');
+        ->editColumn('quantity', function ($order) {
+            return $order->quantity;
         })
-        ->addColumn('action', function ($publication) {
-            return '<button class="btn btn-primary">Edit</button>';
+        ->editColumn('total', function ($order) {
+            return $order->quantity * $order->price;
         })
-        ->rawColumns(['action'])
+        ->editColumn('created_at', function ($order) {
+            return $order->created_at->format('Y-m-d');
+        })
         ->make(true);
       }
 

@@ -52,19 +52,7 @@
 </div>
 <!--/ Responsive Table -->
 
-<style>
-  .dataTables_length,
-  .dataTables_filter,
-  .dataTables_info,
-  .dataTables_paginate {
-    display: none;
-  }
-  td,tr {
-    text-align: center;
-  }
-</style>
 
-<script src="{{ asset('assets/js/mine.js') }}"></script>
 
 <script type="text/javascript">
   var table;
@@ -146,7 +134,8 @@ $(document).ready(function() {
           processing: true,
           serverSide: true,
           language: {
-            "emptyTable": __("No data available in table",lang)
+            "emptyTable": __("No data available in table",lang),
+            "zeroRecords": __("No matching records found",lang)
           },
           ajax: "{{ route('publications') }}",
           columns: [

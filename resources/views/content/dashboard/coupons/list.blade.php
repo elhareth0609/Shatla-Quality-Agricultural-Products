@@ -121,23 +121,17 @@
 </div>
 <!--/ Responsive Table -->
 
-<style>
-  .dataTables_length,
-  .dataTables_filter,
-  .dataTables_info,
-  .dataTables_paginate {
-    display: none;
-  }
-  td,tr {
-    text-align: center;
-  }
-
-</style>
-
+<script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 
 <script type="text/javascript">
   var table;
   var lang = "{{ app()->getLocale() }}";
+
+  Pusher.logToConsole = true;
+
+  var pusher = new Pusher('f513c6dba43174cbee4d', {
+    cluster: 'eu'
+  });
 
       function editCoupon(id) {
         console.log(id);
@@ -211,7 +205,8 @@ $(document).ready(function() {
           processing: true,
           serverSide: true,
           language: {
-            "emptyTable": __("No data available in table",lang)
+            "emptyTable": __("No data available in table",lang),
+            "zeroRecords": __("No matching records found",lang)
           },
           ajax: "{{ route('coupons') }}",
           columns: [
@@ -327,6 +322,12 @@ $(document).ready(function() {
         });
       });
 
+
+      var channel = pusher.subscribe('coupons');
+      channel.bind('couponsEdited', function(data) {
+        alert(JSON.stringify(data));
+        console.log(data);
+      });
     });
 
 </script>

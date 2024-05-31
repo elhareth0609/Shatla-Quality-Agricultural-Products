@@ -85,36 +85,7 @@
 </div>
 <!--/ Responsive Table -->
 
-<style>
-  .dataTables_length,
-  .dataTables_filter,
-  .dataTables_info,
-  .dataTables_paginate {
-    display: none;
-  }
-  td,tr {
-    text-align: center;
-  }
 
-  .context-menu {
-    position: absolute;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 5px 0;
-    list-style: none;
-    border-radius: 5px;
-    z-index: 1000;
-  }
-
-  .context-menu li {
-      padding: 5px 20px;
-      cursor: pointer;
-  }
-
-  .context-menu li:hover {
-      background-color: #f0f0f0;
-  }
-</style>
 
 <script src="{{ asset('assets/js/mine.js') }}"></script>
 
@@ -122,9 +93,9 @@
   var table;
   var lang = "{{ app()->getLocale() }}";
 
-      function editSubCategory(id) {
-        console.log(id);
-      }
+  function editSubCategory(id) {
+    console.log(id);
+  }
 
   function deleteSubCategory(id) {
     Swal.fire({
@@ -193,7 +164,8 @@ $(document).ready(function() {
           processing: true,
           serverSide: true,
           language: {
-            "emptyTable": __("No data available in table",lang)
+            "emptyTable": __("No data available in table",lang),
+            "zeroRecords": __("No matching records found",lang)
           },
           ajax: "{{ route('category.subcategorys', ['id' => $category->id]) }}",
           columns: [

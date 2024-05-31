@@ -1,6 +1,6 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Account settings - Account')
+@section('title', __('Settings - Account'))
 
 @section('content')
 <h4 class="py-3 mb-4">
@@ -16,8 +16,11 @@
   <div class="col-md-12">
     <ul class="nav nav-pills flex-column flex-md-row mb-4 gap-2 gap-lg-0">
       <li class="nav-item"><a class="nav-link active" href="javascript:void(0);"><i class="mdi mdi-account-outline mdi-20px me-1"></i>{{ __('Account') }}</a></li>
-      <li class="nav-item"><a class="nav-link" href="{{url('pages/account-settings-notifications')}}"><i class="mdi mdi-bell-outline mdi-20px me-1"></i>{{ __('Notifications') }}</a></li>
-      <li class="nav-item"><a class="nav-link" href="{{url('pages/account-settings-connections')}}"><i class="mdi mdi-link mdi-20px me-1"></i>{{ __('Connections') }}</a></li>
+      @if (Auth::user()->isCan('manage website'))
+        <li class="nav-item"><a class="nav-link" href="{{ route('settings.website') }}"><i class="mdi mdi-home-outline mdi-20px me-1"></i>{{ __('Website') }}</a></li>
+      @endif
+
+      {{-- <li class="nav-item"><a class="nav-link" href="{{url('pages/account-settings-connections')}}"><i class="mdi mdi-link mdi-20px me-1"></i>{{ __('Connections') }}</a></li> --}}
     </ul>
     <form class="card mb-4" id="updateForm" method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
       @csrf
@@ -129,7 +132,7 @@
           </div>
           <button type="submit" class="btn btn-danger">{{ __('Change Password') }}</button>
         </form>
-        
+
       </div>
     </div>
   </div>
@@ -140,7 +143,7 @@
   $(document).ready(function() {
 
     $('#updateForm').submit(function(event) {
-      
+
       event.preventDefault();
 
       var formData = new FormData(this);

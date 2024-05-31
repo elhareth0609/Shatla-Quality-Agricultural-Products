@@ -54,24 +54,12 @@
 </div>
 <!--/ Responsive Table -->
 
-<style>
-  .dataTables_length,
-  .dataTables_filter,
-  .dataTables_info,
-  .dataTables_paginate {
-    display: none;
-  }
-  td,tr {
-    text-align: center;
-  }
-</style>
-
 
 <script type="text/javascript">
   var table;
   var lang = "{{ app()->getLocale() }}";
 
-  function editCoupon(id) {
+  function editPlan(id) {
     window.location.href = "{{ url('plan') }}/" + id;
   }
 
@@ -79,9 +67,9 @@
     window.location.href = "{{ url('plan') }}/" + id + "/permissions";
   }
 
-  function deleteCoupon(id) {
+  function deletePlan(id) {
     Swal.fire({
-        title: __("Do you really want to delete this Coupon?",lang),
+        title: __("Do you really want to delete this Plan?",lang),
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: __("Submit",lang),
@@ -90,7 +78,7 @@
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: '/coupon/' + id,
+                url: '/plan/' + id,
                 type: 'DELETE',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -148,7 +136,8 @@ $(document).ready(function() {
           processing: true,
           serverSide: true,
           language: {
-            "emptyTable": __("No data available in table",lang)
+            "emptyTable": __("No data available in table",lang),
+            "zeroRecords": __("No matching records found",lang)
           },
           ajax: "{{ route('plans') }}",
           columns: [

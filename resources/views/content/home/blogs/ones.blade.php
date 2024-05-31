@@ -27,8 +27,13 @@
                 <a class="badge bg-secondary text-decoration-none link-light text-white" href="{{ route('subcategory.view',$blog->subcategory->id) }}">{{ $blog->subcategory->getName() }}</a>
                 {{-- <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a> --}}
               </header>
-              <figure class="mb-4">
+              {{-- <figure class="mb-4">
                 <img class="img-fluid rounded" src="{{ $blog->photoUrl() }}" alt="{{ $blog->title }}" style="width: 720px;height: 350px;"/>
+              </figure> --}}
+              <figure class="mb-4 rounded d-flex justify-content-center position-relative">
+                <div style="background: rgba(0, 0, 0, 0.5);backdrop-filter: blur(10px);" class="position-absolute w-100 h-100 rounded"></div>
+                <img class="img-fluid position-absolute h-px-350 rounded-0" src="{{ $blog->photoUrl() }}" alt="{{ $blog->title }}">
+                <img class="img-fluid w-100 h-px-350 rounded" src="{{ $blog->photoUrl() }}" alt="{{ $blog->title }}">
               </figure>
 
               <section class="mb-5">
@@ -124,9 +129,15 @@
                       <!-- Slides -->
                       @foreach ($blogs as $blog)
                         <div class="swiper-slide blog-slider__item">
-                          <div class="blog-slider__img">
+                          {{-- <div class="blog-slider__img">
                             <img class="img-fluid" src="{{ $blog->photoUrl() }}" alt="{{ $blog->title }}">
+                          </div> --}}
+                          <div class="blog-slider__img mb-4 rounded d-flex justify-content-center position-relative">
+                            <div style="background: rgba(0, 0, 0, 0.5);backdrop-filter: blur(10px);" class="position-absolute w-100 h-100 rounded"></div>
+                            <img class="img-fluid position-absolute h-px-150 rounded-0" src="{{ $blog->photoUrl() }}" alt="{{ $blog->title }}">
+                            <img class="img-fluid w-100 h-px-150 rounded" src="{{ $blog->photoUrl() }}" alt="{{ $blog->title }}">
                           </div>
+
                           <div class="blog-slider__content mt-2">
                             <h4 class="blog-slider__title">{{ \Illuminate\Support\Str::limit($blog->title, 79) }}</h4>
                             <p class="blog-slider__text">{{ \Illuminate\Support\Str::limit(strip_tags($blog->content), 79) }}</p>
