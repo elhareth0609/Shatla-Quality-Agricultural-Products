@@ -33,7 +33,7 @@
           </article>
 
           <section class="mb-5">
-              <div class="card bg-light">
+              <div class="card bg-white">
                   <div class="card-body">
                       <form class="mb-4" id="addCommentForm" action="{{ route('publication.comment',$publication->id) }}" method="POST">
                         @csrf
@@ -42,7 +42,7 @@
                             <span class="mdi mdi-send-outline rotate-180"></span>
                           </button>
                           <input type="hidden" name="publication_id" value="{{ $publication->id }}" />
-                          <textarea class="form-control text-right" name="content" dir="rtl" id="textarea" aria-label="With textarea" placeholder="{{ __('Comment...') }}"></textarea>
+                          <textarea class="form-control text-right h-px-20" name="content" dir="rtl" id="textarea" aria-label="With textarea" placeholder="{{ __('Put Your Comment Here ...') }}"></textarea>
                         </div>
                       </form>
 

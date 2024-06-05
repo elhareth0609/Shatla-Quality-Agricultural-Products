@@ -2,9 +2,7 @@
   @if (isset($menu))
     @foreach ($menu as $submenu)
       @php
-        $requiredPermissionId = isset($submenu->required) ? $submenu->required : null;
-        $permissionId = $Permission->where('name', $requiredPermissionId)->value('id');
-        $hasPermission = $permissionId ? $permissionService->checkPermission($userPlanId, $permissionId) : true;
+        $requiredPermission = isset($submenu->required) ? $submenu->required : null;
 
         $activeClass = null;
         $active = 'active open';
@@ -27,7 +25,7 @@
         }
       @endphp
 
-      @if ($hasPermission)
+      @if (Auth::user()->isCan($requiredPermission) || $requiredPermission == null)
         <li class="menu-item {{$activeClass}}">
           <a href="{{ isset($submenu->url) ? url($submenu->url) : 'javascript:void(0)' }}" class="{{ isset($submenu->submenu) ? 'menu-link menu-toggle' : 'menu-link' }}" @if (isset($submenu->target) and !empty($submenu->target)) target="_blank" @endif>
             @if (isset($submenu->icon))

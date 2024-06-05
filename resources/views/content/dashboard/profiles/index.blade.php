@@ -28,7 +28,7 @@
           @foreach (Auth::user()->profiles as $profile)
           <div class="d-flex align-items-center border border-2 rounded p-1 my-1 justify-content-between profile-item" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}" data-profile-id="{{ $profile->id }}">
               <div class="d-flex align-items-center">
-                <div class="avatar avatar-lg ms-3">
+                <div class="avatar avatar-lg {{ app()->isLocale('ar') ? 'ms-3' : 'me-3' }}">
                   <img src="{{ $profile->photoUrl() }}" alt="Avatar" class="rounded-circle">
                 </div>
                 <div>

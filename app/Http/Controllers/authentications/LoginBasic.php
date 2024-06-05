@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\authentications;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -49,6 +50,18 @@ class LoginBasic extends Controller
         $user->fullname = $googleUser->getName();
         $user->photo = $googleUser->getAvatar();
         $user->save();
+
+        $profile = new Profile;
+        $profile->fullname = $googleUser->getName();
+        $profile->photo = $googleUser->getAvatar();
+        $profile->user_id = $user->id;
+        $profile->plan_id = 0;
+        $profile->active = '1';
+        $profile->save();
+
+        $cart = new Cart;
+        $cart->user_id = $user->id;
+        $cart->save();
       }
 
       Auth::login($user);
@@ -71,6 +84,18 @@ class LoginBasic extends Controller
         $user->fullname = $facebookUser->getName();
         $user->photo = $facebookUser->getAvatar();
         $user->save();
+
+        $profile = new Profile;
+        $profile->fullname = $facebookUser->getName();
+        $profile->photo = $facebookUser->getAvatar();
+        $profile->user_id = $user->id;
+        $profile->plan_id = 0;
+        $profile->active = '1';
+        $profile->save();
+
+        $cart = new Cart;
+        $cart->user_id = $user->id;
+        $cart->save();
       }
 
       Auth::login($user);
@@ -136,14 +161,14 @@ class LoginBasic extends Controller
           'message' => $validator->errors()->first()
           ], 422);
       }
-  
+
       try {
 
         $profile = Profile::where('user_id',Auth::user()->id)->where('active', '1')->first();
           if ($request->hasFile('image')) {
             if (Auth::user()->profile->photoPath()) {
               Storage::disk('public')->delete('assets/img/photos/users/' . Auth::user()->profile->photo);
-            }  
+            }
             $image = $request->file('image');
             $imageName = time() . '_' . $image->getClientOriginalName(); // Generate unique image name
             $image->move(public_path('assets/img/photos/users/'), $imageName);

@@ -20,7 +20,7 @@
           <span class="checkbox-icon">
             <img src="{{ $item->photoUrl() }}" alt="{{ $item->id }}" />
           </span>
-          <span class="checkbox-label">{{ $item->name_ar }}</span>
+          <span class="checkbox-label">{{ $item->getName() }}</span>
         </span>
       </label>
     </a>

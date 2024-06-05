@@ -6,6 +6,7 @@ use App\Events\PublicationDeleted;
 use App\Models\Coupon;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -145,8 +146,10 @@ class CouponController extends Controller
   public function delete($id) {
       try{
         $coupon = Coupon::find($id);
-        $coupon->delete();
+        // $coupon->delete();
+
         event(new PublicationDeleted($id));
+        Broadcast::event(new PublicationDeleted($id));
 
       return response()->json([
           'icon' => 'success',

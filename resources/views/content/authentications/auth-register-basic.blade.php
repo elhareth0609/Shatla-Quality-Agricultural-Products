@@ -63,7 +63,7 @@
                 </label>
               </div>
             </div>
-            <button class="btn btn-primary d-grid w-100">
+            <button type="submit" class="btn btn-primary d-grid w-100">
               {{ __('Sign up') }}
             </button>
           </form>

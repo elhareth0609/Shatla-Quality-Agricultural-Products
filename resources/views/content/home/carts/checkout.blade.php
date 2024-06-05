@@ -7,40 +7,6 @@
   <form class="row px-xl-5" dir="{{ app()->isLocale('ar') ? 'rtl' : 'ltr' }}" action="{{ route('cart.order') }}" method="Post" id="orderForm">
     @csrf
       <div class="col-lg-8">
-        @php
-            $addresses = \App\Models\Adress::where('user_id', Auth::user()->id)->get();
-        @endphp
-
-        <div class="row d-flex">
-          @foreach($addresses as $address)
-            <div class="col-md-6 mb-3">
-              <input class="form-check-input" type="radio" name="selected_address" id="address{{ $address->id }}" value="{{ $address->id }}" hidden>
-              <label class="form-check-label w-100 border rounded" for="address{{ $address->id }}">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">{{ $address->first_name }} {{ $address->last_name }}</h5>
-                    <p class="card-text">{{ $address->country }}, {{ $address->city }}, {{ $address->state }}</p>
-                    <p class="card-text">{{ $address->address1 }}</p>
-                    <p class="card-text">{{ $address->address2 }}</p>
-                  </div>
-                </div>
-              </label>
-            </div>
-          @endforeach
-          <div class="col-md-6 col-sm-12 mb-3" id="newAddress">
-            <input class="form-check-input" type="radio" name="selected_address" id="address0" value="0" hidden>
-            <label class="form-check-label w-100 border rounded" for="address0">
-              <div class="card">
-                <div class="card-body">
-                  {{-- <h5 class="card-title">{{ $address->first_name }} {{ $address->last_name }}</h5>
-                  <p class="card-text">{{ $address->country }}, {{ $address->city }}, {{ $address->state }}</p>
-                  <p class="card-text">{{ $address->address1 }}</p>
-                  <p class="card-text">{{ $address->address2 }}</p> --}}
-                </div>
-              </div>
-            </label>
-          </div>
-        </div>
 
           <div class="card p-3 mb-4" id="newAddressForm">
               <h4 class="font-weight-semi-bold mb-4">{{ __('Billing Address') }}</h4>
@@ -71,7 +37,7 @@
                     </div>
                   </div>
                   <div class="col-md-6 form-group">
-                    <select id="countrySelect" name="country" class="form-select form-select-lg mb-4 my-p-select {{ app()->isLocale('ar') ? 'text-start' : 'text-end' }}">
+                    <select id="countrySelect" name="country" class="form-select form-select-lg mb-4 my-p-select text-start">
                       <option>{{ __('Select Country') }}</option>
                       @foreach($countries as $country)
                         <option value="{{ $country['id'] }}">{{ $country['name'] }}</option>
@@ -79,12 +45,12 @@
                     </select>
                   </div>
                   <div class="col-md-6 form-group">
-                    <select id="stateSelect" name="state" class="form-select form-select-lg mb-4 my-p-select {{ app()->isLocale('ar') ? 'text-start' : 'text-end' }}">
+                    <select id="stateSelect" name="state" class="form-select form-select-lg mb-4 my-p-select text-start">
                       <option>{{ __('Select State') }}</option>
                     </select>
                   </div>
                   <div class="col-md-6 form-group">
-                    <select id="citySelect" name="city" class="form-select form-select-lg mb-4 my-p-select {{ app()->isLocale('ar') ? 'text-start' : 'text-end' }}">
+                    <select id="citySelect" name="city" class="form-select form-select-lg mb-4 my-p-select text-start">
                       <option>{{ __('Select City') }}</option>
                     </select>
                   </div>
@@ -214,28 +180,8 @@
 <script>
   var lang = "{{ app()->getLocale() }}";
 
-  var radioButtons = document.querySelectorAll('input[name="selected_address"]');
-
-  radioButtons.forEach(function(radioButton) {
-    radioButton.addEventListener('change', function(event) {
-      document.querySelectorAll('.form-check-label').forEach(function(label) {
-        label.classList.remove('border-primary');
-      });
-
-      // Use the 'for' attribute of the label to find the associated radio button
-      var selectedLabel = document.querySelector('label[for="' + event.target.id + '"]');
-      if (selectedLabel) {
-        selectedLabel.classList.add('border-primary');
-      }
-    });
-  });
-
 
   $(document).ready(function() {
-    // $('#newAddress').on('click', function() {
-    //     var newAddressForm = $('#newAddressForm');
-    //     newAddressForm.toggleClass('d-none d-flex');
-    // });
 
     $('#countrySelect').on('change', function() {
         var countryId = $(this).val();

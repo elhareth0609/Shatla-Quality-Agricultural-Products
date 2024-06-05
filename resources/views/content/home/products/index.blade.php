@@ -370,7 +370,7 @@
                                 </div>
 
                                 <div class="form-floating form-floating-outline mb-4">
-                                  <textarea class="form-control h-px-100" name="content" id="exampleFormControlTextarea1" placeholder="{{ __('Comments here...') }}"></textarea>
+                                  <textarea class="form-control h-px-100" name="content" id="exampleFormControlTextarea1" placeholder="{{ __('Put Your Comment Here ...') }}"></textarea>
                                   <label for="exampleFormControlTextarea1">{{ __('Your Comment') }}</label>
                                 </div>
                                 <button type="submit" class="btn btn-primary my-3">

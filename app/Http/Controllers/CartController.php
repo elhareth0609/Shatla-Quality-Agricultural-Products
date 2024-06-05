@@ -187,7 +187,7 @@ class CartController extends Controller
         $order->shipping = $request->shipping;
         $order->save();
 
-        $products = '';
+        $allproducts = '';
         foreach(Auth::user()->cart->products as $cartProduct) {
           $orderProduct = new OrderProducts();
           $orderProduct->order_id = $order->id;
@@ -195,7 +195,7 @@ class CartController extends Controller
           $orderProduct->quantity = $cartProduct->quantity;
           $orderProduct->price = $cartProduct->product->price;
           $orderProduct->save();
-          $products = $cartProduct->product->name . ',';
+          $allproducts .= $cartProduct->product->name . ',';
           $cartProduct->delete();
         }
 
@@ -211,12 +211,12 @@ class CartController extends Controller
               ],
               'mode' => 'EDAHABIA',
               'payment' => [
-                  'number' => 'payment-number-from-your-side',
+                  'number' => $order->id,
                   'client_name' => Auth::user()->profile->fullname,
                   'client_email' => Auth::user()->email,
               'amount' => (Auth::user()->cart->totalCart() * ($coupon ? $coupon->discount/100 : 1)) + Details::where('type', 'shipping')->first()->content,
               'discount' => 0,
-              'description' => $products,
+              'description' => $allproducts,
             ]
           ]);
 

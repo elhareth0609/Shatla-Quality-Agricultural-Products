@@ -31,10 +31,10 @@
     @foreach ($menuData[0]->menu as $menu)
     @php
         // Get the required permission ID for this menu item
-        $requiredPermissionId = isset($menu->required) ? $menu->required : null;
+        $requiredPermission = isset($menu->required) ? $menu->required : null;
 
-        $permissionId = $Permission->where('name', $requiredPermissionId)->value('id');
-        $hasPermission = $permissionId ? $permissionService->checkPermission($userPlanId, $permissionId) : true;
+        // $permissionId = $Permission->where('name', $requiredPermissionId)->value('id');
+        // $hasPermission = $permissionId ? $permissionService->checkPermission($userPlanId, $permissionId) : true;
     @endphp
 
       {{-- adding active and open class if child is active --}}
@@ -69,7 +69,7 @@
           }
         @endphp
 
-        @if ($hasPermission)
+        @if (Auth::user()->isCan($requiredPermission) || $requiredPermission == null)
         <li class="menu-item {{$activeClass}}">
           <a href="{{ isset($menu->url) ? url($menu->url) : 'javascript:void(0);' }}" class="{{ isset($menu->submenu) ? 'menu-link menu-toggle' : 'menu-link' }}" @if (isset($menu->target) and !empty($menu->target)) target="_blank" @endif>
             @isset($menu->icon)
