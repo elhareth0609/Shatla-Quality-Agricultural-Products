@@ -321,7 +321,6 @@ $(document).ready(function() {
         });
       });
 
-
       var channel = pusher.subscribe('coupons');
       channel.bind('couponsEdited', function(data) {
         table.ajax.reload();

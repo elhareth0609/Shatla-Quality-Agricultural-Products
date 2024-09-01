@@ -124,4 +124,9 @@ class User extends Authenticatable
     public function isCan($permission) {
       return $this->profile->plan->permissions->contains('name',$permission);
     }
+
+    public function cars() {
+      return $this->hasMany(Car::class);
+    }
+  
 }

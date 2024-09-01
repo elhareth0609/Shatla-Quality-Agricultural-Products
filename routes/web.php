@@ -35,18 +35,19 @@ use App\Http\Controllers\layouts\Container;
 use App\Http\Controllers\layouts\Fluid;
 use App\Http\Controllers\layouts\WithoutMenu;
 use App\Http\Controllers\layouts\WithoutNavbar;
+use App\Http\Controllers\MapController;
 use App\Http\Controllers\MarchentController;
 use App\Http\Controllers\pages\AccountSettingsAccount;
 use App\Http\Controllers\pages\AccountSettingsConnections;
 use App\Http\Controllers\pages\AccountSettingsNotifications;
 use App\Http\Controllers\pages\MiscError;
 use App\Http\Controllers\pages\MiscUnderMaintenance;
+
 use App\Http\Controllers\PagesController;
-
 use App\Http\Controllers\PlanController;
+
+
 use App\Http\Controllers\ProductsController;
-
-
 use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SubCategoryController;
@@ -78,6 +79,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
+
   // Main Page Route
   Route::get('/', [HomeController::class, 'index'])->name('home');
   Route::get('/home', [HomeController::class, 'index']);
@@ -103,6 +105,10 @@ use Illuminate\Support\Facades\Route;
     Route::get('/plan/{id}/permissions-table', [DataTablesController::class, 'plan_permissions'])->name('plan.permissions.table');
     Route::get('/coupons', [DataTablesController::class, 'coupons'])->name('coupons');
     Route::get('/articles', [DataTablesController::class, 'articles'])->name('articles');
+
+    // Dashboard Map
+    Route::get('/map', [MapController::class, 'index'])->name('map');
+    Route::get('/map/locations', [MapController::class, 'getLatestLocations'])->name('map.locations');
 
     // Dashboard Settings
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
@@ -132,6 +138,7 @@ use Illuminate\Support\Facades\Route;
     Route::post('/product/upload', [ProductsController::class, 'uploadPhotos'])->name('product.upload');
     Route::delete('/product/unupload/{id}', [ProductsController::class, 'unuploadPhotos'])->name('product.unupload.photo');
     Route::post('/product/comment', [ProductsController::class, 'comment'])->name('product.comment');
+    Route::post('/product/{id}/update/name', [ProductsController::class, 'updateName'])->name('product.update.name');
 
 
 

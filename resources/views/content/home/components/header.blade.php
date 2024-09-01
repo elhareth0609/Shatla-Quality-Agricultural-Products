@@ -65,7 +65,7 @@
     <div class="container">
 
 
-      <a href="{{url('/')}}" class="app-brand-link gap-2">
+      <a href="{{url('/')}}" class="app-brand-link gap-2 my-w-fit-content mx-auto my-2">
         <span class="app-brand-logo demo">
           {{--  @include('_partials.macros',["height"=>20,"withbg"=>'fill: #fff;'])  --}}
           <img src="{{ asset('assets/home/icons/photo_2024-05-27_04-47-57-removebg-preview.png') }}" width="110" height="50"/>
@@ -118,6 +118,52 @@
           <span class="count cartCount">{{ Auth::user()->cart->products()->count() }}</span>
         </button>
 
+
+                {{-- Cart Model --}}
+                <div class="offcanvas offcanvas-{{ app()->isLocale('ar') ? 'end' : 'start' }}" tabindex="-1" id="CartButton" aria-labelledby="offcanvasEndLabel">
+                  <div class="offcanvas-header">
+                    <h5 id="offcanvasEndLabel" class="offcanvas-title">{{ __('Cart Items') }}</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                  </div>
+                  <div class="offcanvas-body mx-0 flex-grow-0">
+                    <div class="cart-items mb-3">
+
+                      @auth
+                      @foreach (Auth::user()->cart->products as $product)
+
+                      <div class="carts-item mb-2" data-product-id="{{ $product->product->id }}">
+                        <div class="card-body" dir="{{ app()->isLocale('ar') ? 'rtl' : 'ltr' }}">
+                          <div class="d-flex align-items-start align-items-sm-center gap-4">
+                            <img src="{{ $product->product->firstPhoto() }}" alt="user-avatar" class="d-block w-px-120 h-px-120 rounded" />
+                            <div class="button-wrapper">
+                              <div class="btn-group" role="group" aria-label="Second group" dir="ltr">
+                                <button type="button" class="btn btn-icon btn-primary btn-plus-cart">
+                                  <span class="tf-icons mdi mdi-plus"></span>
+                                </button>
+                                <input type="text" class="form-control text-center p-0 rounded-0 my-w-5 input-price-cart" data-max="{{ $product->product->quantity }}" value="{{ $product->quantity }}" name="quantity" data-product-id="{{ $product->product->id }}">
+                                <button type="button" class="btn btn-icon btn-primary btn-minus-cart">
+                                  <span class="tf-icons mdi mdi-minus"></span>
+                                </button>
+                              </div>
+                              <button type="button" class="btn btn-icon btn-outline-danger btn-remove-cart">
+                                <span class="tf-icons mdi mdi-trash-can-outline"></span>
+                              </button>
+                              <div class="text-muted small mt-3">{{ \Illuminate\Support\Str::limit($product->product->name, 90) }}</div>
+                              <div class="text-muted small mt-3 d-flex justify-content-between">
+                                <p>{{ $product->product->price }}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      @endforeach
+                      @endauth
+                    </div>
+                    <a type="button" href="{{ route('cart') }}" class="btn btn-primary mb-2 d-grid w-100">{{ __('Go To Cart') }}</a>
+                  </div>
+                </div>
+
         {{-- Faveorite Model --}}
         <div class="offcanvas offcanvas-{{ app()->isLocale('ar') ? 'end' : 'start' }}" tabindex="-1" id="FaveButton" aria-labelledby="offcanvasEndLabel">
           <div class="offcanvas-header">
@@ -135,7 +181,7 @@
                     <div class="button-wrapper">
                       <a href="{{ route('product.view',$favorite->product->id) }}" class="btn btn-outline-info">
                         <i class="mdi mdi-reload d-block d-sm-none"></i>
-                        <span class="d-none d-sm-block">{{ __('visit') }}</span>
+                        <span class="d-none d-sm-block">{{ __('Visit') }}</span>
                       </a>
                       <button type="button" class="btn btn-icon btn-outline-danger btn-remove-favorite">
                         <span class="tf-icons mdi mdi-trash-can-outline"></span>
@@ -156,50 +202,6 @@
         </div>
 
 
-        {{-- Cart Model --}}
-        <div class="offcanvas offcanvas-{{ app()->isLocale('ar') ? 'end' : 'start' }}" tabindex="-1" id="CartButton" aria-labelledby="offcanvasEndLabel">
-          <div class="offcanvas-header">
-            <h5 id="offcanvasEndLabel" class="offcanvas-title">{{ __('Cart Items') }}</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-          </div>
-          <div class="offcanvas-body mx-0 flex-grow-0">
-            <div class="cart-items mb-3">
-
-              @auth
-              @foreach (Auth::user()->cart->products as $product)
-
-              <div class="carts-item mb-2" data-product-id="{{ $product->product->id }}">
-                <div class="card-body" dir="{{ app()->isLocale('ar') ? 'rtl' : 'ltr' }}">
-                  <div class="d-flex align-items-start align-items-sm-center gap-4">
-                    <img src="{{ $product->product->firstPhoto() }}" alt="user-avatar" class="d-block w-px-120 h-px-120 rounded" />
-                    <div class="button-wrapper">
-                      <div class="btn-group" role="group" aria-label="Second group" dir="ltr">
-                        <button type="button" class="btn btn-icon btn-primary btn-plus-cart">
-                          <span class="tf-icons mdi mdi-plus"></span>
-                        </button>
-                        <input type="text" class="form-control text-center p-0 rounded-0 my-w-5 input-price-cart" data-max="{{ $product->product->quantity }}" value="{{ $product->quantity }}" name="quantity" data-product-id="{{ $product->product->id }}">
-                        <button type="button" class="btn btn-icon btn-primary btn-minus-cart">
-                          <span class="tf-icons mdi mdi-minus"></span>
-                        </button>
-                      </div>
-                      <button type="button" class="btn btn-icon btn-outline-danger btn-remove-cart">
-                        <span class="tf-icons mdi mdi-trash-can-outline"></span>
-                      </button>
-                      <div class="text-muted small mt-3">{{ \Illuminate\Support\Str::limit($product->product->name, 90) }}</div>
-                      <div class="text-muted small mt-3 d-flex justify-content-between">
-                        <p>{{ $product->product->price }}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              @endforeach
-              @endauth
-            </div>
-            <a type="button" href="{{ route('cart') }}" class="btn btn-primary mb-2 d-grid w-100">{{ __('Go To Cart') }}</a>
-          </div>
-        </div>
         @endauth
 
       </div>
@@ -212,7 +214,7 @@
 
     <div class="container">
 
-      <ul class="desktop-menu-category-list">
+      <ul class="desktop-menu-category-list w-100">
 
         <li class="menu-category">
           <a href="{{ route('home') }}" class="menu-title">{{__('Home')}}</a>
@@ -332,12 +334,20 @@
     <ul class="mobile-menu-category-list">
 
       <li class="menu-category">
-        <a href="{ route('home') }}" class="menu-title">{{ __('Home') }}</a>
+        <a href="{{ route('home') }}" class="menu-title">{{ __('Home') }}</a>
       </li>
 
-      <li class="menu-category">
-        <a href="{ route('dashboard') }}" class="menu-title">{{ __('Account') }}</a>
-      </li>
+      @auth
+        <li class="menu-category">
+          <a href="{{ route('dashboard') }}" class="menu-title">{{ __('Account') }}</a>
+        </li>
+      @endauth
+
+      @guest
+        <li class="menu-category">
+          <a href="{{ route('login') }}" class="menu-title">{{ __('Login') }}</a>
+        </li>
+      @endguest
 
       {{-- <li class="menu-category">
 
@@ -504,11 +514,11 @@
 
         </li>
 
-        <li class="menu-category">
-          <button class="accordion-menu" data-accordion-btn>
+        {{-- <li class="menu-category"> --}}
+          {{-- <button class="accordion-menu" data-accordion-btn>
             <p class="menu-title">{{ __('Currency') }}</p>
             <ion-icon name="caret-back-outline" class="caret-back"></ion-icon>
-          </button>
+          </button> --}}
 
           {{-- <ul class="submenu-category-list" data-accordion>
             @foreach(config('currency.currencies') as $currencyCode => $symbol)
@@ -519,7 +529,7 @@
               </li>
             @endforeach
           </ul> --}}
-        </li>
+        {{-- </li> --}}
 
       </ul>
 

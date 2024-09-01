@@ -19,6 +19,13 @@
       <option value="100" selected>100</option>
     </select>
 
+    <select class="form-select text-center my-w-fit-content mb-3 mx-1" id="selectCategory" name="category_id" aria-label="Default select example">
+      <option value="0" selected>0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+    </select>
+
     <a href="{{ route('product.create.index') }}" class="btn btn-icon btn-outline-primary mb-3 mx-1">
       <span class="tf-icons mdi mdi-plus-outline"></span>
     </a>
@@ -61,6 +68,7 @@
 <script type="text/javascript">
       var lang = "{{ app()->getLocale() }}";
       var table;
+
       function editProduct(id) {
         window.location.href = ("{{ url('product/') }}/" + id);
       }
@@ -108,7 +116,6 @@
         });
       }
 
-
       function showContextMenu(id, x, y) {
         // Here you can define the content and behavior of the context menu
         var contextMenu = $('<ul class="context-menu" dir="{{ app()->isLocale("ar") ? "rtl" : "" }}"></ul>')
@@ -132,10 +139,6 @@
         });
       }
 
-
-
-
-
 $(document).ready(function() {
   $.noConflict();
         table = $('#products').DataTable({
@@ -145,7 +148,12 @@ $(document).ready(function() {
             "emptyTable": __("No data available in table",lang),
             "zeroRecords": __("No matching records found",lang)
           },
-          ajax: "{{ route('products') }}",
+          ajax: {
+            url: "{{ route('products') }}",
+            data: function(d) {
+                d.category_id = $('#selectCategory').val(); // Send selected category
+            }
+          },
           columns: [
               {data: 'id', name: '#'},
               {data: 'name', name: '{{__("Name")}}'},
@@ -163,6 +171,64 @@ $(document).ready(function() {
                   e.preventDefault();
                   showContextMenu(data.id, e.pageX, e.pageY); // Show context menu at mouse position
               });
+
+              $(row).find('td').eq(1).on('dblclick', function() {
+                  var cell = $(this);
+                  var originalValue = cell.text();
+                  var input = $('<input>', {
+                      type: 'text',
+                      value: originalValue,
+                      class: 'form-control',
+                      'data-id': data.id
+                  }).css('width', '100%');
+
+                  cell.html(input);
+
+                  input.focus();
+
+                  // Handle Enter key or focus loss
+                  input.on('keypress blur', function(e) {
+                      if (e.type === 'keypress' && e.which !== 13) {
+                          return;
+                      }
+
+                      var newValue = $(this).val();
+
+                      // Only proceed if the value has changed
+                      if (newValue !== originalValue) {
+                          $.ajax({
+                              url: '/product/' + data.id + '/update/name',  // Update with your actual route
+                              type: 'POST',
+                              headers: {
+                                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                              },
+                              data: { name: newValue },
+                              success: function(response) {
+                                  cell.text(newValue);
+                                  Swal.fire({
+                                      icon: response.icon,
+                                      title: response.state,
+                                      text: response.message,
+                                      confirmButtonText: __("Ok", lang),
+                                  });
+                              },
+                              error: function(xhr) {
+                                  const response = JSON.parse(xhr.responseText);
+                                  Swal.fire({
+                                      icon: response.icon,
+                                      title: response.state,
+                                      text: response.message,
+                                      confirmButtonText: __("Ok", lang),
+                                  });
+                                  cell.text(originalValue); // revert back on error
+                              }
+                          });
+                      } else {
+                          cell.text(originalValue);
+                      }
+                  });
+              });
+
           }
       });
 
@@ -175,6 +241,11 @@ $(document).ready(function() {
         var query = $(this).val();
         table.search(query).draw();
       });
+
+      $('#selectCategory').change(function() {
+        table.ajax.reload();
+      });
+
 
       table.on('draw', function () {
         var info = table.page.info();

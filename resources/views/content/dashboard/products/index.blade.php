@@ -203,7 +203,7 @@ width: 720px;
     var tags = document.querySelector('textarea[name=tags]'),
     tagstagify = new Tagify(tags, {
         enforceWhitelist : false,
-    })
+    });
 
     Dropzone.autoDiscover = false;
     var myDropzone = new Dropzone("#dropzone", {

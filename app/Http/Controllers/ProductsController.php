@@ -295,7 +295,6 @@ class ProductsController extends Controller {
       ]);
   }
 
-
   public function comment(Request $request) {
     $validator = Validator::make($request->all(), [
       'content' => 'required|string',
@@ -334,5 +333,26 @@ class ProductsController extends Controller {
     }
 
   }
+
+  public function updateName(Request $request, $id) {
+    $product = Product::find($id);
+
+    if ($product) {
+      $product->name = $request->input('name');
+      $product->save();
+
+      return response()->json([
+          'icon' => 'success',
+          'state' => __('Success'),
+          'message' => __('Product name updated successfully.')
+      ]);
+    }
+
+    return response()->json([
+        'icon' => 'error',
+        'state' => __('Error'),
+        'message' => __('Product not found.')
+    ], 404);
+}
 
 }

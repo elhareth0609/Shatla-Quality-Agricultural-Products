@@ -71,6 +71,14 @@ var translations = {
 };
 
 
+function __(key,lang) {
+  if (translations.hasOwnProperty(lang) && translations[lang].hasOwnProperty(key)) {
+    return translations[lang][key];
+  } else {
+    return key;
+  }
+}
+
 function updateQuantity(productId, newQuantity) {
   $('.input-price-cart[data-product-id="' + productId + '"]').val(newQuantity);
 
@@ -97,13 +105,6 @@ function updateQuantity(productId, newQuantity) {
 }
 
 
-function __(key,lang) {
-  if (translations.hasOwnProperty(lang) && translations[lang].hasOwnProperty(key)) {
-    return translations[lang][key];
-  } else {
-    return key;
-  }
-}
 
 
 document.addEventListener("DOMContentLoaded", function() {

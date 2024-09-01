@@ -44,7 +44,7 @@ class BlogsController extends Controller
     }
 
     public function ones($id) {
-      // $blogs = Blog::where('id', '!=',$id)->get();;
+      // $blogs = Blog::where('id', '!=',$id)->get();
       $blogs = Blog::where('status','published')->orderBy('created_at', 'desc')->take(6)->get();
       $blog = Blog::find($id);
       $blog->view += 1;
@@ -80,16 +80,16 @@ class BlogsController extends Controller
 
       if ($validator->fails()) {
           return response()->json([
-          'icon' => 'error',
-          'state' => __("Error"),
-          'message' => $validator->errors()->first()
+            'icon' => 'error',
+            'state' => __("Error"),
+            'message' => $validator->errors()->first()
           ], 422);
       }
 
       try {
         if ($request->hasFile('first_image')) {
           $image = $request->file('first_image');
-          $imageName = time() . '_' . $image->getClientOriginalName(); // Generate unique image name
+          $imageName = time() . '_' . $image->getClientOriginalName();
           $image->move(public_path('assets/img/photos/blogs/'), $imageName);
         }
 

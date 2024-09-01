@@ -83,7 +83,15 @@ class DataTablesController extends Controller
     }
 
     public function products(Request $request) {
-      $products = Product::all();
+      // $products = Product::all();
+      $query = Product::query();
+
+      if ($request->has('category_id') && $request->category_id != 0) {
+          $query->where('category_id', $request->category_id);
+      }
+
+      $products = $query->get();
+
       if ($request->ajax()) {
         return DataTables::of($products)
         ->editColumn('id', function ($product) {
@@ -115,8 +123,8 @@ class DataTablesController extends Controller
         })
         ->rawColumns(['status'])
         ->make(true);
-    }
-    return view('content.dashboard.products.list');
+      }
+      return view('content.dashboard.products.list');
     }
 
     public function experts(Request $request) {

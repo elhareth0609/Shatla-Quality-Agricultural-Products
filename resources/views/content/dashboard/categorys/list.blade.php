@@ -161,12 +161,6 @@
         });
       }
 
-
-
-
-
-
-
 $(document).ready(function() {
   $.noConflict();
       table = $('#categorys').DataTable({
@@ -185,12 +179,11 @@ $(document).ready(function() {
 
 
           rowCallback: function(row, data) {
-              $(row).attr('id', 'category_' + data.id); // Assign an id to each row for easy targeting
+              $(row).attr('id', 'category_' + data.id);
 
-              // Add right-click context menu listener to each row
               $(row).on('contextmenu', function(e) {
                   e.preventDefault();
-                  showContextMenu(data.id, e.pageX, e.pageY); // Show context menu at mouse position
+                  showContextMenu(data.id, e.pageX, e.pageY);
               });
           }
 
@@ -214,7 +207,6 @@ $(document).ready(function() {
 
         pagination.empty();
 
-        // Add Previous button
         var prevButton = $('<li>').addClass('page-item').append($('<a>').addClass('page-link ms-1').attr('href', 'javascript:void(0);').html('&laquo;'));
         if (info.page > 0) {
           prevButton.find('a').click(function () {
@@ -225,7 +217,6 @@ $(document).ready(function() {
         }
         pagination.append(prevButton);
 
-        // Add page links
         for (var i = 0; i < info.pages; i++) {
           var page = i + 1;
           var liClass = (page === info.page + 1) ? 'active' : 'd-none';
@@ -239,7 +230,6 @@ $(document).ready(function() {
           pagination.append(listItem);
         }
 
-        // Add Next button
         var nextButton = $('<li>').addClass('page-item').append($('<a>').addClass('page-link').attr('href', 'javascript:void(0);').html('&raquo;'));
         if (info.page < info.pages - 1) {
           nextButton.find('a').click(function () {
@@ -250,7 +240,6 @@ $(document).ready(function() {
         }
         pagination.append(nextButton);
 
-            // Calculate the range
         var startRange = info.start + 1;
         var endRange = info.start + info.length;
         var pageInfo = startRange + ' ' + __("to",lang) + ' ' + endRange + ' ' + __("from",lang) + ' ' + info.recordsTotal;
@@ -290,7 +279,6 @@ $(document).ready(function() {
           }
         });
       });
-
 
     });
 

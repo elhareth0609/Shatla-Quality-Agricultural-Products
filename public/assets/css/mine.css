@@ -46,6 +46,7 @@
   height: 110px !important;
 }
 
+/* context menu */
 .context-menu {
   position: absolute;
   background-color: #fff;
@@ -65,14 +66,18 @@
     background-color: #f0f0f0;
 }
 
+/* context menu End */
+/* sweet alert */
 .swal2-container.swal2-center.swal2-backdrop-show {
   z-index: 122222;
 }
+/* sweet alert End */
 
 article img {
   border-radius: 10px;
 }
 
+/* Table */
 
 .dataTables_length,
 .dataTables_filter,
@@ -80,9 +85,11 @@ article img {
 .dataTables_paginate {
   display: none;
 }
+
 td,tr {
   text-align: center;
 }
+/* Table End */
 
 
 .blog-card {
@@ -91,4 +98,16 @@ td,tr {
 
 .blog-card:hover {
   transform: translateY(-5px);
+}
+
+/* map */
+.map-label {
+  background-color: white;
+  padding: 2px 5px;
+  border-radius: 3px;
+  border: 1px solid black;
+  white-space: nowrap;
+  color: black;
+  font-size: 14px;
+  font-weight: bold;
 }

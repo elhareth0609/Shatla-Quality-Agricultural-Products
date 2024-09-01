@@ -74,6 +74,7 @@ class LoginBasic extends Controller
   }
 
   public function handleFacebookCallback() {
+
     $facebookUser = Socialite::driver('facebook')->user();
 
     $user = User::where('email', $facebookUser->getEmail())->first();
@@ -101,6 +102,7 @@ class LoginBasic extends Controller
       Auth::login($user);
 
     return redirect()->route('home');
+
   }
 
   public function change(Request $request) {
