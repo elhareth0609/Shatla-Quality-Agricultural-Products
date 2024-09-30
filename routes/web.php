@@ -158,7 +158,7 @@ use Illuminate\Support\Facades\Route;
 
     // Coupons
     // Dashboard
-    Route::get('/coupon/{id}', [CouponController::class, 'index'])->name('coupon');
+    Route::get('/coupon/{id}', [CouponController::class, 'get'])->name('coupon');
     Route::post('/coupon/create', [CouponController::class, 'create'])->name('coupon.create');
     Route::delete('/coupon/{id}', [CouponController::class, 'delete'])->name('coupon.delete');
     Route::get('/coupon/update', [CouponController::class, 'update'])->name('coupon.update');
@@ -325,6 +325,8 @@ use Illuminate\Support\Facades\Route;
     Artisan::call('route:cache');
     // Cache views
     Artisan::call('view:cache');
+    // Clear views
+    Artisan::call('view:clear');
 
     return 'Cache cleared successfully.';
   });

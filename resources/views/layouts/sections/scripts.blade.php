@@ -10,6 +10,7 @@
 
 <!-- BEGIN: Theme JS-->
 <script src="{{ asset(mix('assets/js/main.js')) }}"></script>
+<script src="{{ asset('assets/js/mine1.js') }}?v={{ time() }}"></script>
 
 
 

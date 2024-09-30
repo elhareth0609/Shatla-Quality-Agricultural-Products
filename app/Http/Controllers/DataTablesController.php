@@ -19,11 +19,11 @@ use App\Models\SubCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Yajra\DataTables\DataTables;
 
-class DataTablesController extends Controller
-{
+class DataTablesController extends Controller {
     public function users(Request $request) {
 
       $users = User::where('role', 'user')->get();
@@ -227,7 +227,6 @@ class DataTablesController extends Controller
     }
 
     public function sales(Request $request) {
-
     }
 
     public function blogs(Request $request) {
@@ -346,7 +345,9 @@ class DataTablesController extends Controller
 
     public function coupons(Request $request) {
       $coupons = Coupon::all();
+      $ids = $coupons->pluck('id');
       if($request->ajax()) {
+        // return dd($request->search['value'],$coupons,$ids);
         return DataTables::of($coupons)
         ->editColumn('id', function ($coupon) {
             return (string) $coupon->id;
@@ -372,7 +373,16 @@ class DataTablesController extends Controller
         ->editColumn('created_at', function ($coupon) {
           return $coupon->created_at->format('Y-m-d');
         })
-        ->rawColumns(['status'])
+        ->addColumn('actions', function ($coupon) {
+          return '
+          <a href="'. route('coupon',$coupon->id) .'" class="btn btn-icon bg-white border border-info"><i class="mdi mdi-pencil text-info"></i></a>
+          <a href="javascript:void(0)" class="btn btn-icon bg-white border border-info" onclick="editCoupon(' . $coupon->id . ')"><i class="mdi mdi-pencil text-info"></i></a>
+          <a href="javascript:void(0)" class="btn btn-icon bg-white border border-success" onclick="printCoupon(' . $coupon->id . ')"><i class="mdi mdi-printer text-success"></i></a>
+          <a href="javascript:void(0)" class="btn btn-icon bg-white border border-danger" onclick="deleteCoupon(' . $coupon->id . ')"><i class="mdi mdi-trash-can text-danger"></i></a>
+          ';
+        })
+        ->rawColumns(['status','actions'])
+        ->with('ids', $ids)
         ->make(true);
       }
 

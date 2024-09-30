@@ -14,24 +14,41 @@ use Laravel\Socialite\Facades\Socialite;
 
 class LoginBasic extends Controller
 {
-  public function index()
-  {
+  public function index() {
     return view('content.authentications.auth-login-basic');
   }
 
   public function login(Request $request) {
-        $request->validate([
-          'email' => 'required|email',
-          'password' => 'required'
-        ]);
+      $validator = Validator::make($request->all(), [
+        'email' => 'required|email',
+        'password' => 'required',
+        'remember' => 'sometimes'
+      ]);
 
-      $credentials = $request->only('email', 'password');
-      $remember = $request->has('remember');
-      if (Auth::attempt($credentials,$remember)) {
-          Auth::user();
-          return redirect('/');
-      } else {
-          return redirect()->back()->withErrors(['message' => 'Invalid credentials'])->withInput();
+      if ($validator->fails()) {
+          return response()->json([
+          'message' => $validator->errors()->first()
+          ], 422);
+      }
+
+      try {
+        $credentials = $request->only('email', 'password');
+        $remember = $request->has('remember');
+        if (Auth::attempt($credentials,$remember)) {
+            return response()->json([
+              'message' => __("Login successful"),
+            ], 200);
+        } else {
+          return response()->json([
+            'message' => __("Invalid credentials"),
+          ], 201);
+        }
+      } catch (\Exception $e) {
+        return response()->json([
+          'icon' => 'error',
+          'state' => __("Error"),
+          'message' => $e->getMessage(),
+        ], 201);
       }
   }
 
@@ -110,7 +127,7 @@ class LoginBasic extends Controller
       'newPassword' => 'required|min:8',
       'confirmPassword' => 'required|same:newPassword',
       'currentPassword' => 'required',
-  ]);
+    ]);
 
     if ($validator->fails()) {
         return response()->json([

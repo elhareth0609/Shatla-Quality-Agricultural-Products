@@ -1,6 +1,11 @@
 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
 
+
+
+
+
+
 var translations = {
   "en": {
     "No data available in table": "No data available in table",
@@ -65,7 +70,6 @@ var translations = {
     "Copy" : "نسخ",
     "Just Now" : "الأن",
     "Error" : "خطأ"
-
 
   }
 };

@@ -10,8 +10,22 @@ use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class CouponController extends Controller
-{
+class CouponController extends Controller {
+  public function get($id) {
+    try {
+      $coupon = Coupon::find($id);
+      return response()->json([
+        'coupon' => $coupon,
+      ], 200);
+    } catch (\Exception $e) {
+      return response()->json([
+        'icon' => 'error',
+        'state' => __("Error"),
+        'message' => $e->getMessage()
+      ]);
+    }
+  }
+
   public function create(Request $request) {
       $validator = Validator::make($request->all(), [
           'code' => 'required|string|unique:coupons',
@@ -141,7 +155,7 @@ class CouponController extends Controller
         'state' => $state,
         'discount' => $discount
     ]);
-}
+  }
 
   public function delete($id) {
       try{

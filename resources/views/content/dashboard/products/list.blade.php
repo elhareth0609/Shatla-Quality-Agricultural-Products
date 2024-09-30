@@ -160,7 +160,6 @@ $(document).ready(function() {
               {data: 'subcategory_id', name: '{{__("Category")}}'},
               {data: 'status', name: '{{__("Status")}}'},
               {data: 'price', name: '{{__("Price")}}'},
-              // {data: 'amount_price', name: '{{__("Amount Price")}}'},
               {data: 'created_at', name: '{{__("Created At")}}'},
           ],
           rowCallback: function(row, data) {
@@ -205,21 +204,23 @@ $(document).ready(function() {
                               data: { name: newValue },
                               success: function(response) {
                                   cell.text(newValue);
-                                  Swal.fire({
-                                      icon: response.icon,
-                                      title: response.state,
-                                      text: response.message,
-                                      confirmButtonText: __("Ok", lang),
-                                  });
+                                  // show badge success message
+                                  // Swal.fire({
+                                  //     icon: response.icon,
+                                  //     title: response.state,
+                                  //     text: response.message,
+                                  //     confirmButtonText: __("Ok", lang),
+                                  // });
                               },
                               error: function(xhr) {
+                                  // show badge error message
                                   const response = JSON.parse(xhr.responseText);
-                                  Swal.fire({
-                                      icon: response.icon,
-                                      title: response.state,
-                                      text: response.message,
-                                      confirmButtonText: __("Ok", lang),
-                                  });
+                                  // Swal.fire({
+                                  //     icon: response.icon,
+                                  //     title: response.state,
+                                  //     text: response.message,
+                                  //     confirmButtonText: __("Ok", lang),
+                                  // });
                                   cell.text(originalValue); // revert back on error
                               }
                           });

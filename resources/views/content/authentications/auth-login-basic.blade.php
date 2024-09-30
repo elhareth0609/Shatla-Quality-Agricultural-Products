@@ -29,8 +29,9 @@
         <div class="card-body mt-2 {{ app()->getLocale() == 'ar' ? 'text-end' : '' }}">
           <h4 class="mb-2">{{ __('Welcome to') }} شتلة! 🎉</h4>
           <p class="mb-4">{{ __('Please sign-in to your account and start the adventure') }}</p>
+          <div id="error-alert" class="alert alert-danger d-none"></div>
 
-          <form id="formAuthentication" class="mb-3" action="{{ route('login.action') }}" method="POST">
+          <form id="login" class="mb-3" action="{{ route('login.action') }}" method="POST">
             @csrf
             <div class="form-floating form-floating-outline mb-3">
               <input type="text" class="form-control" id="email" name="email" placeholder="{{ __('Enter Your Email') }}" autofocus>
@@ -95,4 +96,30 @@
     </div>
   </div>
 </div>
+<script>
+  $(document).ready(function() {
+    $('#login').submit(function(event) {
+        event.preventDefault();
+
+        $('#loading').show();
+        var formData = $(this).serialize();
+
+        $.ajax({
+          url: $(this).attr('action'),
+          type: $(this).attr('method'),
+          data: formData,
+          dataType: 'json',
+          success: function(response) {
+            $('#loading').hide();
+            window.location.href = ("{{ route('home') }}");
+          },
+          error: function(xhr, textStatus, errorThrown) {
+            $('#loading').hide();
+            const response = JSON.parse(xhr.responseText);
+            $('#error-alert').removeClass('d-none').text(response.message);
+          }
+        });
+      });
+  });
+</script>
 @endsection

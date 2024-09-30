@@ -12,25 +12,31 @@
 <!-- Place the first <script> tag in your HTML's <head> -->
   <script src="https://cdn.tiny.cloud/1/7gjdmwd28tv3zgd10agg1omfs4akvf56ukwbb85qqzlzgxd1/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 
-  <link rel="stylesheet" href="{{ asset('assets/css/mine.css') }}" />
-  <script src="{{ asset('assets/js/mine.js') }}"></script>
 
+<script src="{{ asset('assets/js/fullcalendar.min.js') }}?v={{ time() }}"></script>
+<script src="{{ asset('assets/js/jquery.min.js') }}?v={{ time() }}"></script>
+<script src="{{ asset('assets/js/jquery.dataTables.min.js') }}?v={{ time() }}"></script>
+<script src="{{ asset('assets/js/sweetalert.js') }}?v={{ time() }}"></script>
+<script src="{{ asset('assets/js/tagify.js') }}?v={{ time() }}"></script>
+<script src="{{ asset('assets/js/tagify.polyfills.min.js') }}?v={{ time() }}"></script>
+<script src="{{ asset('assets/js/clipboard.min.js') }}?v={{ time() }}"></script>
+<script src="{{ asset('assets/js/pusher.min.js') }}?v={{ time() }}"></script>
+<script src="{{ asset('assets/js/lottie.min.js') }}?v={{ time() }}"></script>
+<script src="{{ asset('assets/js/dropzone-min.js') }}?v={{ time() }}"></script>
 
-<script src="{{ asset('assets/js/fullcalendar.min.js') }}"></script>
-<script src="{{ asset('assets/js/jquery.min.js') }}"></script>
-<script src="{{ asset('assets/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('assets/js/sweetalert.js') }}"></script>
+{{-- <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script> --}}
+{{-- <link rel="stylesheet" href="https://cdn.datatables.net/2.1.7/css/dataTables.dataTables.min.css" /> --}}
 
 <!-- Bootstrap JS -->
-
-<script src="{{ asset('assets/js/dropzone-min.js') }}"></script>
-<link rel="stylesheet" href="{{ asset('assets/css/dropzone.css') }}" />
-
-<script src="{{ asset('assets/js/tagify.js') }}"></script>
-<script src="{{ asset('assets/js/tagify.polyfills.min.js') }}"></script>
-<link rel="stylesheet" href="{{ asset('assets/css/tagify.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/css/dropzone.css') }}?v={{ time() }}" />
+<link rel="stylesheet" href="{{ asset('assets/css/tagify.css') }}?v={{ time() }}" />
 
 
-<script src="{{ asset('assets/js/clipboard.min.js') }}"></script>
+
+
+
+<link rel="stylesheet" href="{{ asset('assets/css/mine.css') }}?v={{ time() }}" />
+<script src="{{ asset('assets/js/mine.js') }}?v={{ time() }}"></script>
 
 <!-- END: Api JS-->
