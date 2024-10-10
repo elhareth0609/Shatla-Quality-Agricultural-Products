@@ -115,6 +115,27 @@
       "slug": "map"
     },
     {
+      "url": "/chat",
+      "name": "Chat",
+      "required": "manage chat",
+      "icon": "menu-icon tf-icons mdi mdi-chat-outline",
+      "slug": "chat"
+    },
+    {
+      "url": "/email",
+      "name": "Email",
+      "required": "manage email",
+      "icon": "menu-icon tf-icons mdi mdi-email-outline",
+      "slug": "email"
+    },
+    {
+      "url": "/languages",
+      "name": "Languages",
+      "required": "manage languages",
+      "icon": "menu-icon tf-icons mdi mdi-translate",
+      "slug": "languages"
+    },
+    {
       "menuHeader": "Settings"
     },
     {

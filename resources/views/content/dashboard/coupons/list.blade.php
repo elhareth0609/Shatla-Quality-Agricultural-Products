@@ -12,25 +12,41 @@
   <div class="row">
       <input class="form-control my-w-fit-content mb-3 mx-1" type="search" placeholder="{{ __('Search ...') }}" id="dataTables_my_filter" />
 
-      <select class="form-select text-center my-w-fit-content mb-3 mx-1" id="dataTables_my_length" aria-label="Default select example">
+      <select class="form-select text-end my-w-fit-content mb-3 mx-1" id="dataTables_my_length" aria-label="Default select example">
         <option value="10">10</option>
         <option value="25">25</option>
         <option value="50">50</option>
         <option value="100" selected>100</option>
       </select>
 
+      <select class="form-select text-end my-w-fit-content mb-3 mx-1" id="selectType" name="type" aria-label="Select Type">
+        <option value="all" selected>{{ __('Select Type') }}</option>
+        <option value="expired">{{ __('Expired') }}</option>
+        <option value="active">{{ __('Active') }}</option>
+        <option value="inactive">{{ __('In Active') }}</option>
+      </select>
+
       <button type="button" class="btn btn-icon btn-outline-primary mb-3 mx-1" data-bs-toggle="modal" data-bs-target="#addCoupon">
         <span class="tf-icons mdi mdi-plus-outline"></span>
       </button>
 
+      <div class="dropdown my-w-fit-content mb-3 ms-1 me-auto">
+        <button type="button" class="btn btn-icon btn-outline-primary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <span class="tf-icons mdi mdi-filter-outline"></span>
+        </button>
+        <ul class="dropdown-menu text-end p-2" aria-labelledby="showColumnsFilter" id="columns_filter_dropdown">
 
+        </ul>
+      </div>
   </div>
+
+
   <div class="table-responsive text-nowrap">
     <table class="table table-striped w-100" id="table" data-page-length='100'>
       <thead>
         <tr class="text-nowrap">
           {{-- Start of checkboxes --}}
-          <th><input class="form-check-input rounded-2" type="checkbox" id="check-all"></th>
+          <th><input class="form-check-input" type="checkbox" id="check-all"></th>
           {{-- End of checkboxes --}}
           <th>{{ __("Code") }}</th>
           <th>{{ __("Discount") }}</th>
@@ -62,8 +78,8 @@
       <!-- Create Modal -->
       <div class="modal fade" id="addCoupon" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
-            <div class="modal-header">
+          <div class="modal-content">
+            <div class="modal-header" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
               <h4 class="modal-title" id="modalCenterTitle">{{ __('Add Coupon') }}</h4>
             </div>
             <form id="addCouponForm" method="POST" action="{{ route('coupon.create') }}">
@@ -71,7 +87,7 @@
               <div class="modal-body">
                 <div class="row">
                   <div class="col mb-4 mt-2">
-                    <div class="form-floating form-floating-outline">
+                    <div class="form-floating form-floating-outline {{ app()->getLocale() == 'ar'? 'dir-rtl' : '' }}" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
                       <input type="text" id="nameWithTitle" class="form-control" name="code" placeholder="{{ __('Enter Code') }}">
                       <label for="nameWithTitle">{{ __('Code') }}</label>
                     </div>
@@ -80,7 +96,7 @@
 
                 <div class="row">
                   <div class="col mb-4 mt-2">
-                    <div class="input-group" dir="ltr">
+                    <div class="input-group {{ app()->getLocale() == 'ar'? 'dir-rtl' : '' }}" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
                       <span class="input-group-text">{{ __('Max Uses') }}</span>
                       <input type="number" class="form-control" placeholder="{{ __('Max Uses') }}" min="1" name="max" aria-label="Discount (to the nearest dollar)" />
                     </div>
@@ -89,7 +105,7 @@
 
                 <div class="row">
                   <div class="col mb-4 mt-2">
-                    <div class="input-group" dir="ltr">
+                    <div class="input-group {{ app()->getLocale() == 'ar'? 'dir-rtl' : '' }}" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
                       <input type="number" class="form-control" placeholder="{{ __('Discount') }}" min="1" max="100" name="discount" aria-label="Discount (to the nearest dollar)" />
                       <span class="input-group-text">%</span>
                     </div>
@@ -115,7 +131,7 @@
                 </div>
 
               </div>
-              <div class="modal-footer">
+              <div class="modal-footer" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
                 <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">{{ __('Save') }}</button>
               </div>
@@ -128,7 +144,7 @@
       <!-- Edit Modal -->
       <div class="modal fade" id="editCoupon" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
+          <div class="modal-content">
             <div class="modal-header">
               <h4 class="modal-title" id="modalCenterTitle">{{ __('Edit Coupon') }}</h4>
             </div>
@@ -197,6 +213,7 @@
   // Start of checkboxes
   var selectedIds = [];
   var ids = [];
+  let isCheckAllTrigger = false;
   // End of checkboxes
 
   Pusher.logToConsole = true;
@@ -309,7 +326,7 @@ $(document).ready(function() {
   $.noConflict();
       table = $('#table').DataTable({
           // processing: true,
-          serverSide: true,
+          // serverSide: true,
           language: {
             "emptyTable": __("No data available in table",lang),
             "zeroRecords": __("No matching records found",lang)
@@ -317,6 +334,9 @@ $(document).ready(function() {
           ajax: {
             url: "{{ route('coupons') }}",
             type: 'GET',
+            // data: function(d) {
+            //     d.type = $('#selectType').val();
+            // }
             // Start of checkboxes
             dataSrc: function(response) {
                 ids = response.ids;
@@ -331,18 +351,19 @@ $(document).ready(function() {
                 name: '#',
                 orderable: false,
                 searchable: false,
+                visible: true,
                 render: function(data, type, full, meta) {
                   return '<input type="checkbox" class="form-check-input rounded-2 check-item" value="' + data + '">';
                 }
               },
               // End  of checkboxes
-              {data: 'code', name: '{{__("Code")}}'},
-              {data: 'discount', name: '{{__("Discount")}}'},
-              {data: 'max', name: '{{__("Max")}}'},
-              {data: 'status', name: '{{__("Status")}}'},
-              {data: 'expired_date', name: '{{__("Expired At")}}'},
-              {data: 'created_at', name: '{{__("Created At")}}'},
-              {data: 'actions', name: '{{__("Actions")}}', orderable: false, searchable: false}
+              {data: 'code', name: '{{__("Code")}}', visible: true},
+              {data: 'discount', name: '{{__("Discount")}}', visible: true},
+              {data: 'max', name: '{{__("Max")}}', visible: true},
+              {data: 'status', name: '{{__("Status")}}', visible: true},
+              {data: 'expired_date', name: '{{__("Expired At")}}', visible: true},
+              {data: 'created_at', name: '{{__("Created At")}}', visible: true},
+              {data: 'actions', name: '{{__("Actions")}}', orderable: false, searchable: false, visible: true}
           ],
           order: [[6, 'desc']], // Default order by created_at column
           pageLength: 1, // Set default page length to 10
@@ -373,7 +394,7 @@ $(document).ready(function() {
           },
           drawCallback: function() {
             // Start of checkboxes
-            $('#check-all').on('click', function() {
+            $('#check-all').off('click').on('click', function() { // Unbind previous event and bind a new one
               $('.check-item').prop('checked', this.checked);
               var totalCheckboxes = ids.length;
               var checkedCheckboxes = selectedIds.length;
@@ -381,7 +402,7 @@ $(document).ready(function() {
               if (checkedCheckboxes === 0 || checkedCheckboxes < totalCheckboxes) { // if new all checked or some checked
                 selectedIds = [];
                 selectedIds = ids.slice();
-              } else { // remove all checked
+              } else {
                 selectedIds = [];
               }
             });
@@ -397,7 +418,6 @@ $(document).ready(function() {
 
               var totalCheckboxes = ids.length;
               var checkedCheckboxes = selectedIds.length;
-
               if (checkedCheckboxes === totalCheckboxes) { // all checkboxes checked
                 $('#check-all').prop('checked', true).prop('indeterminate', false);
                 selectedIds = ids.slice();
@@ -421,6 +441,10 @@ $(document).ready(function() {
       $('#dataTables_my_filter').on('input', function () {
         var query = $(this).val();
         table.search(query).draw();
+      });
+
+      $('#selectType').change(function() {
+        table.ajax.reload();
       });
 
       table.on('draw', function () {
@@ -471,6 +495,25 @@ $(document).ready(function() {
         var pageInfo = startRange + ' ' + __("to",lang) + ' ' + endRange + ' ' + __("from",lang) + ' ' + info.recordsTotal;
         $('#dataTables_my_info').text(pageInfo);
 
+      });
+
+      table.columns().every(function() {
+          var column = this;
+          var columnName = $(column.header()).text(); // Get the column name from the header
+          var columnIndex = column.index(); // Get the column index
+
+          // Append the checkbox to the dropdown
+          $('#columns_filter_dropdown').append(
+              '<li><label><input type="checkbox" class="form-check-input column-toggle" data-column="' + columnIndex + '" checked> ' + columnName + '</label></li>'
+          );
+      });
+
+      $('#columns_filter_dropdown').on('change', '.column-toggle', function() {
+          var column = table.column($(this).data('column'));
+          var isChecked = $(this).is(':checked');
+
+          // Toggle the visibility of the column
+          column.visible(isChecked);
       });
 
       $('#addCouponForm').submit(function(event) {

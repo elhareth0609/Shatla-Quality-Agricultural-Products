@@ -140,17 +140,19 @@ $(document).ready(function() {
               {data: 'title', name: '{{__("Title")}}'},
               {data: 'disease_id', name: '{{__("Disease")}}'},
               {data: 'type_id', name: '{{__("Type")}}'},
-              // {data: 'status', name: '{{__("Status")}}'},
               {data: 'created_at', name: '{{__("Created At")}}'},
           ],
 
           rowCallback: function(row, data) {
-              $(row).attr('id', 'article_' + data.id); // Assign an id to each row for easy targeting
+              $(row).attr('id', 'article_' + data.id);
 
-              // Add right-click context menu listener to each row
+              $(row).on('dblclick', function() {
+                window.location.href = "{{ url('article') }}/" + data.id;
+              });
+
               $(row).on('contextmenu', function(e) {
                   e.preventDefault();
-                  showContextMenu(data.id, e.pageX, e.pageY); // Show context menu at mouse position
+                  showContextMenu(data.id, e.pageX, e.pageY);
               });
           }
 

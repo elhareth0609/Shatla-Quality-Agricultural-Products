@@ -25,7 +25,15 @@
   @include('layouts/sections/scriptsIncludes')
 </head>
 
-<body>
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+    const currentTheme = "{{ Auth::user() ? Auth::user()->theme : 'light' }}";
+    const htmlElement = document.documentElement;
+    htmlElement.setAttribute('data-bs-theme', currentTheme);
+  });
+</script>
+{{-- <body> --}}
+  <body class="{{ Auth::user()? Auth::user()->theme : 'light' }}">
 
 
   <!-- Layout Content -->

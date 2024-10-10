@@ -12,8 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Socialite\Facades\Socialite;
 
-class LoginBasic extends Controller
-{
+class LoginBasic extends Controller {
   public function index() {
     return view('content.authentications.auth-login-basic');
   }
@@ -215,6 +214,21 @@ class LoginBasic extends Controller
           'message' => $e->getMessage(),
         ]);
       }
+  }
+
+  public function updateTheme(Request $request) {
+      $request->validate([
+          'theme' => 'required|in:light,dark',
+      ]);
+
+      $user = User::find(Auth::user()->id);
+      $user->theme = $request->theme;
+      $user->save();
+
+      return response()->json([
+        'success' => true,
+        'theme' => $user->theme
+      ]);
   }
 
   public function logout() {

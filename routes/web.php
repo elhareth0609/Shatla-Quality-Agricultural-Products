@@ -9,15 +9,17 @@ use App\Http\Controllers\cards\CardBasic;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChargilyPayController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\dashboard\Analytics;
-use App\Http\Controllers\DashboardController;
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DataTablesController;
 use App\Http\Controllers\DiseasesController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ExpertController;
 use App\Http\Controllers\extended_ui\PerfectScrollbar;
@@ -40,13 +42,13 @@ use App\Http\Controllers\MarchentController;
 use App\Http\Controllers\pages\AccountSettingsAccount;
 use App\Http\Controllers\pages\AccountSettingsConnections;
 use App\Http\Controllers\pages\AccountSettingsNotifications;
+
 use App\Http\Controllers\pages\MiscError;
 use App\Http\Controllers\pages\MiscUnderMaintenance;
 
+
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\PlanController;
-
-
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\SettingsController;
@@ -74,6 +76,8 @@ use App\Http\Controllers\user_interface\Typography;
 use App\Http\Controllers\WorkerController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+
+
 
 
 
@@ -109,6 +113,14 @@ use Illuminate\Support\Facades\Route;
     // Dashboard Map
     Route::get('/map', [MapController::class, 'index'])->name('map');
     Route::get('/map/locations', [MapController::class, 'getLatestLocations'])->name('map.locations');
+
+    Route::get('/chat', [ChatController::class, 'index'])->name('chat');
+    Route::post('/translations/store', [ChatController::class, 'store'])->name('translations.store');
+
+    Route::get('/languages', [LanguageController::class, 'index'])->name('languages');
+
+    Route::get('/email', [EmailController::class, 'index'])->name('email');
+
 
     // Dashboard Settings
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
@@ -313,6 +325,8 @@ use Illuminate\Support\Facades\Route;
   Route::get('change-currency/{currency}', [CurrencyController::class, 'change'])->name('change.currency');
 
 
+  Route::post('/update-theme', [LoginBasic::class, 'updateTheme'])->name('update.theme');
+
 
   Route::get('/ddd', function () {
     // Clear cache
@@ -328,7 +342,7 @@ use Illuminate\Support\Facades\Route;
     // Clear views
     Artisan::call('view:clear');
 
-    return 'Cache cleared successfully.';
+    return 'Success';
   });
 
 

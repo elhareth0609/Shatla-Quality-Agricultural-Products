@@ -344,7 +344,23 @@ class DataTablesController extends Controller {
     }
 
     public function coupons(Request $request) {
-      $coupons = Coupon::all();
+
+      $query = Coupon::query();
+
+      if ($request->has('type') && $request->type != 'all') {
+          if ($request->type == 'expired') {
+              $query->where('expired_date', '<', now());
+          } elseif ($request->type == 'active') {
+              $query->where('status', 'active');
+          } elseif ($request->type == 'inactive') {
+              $query->where('status', 'inactive');
+          }
+      }
+
+      $coupons = $query->get();
+
+
+      // $coupons = Coupon::all();
       $ids = $coupons->pluck('id');
       if($request->ajax()) {
         // return dd($request->search['value'],$coupons,$ids);

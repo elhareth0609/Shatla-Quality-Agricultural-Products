@@ -12,14 +12,14 @@
   <div class="row">
     <input class="form-control my-w-fit-content mb-3 mx-1" type="search" placeholder="{{ __('Search ...') }}" id="dataTables_my_filter" />
 
-    <select class="form-select text-center my-w-fit-content mb-3 mx-1" id="dataTables_my_length" aria-label="Default select example">
+    <select class="form-select text-end my-w-fit-content mb-3 mx-1" id="dataTables_my_length" aria-label="Default select example">
       <option value="10">10</option>
       <option value="25">25</option>
       <option value="50">50</option>
       <option value="100" selected>100</option>
     </select>
 
-    <select class="form-select text-center my-w-fit-content mb-3 mx-1" id="selectCategory" name="category_id" aria-label="Default select example">
+    <select class="form-select text-end my-w-fit-content mb-3 mx-1" id="selectCategory" name="category_id" aria-label="Default select example">
       <option value="0" selected>0</option>
       <option value="1">1</option>
       <option value="2">2</option>

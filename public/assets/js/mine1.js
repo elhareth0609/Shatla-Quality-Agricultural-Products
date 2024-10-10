@@ -12,3 +12,32 @@ var animation = lottie.loadAnimation({
   autoplay: true,
   path: 'https://lottie.host/e2cd747d-d002-401b-a06a-082f0eb9ef2d/FW7JXiPcpb.json' // Lottie animation URL
 });
+
+
+
+  $('.dropdown-item').on('click', function(e) {
+      e.preventDefault();
+      var selectedTheme = $(this).data('theme'); // Get the selected theme
+
+      $.ajax({
+          url: '/update-theme',
+          method: 'POST',
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          data: {
+              theme: selectedTheme.toLowerCase(), // Convert to lowercase if necessary
+              // _token: '{{ csrf_token() }}' // Include CSRF token for protection
+          },
+          success: function(response) {
+              if (response.success) {
+                  // Optionally, you can update the UI or refresh the page
+                  location.reload();
+              }
+          },
+          error: function(xhr) {
+              // Handle error response
+              console.error(xhr.responseText);
+          }
+      });
+  });

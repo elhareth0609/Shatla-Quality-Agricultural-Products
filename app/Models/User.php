@@ -24,6 +24,7 @@ class User extends Authenticatable
         'phone',
         'photo',
         'role',
+        'theme',
         'password',
     ];
 
@@ -128,5 +129,5 @@ class User extends Authenticatable
     public function cars() {
       return $this->hasMany(Car::class);
     }
-  
+
 }

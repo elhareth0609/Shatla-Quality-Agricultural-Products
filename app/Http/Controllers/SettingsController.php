@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Details;
 use Illuminate\Http\Request;
 
-class SettingsController extends Controller
-{
+class SettingsController extends Controller {
     public function index() {
       return view('content.dashboard.settings.index');
     }
@@ -29,13 +28,11 @@ class SettingsController extends Controller
       ->with('content',$content->content);
     }
 
-
     public function terms_of_use() {
       $content = Details::where('type','terms-of-use')->first();
       return view('content.home.pages.terms-of-use')
       ->with('content',$content->content);
     }
-
 
     public function about_us() {
       $content = Details::where('type','about-us')->first();
@@ -61,13 +58,11 @@ class SettingsController extends Controller
       ->with('content',$content->content);
     }
 
-
     public function get_terms_of_use() {
       $content = Details::where('type','terms-of-use')->first();
       return view('content.dashboard.settings.terms-of-use')
       ->with('content',$content->content);
     }
-
 
     public function get_about_us() {
       $content = Details::where('type','about-us')->first();
@@ -106,7 +101,6 @@ class SettingsController extends Controller
       }
     }
 
-
     public function update_terms_of_use(Request $request) {
       try {
         $content = Details::where('type','terms-of-use')->first();
@@ -125,7 +119,6 @@ class SettingsController extends Controller
         ]);
       }
     }
-
 
     public function update_about_us(Request $request) {
       try {

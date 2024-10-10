@@ -125,8 +125,8 @@
         });
       }
 
-$(document).ready(function() {
-  $.noConflict();
+  $(document).ready(function() {
+    $.noConflict();
         table = $('#blogs').DataTable({
           processing: true,
           serverSide: true,
@@ -145,6 +145,10 @@ $(document).ready(function() {
 
           rowCallback: function(row, data) {
               $(row).attr('id', 'blog_' + data.id); // Assign an id to each row for easy targeting
+
+              $(row).on('dblclick', function() {
+                window.location.href = "{{ url('blog') }}/" + data.id;
+              });
 
               // Add right-click context menu listener to each row
               $(row).on('contextmenu', function(e) {
@@ -216,7 +220,7 @@ $(document).ready(function() {
       });
 
 
-    });
+  });
 
 </script>
 

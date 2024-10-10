@@ -60,7 +60,7 @@ var table;
 
 $(document).ready(function() {
   $.noConflict();
-        table = $('#users').DataTable({
+      table = $('#users').DataTable({
           processing: true,
           serverSide: true,
           language: {

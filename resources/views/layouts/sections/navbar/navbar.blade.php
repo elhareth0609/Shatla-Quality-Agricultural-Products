@@ -56,18 +56,39 @@ $navbarDetached = ($navbarDetached ?? '');
 
         <ul class="navbar-nav flex-row align-items-center ms-auto">
 
-          <!-- Language -->
+          <!-- Mode -->
           <div class="btn-group">
             <button type="button" class="btn btn-primary btn-icon rounded-pill dropdown-toggle hide-arrow mx-2" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="mdi mdi-theme-light-dark"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end {{ app()->isLocale('ar')? 'text-end' : '' }}" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
+              <li>
+                <a class="dropdown-item {{ Auth::user()->theme == 'light' ? 'active' : '' }}" href="#" data-theme="light">
+                    <i class="mdi mdi-brightness-7"></i> {{ __('Light') }}
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item {{ Auth::user()->theme == 'dark' ? 'active' : '' }}" href="#" data-theme="dark">
+                    <i class="mdi mdi-brightness-2"></i> {{ __('Dark') }}
+                </a>
+            </li>
+            </ul>
+          </div>
+          <!--/ Mode -->
+
+          <!-- Language -->
+          <div class="btn-group">
+            <button type="button" class="btn btn-primary btn-icon rounded-pill dropdown-toggle hide-arrow ms-2 me-4" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="mdi mdi-translate"></i>
             </button>
-            <ul class="dropdown-menu dropdown-menu-end">
+            <ul class="dropdown-menu dropdown-menu-end {{ app()->isLocale('ar')? 'text-end' : '' }}">
               @foreach (config('language') as $locale => $language)
-                <li><a class="dropdown-item {{ app()->getLocale() == $locale ? 'active' : '' }}" href="{{ route("change.language",$locale ) }}">{{ $language }}</a></li>
+                <li><a class="dropdown-item {{ app()->getLocale() == $locale ? 'active' : '' }}" href="{{ route("change.language",$locale ) }}">{{ __($language) }}</a></li>
               @endforeach
             </ul>
           </div>
           <!--/ Language -->
+
 
           <!-- User -->
           <li class="nav-item navbar-dropdown dropdown-user dropdown">
@@ -76,11 +97,11 @@ $navbarDetached = ($navbarDetached ?? '');
                 <img src="{{ Auth::user()->profile->photoUrl() }}" alt class="w-px-40 h-auto rounded-circle">
               </div>
             </a>
-            <ul class="dropdown-menu dropdown-menu-end mt-3 py-2">
+            <ul class="dropdown-menu dropdown-menu-end mt-3 py-2 {{ app()->isLocale('ar') ? 'text-end' : '' }}" dir="{{ app()->isLocale('ar') ? 'rtl' : '' }}">
               <li>
                 <a class="dropdown-item pb-2 mb-1" href="javascript:void(0);">
                   <div class="d-flex align-items-center">
-                    <div class="flex-shrink-0 me-2 pe-1">
+                    <div class="flex-shrink-0 {{ app()->isLocale('ar') ? 'ms-2 ps-1' : 'me-2 pe-1' }}">
                       <div class="avatar avatar-online">
                         <img src="{{ Auth::user()->profile->photoUrl() }}" alt class="w-px-40 h-auto rounded-circle">
                       </div>
@@ -97,13 +118,13 @@ $navbarDetached = ($navbarDetached ?? '');
               </li>
               <li>
                 <a class="dropdown-item" href="{{ route('user.change.profile') }}">
-                  <i class='mdi mdi-swap-horizontal-circle-outline me-1 mdi-20px'></i>
+                  <i class='mdi mdi-swap-horizontal-circle-outline {{ app()->isLocale('ar') ? 'ms-1' : 'me-1' }} mdi-20px'></i>
                   <span class="align-middle">{{__('Change Account')}}</span>
                 </a>
               </li>
               <li>
                 <a class="dropdown-item" href="{{ route('settings.account') }}">
-                  <i class='mdi mdi-cog-outline me-1 mdi-20px'></i>
+                  <i class='mdi mdi-cog-outline {{ app()->isLocale('ar') ? 'ms-1' : 'me-1' }} mdi-20px'></i>
                   <span class="align-middle">{{__('Settings')}}</span>
                 </a>
               </li>
@@ -112,7 +133,7 @@ $navbarDetached = ($navbarDetached ?? '');
               </li>
               <li>
                 <a class="dropdown-item" href="{{ route('logout.action')}}">
-                  <i class='mdi mdi-power me-1 mdi-20px'></i>
+                  <i class='mdi mdi-power {{ app()->isLocale('ar') ? 'ms-1' : 'me-1' }} mdi-20px'></i>
                   <span class="align-middle">{{ __('Log Out') }}</span>
                 </a>
               </li>
